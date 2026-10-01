@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+data_cache/
+artifacts/tmp/
+*.pkl
+*.npz
+!app/public/**/*.json
+.env
