@@ -4,7 +4,7 @@
 
 Climate Hack-tion 2026 · Build for 2035 · COP31 track: **Awareness Across All Areas** (helping farmers and land managers adapt, and making climate information easy to use).
 
-> Work in progress during the event (2-4 Oct 2026). This page is updated as the build progresses. Results below: Fri 2 Oct 2026, 21:07 AEST. The sealed region's results are added after it is opened (Sat 3 Oct 17:30 AEST).
+> Work in progress during the event (2-4 Oct 2026). This page is updated as the build progresses. Results below: Fri 2 Oct 2026, 21:07 AEST. <!-- SEALED:START status -->The sealed region opens Sat 3 Oct 17:30 AEST; its results are added below after that.<!-- SEALED:END -->
 
 ## What farmers get
 
@@ -32,7 +32,7 @@ The model was frozen on Fri 2 Oct 2026 at 20:21 AEST: version L3 (full Tidemark)
 |---|---|---|
 | **Validation**, 2009-2015 | The practice exam. Every design choice was made on these years. | All pass marks met. |
 | **Test**, July 2016 to June 2026 | Ten years the frozen model never trained on, scored **once** ([artifacts/test_results.md](artifacts/test_results.md)). | **All pass marks met.** |
-| **Sealed region** | A third region (Southern Downs, Granite Belt, New England), downloaded before the event, locked away with public fingerprints ([SEALED_HASHES.csv](SEALED_HASHES.csv)) and opened once, on camera. | **Sat 3 Oct 17:30 AEST.** Numbers go here. |
+| **Sealed region** | A third region (Southern Downs, Granite Belt, New England), downloaded before the event, locked away with public fingerprints ([SEALED_HASHES.csv](SEALED_HASHES.csv)) and opened once, on camera. | <!-- SEALED:START cell -->**Opens Sat 3 Oct 17:30 AEST.** Numbers go here.<!-- SEALED:END --> |
 
 Brackets below are 95% ranges, found by re-drawing the dams at random 500 times and scoring again. A range above zero means the result is unlikely to be luck.
 
@@ -72,9 +72,12 @@ Rated each 1 July, before the season. "Ran dry" means every farm dam in the patc
 
 ### Sealed region (opened Sat 3 Oct 2026, 17:30 AEST)
 
-> **To be filled in after the opening**, copied unedited from `artifacts/sealed/SEALED_RESULTS.md`.
+<!-- SEALED:START -->
+> **The sealed region opens Sat 3 Oct 17:30 AEST.** After the opening, `scripts/21_publish_sealed.py` writes its results here, copied from `artifacts/sealed/sealed_results.json` (the full page, unedited: `artifacts/sealed/SEALED_RESULTS.md`).
 >
 > What we said to expect, before opening it ([PREREG.md](PREREG.md)): skill against the usual rate of about +0.15 to +0.23 (central +0.19); gain over G2 of +0.01 to +0.03; lender-rating gain over rainfall-only of +0.15 to +0.30. These are forecasts, not pass marks. Every number is published, whatever it shows.
+
+<!-- SEALED:END -->
 
 ## Start here (2-minute tour for judges and mentors)
 
@@ -110,13 +113,28 @@ Read in this order. Each file starts with a plain-English explanation.
 
 Everything runs on a laptop CPU (built on Windows 11 with Python 3.12, 8 cores and 32 GB RAM). Steps 01 to 16 rebuild every number on this page from the raw public data, in about 5 to 7 hours, most of it model fitting.
 
-**1. Set up** (once, from the repo folder):
+**1. Set up** (once, from the repo folder; Python 3.12):
 
 ```
 python -m venv .venv
-.venv/Scripts/python.exe -m pip install pandas==3.0.6 numpy==2.5.3 scipy==1.18.1 scikit-learn==1.9.1 lightgbm==4.7.0 h5py==3.16.0 pyshp==3.1.6 pytest==9.1.1
-.venv/Scripts/python.exe -m pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+.venv/Scripts/python.exe -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
 ```
+
+On macOS or Linux, use `.venv/bin/python` wherever this page says `.venv/Scripts/python.exe`. If pip finds no `torch==2.14.1+cpu` for your computer (macOS has no `+cpu` build), change that line of [requirements.txt](requirements.txt) to `torch==2.14.1`.
+
+**Quick check from a fresh clone** (about 5 minutes, no data download). The raw data and `data_cache/` (everything steps 01-13 compute) are not in git, but these run on the committed files alone:
+
+```
+.venv/Scripts/python.exe -m pytest tests -rs
+.venv/Scripts/python.exe scripts/14_config_hash.py
+node app/tools/check_text_port.js
+python -m http.server 8000 --directory app
+```
+
+- **The tests** take about 4 minutes. The tests on the real data skip, each saying what it needs: the git-ignored `data_cache/` (rebuilt from the raw data by steps 01-02 below) or the raw data itself. Everything else runs (3 Oct 2026: 322 passed, 79 skipped). Without Node.js, the text-port tests skip too.
+- **The code fingerprint** printed must be `7d466291008d`, the one frozen in [PREREG_ADDENDUM_1.md](PREREG_ADDENDUM_1.md). (It rewrites the date in `artifacts/config_hash.json`; `git checkout artifacts/config_hash.json` undoes that.)
+- **The weekly text** in the app is written by JavaScript; `check_text_port.js` (Node.js) prints `same` for every text the Python wrote.
+- **The app**: open http://localhost:8000 (or double-click `app/index.html`). It reads only the committed `app/data/real/bundle.js`; the background map needs internet.
 
 **2. Raw data** (public, CC BY 4.0; not in the repo because of its size). Point the environment variable `DAMDAYS_RAW` at a folder holding `dea_dev/ts/` (one DEA Waterbodies CSV per waterbody), `dea_dev/manifest.csv`, `dea_polygons/wb.zip` (the DEA Waterbodies v3 outlines) and `silo/` (SILO monthly rainfall, one file per year). The sources and every cleaning step are in [docs/DATA.md](docs/DATA.md); the default location is set in [`damdays/config.py`](damdays/config.py). The sealed folder `dea_sealed/` is only ever read by step 20.
 
@@ -141,7 +159,7 @@ python -m venv .venv
 | 15 | `.venv/Scripts/python.exe scripts/15_score_test.py --check`, then `.venv/Scripts/python.exe scripts/15_score_test.py` | `--check` builds and checks every table and scores nothing; the second command is the test years' one look | 15-30 min |
 | 16 | `.venv/Scripts/python.exe scripts/16_weekly_texts.py --date 2026-10-02` | the weekly texts for 10 demo farms, as shown on this page ([What farmers get](#what-farmers-get)). Without `--date` they are dated today, so the days change. Needs step 11's live fit; `--regions nsw_cw` needs only the app's published file | seconds |
 
-Then the tests: `.venv/Scripts/python.exe -m pytest tests`.
+Then the tests: `.venv/Scripts/python.exe -m pytest tests` (with `data_cache/` built, the tests on the real data run instead of skipping).
 
 **Step 20 is not part of the rebuild.** `scripts/20_open_sealed_region.py --open` opens the sealed region once (Sat 3 Oct 17:30 AEST, on camera; runbook: [docs/SEALED_OPENING.md](docs/SEALED_OPENING.md)). It refuses to start without the unlock switch, a clean and pushed git, and matching fingerprints for every sealed file and every frozen model.
 

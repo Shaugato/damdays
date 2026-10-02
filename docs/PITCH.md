@@ -74,7 +74,7 @@ Dam 1 is the dam closest to the homestead. The days are cautious: on ten test ye
 - **The engine** learns how each dam behaves (how fast it drops in summer, how it refills after rain, whether it runs drier than its neighbours) from 38 years of satellite looks (DEA Waterbodies, Geoscience Australia) and rainfall (SILO, Queensland Government).
 
 **How we know it works.** We wrote the exam before the code: the pass marks and the test years were committed at 09:12 on the first morning and pushed to the public repository three minutes later ([PREREG.md](../PREREG.md)).
-- **The unseen exam.** We locked away a whole farming region's satellite data (Southern Downs, Granite Belt, New England: 4,711 waterbodies), published its fingerprint at the start, and opened it once, on camera, on Sat 3 Oct 17:30 AEST. Whatever score came out, we published it: [one-sentence sealed result; templates in VIDEO_SCRIPT.md].
+- **The unseen exam.** We locked away a whole farming region's satellite data (Southern Downs, Granite Belt, New England: 4,711 waterbodies), published its fingerprint at the start, and opened it once, on camera, on Sat 3 Oct 17:30 AEST. Whatever score came out, we published it. <!-- SEALED:START sentence -->[Sealed result, one sentence: opens Sat 3 Oct 17:30 AEST.]<!-- SEALED:END -->
 - **The 2018-19 drought, replayed.** Forecasts made on 1 Nov 2018, 1 Jan 2019 and 1 Mar 2019 for farm dams in NSW Central West, by a model that learned only from data before July 2016. Across 782 forecasts they expected about 248 dams to fall below a third within 90 days; 244 did. Date by date it was less exact: on 1 Nov 2018 they expected about 95 and 76 fell (too high); on 1 Jan 2019, about 97 and 106 fell; on 1 Mar 2019, about 57 and 62 fell. (In the app: Rewind.)
 - **Ten years the model never trained on** (July 2016 to June 2026), scored once: the "at least N days" promise held 9 times in 10 across 729,749 forecasts; the forecasts had nearly a quarter less error than "the usual rate for this region and month"; and shown one dam that fell below a third and one that did not, they gave the right one the higher chance 8 times in 10. Every pass mark met. (These years were also looked at before the event, so they may flatter the model slightly; the unseen exam is the clean test.)
 - **The lender rating**, shown one 2 km patch of farmland whose dams all ran dry and one whose dams did not, picked the right one 8 times in 10; rainfall alone did little better than a coin toss.
@@ -104,7 +104,7 @@ Satellites have mapped the water in every visible Australian waterbody since the
 
 We built it around what a mentor who grew up on farms told us: farmers don't open apps or emails, but they read a weekly text. And a percent reads as how full, so in DamDays that is all "%" ever means.
 
-Why trust the number? We set it an unseen exam: a whole farming region's satellite data, locked away with a published fingerprint at the start and opened once, on camera. [Sealed result, one sentence.] We replayed the 2018-19 drought with a model that learned only from data before mid-2016: on three dates that season it expected about 248 dams to fall below a third, and 244 did. Over ten test years it never trained on, the cautious days held 9 times in 10, across 729,749 forecasts, and it met every pass mark we wrote before writing any code.
+Why trust the number? We set it an unseen exam: a whole farming region's satellite data, locked away with a published fingerprint at the start and opened once, on camera. <!-- SEALED:START sentence -->[Sealed result, one sentence: opens Sat 3 Oct 17:30 AEST.]<!-- SEALED:END --> We replayed the 2018-19 drought with a model that learned only from data before mid-2016: on three dates that season it expected about 248 dams to fall below a third, and 244 did. Over ten test years it never trained on, the cautious days held 9 times in 10, across 729,749 forecasts, and it met every pass mark we wrote before writing any code.
 
 The same record helps those who finance farms. Lenders and valuers see rainfall, but not the water a farm has stored. Each July, the DamDays Rating gives each 2 km patch of farmland the chance its dams all run dry by March. Shown one patch that ran dry and one that did not, it picked the right one 8 times in 10; rainfall alone, about a coin toss.
 
@@ -123,7 +123,12 @@ That's COP31's Awareness priority made practical: farmers adapting earlier, with
 | Lender rating against rainfall-only | ranking accuracy 0.81 against 0.53 (a coin toss is 0.50) | same |
 | Pass marks written before any code | committed Fri 2 Oct 2026, 09:12 AEST | [PREREG.md](../PREREG.md) and its commit time on GitHub |
 | Model frozen before the test years were scored | Fri 2 Oct 2026, 20:21 AEST, code fingerprint 7d466291008d | [PREREG_ADDENDUM_1.md](../PREREG_ADDENDUM_1.md) |
-| The unseen exam | [sealed numbers] | `artifacts/sealed/SEALED_RESULTS.md` (after Sat 17:30) |
+| The unseen exam | <!-- SEALED:START evidence -->[opens Sat 3 Oct 17:30 AEST]<!-- SEALED:END --> | `artifacts/sealed/SEALED_RESULTS.md` (after Sat 17:30) |
+
+<!-- SEALED:START -->
+[The unseen exam in numbers: opens Sat 3 Oct 17:30 AEST. After the opening, `scripts/21_publish_sealed.py` writes them here.]
+
+<!-- SEALED:END -->
 
 One honest note for judges: the test years informed a few design choices, so they may flatter the model slightly; the sealed region is the clean exam. Details: [artifacts/test_results.md](../artifacts/test_results.md) (top of the page) and [DISCLOSURE.md](../DISCLOSURE.md).
 
