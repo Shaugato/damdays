@@ -1,0 +1,454 @@
+{
+ "truncate nsw_box 1993-03-31": {
+  "probes": "last day of a month: rain must not use the (unfinished) issue month",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 18383,
+    "rows_expected": 18383
+   },
+   "p2_dam": {
+    "rows_compared": 1568,
+    "rows_expected": 1568
+   },
+   "p2_cell": {
+    "rows_compared": 312,
+    "rows_expected": 312
+   },
+   "checkpoints": {
+    "rows_compared": 2744,
+    "rows_expected": 2744
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 1121,
+  "p1_rows_whose_labels_changed": 1300,
+  "planted_peek_rows_caught": 326,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": false,
+   "P2 dam_rate_P2*": false
+  }
+ },
+ "truncate nsw_box 2001-01-01": {
+  "probes": "1 Jan, a checkpoint and grid date: a look ON 1 Jan is not in that year's checkpoint",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 46853,
+    "rows_expected": 46853
+   },
+   "p2_dam": {
+    "rows_compared": 4704,
+    "rows_expected": 4704
+   },
+   "p2_cell": {
+    "rows_compared": 936,
+    "rows_expected": 936
+   },
+   "checkpoints": {
+    "rows_compared": 5880,
+    "rows_expected": 5880
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 1662,
+  "p1_rows_whose_labels_changed": 1614,
+  "planted_peek_rows_caught": 354,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": false,
+   "P2 dam_rate_P2*": false
+  }
+ },
+ "truncate nsw_box 2009-02-27": {
+  "probes": "first 120 days of VAL, when TRAIN answers are still arriving",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 88521,
+    "rows_expected": 88521
+   },
+   "p2_dam": {
+    "rows_compared": 7840,
+    "rows_expected": 7840
+   },
+   "p2_cell": {
+    "rows_compared": 1560,
+    "rows_expected": 1560
+   },
+   "checkpoints": {
+    "rows_compared": 9016,
+    "rows_expected": 9016
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 1813,
+  "p1_rows_whose_labels_changed": 1813,
+  "planted_peek_rows_caught": 373,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": true,
+   "P2 dam_rate_P2*": false
+  }
+ },
+ "truncate nsw_box 2016-07-02": {
+  "probes": "the day after the first TEST season rating (1 Jul 2016)",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 127994,
+    "rows_expected": 127994
+   },
+   "p2_dam": {
+    "rows_compared": 10584,
+    "rows_expected": 10584
+   },
+   "p2_cell": {
+    "rows_compared": 2106,
+    "rows_expected": 2106
+   },
+   "checkpoints": {
+    "rows_compared": 11760,
+    "rows_expected": 11760
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 1073,
+  "p1_rows_whose_labels_changed": 1237,
+  "planted_peek_rows_caught": 389,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": true,
+   "P2 dam_rate_P2*": true
+  }
+ },
+ "truncate nsw_box 2021-11-23": {
+  "probes": "TEST era, off-grid, mid-season",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 164485,
+    "rows_expected": 164485
+   },
+   "p2_dam": {
+    "rows_compared": 12936,
+    "rows_expected": 12936
+   },
+   "p2_cell": {
+    "rows_compared": 2574,
+    "rows_expected": 2574
+   },
+   "checkpoints": {
+    "rows_compared": 11760,
+    "rows_expected": 11760
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 2657,
+  "p1_rows_whose_labels_changed": 2805,
+  "planted_peek_rows_caught": 386,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": true,
+   "P2 dam_rate_P2*": true
+  }
+ },
+ "truncate wvic_box 1997-10-16": {
+  "probes": "a neighbour-grid date",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 25170,
+    "rows_expected": 25170
+   },
+   "p2_dam": {
+    "rows_compared": 3573,
+    "rows_expected": 3573
+   },
+   "p2_cell": {
+    "rows_compared": 702,
+    "rows_expected": 702
+   },
+   "checkpoints": {
+    "rows_compared": 4148,
+    "rows_expected": 4148
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 644,
+  "p1_rows_whose_labels_changed": 334,
+  "planted_peek_rows_caught": 360,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": false,
+   "P2 dam_rate_P2*": false
+  }
+ },
+ "truncate wvic_box 2005-06-30": {
+  "probes": "the day before a season rating",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 45249,
+    "rows_expected": 45249
+   },
+   "p2_dam": {
+    "rows_compared": 6352,
+    "rows_expected": 6352
+   },
+   "p2_cell": {
+    "rows_compared": 1248,
+    "rows_expected": 1248
+   },
+   "checkpoints": {
+    "rows_compared": 7324,
+    "rows_expected": 7324
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 942,
+  "p1_rows_whose_labels_changed": 921,
+  "planted_peek_rows_caught": 376,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": false,
+   "P2 dam_rate_P2*": false
+  }
+ },
+ "truncate wvic_box 2013-12-31": {
+  "probes": "the last day of a year",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 69267,
+    "rows_expected": 69267
+   },
+   "p2_dam": {
+    "rows_compared": 9925,
+    "rows_expected": 9925
+   },
+   "p2_cell": {
+    "rows_compared": 1950,
+    "rows_expected": 1950
+   },
+   "checkpoints": {
+    "rows_compared": 10500,
+    "rows_expected": 10500
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 1538,
+  "p1_rows_whose_labels_changed": 1551,
+  "planted_peek_rows_caught": 391,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": true,
+   "P2 dam_rate_P2*": true
+  }
+ },
+ "truncate wvic_box 2019-08-08": {
+  "probes": "TEST era",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 93926,
+    "rows_expected": 93926
+   },
+   "p2_dam": {
+    "rows_compared": 12307,
+    "rows_expected": 12307
+   },
+   "p2_cell": {
+    "rows_compared": 2418,
+    "rows_expected": 2418
+   },
+   "checkpoints": {
+    "rows_compared": 11691,
+    "rows_expected": 11691
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 1702,
+  "p1_rows_whose_labels_changed": 1660,
+  "planted_peek_rows_caught": 388,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": true,
+   "P2 dam_rate_P2*": true
+  }
+ },
+ "scramble nsw_box 2012-07-01": {
+  "probes": "values from 1 Jul 2012 on scrambled: the 2012 rating must not move",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 105214,
+    "rows_expected": 105214
+   },
+   "p2_dam": {
+    "rows_compared": 9408,
+    "rows_expected": 9408
+   },
+   "p2_cell": {
+    "rows_compared": 1872,
+    "rows_expected": 1872
+   },
+   "checkpoints": {
+    "rows_compared": 10192,
+    "rows_expected": 10192
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 666,
+  "p1_rows_whose_labels_changed": 203,
+  "planted_peek_rows_caught": 337,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": true,
+   "P2 dam_rate_P2*": true
+  }
+ },
+ "scramble wvic_box 2018-07-01": {
+  "probes": "values from 1 Jul 2018 on scrambled (TEST)",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 87911,
+    "rows_expected": 87911
+   },
+   "p2_dam": {
+    "rows_compared": 11910,
+    "rows_expected": 11910
+   },
+   "p2_cell": {
+    "rows_compared": 2340,
+    "rows_expected": 2340
+   },
+   "checkpoints": {
+    "rows_compared": 11691,
+    "rows_expected": 11691
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 983,
+  "p1_rows_whose_labels_changed": 241,
+  "planted_peek_rows_caught": 336,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": true,
+   "P2 dam_rate_P2*": true
+  }
+ },
+ "scramble wvic_box 2003-07-01": {
+  "probes": "values from 1 Jul 2003 on scrambled (TRAIN)",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 37782,
+    "rows_expected": 37782
+   },
+   "p2_dam": {
+    "rows_compared": 5955,
+    "rows_expected": 5955
+   },
+   "p2_cell": {
+    "rows_compared": 1170,
+    "rows_expected": 1170
+   },
+   "checkpoints": {
+    "rows_compared": 6530,
+    "rows_expected": 6530
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 410,
+  "p1_rows_whose_labels_changed": 84,
+  "planted_peek_rows_caught": 329,
+  "prior_columns_compared_strictly": {
+   "P1 dam_rate_*": false,
+   "P2 dam_rate_P2*": false
+  }
+ },
+ "static nsw_box": {
+  "probes": "placebo: PREREG static full, wet share and n_pre_obs randomised, events kept",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 200737,
+    "rows_expected": 200737
+   },
+   "p2_dam": {
+    "rows_compared": 14896,
+    "rows_expected": 14896
+   },
+   "p2_cell": {
+    "rows_compared": 2964,
+    "rows_expected": 2964
+   },
+   "checkpoints": {
+    "rows_compared": 11760,
+    "rows_expected": 11760
+   }
+  },
+  "allowed_to_change": {
+   "p1": [
+    "at_risk_R30",
+    "b2N_R30",
+    "b2S_R30",
+    "dam_rate_R30",
+    "elig_rescue_R30"
+   ],
+   "p2_dam": [
+    "dam_rate_R30"
+   ],
+   "p2_cell": [
+    "best_uid",
+    "fold5",
+    "sfold5",
+    "tile",
+    "y_best"
+   ],
+   "checkpoints": []
+  },
+  "planted_static_rows_caught": 200737
+ },
+ "static wvic_box": {
+  "probes": "placebo: PREREG static full, wet share and n_pre_obs randomised, events kept",
+  "result": "PASS",
+  "mismatches": {},
+  "tables": {
+   "p1": {
+    "rows_compared": 128918,
+    "rows_expected": 128918
+   },
+   "p2_dam": {
+    "rows_compared": 15086,
+    "rows_expected": 15086
+   },
+   "p2_cell": {
+    "rows_compared": 2964,
+    "rows_expected": 2964
+   },
+   "checkpoints": {
+    "rows_compared": 11691,
+    "rows_expected": 11691
+   }
+  },
+  "allowed_to_change": {
+   "p1": [
+    "at_risk_R30",
+    "b2N_R30",
+    "b2S_R30",
+    "dam_rate_R30",
+    "elig_rescue_R30"
+   ],
+   "p2_dam": [
+    "dam_rate_R30"
+   ],
+   "p2_cell": [
+    "best_uid",
+    "fold5",
+    "sfold5",
+    "tile",
+    "y_best"
+   ],
+   "checkpoints": []
+  },
+  "planted_static_rows_caught": 128918
+ },
+ "LEAK-1 dam_rate on VAL rows, nsw_box cut 2009-02-27": {
+  "rows_compared": 1241,
+  "mismatching_rows_per_column": {}
+ }
+}

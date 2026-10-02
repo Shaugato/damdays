@@ -1,0 +1,342 @@
+{
+ "built_at": "2026-10-02 11:53:05",
+ "all_required_match": true,
+ "all_match": true,
+ "checks": [
+  {
+   "check": "P1 rows TRAIN",
+   "kind": "required",
+   "expected": 896778,
+   "got": 896778,
+   "match": true
+  },
+  {
+   "check": "P1 rows VAL",
+   "kind": "required",
+   "expected": 394628,
+   "got": 394628,
+   "match": true
+  },
+  {
+   "check": "P1 rows GAP",
+   "kind": "required",
+   "expected": 26149,
+   "got": 26149,
+   "match": true
+  },
+  {
+   "check": "P1 rows TEST",
+   "kind": "required",
+   "expected": 907150,
+   "got": 907150,
+   "match": true
+  },
+  {
+   "check": "R30 primary TRAIN",
+   "kind": "required",
+   "expected": 145417,
+   "got": 145417,
+   "match": true
+  },
+  {
+   "check": "R30 primary VAL",
+   "kind": "required",
+   "expected": 66453,
+   "got": 66453,
+   "match": true
+  },
+  {
+   "check": "R30 primary TEST",
+   "kind": "required",
+   "expected": 142938,
+   "got": 142938,
+   "match": true
+  },
+  {
+   "check": "R30 primary positives TRAIN",
+   "kind": "extra",
+   "expected": 37766,
+   "got": 37766,
+   "match": true
+  },
+  {
+   "check": "R30 primary positives VAL",
+   "kind": "extra",
+   "expected": 15861,
+   "got": 15861,
+   "match": true
+  },
+  {
+   "check": "R30 primary positives TEST",
+   "kind": "extra",
+   "expected": 29415,
+   "got": 29415,
+   "match": true
+  },
+  {
+   "check": "D0 primary TRAIN",
+   "kind": "extra",
+   "expected": 190771,
+   "got": 190771,
+   "match": true
+  },
+  {
+   "check": "D0 primary VAL",
+   "kind": "extra",
+   "expected": 86651,
+   "got": 86651,
+   "match": true
+  },
+  {
+   "check": "D0 primary TEST",
+   "kind": "extra",
+   "expected": 176730,
+   "got": 176730,
+   "match": true
+  },
+  {
+   "check": "D0 primary positives TRAIN",
+   "kind": "extra",
+   "expected": 24215,
+   "got": 24215,
+   "match": true
+  },
+  {
+   "check": "D0 primary positives VAL",
+   "kind": "extra",
+   "expected": 9893,
+   "got": 9893,
+   "match": true
+  },
+  {
+   "check": "D0 primary positives TEST",
+   "kind": "extra",
+   "expected": 17191,
+   "got": 17191,
+   "match": true
+  },
+  {
+   "check": "D0g primary TRAIN",
+   "kind": "extra",
+   "expected": 183075,
+   "got": 183075,
+   "match": true
+  },
+  {
+   "check": "D0g primary VAL",
+   "kind": "extra",
+   "expected": 83747,
+   "got": 83747,
+   "match": true
+  },
+  {
+   "check": "D0g primary TEST",
+   "kind": "extra",
+   "expected": 170981,
+   "got": 170981,
+   "match": true
+  },
+  {
+   "check": "D0g primary positives TRAIN",
+   "kind": "extra",
+   "expected": 16519,
+   "got": 16519,
+   "match": true
+  },
+  {
+   "check": "D0g primary positives VAL",
+   "kind": "extra",
+   "expected": 6989,
+   "got": 6989,
+   "match": true
+  },
+  {
+   "check": "D0g primary positives TEST",
+   "kind": "extra",
+   "expected": 11442,
+   "got": 11442,
+   "match": true
+  },
+  {
+   "check": "P2 dam-like seasons TRAIN",
+   "kind": "extra",
+   "expected": 32355,
+   "got": 32355,
+   "match": true
+  },
+  {
+   "check": "P2 dam-like seasons VAL",
+   "kind": "extra",
+   "expected": 11557,
+   "got": 11557,
+   "match": true
+  },
+  {
+   "check": "P2 dam-like seasons TEST",
+   "kind": "extra",
+   "expected": 16811,
+   "got": 16811,
+   "match": true
+  },
+  {
+   "check": "P2 dam-like D0 seasons TRAIN",
+   "kind": "extra",
+   "expected": 5788,
+   "got": 5788,
+   "match": true
+  },
+  {
+   "check": "P2 dam-like D0 seasons VAL",
+   "kind": "extra",
+   "expected": 2069,
+   "got": 2069,
+   "match": true
+  },
+  {
+   "check": "P2 dam-like D0 seasons TEST",
+   "kind": "extra",
+   "expected": 2924,
+   "got": 2924,
+   "match": true
+  },
+  {
+   "check": "P2 cells",
+   "kind": "extra",
+   "expected": 1435,
+   "got": 1435,
+   "match": true
+  },
+  {
+   "check": "P2 cell-seasons TRAIN",
+   "kind": "extra",
+   "expected": 27561,
+   "got": 27561,
+   "match": true
+  },
+  {
+   "check": "P2 cell-seasons VAL",
+   "kind": "extra",
+   "expected": 9848,
+   "got": 9848,
+   "match": true
+  },
+  {
+   "check": "P2 cell-seasons TEST",
+   "kind": "extra",
+   "expected": 14331,
+   "got": 14331,
+   "match": true
+  },
+  {
+   "check": "P2 failed cell-seasons TRAIN",
+   "kind": "extra",
+   "expected": 4668,
+   "got": 4668,
+   "match": true
+  },
+  {
+   "check": "P2 failed cell-seasons VAL",
+   "kind": "extra",
+   "expected": 1684,
+   "got": 1684,
+   "match": true
+  },
+  {
+   "check": "P2 failed cell-seasons TEST",
+   "kind": "extra",
+   "expected": 2316,
+   "got": 2316,
+   "match": true
+  }
+ ],
+ "other": {
+  "P1 at-risk rows stored (all, incl. label_ok False and after 2026-06)": 2585626,
+  "P1 at-risk rows failing label_ok, by block": {
+   "TRAIN": 219578,
+   "VAL": 67211,
+   "GAP": 2734,
+   "TEST": 45915
+  },
+  "P2 dam rows": 246050,
+  "P2 cell rows": 54530,
+  "P2 seasons": [
+   1989,
+   2026
+  ],
+  "data end": "2026-09-14",
+  "max |full_c(2016) - PREREG full|": 3.814697265625e-06,
+  "forbidden static columns in tables": []
+ },
+ "feature_spec_R30": [
+  "rel",
+  "last3",
+  "s60",
+  "s120",
+  "max365",
+  "min365",
+  "low365_R30",
+  "log_n_pixels",
+  "month",
+  "dtt_trend_R30",
+  "dam_rate_R30",
+  "clim_dd",
+  "clim_fast",
+  "dtt_clim_R30",
+  "dtt_fast_R30",
+  "rec",
+  "since_full",
+  "since_low_R30",
+  "anom_own",
+  "sin_doy",
+  "cos_doy",
+  "gap_prev",
+  "full_c",
+  "wet_share_c",
+  "fill_share_c",
+  "pixel_compactness",
+  "R_anom",
+  "R_chg3",
+  "R_zero"
+ ],
+ "p2_feature_spec": [
+  "dam_rate_P2",
+  "b2N",
+  "dam_rate_D0",
+  "dam_rate_R30",
+  "lag1",
+  "lag2",
+  "rate5",
+  "rate_R30",
+  "lag1_R30",
+  "full_c",
+  "wet_share_c",
+  "fill_share_c",
+  "n_hist_c",
+  "log_n_pixels",
+  "pixel_compactness",
+  "elongation",
+  "rel",
+  "pc",
+  "last3",
+  "s60",
+  "s120",
+  "rec",
+  "max365",
+  "min365",
+  "since_full",
+  "anom_own",
+  "armed",
+  "since_arm",
+  "low365_D0",
+  "since_low_D0",
+  "dtt_trend_D0",
+  "dtt_clim_D0",
+  "dtt_fast_D0",
+  "low365_R30",
+  "since_low_R30",
+  "age",
+  "R_anom",
+  "R_chg3",
+  "R_zero"
+ ]
+}

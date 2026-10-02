@@ -1,0 +1,58 @@
+{
+ "nsw_cw": {
+  "generator": "core features (build_all)",
+  "cut": "2014-07-09",
+  "result": "PASS: 0 mismatching values",
+  "tables_compared": {
+   "p1": {
+    "rows": 976290,
+    "columns": 75
+   },
+   "p2_dam": {
+    "rows": 80366,
+    "columns": 75
+   },
+   "p2_cell": {
+    "rows": 19942,
+    "columns": 46
+   },
+   "checkpoints": {
+    "rows": 85414,
+    "columns": 7
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 12776,
+  "p1_rows_failing_label_ok_compared": 101118,
+  "p1_rows_whose_labels_changed_after_truncation": 12489,
+  "planted_peek_rows_caught": 3058,
+  "neighbour_grid_dates_compared": 661
+ },
+ "wvic_sesa": {
+  "generator": "core features (build_all)",
+  "cut": "2012-07-09",
+  "result": "PASS: 0 mismatching values",
+  "tables_compared": {
+   "p1": {
+    "rows": 448599,
+    "columns": 75
+   },
+   "p2_dam": {
+    "rows": 81216,
+    "columns": 75
+   },
+   "p2_cell": {
+    "rows": 16032,
+    "columns": 46
+   },
+   "checkpoints": {
+    "rows": 85111,
+    "columns": 7
+   }
+  },
+  "p1_rows_within_90_days_before_cut": 1350,
+  "p1_rows_failing_label_ok_compared": 168441,
+  "p1_rows_whose_labels_changed_after_truncation": 164,
+  "planted_peek_rows_caught": 3335,
+  "neighbour_grid_dates_compared": 613
+ }
+}
