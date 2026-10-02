@@ -17,3 +17,6 @@ A plain, timestamped record of what was built and when (AEST). Commit history ha
 | Fri 18:20 | Step 5a started: test-setting fits (no scoring), sealed-opening runner with a dry run on a dev region, freeze addendum draft. |
 | Fri 20:25 | Step 5a done: test-setting fits (nothing scored; ledger empty), one-shot sealed-opening runner (dry run on a dev region treated as unseen: below-a-third +0.201, G2 +0.191), hostile review passed. |
 | Fri 20:21 | **FREEZE**: PREREG_ADDENDUM_1.md committed. Frozen rung L3 by the pre-registered rule; event build config hash 7d466291008d. |
+| Fri 20:21 | **FREEZE** committed (PREREG_ADDENDUM_1.md): rung L3, config hash 7d466291008d. |
+| Fri 20:36-21:00 | Development test years (2016-2026) scored ONCE: below-a-third +0.235 (G2 +0.221), dry-out +0.240, DamDays floor held 90.0%, lender rating AUC 0.81 (+0.29 over rainfall-only). All pre-registered bars pass. |
+| Fri 22:05 | App switched to the frozen model (live forecasts to 14 Sep 2026; Rewind 2018-19). Pitch and video script drafted. |
