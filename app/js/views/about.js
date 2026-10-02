@@ -138,15 +138,20 @@ DamDays.views.about = (function () {
     const r = panel.runway;
     const g = panel.rating;
     const items = [];
+    // A skill score in words, either way round: 0.235 -> "23.5% less", -0.03 -> "3.0% more".
+    const lessOrMore = (value) => percentOne(Math.abs(value)) + (value >= 0 ? "% less" : "% more");
     if (r && r.skill_vs_usual_rate) {
-      items.push("<li><strong>Runway forecasts:</strong> " + percentOne(r.skill_vs_usual_rate.value) +
-                 "% less forecast error than always guessing the usual rate (Brier skill score " +
+      items.push("<li><strong>Runway forecasts:</strong> " + lessOrMore(r.skill_vs_usual_rate.value) +
+                 " forecast error than always guessing the usual rate (Brier skill score " +
                  withRange(r.skill_vs_usual_rate, 3) + ")" +
-                 (r.skill_vs_own_record ? ", and " + percentOne(r.skill_vs_own_record.value) +
-                  "% less than the dam's own track record" : "") + ".</li>");
+                 (r.skill_vs_own_record ? ", and " + lessOrMore(r.skill_vs_own_record.value) +
+                  " than the dam's own track record" : "") + ".</li>");
       if (r.gain_vs_benchmark) {
-        items.push("<li>Ahead of the pre-registered benchmark model G2, on the same forecasts (skill gain " +
-                   withRange(r.gain_vs_benchmark, 3) + ").</li>");
+        // "Ahead" only when the whole 95% range is above zero, so a sealed result that did not beat G2 says so.
+        const gain = r.gain_vs_benchmark;
+        const lead = gain.ci_low > 0 ? "Ahead of" : (gain.ci_high < 0 ? "Behind" : "Not clearly ahead of");
+        items.push("<li>" + lead + " the pre-registered benchmark model G2, on the same forecasts (skill gain " +
+                   withRange(gain, 3) + ").</li>");
       }
       items.push("<li>" + r.n_forecasts.toLocaleString("en-AU") + " forecasts made October to March for " +
                  r.n_dams.toLocaleString("en-AU") + " farm-like dams. Pre-registered pass bars: " +
