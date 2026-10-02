@@ -2,6 +2,8 @@
  * The About page is mostly plain text in index.html. This file fills in the
  * parts that depend on the loaded data: which dataset this is, when it was
  * made, and the headline test scores.
+ * The test scores are for judges and lenders, so they keep their usual units
+ * (skill as "23.5% less error", AUC as "81 in 100"), each in plain words.
  */
 window.DamDays = window.DamDays || {};
 DamDays.views = DamDays.views || {};
@@ -83,9 +85,15 @@ DamDays.views.about = (function () {
            signed(range.ci_high, digits);
   }
 
-  /** 0.23501 -> "23.5" (a share as a percentage with one decimal, as the README and docs write it). */
+  /** 0.23501 -> "23.5" (a share as a percentage with one decimal, as the README and docs write it).
+   *  Only for the skill scores ("23.5% less error"), never for a chance. */
   function percentOne(value) {
     return (value * 100).toFixed(1);
+  }
+
+  /** How often something happened, out of 1,000: 0.90016 -> "900", 0.87199 -> "872". */
+  function inThousand(share) {
+    return String(Math.round(share * 1000));
   }
 
   /** A July-June year: 2023 -> "July 2023 to June 2024" (the pipeline names it by its first year). */
@@ -155,10 +163,14 @@ DamDays.views.about = (function () {
                  ".</li>");
     }
     if (panel.floor) {
-      items.push("<li><strong>DamDays number:</strong> the \"at least N days, 9 times in 10\" promise held " +
-                 percentOne(panel.floor.held) + "% of the time (target 90%; worst year, " +
-                 julyJuneYear(panel.floor.worst_year.year) + ": " + percentOne(panel.floor.worst_year.coverage) +
-                 "%).</li>");
+      // How often the promise held is a chance, so it is written "N in 1,000", never as a percent
+      // ("%" only ever means how full a dam is).
+      const across = panel.floor.n_forecasts ? "across " + panel.floor.n_forecasts.toLocaleString("en-AU") + " forecasts, " : "";
+      items.push("<li><strong>DamDays number:</strong> the \"at least N days, 9 times in 10\" promise held 9 times " +
+                 "in 10, as designed: " + across + inThousand(panel.floor.held) + " in every 1,000 held (target " +
+                 inThousand(panel.floor.target || 0.9) + "); in the worst year, " +
+                 julyJuneYear(panel.floor.worst_year.year) + ", " + inThousand(panel.floor.worst_year.coverage) +
+                 " in 1,000.</li>");
     }
     if (panel.band) {
       // On the development test years the band's design was partly chosen after seeing them

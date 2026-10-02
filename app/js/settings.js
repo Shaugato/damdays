@@ -8,12 +8,15 @@ DamDays.settings = {
   // Colour bands for "chance of falling below a third" (and the season rating).
   // One hue (orange-brown), light to dark, so the order reads without colour
   // vision: darker always means more risk. Checked for colour-blind safety.
+  // Bands are in whole tenths, rounded as the app writes a chance ("3 in 10"), so a
+  // dam that says "3 in 10" is always in the "3 or 4 in 10" band. No "%": in DamDays
+  // "%" only means how full a dam is.
   chanceBands: [
-    { min: 0.00, max: 0.10, label: "Under 10%", color: "#fbe0bf" },
-    { min: 0.10, max: 0.25, label: "10 to 25%", color: "#f4b073" },
-    { min: 0.25, max: 0.50, label: "25 to 50%", color: "#e3803c" },
-    { min: 0.50, max: 0.75, label: "50 to 75%", color: "#bb561a" },
-    { min: 0.75, max: 1.01, label: "75% or more", color: "#7a320b" },
+    { minTenths: 0, maxTenths: 0, label: "Less than 1 in 10", color: "#fbe0bf" },
+    { minTenths: 1, maxTenths: 2, label: "1 or 2 in 10", color: "#f4b073" },
+    { minTenths: 3, maxTenths: 4, label: "3 or 4 in 10", color: "#e3803c" },
+    { minTenths: 5, maxTenths: 6, label: "5 or 6 in 10", color: "#bb561a" },
+    { minTenths: 7, maxTenths: 10, label: "7 in 10 or more", color: "#7a320b" },
   ],
   noForecastColor: "#b9b6ae",   // grey: dams without a forecast
   markOutline: "#4a463f",       // thin dark ring so pale dots still show on the map
@@ -21,8 +24,10 @@ DamDays.settings = {
   revealOutline: "#111111",     // thick black ring: "this one did run low / dry"
   waterLine: "#256abf",         // the water-history line
 
-  // In Rewind, a forecast of this chance or more counts as "we said likely".
-  likelyThreshold: 0.5,
+  // A chance shown as this many in 10 or more counts as "likely" (the Runway summary,
+  // and Rewind's hits and misses). The weekly text uses the same line: a dam with a
+  // 5 in 10 chance or more is always named.
+  likelyInTen: 5,
 
   // Show "180+" when the DamDays number is this long or longer.
   damdaysCapDays: 180,

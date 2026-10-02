@@ -1,7 +1,8 @@
 /* views/runway.js
- * The farmer view. A map of dams coloured by the chance of falling below a
- * third in the next 90 days. Pick a dam (on the map or in the list) to open
- * its card. With no dam picked, the side panel shows a summary of the area.
+ * The regional map. Every farm dam in the region, coloured by the chance it
+ * falls below a third in the next 90 days ("3 in 10"). Pick a dam (on the map
+ * or in the list) to open its card, which leads with its days of water. With no
+ * dam picked, the side panel shows a summary of the area.
  */
 window.DamDays = window.DamDays || {};
 DamDays.views = DamDays.views || {};
@@ -51,13 +52,22 @@ DamDays.views.runway = (function () {
       const dam = data.damsById.get(row.dam_id);
       if (!dam) return;
       const marker = L.circleMarker([dam.lat, dam.lon], DamDays.map.damStyle({ chance: row.chance }));
-      marker.bindTooltip(esc(dam.name) + ": " + (row.status === "forecast" ? fmt.percent(row.chance) : "no forecast"));
+      marker.bindTooltip(tooltipFor(dam, row));
       marker.on("click", () => select(row.dam_id));
       marker.addTo(map);
       markers.set(row.dam_id, marker);
       points.push([dam.lat, dam.lon]);
     });
     DamDays.map.fitToPoints(map, points);
+  }
+
+  /** The hover text of a dot: "Dam 408: at least 29 days; 3 in 10 chance below a third by 12 Dec 2026". */
+  function tooltipFor(dam, row) {
+    let text = esc(dam.name) + ": " + DamDays.damCard.daysWords(row, data.textDate);
+    if (row.status === "forecast") {
+      text += "; " + fmt.chance(row.chance) + " chance below a third by " + fmt.date(row.window_end);
+    }
+    return text;
   }
 
   /** Redraw one dot (for example after it is selected or unselected). */
@@ -95,7 +105,7 @@ DamDays.views.runway = (function () {
   function showSummary() {
     const rows = issue.rows;
     const forecast = rows.filter((r) => r.status === "forecast");
-    const likely = forecast.filter((r) => r.chance >= DamDays.settings.likelyThreshold);
+    const likely = forecast.filter((r) => DamDays.colors.isLikely(r.chance));
     const countOf = (status) => rows.filter((r) => r.status === status).length;
     const top = forecast.slice().sort((a, b) => b.chance - a.chance).slice(0, DamDays.settings.topDamsToList);
     const lastLook = rows.map((r) => r.issued_on).sort().pop();
@@ -104,21 +114,25 @@ DamDays.views.runway = (function () {
       const dam = data.damsById.get(row.dam_id);
       return '<li><button type="button" class="dam-pick" data-dam="' + esc(row.dam_id) + '">' +
              '<span class="swatch" style="background:' + DamDays.colors.colorFor(row.chance) + '" aria-hidden="true"></span>' +
-             "<span>" + esc(dam.name) + "</span><strong>" + fmt.percent(row.chance) + "</strong></button></li>";
+             "<span>" + esc(dam.name) + '<span class="dam-pick-days">' + DamDays.damCard.daysWords(row, data.textDate) +
+             "</span></span><strong>" + fmt.chance(row.chance) + "</strong></button></li>";
     }).join("");
 
     panel.innerHTML =
       '<h2 class="panel-title">' + esc(data.meta.region.name) + "</h2>" +
       '<p class="panel-lead"><strong>' + fmt.count(likely.length, "dam") + "</strong> of " + forecast.length +
-      (likely.length === 1 ? " has a " : " have a ") + Math.round(DamDays.settings.likelyThreshold * 100) +
-      "% or higher chance of falling below a third in the next " + data.meta.horizon_days + " days.</p>" +
-      '<p class="panel-small">Based on satellite looks up to ' + fmt.date(lastLook) + ".</p>" +
-      '<h3 class="panel-subtitle">Highest chance</h3>' +
+      (likely.length === 1 ? " has a " : " have a ") + DamDays.settings.likelyInTen +
+      " in 10 chance or more of falling below a third in the next " + data.meta.horizon_days + " days.</p>" +
+      '<p class="panel-small">Based on satellite looks up to ' + fmt.date(lastLook) + "." +
+      (data.textDate ? " Days of water are counted from " + DamDays.text.dateText(data.textDate) + " " +
+       data.textDate.slice(0, 4) + ", the day of this week's text." : "") + "</p>" +
+      '<h3 class="panel-subtitle">Highest chance of falling below a third</h3>' +
       '<ul class="dam-list">' + topItems + "</ul>" +
       '<p class="panel-small">No forecast for ' + countOf("already_low") + " dams already below a third, " +
       countOf("not_refilled") + " not refilled lately, and " + countOf("no_recent_look") +
       " with no recent clear look.</p>" +
-      '<p class="panel-hint">Tip: click any dot on the map to open that dam.</p>';
+      '<p class="panel-hint">Tip: click any dot on the map to open that dam.</p>' +
+      '<p class="panel-small">Farmers get this as one text a week: <a href="#farm">set up My farm</a>.</p>';
   }
 
   /** Handle clicks inside the side panel. */

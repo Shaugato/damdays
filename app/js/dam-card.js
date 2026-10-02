@@ -1,14 +1,18 @@
 /* dam-card.js
- * The card that opens when you pick a dam. Used by Runway (today's forecast)
- * and Rewind (a past forecast, and after the reveal, what happened).
+ * The card that opens when you pick a dam. Used by My farm and Runway (today's
+ * forecast) and Rewind (a past forecast, and after the reveal, what happened).
  *
- * The card, top to bottom:
- *   1. the plain sentence ("Dam 3: 58% chance below a third by 1 Feb 2027")
- *   2. the DamDays number ("at least 60 days, 9 times in 10")
- *   3. the runway curve (chance by 30, 60, 90 and 180 days)
- *   4. the water history since 1988
- *   5. Rewind only: what actually happened
- *   6. notes and the coverage reminder
+ * The card, top to bottom, in the weekly text's words (mentor feedback):
+ *   1. how full the dam was at its last clear look ("~67% full on 13 Sep 2026")
+ *   2. the DamDays number, the headline: "at least 29 days" before it drops below
+ *      a third, 9 times in 10, counted from the day of this week's text (or, in
+ *      Rewind, from the day the forecast was made)
+ *   3. the chance it drops below a third within 90 days, as "3 in 10"
+ *   4. the runway curve (chance by 30, 60, 90 and 180 days after the last look)
+ *   5. the water history since 1988
+ *   6. Rewind only: what actually happened
+ *   7. notes and the coverage reminder
+ * "%" only ever means how full a dam is. A chance is always "N in 10".
  */
 window.DamDays = window.DamDays || {};
 
@@ -18,72 +22,130 @@ DamDays.damCard = (function () {
   const fmt = DamDays.format;
   const esc = (text) => DamDays.format.escapeHtml(text);
 
-  // ---- 1. The plain sentence ------------------------------------------------
-  /** The headline sentence, which depends on whether the dam has a forecast. */
-  function headline(dam, row, meta) {
-    const name = "<strong>" + esc(dam.name) + "</strong>";
+  /** "2026-10-02" -> "Fri 2 Oct 2026". */
+  function longDay(isoDate) {
+    return DamDays.text.dateText(isoDate) + " " + isoDate.slice(0, 4);
+  }
+
+  /** "~67% full" or "full" (how full at the look), or "dry" when no water was seen. */
+  function howFull(levelPct) {
+    return levelPct === 0 ? "dry" : DamDays.text.fullness(levelPct);
+  }
+
+  /**
+   * The DamDays floor counted from `asOf` (the text's date, or the forecast's date in Rewind):
+   * { left, since }: the floor from the satellite look minus the days since the look.
+   * Same rule as the weekly text (js/text.js, daysLeft).
+   */
+  function daysFrom(row, asOf) {
+    const since = asOf && row.issued_on
+      ? Math.max(0, DamDays.text.dayNumber(asOf) - DamDays.text.dayNumber(row.issued_on)) : 0;
+    return { left: row.damdays_days - since, since: since };
+  }
+
+  /** A few words about a dam's days, for map tips: "at least 29 days", "may be below a third now". */
+  function daysWords(row, asOf) {
+    if (row.status === "already_low") return row.level_pct === 0 ? "looks dry" : "already below a third";
+    if (row.status === "not_refilled") return "no forecast until it refills";
+    if (row.status !== "forecast" || row.damdays_days === null) return "no recent clear look";
+    const left = daysFrom(row, asOf).left;
+    return left <= 0 ? "may be below a third now" : DamDays.text.floorText(left);
+  }
+
+  // ---- 1. How full, and why there is no forecast ------------------------------
+  function headline(name, row, meta) {
+    const who = "<strong>" + esc(name) + "</strong>";
+    const when = fmt.date(row.issued_on);
     if (row.status === "forecast") {
-      return '<p class="card-headline">' + name + ": <strong>" + fmt.percent(row.chance) +
-             " chance</strong> below a third by " + fmt.date(row.window_end) + ".</p>" +
-             '<p class="card-band">Likely range in a wetter or drier season than usual: ' +
-             fmt.percentRange(row.chance_low, row.chance_high) + ". " +
-             fmt.tip("What is the likely range?",
-                     "The forecast is for a typical season. The range shows how far the chance could move " +
-                     "if the coming months turn out unusually wet or unusually dry.") + "</p>";
+      return '<p class="card-headline">' + who + ": " + howFull(row.level_pct) + " on " + when +
+             ", its last clear satellite look.</p>";
     }
     if (row.status === "already_low") {
-      return '<p class="card-headline">' + name + " is already below a third (" + row.level_pct +
-             "% of full at the last clear look). No runway forecast until it refills.</p>";
+      const level = row.level_pct === 0 ? "it looked dry on " + when : "it was " + howFull(row.level_pct) + " on " + when;
+      return '<p class="card-headline">' + who + " is already below a third: " + level +
+             ", its last clear satellite look. No forecast until it refills.</p>";
     }
     if (row.status === "not_refilled") {
-      return '<p class="card-headline">' + name + " has not been at least " + meta.arm_level_pct +
+      const level = row.level_pct === null ? "" : " (" + howFull(row.level_pct) + " on " + when + ")";
+      return '<p class="card-headline">' + who + level + " has not been back to " + meta.arm_level_pct +
              "% full in the last six months, so DamDays waits until it refills before forecasting it.</p>";
     }
-    return '<p class="card-headline">' + name +
+    return '<p class="card-headline">' + who +
            ": no clear satellite look in the last 60 days, so no forecast right now.</p>";
   }
 
-  /** Size, last clear look and level at that look. */
-  function facts(dam, row) {
-    const parts = [dam.area_ha.toFixed(1) + " ha", "last clear look " + fmt.date(row.issued_on)];
-    if (row.level_pct !== null) parts.push(row.level_pct + "% of full then");
+  // ---- 2. The DamDays number (the headline) -----------------------------------
+  /** Where the days are counted from, in a sentence. */
+  function countedFrom(row, asOf, since, isLive) {
+    const look = fmt.date(row.issued_on);
+    if (since === 0) return "Counted from its last clear look, " + look + ".";
+    const day = isLive ? longDay(asOf) + ", the day of this week's text" : fmt.date(asOf) + ", the day of this forecast";
+    return "Counted from " + day + ": " + row.damdays_days + " days from its last clear look (" + look +
+           "), less the " + fmt.count(since, "day") + " since.";
+  }
+
+  function damdaysNumber(row, asOf, isLive) {
+    if (row.status !== "forecast" || row.damdays_days === null) return "";
+    const days = daysFrom(row, asOf);
+    const tip = fmt.tip("What is the DamDays number?",
+                        "A cautious count of days of water. In 9 seasons out of 10 like this one, the dam " +
+                        "would stay above a third for at least this many days. In ten test years it held 9 times in 10.");
+    const note = '<p class="damdays-from">' + esc(countedFrom(row, asOf, days.since, isLive)) + "</p>";
+    if (days.left <= 0) {
+      return '<div class="damdays-box"><p class="damdays-text"><strong>DamDays.</strong> Its cautious days ' +
+             "have run out since that look, so it <strong>may be below a third now</strong>. The next clear " +
+             "look will tell. " + tip + "</p>" + note + "</div>";
+    }
+    const shown = fmt.damdays(days.left);
+    let sentence;
+    if (days.left < 7) {
+      sentence = "It could drop below a third within days.";
+    } else if (days.left >= DamDays.settings.damdaysCapDays) {
+      sentence = "At least " + shown + " days (six months or more) before it drops below a third, 9 times in 10.";
+    } else {
+      sentence = "At least " + shown + " days before it drops below a third, 9 times in 10.";
+    }
+    return '<div class="damdays-box">' +
+           '<p class="damdays-value"><span class="damdays-big">' + shown + "</span> <span>" +
+           (days.left === 1 ? "day" : "days") + "</span></p>" +
+           '<p class="damdays-text"><strong>DamDays.</strong> ' + sentence + " " + tip + "</p>" + note + "</div>";
+  }
+
+  // ---- 3. The chance, as "N in 10" --------------------------------------------
+  function chanceLines(row) {
+    if (row.status !== "forecast" || row.chance === null) return "";
+    let html = '<p class="card-chance">Chance it drops below a third by ' + fmt.date(row.window_end) +
+               ": <strong>" + fmt.chance(row.chance) + "</strong>.</p>";
+    if (row.chance_low !== null && row.chance_low !== undefined && row.chance_high !== null && row.chance_high !== undefined) {
+      html += '<p class="card-band">In a wetter or drier season than usual: ' +
+              fmt.chanceRange(row.chance_low, row.chance_high) + ". " +
+              fmt.tip("What is the wetter or drier season range?",
+                      "The forecast is for a typical season. The range shows how far the chance could move " +
+                      "if the coming months turn out unusually wet or unusually dry.") + "</p>";
+    }
+    return html;
+  }
+
+  /** Size, and the dam's name on the Runway map when the card calls it something else. */
+  function facts(dam, row, name) {
+    const parts = ["Size " + dam.area_ha.toFixed(1) + " ha"];
+    if (name !== dam.name && dam.name !== dam.dam_id) parts.push("on the Runway map: " + esc(dam.name));
     return '<p class="card-facts">' + parts.join(" &middot; ") + "</p>";
   }
 
-  // ---- 2. The DamDays number ------------------------------------------------
-  function damdaysNumber(row) {
-    if (row.status !== "forecast" || row.damdays_days === null) return "";
-    const days = row.damdays_days;
-    const shown = fmt.damdays(days);
-    let sentence;
-    if (days < 7) {
-      sentence = "It could fall below a third within days.";
-    } else if (days >= DamDays.settings.damdaysCapDays) {
-      sentence = "At least " + shown + " days (six months or more) before it falls below a third, 9 times in 10.";
-    } else {
-      sentence = "At least " + shown + " days before it falls below a third, 9 times in 10.";
-    }
-    return '<div class="damdays-box">' +
-           '<p class="damdays-value"><span class="damdays-big">' + shown + '</span> <span>days</span></p>' +
-           '<p class="damdays-text"><strong>DamDays.</strong> ' + sentence + " " +
-           fmt.tip("What is the DamDays number?",
-                   "A cautious count of days of water. In 9 seasons out of 10 like this one, the dam " +
-                   "would stay above a third for at least this many days.") + "</p></div>";
-  }
-
-  // ---- 3. The runway curve --------------------------------------------------
+  // ---- 4. The runway curve ------------------------------------------------------
   function curveSection(row, curve, horizons) {
     if (!curve) return "";
     const shaped = { horizons: horizons, chance: curve.chance, low: curve.low, high: curve.high };
     const headlineMark = { days: 90, chance: row.chance,
-                           label: fmt.percent(row.chance) + " by " + fmt.date(row.window_end) };
-    const asText = horizons.map((d, i) => d + " days: " + fmt.percent(curve.chance[i])).join(" &middot; ");
-    return '<section class="card-section"><h3>Chance of falling below a third, next six months</h3>' +
+                           label: fmt.chance(row.chance) + " by " + fmt.date(row.window_end) };
+    const asText = horizons.map((d, i) => d + " days: " + fmt.chance(curve.chance[i])).join(" &middot; ");
+    return '<section class="card-section"><h3>Chance of dropping below a third, up to six months after the last look</h3>' +
            DamDays.charts.runwayCurve(shaped, headlineMark) +
-           '<p class="chart-note">' + asText + ". Shaded: likely range in a wetter or drier season.</p></section>";
+           '<p class="chart-note">' + asText + ". Shaded: a wetter or drier season than usual.</p></section>";
   }
 
-  // ---- 4. The water history -------------------------------------------------
+  // ---- 5. The water history -----------------------------------------------------
   function historySection(history, range, options) {
     if (!history) return "";
     const chart = DamDays.charts.waterHistory(history, {
@@ -94,13 +156,13 @@ DamDays.damCard = (function () {
       markDate: options.markDate || null,
     });
     const hidden = options.untilDate ? " Later months stay hidden until you reveal what happened." : "";
-    return '<section class="card-section"><h3>Water level since ' + range.first_month.slice(0, 4) +
+    return '<section class="card-section"><h3>How full since ' + range.first_month.slice(0, 4) +
            " (% of full)</h3>" + chart +
            '<p class="chart-note">Short orange ticks: it fell below a third. Tall black ticks: it ran dry.' +
            hidden + "</p></section>";
   }
 
-  // ---- 5. What happened (Rewind, after the reveal) --------------------------
+  // ---- 6. What happened (Rewind, after the reveal) ------------------------------
   function outcomeSection(row) {
     if (row.status !== "forecast") return "";
     let text;
@@ -114,7 +176,7 @@ DamDays.damCard = (function () {
     return '<section class="card-section card-outcome"><h3>What happened</h3><p>' + text + "</p></section>";
   }
 
-  // ---- 6. Notes and coverage ------------------------------------------------
+  // ---- 7. Notes and coverage ----------------------------------------------------
   function notesSection(row) {
     if (!row.notes || !row.notes.length) return "";
     return '<ul class="card-notes">' + row.notes.map((note) => "<li>" + esc(note) + "</li>").join("") + "</ul>";
@@ -129,28 +191,38 @@ DamDays.damCard = (function () {
    * Build the whole card.
    * options.revealed   Rewind: show what happened (and the full history)
    * options.rewind     true in Rewind, so the history stops at the forecast date until the reveal
+   * options.name       the name to show (My farm: "Dam 2", numbered from the homestead)
+   * options.dam, options.row  the dam and its forecast row, when they are not in this dataset
+   *                    (My farm's demo farms outside the region the map shows)
+   * Days are counted from this week's text date for today's forecasts, and from the forecast's
+   * date in Rewind.
    */
   function render(data, damId, issue, options) {
-    const dam = data.damsById.get(damId);
-    const row = issue.rowsByDam.get(damId);
+    const dam = options.dam || data.damsById.get(damId);
+    const row = options.row || (issue && issue.rowsByDam.get(damId));
     if (!dam || !row) return '<p class="card-empty">No forecast for this dam on this date.</p>';
     const meta = data.meta;
+    const isLive = !issue || issue.kind === "live";
+    const asOf = isLive ? (data.textDate || (issue && issue.issue_date)) : issue.issue_date;
+    const name = options.name || dam.name;
     const mockTag = meta.is_mock ? ' <span class="tag-mock">MOCK</span>' : "";
     const hideFuture = options.rewind && !options.revealed;
+    const inData = issue && data.damsById.has(damId);
 
-    return '<article class="card" aria-label="' + esc(dam.name) + '">' +
-      '<p class="card-kicker">' + esc(issue.kind === "live" ? "Forecast" : "Forecast made on " + fmt.date(issue.issue_date)) +
+    return '<article class="card" aria-label="' + esc(name) + '">' +
+      '<p class="card-kicker">' + esc(isLive ? "Forecast" : "Forecast made on " + fmt.date(issue.issue_date)) +
       mockTag + "</p>" +
-      headline(dam, row, meta) +
-      facts(dam, row) +
-      damdaysNumber(row) +
-      curveSection(row, data.curveFor(issue.issue_date, damId), data.curveHorizons) +
+      headline(name, row, meta) +
+      damdaysNumber(row, asOf, isLive) +
+      chanceLines(row) +
+      facts(dam, row, name) +
+      (inData ? curveSection(row, data.curveFor(issue.issue_date, damId), data.curveHorizons) : "") +
       (options.revealed ? outcomeSection(row) : "") +
-      historySection(data.historyFor(damId), data.history, {
+      (inData ? historySection(data.historyFor(damId), data.history, {
         thresholdPct: meta.threshold_pct,
         untilDate: hideFuture ? row.issued_on : null,   // stop at the last look before the forecast
         markDate: options.rewind ? issue.issue_date : null,
-      }) +
+      }) : "") +
       notesSection(row) +
       coverageNote(meta) +
       "</article>";
@@ -168,5 +240,5 @@ DamDays.damCard = (function () {
     }
   }
 
-  return { render, bringIntoView };
+  return { render, bringIntoView, daysFrom, daysWords, howFull };
 })();

@@ -6,6 +6,10 @@ with fetch(). It does allow <script src="...">. So we wrap the JSON files in
 one small script that sets a global variable. The JSON files stay the
 "source of truth" described in app/DATA_CONTRACT.md; bundle.js is a copy.
 
+If the folder also has farms.json (the demo farms and their weekly texts, written
+by scripts/16_weekly_texts.py), it is packed too, for the app's "My farm" view.
+It is optional: a dataset without it still works, and My farm then starts empty.
+
 This script also rewrites app/data/datasets.js, the list of datasets the app
 can use. "real" is always listed first, so the app prefers real data whenever
 a real bundle exists.
@@ -21,6 +25,9 @@ from pathlib import Path
 # The six files every dataset folder must contain (see DATA_CONTRACT.md).
 PARTS = ["meta", "forecasts", "curves", "history", "cells", "scoreboard"]
 
+# Files packed only if the folder has them.
+OPTIONAL_PARTS = ["farms"]
+
 # The top-level keys each file must have. A light check that catches a
 # half-written export before it reaches the app.
 REQUIRED_KEYS = {
@@ -30,6 +37,7 @@ REQUIRED_KEYS = {
     "history": ["first_month", "last_month", "by_dam"],
     "cells": ["cells", "seasons"],
     "scoreboard": ["source", "rating"],
+    "farms": ["date", "farms"],
 }
 
 # Datasets the app knows about, in order of preference.
@@ -50,8 +58,12 @@ def read_part(folder, name):
 
 
 def write_bundle(folder):
-    """Combine the six JSON files into folder/bundle.js."""
+    """Combine the six JSON files (and farms.json, if there) into folder/bundle.js."""
     bundle = {name: read_part(folder, name) for name in PARTS}
+    for name in OPTIONAL_PARTS:
+        if (folder / f"{name}.json").exists():
+            bundle[name] = read_part(folder, name)
+            print(f"Packed the optional {name}.json too")
     # Compact separators keep the file small; the JSON files stay readable.
     text = json.dumps(bundle, separators=(",", ":"), ensure_ascii=False)
     header = (

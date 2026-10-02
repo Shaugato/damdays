@@ -3,6 +3,7 @@
  * made then. "Reveal what happened" rings the dams that really did fall below a
  * third, and the panel shows a tally of hits and misses, plus a check of
  * whether the chances came true ("we expected about 5; 6 happened").
+ * Chances are written "3 in 10", as everywhere in the app.
  */
 window.DamDays = window.DamDays || {};
 DamDays.views = DamDays.views || {};
@@ -107,7 +108,7 @@ DamDays.views.rewind = (function () {
   /** The hover text of one dot; it says what happened only after the reveal. */
   function tooltipFor(row) {
     const dam = data.damsById.get(row.dam_id);
-    let text = esc(dam.name) + ": " + (row.status === "forecast" ? fmt.percent(row.chance) : "no forecast");
+    let text = esc(dam.name) + ": " + (row.status === "forecast" ? fmt.chance(row.chance) + " chance" : "no forecast");
     if (revealed && row.status === "forecast") {
       text += row.outcome === true ? " (fell below a third)" :
               row.outcome === false ? " (stayed above)" : " (unknown)";
@@ -181,12 +182,11 @@ DamDays.views.rewind = (function () {
            "what the satellites saw over the next " + data.meta.horizon_days + " days. Click a dam to see its card.</p>";
   }
 
-  /** Count hits and misses, using the "likely" line from settings.js. */
+  /** Count hits and misses: "likely" is a chance shown as 5 in 10 or more (settings.js). */
   function countTally(judged) {
-    const likely = DamDays.settings.likelyThreshold;
     const tally = { hits: 0, falseAlarms: 0, misses: 0, allClears: 0 };
     judged.forEach((row) => {
-      const saidLikely = row.chance >= likely;
+      const saidLikely = DamDays.colors.isLikely(row.chance);
       if (saidLikely && row.outcome) tally.hits += 1;
       else if (saidLikely) tally.falseAlarms += 1;
       else if (row.outcome) tally.misses += 1;
@@ -218,7 +218,6 @@ DamDays.views.rewind = (function () {
     const happened = judged.filter((r) => r.outcome).length;
     const expected = judged.reduce((sum, r) => sum + r.chance, 0);
     const t = countTally(judged);
-    const likelyPct = Math.round(DamDays.settings.likelyThreshold * 100);
     const windowEnd = fmt.addDays(issue.issue_date, data.meta.horizon_days);
 
     const bandRows = bandCheck(judged).map((line) =>
@@ -229,7 +228,8 @@ DamDays.views.rewind = (function () {
     return '<h2 class="panel-title">What happened</h2>' +
       '<p class="panel-lead"><strong>' + happened + " of " + judged.length + "</strong> dams fell below a third by about " +
       fmt.date(windowEnd) + ". The forecasts expected about <strong>" + Math.round(expected) + "</strong>.</p>" +
-      '<table class="tally-table"><caption>Hits and misses (we said "likely" at ' + likelyPct + "% or more)</caption>" +
+      '<table class="tally-table"><caption>Hits and misses (we said "likely" at ' + DamDays.settings.likelyInTen +
+      " in 10 or more)</caption>" +
       '<thead><tr><th scope="col"></th><th scope="col">Fell below a third</th><th scope="col">Stayed above</th></tr></thead>' +
       '<tbody><tr><th scope="row">We said likely</th><td>' + fmt.count(t.hits, "hit") + "</td><td>" +
       fmt.count(t.falseAlarms, "false alarm") + "</td></tr>" +
@@ -238,7 +238,7 @@ DamDays.views.rewind = (function () {
       '<table class="band-table"><caption>Did the chances come true?</caption>' +
       '<thead><tr><th scope="col">Chance we gave</th><th scope="col">Dams</th><th scope="col">Expected to fall</th>' +
       '<th scope="col">Did fall</th></tr></thead><tbody>' + bandRows + "</tbody></table>" +
-      '<p class="panel-small">Expected = the chances added up: ten dams at 30% each means about 3 should fall. ' +
+      '<p class="panel-small">Expected = the chances added up: ten dams at 3 in 10 each means about 3 should fall. ' +
       "Not counted: " + fmt.count(unknown, "dam") + " with too few clear satellite looks to know.</p>";
   }
 

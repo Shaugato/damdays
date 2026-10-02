@@ -181,8 +181,8 @@ DamDays.views.rating = (function () {
   }
 
   function cellTooltip(row) {
-    let text = "Rainfall-only: " + fmt.percent(row.rain_only_chance) +
-               "<br>DamDays Rating: " + fmt.percent(row.rating_chance);
+    let text = "Chance every dam runs dry, October to March<br>Rainfall-only: " + fmt.chance(row.rain_only_chance) +
+               "<br>DamDays Rating: " + fmt.chance(row.rating_chance);
     if (revealed) {
       text += "<br>" + (row.ran_dry === true ? "Ran dry" : row.ran_dry === false ? "Did not run dry" : "Unknown");
     }
@@ -203,7 +203,7 @@ DamDays.views.rating = (function () {
       return '<tr><th scope="row">' + esc(label) + '<span class="score-range">' + fmt.count(dry, "cell") +
              ' ran dry</span></th><td colspan="2">Too few dry cells to score fairly.</td></tr>';
     }
-    return '<tr><th scope="row">' + esc(label) + '<span class="score-range">' + line.n_ran_dry + " of " +
+    return '<tr><th scope="row">' + esc(label) + '<span class="score-range">' + line.n_ran_dry.toLocaleString("en-AU") + " of " +
            line.n_cells.toLocaleString("en-AU") + " cells ran dry</span></th>" +
            aucCell(line.rain_only_auc) + aucCell(line.rating_auc) + "</tr>";
   }

@@ -5,7 +5,8 @@
  *   app/data/datasets.js lists the datasets that exist, preferred first
  *   (written by app/tools/build_bundle.py; "real" always comes before "mock").
  *   Each dataset is one file, app/data/<name>/bundle.js, holding the six JSON
- *   files described in app/DATA_CONTRACT.md.
+ *   files described in app/DATA_CONTRACT.md, plus farms.json (the demo farms and
+ *   their weekly texts) when the dataset has it.
  *   Add ?data=mock to the address to force the mock data.
  *
  * Why <script> and not fetch(): it also works when index.html is opened by
@@ -58,14 +59,23 @@ DamDays.data = (function () {
     bundle.cells.seasons.forEach((season) => {
       season.rowsByCell = new Map(season.rows.map((row) => [row.cell_id, row]));
     });
+    const liveIssue = forecasts.issues.find((issue) => issue.kind === "live") || null;
+    const farms = bundle.farms || null;
 
     return {
       name: name,
       meta: bundle.meta,
+      forecasts: forecasts,
       dams: forecasts.dams,
       damsById: new Map(forecasts.dams.map((dam) => [dam.dam_id, dam])),
-      liveIssue: forecasts.issues.find((issue) => issue.kind === "live") || null,
+      liveIssue: liveIssue,
       pastIssues: forecasts.issues.filter((issue) => issue.kind === "past"),
+      // My farm: the demo farms and their weekly texts (farms.json), or null.
+      farms: farms,
+      // The day this week's text is sent: days of water are counted from it (My farm, and the
+      // live dam card). It is farms.json's date; without one, the latest satellite look.
+      textDate: farms ? farms.date
+        : (liveIssue ? liveIssue.rows.map((r) => r.issued_on).filter(Boolean).sort().pop() || null : null),
       curveHorizons: bundle.curves.horizons_days,
       history: bundle.history,
       cells: bundle.cells.cells,

@@ -1,6 +1,10 @@
 /* format.js
- * Small helpers that turn data values into plain words: dates, percentages,
- * day counts. Also escapeHtml, used whenever data text goes into the page.
+ * Small helpers that turn data values into plain words: dates, chances, day
+ * counts. Also escapeHtml, used whenever data text goes into the page.
+ *
+ * The wording rule (mentor feedback; notify/MESSAGE_SPEC.md): farmers read "%"
+ * as how full a dam is. So in the app "%" only ever means fullness, and a chance
+ * is written "6 in 10", rounded exactly as the weekly text rounds it (js/text.js).
  */
 window.DamDays = window.DamDays || {};
 
@@ -43,17 +47,19 @@ DamDays.format = (function () {
     return MONTHS[Number(monthNumber) - 1] + " " + year;
   }
 
-  /** 0.583 -> "58%". Very small or large chances say "under 1%" / "over 99%". */
-  function percent(chance) {
-    if (chance === null || chance === undefined) return "no forecast";
-    if (chance < 0.005) return "under 1%";
-    if (chance > 0.995) return "over 99%";
-    return Math.round(chance * 100) + "%";
+  /** A chance: 0.583 -> "6 in 10"; under 0.05 -> "less than 1 in 10"; none -> "no forecast". */
+  function chance(value) {
+    if (value === null || value === undefined) return "no forecast";
+    return DamDays.text.chanceText(value);
   }
 
-  /** (0.41, 0.73) -> "41 to 73%". */
-  function percentRange(low, high) {
-    return Math.round(low * 100) + " to " + Math.round(high * 100) + "%";
+  /** A range of chances: (0.41, 0.73) -> "4 to 7 in 10"; (0.02, 0.31) -> "less than 1 in 10 to 3 in 10". */
+  function chanceRange(low, high) {
+    const lo = DamDays.text.inTen(low);
+    const hi = DamDays.text.inTen(high);
+    if (lo === hi) return chance(low);
+    if (lo >= 1 && hi <= 9) return lo + " to " + hi + " in 10";
+    return chance(low) + " to " + chance(high);
   }
 
   /** The DamDays number: 60 -> "60", anything at or over the cap -> "180+". */
@@ -94,5 +100,5 @@ DamDays.format = (function () {
            '</button><span class="tip-text" hidden>' + escapeHtml(explanation) + "</span>";
   }
 
-  return { parseDate, dateTime, addDays, date, month, percent, percentRange, damdays, auc, count, escapeHtml, tip };
+  return { parseDate, dateTime, addDays, date, month, chance, chanceRange, damdays, auc, count, escapeHtml, tip };
 })();

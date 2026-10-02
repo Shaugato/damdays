@@ -29,15 +29,16 @@ DamDays.charts = (function () {
   // -------------------------------------------------------------------------
   /**
    * curve: { horizons: [30,60,90,180], chance: [...], low: [...], high: [...] }
-   * headline: { days: 90, chance: 0.58, label: "58% by 11 Dec 2026" }
+   * headline: { days: 90, chance: 0.58, label: "6 in 10 by 11 Dec 2026" }
+   * Days are counted from the forecast's satellite look ("last look").
    */
   function runwayCurve(curve, headline) {
-    const box = { left: 42, right: 328, top: 16, bottom: 158 };
+    const box = { left: 54, right: 328, top: 16, bottom: 158 };
     const maxDays = curve.horizons[curve.horizons.length - 1];
     const x = (days) => box.left + (days / maxDays) * (box.right - box.left);
     const y = (chance) => box.bottom - chance * (box.bottom - box.top);
 
-    // Every curve starts at 0% today.
+    // Every curve starts at no chance at the last look.
     const days = [0].concat(curve.horizons);
     const mid = [0].concat(curve.chance);
     const low = [0].concat(curve.low);
@@ -45,17 +46,17 @@ DamDays.charts = (function () {
 
     const parts = [];
 
-    // Horizontal gridlines with % labels.
-    [0, 0.25, 0.5, 0.75, 1].forEach((level) => {
+    // Horizontal gridlines labelled "N in 10" (a chance is never written as a percent).
+    [0, 0.2, 0.4, 0.6, 0.8, 1].forEach((level) => {
       parts.push('<line x1="' + box.left + '" x2="' + box.right + '" y1="' + r1(y(level)) +
                  '" y2="' + r1(y(level)) + '" stroke="' + GRID_COLOR + '" stroke-width="1"/>');
       parts.push('<text x="' + (box.left - 6) + '" y="' + r1(y(level) + 4) +
-                 '" text-anchor="end" class="chart-axis">' + level * 100 + "%</text>");
+                 '" text-anchor="end" class="chart-axis">' + Math.round(level * 10) + " in 10</text>");
     });
 
     // Day labels along the bottom.
     days.forEach((d) => {
-      const text = d === 0 ? "today" : d === maxDays ? d + " days" : String(d);
+      const text = d === 0 ? "last look" : d === maxDays ? d + " days" : String(d);
       const anchor = d === 0 ? "start" : d === maxDays ? "end" : "middle";
       parts.push('<text x="' + r1(x(d)) + '" y="' + (box.bottom + 18) + '" text-anchor="' + anchor +
                  '" class="chart-axis">' + text + "</text>");
@@ -74,8 +75,8 @@ DamDays.charts = (function () {
 
     // A dot at each horizon, with a hover tooltip.
     curve.horizons.forEach((d, i) => {
-      const tip = d + " days: " + DamDays.format.percent(curve.chance[i]) +
-                  " (likely range " + DamDays.format.percentRange(curve.low[i], curve.high[i]) + ")";
+      const tip = d + " days: " + DamDays.format.chance(curve.chance[i]) +
+                  " (wetter or drier season: " + DamDays.format.chanceRange(curve.low[i], curve.high[i]) + ")";
       parts.push('<circle cx="' + r1(x(d)) + '" cy="' + r1(y(curve.chance[i])) + '" r="4" fill="' +
                  LINE_COLOR + '" stroke="#ffffff" stroke-width="2"><title>' + esc(tip) + "</title></circle>");
     });
@@ -90,8 +91,8 @@ DamDays.charts = (function () {
                  esc(headline.label) + "</text>");
     }
 
-    const summary = "Chance of falling below a third: " + curve.horizons.map((d, i) =>
-      d + " days " + DamDays.format.percent(curve.chance[i])).join(", ");
+    const summary = "Chance of falling below a third, counted from the last look: " + curve.horizons.map((d, i) =>
+      d + " days " + DamDays.format.chance(curve.chance[i])).join(", ");
     return '<svg class="chart chart-runway" viewBox="0 0 340 186" role="img" aria-label="' +
            esc(summary) + '">' + parts.join("") + "</svg>";
   }

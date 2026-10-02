@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DamDays</title>
-  <meta name="description" content="DamDays: the chance each farm dam falls below a third in the next 90 days, from 38 years of satellite water history.">
+  <meta name="description" content="DamDays: how many days of water each farm dam has left, from 38 years of satellite water history, sent to farmers as one text a week.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23cfe0f5' stroke='%231d1c1a' stroke-width='3'/%3E%3Cpath d='M3 20h26a14 14 0 0 1-26 0z' fill='%23256abf'/%3E%3C/svg%3E">
   <!-- Leaflet draws the maps. Loaded from a CDN, so the page needs internet for maps. -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -19,12 +19,13 @@
   </div>
 
   <header class="site-header">
-    <a class="brand" href="#runway">
+    <a class="brand" href="#farm">
       <span class="brand-mark" aria-hidden="true"></span>
       <span class="brand-name">DamDays</span>
     </a>
     <p class="tagline">How long will the water in your farm dam last?</p>
     <nav class="tabs" aria-label="Views">
+      <a href="#farm" data-view="farm">My farm</a>
       <a href="#runway" data-view="runway">Runway</a>
       <a href="#rewind" data-view="rewind">Rewind</a>
       <a href="#rating" data-view="rating">Rating</a>
@@ -36,11 +37,38 @@
     <noscript><p class="load-error">DamDays needs JavaScript turned on to show its maps and forecasts.</p></noscript>
     <div id="load-error" class="load-error" role="alert" hidden></div>
 
-    <!-- 1. RUNWAY: farmers see each dam's chance of falling below a third. -->
+    <!-- 1. MY FARM: the farmer product. Set the homestead, see this week's text on a phone. -->
+    <section id="view-farm" class="view view-farm" aria-labelledby="farm-title" hidden>
+      <div class="view-intro">
+        <h1 id="farm-title">My farm</h1>
+        <p>Farmers don't open apps or emails, so DamDays is <strong>one text message a week</strong>. Set your farm up once: click the map where your homestead is (or pick a demo farm), choose how far out your dams go, and see the text you would get.</p>
+      </div>
+      <div class="controls">
+        <label class="control">
+          <span>Demo farm</span>
+          <select id="farm-pick"></select>
+        </label>
+        <label class="control control-range">
+          <span>Dams within <output id="farm-radius-out" for="farm-radius">3 km</output> of the homestead</span>
+          <input id="farm-radius" type="range" min="0.5" max="10" step="0.5" value="3">
+        </label>
+      </div>
+      <p id="farm-note" class="note"></p>
+      <div class="map-and-panel">
+        <div class="map-column">
+          <div id="farm-map" class="map" role="region" aria-label="Map of farm dams: click to set your homestead"></div>
+          <div id="farm-legend" class="legend"></div>
+          <div id="farm-dams" class="farm-dams"></div>
+        </div>
+        <aside id="farm-panel" class="panel" aria-live="polite"></aside>
+      </div>
+    </section>
+
+    <!-- 2. RUNWAY: the regional map; each dam's days of water and chance of falling below a third. -->
     <section id="view-runway" class="view" aria-labelledby="runway-title" hidden>
       <div class="view-intro">
         <h1 id="runway-title">DamDays Runway</h1>
-        <p>For farmers. Each dot is a farm dam, coloured by the chance it falls below a third full in the next 90 days. Pick a dam to see its forecast.</p>
+        <p>The whole region. Each dot is a farm dam, coloured by the chance it falls below a third full in the next 90 days. Pick a dam to see how many days of water it has left.</p>
       </div>
       <div class="map-and-panel">
         <div class="map-column">
@@ -51,7 +79,7 @@
       </div>
     </section>
 
-    <!-- 2. REWIND: go back to a past season, then reveal what really happened. -->
+    <!-- 3. REWIND: go back to a past season, then reveal what really happened. -->
     <section id="view-rewind" class="view" aria-labelledby="rewind-title" hidden>
       <div class="view-intro">
         <h1 id="rewind-title">Rewind</h1>
@@ -77,7 +105,7 @@
       </div>
     </section>
 
-    <!-- 3. RATING: lenders compare a rainfall-only score with the DamDays Rating. -->
+    <!-- 4. RATING: lenders compare a rainfall-only score with the DamDays Rating. -->
     <section id="view-rating" class="view" aria-labelledby="rating-title" hidden>
       <div class="view-intro">
         <h1 id="rating-title">DamDays Rating</h1>
@@ -111,7 +139,7 @@
       <div id="rating-scoreboard" class="scoreboard" aria-live="polite"></div>
     </section>
 
-    <!-- 4. ABOUT: how it works, the data, the honest limits, and why it matters. -->
+    <!-- 5. ABOUT: how it works, the data, the honest limits, and why it matters. -->
     <section id="view-about" class="view about" aria-labelledby="about-title" hidden>
       <h1 id="about-title">About DamDays</h1>
 
@@ -119,10 +147,13 @@
       <ol class="steps">
         <li><strong>Satellites watch farm dams.</strong> Landsat has photographed Australia every couple of weeks since 1987. Geoscience Australia turns those photos into the wet area of each waterbody: 38 years of water history per dam.</li>
         <li><strong>We learn how each dam behaves.</strong> How fast it drops in summer, how it fills after rain, and whether it runs drier than its neighbours.</li>
-        <li><strong>We forecast the chance of running low.</strong> For each dam: the chance it falls below a third of its usual full level in the next 90 days, plus a whole six-month curve.</li>
-        <li><strong>The DamDays number.</strong> The number of days the dam should stay above a third, 9 times in 10. If it says 60, then in 9 seasons out of 10 like this one the dam would last at least 60 days.</li>
+        <li><strong>We forecast the chance of running low.</strong> For each dam: the chance it falls below a third of its usual full level in the next 90 days (written "3 in 10"), plus a whole six-month curve.</li>
+        <li><strong>The DamDays number: days of water left.</strong> The number of days the dam should stay above a third, 9 times in 10. If it says 60, then in 9 seasons out of 10 like this one the dam would last at least 60 days. It is the headline.</li>
+        <li><strong>One text a week.</strong> Farmers don't open apps or emails, so each farm gets one text message a week: the days of water left for the dams that matter most, how full they are, and which are already low. <a href="#farm">My farm</a> shows the text for a homestead you pick on the map.</li>
         <li><strong>The DamDays Rating.</strong> For lenders: before each season starts (1 July), a rating for every 2 km patch of farmland: the chance its dams all run dry between October and March.</li>
       </ol>
+
+      <p class="note"><strong>A note on words.</strong> In DamDays "%" always means how full a dam is: its wet area against its usual full area. A chance is written "3 in 10". The test scores below are for judges and lenders, so they keep their usual units, each in plain words.</p>
 
       <h2>How we checked it</h2>
       <p>We wrote down the tests and the pass marks before writing any code (see <code>PREREG.md</code> in the repository). <span id="about-split">The model learned only from years before July 2016 and was then scored on July 2016 to June 2026, years it had never seen.</span> A third region was locked away before the event and is opened only once, on camera, after the model is frozen.</p>
@@ -133,7 +164,9 @@
         <li><strong>Only dams larger than about <span data-fill="min-area">0.5</span> ha.</strong> A dam needs at least six 30 m satellite pixels. Bores, tanks and small dams are not visible.</li>
         <li><strong>Water area, not depth.</strong> Satellites see how much of the dam is wet, not how deep it is. "A third" means a third of the dam's usual full wet area.</li>
         <li><strong>Clouds and gaps.</strong> Some weeks have no clear look. Each forecast shows the date of the last clear look.</li>
-        <li><strong>A chance is a chance.</strong> A 30% chance means about 3 in 10 dams like this one fall below a third. Some will, most won't.</li>
+        <li><strong>A chance is a chance.</strong> A chance of 3 in 10 means that about 3 of every 10 dams like this one fall below a third. Some will, most won't.</li>
+        <li><strong>The days are cautious, not certain.</strong> "At least N days" held 9 times in 10 in the ten test years, so about 1 time in 10 a dam drops below a third sooner. Each forecast starts from the dam's last clear satellite look; the days since that look are taken off.</li>
+        <li><strong>A farm is a circle.</strong> We have no property boundaries, so a farm's dams are the dams within the radius you choose. On a small block the circle can take in a neighbour's dams; on a big station it can miss some.</li>
         <li><strong>The rating ranks properties, not drought years.</strong> It is good at saying which farms are more exposed in a season. Forecasting whether a whole season will be dry is a different job, best left to climate outlooks.</li>
         <li><strong>Not advice.</strong> Use it alongside your own eyes on the dam and local knowledge.</li>
       </ul>
@@ -166,12 +199,14 @@
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="data/datasets.js"></script>
   <script src="js/settings.js"></script>
+  <script src="js/text.js"></script>
   <script src="js/format.js"></script>
   <script src="js/colors.js"></script>
   <script src="js/charts.js"></script>
   <script src="js/map.js"></script>
   <script src="js/dam-card.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/views/farm.js"></script>
   <script src="js/views/runway.js"></script>
   <script src="js/views/rewind.js"></script>
   <script src="js/views/rating.js"></script>

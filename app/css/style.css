@@ -195,10 +195,11 @@ main { max-width: 1440px; margin: 0 auto; padding: var(--gap); }
   gap: 12px 16px;
   margin-bottom: 8px;
 }
-.control { display: flex; flex-direction: column; gap: 4px; font-weight: 600; }
+.control { display: flex; flex-direction: column; gap: 4px; font-weight: 600; max-width: 100%; }
 .control select {
   min-height: 44px;
   min-width: 12em;
+  max-width: 100%;
   padding: 6px 10px;
   font: inherit;
   border: 1px solid var(--ink-soft);
@@ -434,6 +435,129 @@ thead th { font-size: 0.85rem; color: var(--ink-soft); font-weight: 600; }
 .verdict-yes { color: #1f6b33; }
 .verdict-no { color: var(--error); }
 .row-pending th, .row-pending td { color: var(--ink-soft); font-style: italic; }
+
+/* ---------- Dam card: the chance line and where the days are counted from ---------- */
+.card-chance { font-size: 1.05rem; margin: 10px 0 4px; }
+.damdays-from { flex: 1 1 100%; margin: 0; font-size: 0.85rem; color: var(--ink-soft); }
+.card-distance { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 2px; }
+.dam-pick-days { display: block; font-size: 0.82rem; color: var(--muted); }
+.muted { color: var(--muted); }
+
+/* ---------- My farm ---------- */
+.control-range input[type="range"] { width: 14em; max-width: 100%; min-height: 44px; accent-color: var(--accent); }
+.control-range output { font-variant-numeric: tabular-nums; }
+
+/* The homestead (a house) and the farm's dam numbers on the map. */
+.home-icon { background: none; border: none; }
+.leaflet-tooltip.dam-number {
+  padding: 0 5px;
+  background: #ffffff;
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: none;
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 0.8rem;
+}
+.leaflet-tooltip.dam-number::before { display: none; }
+.swatch-home { border-radius: 3px; background: var(--ink); border-color: var(--ink); }
+.swatch-radius { background: rgba(28, 92, 171, 0.06); border: 2px dashed var(--accent); }
+
+/* The list of the farm's dams, under the map. */
+.farm-dams { margin-top: 12px; overflow-x: auto; }
+.farm-table { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.farm-table caption { padding: 0 0 4px; }
+.farm-table th[scope="row"] { white-space: nowrap; }
+.farm-table tr.is-selected { background: #eef3fa; }
+.farm-footnote { max-width: 80ch; }
+.dam-link {
+  min-height: 36px;
+  padding: 2px 0;
+  border: none;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* The phone: the weekly text exactly as it arrives. */
+.phone {
+  max-width: 320px;
+  margin: 10px auto 8px;
+  padding: 14px 10px 18px;
+  background: #1d1c1a;
+  border-radius: 36px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+.phone::before {           /* the speaker slot */
+  content: "";
+  display: block;
+  width: 64px;
+  height: 5px;
+  margin: 0 auto 10px;
+  border-radius: 3px;
+  background: #4a463f;
+}
+.phone-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 330px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #ffffff;
+}
+.phone-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 12px 8px;
+  background: #f4f4f6;
+  border-bottom: 1px solid #e2e2e6;
+}
+.phone-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(to top, #256abf 0 34%, #cfe0f5 34% 100%);
+  border: 2px solid #1d1c1a;
+}
+.phone-sender { margin-top: 3px; font-weight: 700; font-size: 0.95rem; }
+.phone-meta { font-size: 0.72rem; color: var(--muted); }
+.phone-thread { flex: 1; padding: 12px 10px; }
+.sms-when { margin: 0 0 8px; text-align: center; font-size: 0.75rem; color: var(--muted); }
+.sms-bubble {
+  max-width: 94%;
+  margin: 0;
+  padding: 9px 12px;
+  background: #e9e9ed;
+  color: #111111;
+  border-radius: 18px 18px 18px 5px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.phone-reply {
+  margin: 0 10px 10px;
+  padding: 6px 12px;
+  border: 1px solid #d6d6db;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: #9a9890;
+}
+.phone-count { text-align: center; font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 4px; }
+.phone-check { font-size: 0.85rem; color: #1f6b33; }
+.phone-check-bad { color: var(--error); font-weight: 700; }
+.long-text { margin: 10px 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; }
+.long-text summary { cursor: pointer; font-weight: 700; min-height: 32px; }
+.long-text p { font-size: 0.92rem; margin: 6px 0; }
+
+/* On a phone-sized screen, show the text first: it is the product. */
+@media (max-width: 960px) {
+  .view-farm .panel { order: -1; }
+}
 
 /* ---------- Footer ---------- */
 .site-footer {

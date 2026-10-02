@@ -17,7 +17,8 @@ app/data/
     history.json       each dam's monthly water level since 1988
     cells.json         2 km cells: rainfall-only score, DamDays Rating, what happened
     scoreboard.json    test scores (AUC with ranges)
-    bundle.js          the six files packed into one script (made by build_bundle.py)
+    farms.json         optional: the demo farms and this week's texts, for My farm (scripts/16)
+    bundle.js          the six files (and farms.json) packed into one script (made by build_bundle.py)
 ```
 
 To publish a dataset:
@@ -32,7 +33,7 @@ To look at the mock data even when real data exists, add `?data=mock` to the add
 ## Rules for every file
 
 - **Dates** are `"YYYY-MM-DD"` in local Australian dates (UTC+10, the same as the pipeline). **Months** are `"YYYY-MM"`.
-- **Chances** are numbers from 0 to 1 (0.58 means 58%), rounded to 3 decimals.
+- **Chances** are numbers from 0 to 1, rounded to 3 decimals. The app writes them as "N in 10" (0.58 is "6 in 10"; under 0.05, "less than 1 in 10"), never as a percent: farmers read "%" as how full a dam is.
 - **Water levels** are whole-number percentages of the dam's usual full wet area (see `level_pct` below).
 - **Missing** values are `null`. Never `NaN` or an empty string.
 - **Coordinates** are WGS84 degrees, rounded to 5 decimals.
@@ -273,3 +274,38 @@ The app only shows an AUC when at least 5 cells ran dry that season (`minDryCell
 | `expectations` | optional: the PREREG pre-declared expectations; `field` names the panel number each is compared with once scored |
 
 Every number in a panel is copied from a scorecard result file (`dev_test`: `artifacts/test_results.json`; `sealed`: the files `scripts/20` writes to `artifacts/sealed/scorecard/sealed_TEST/` at the opening).
+
+---
+
+## farms.json (optional): demo farms and their weekly texts
+
+Not one of the six files above: optional. It is written by `scripts/16_weekly_texts.py` (the weekly text, [`notify/MESSAGE_SPEC.md`](../notify/MESSAGE_SPEC.md)), and `build_bundle.py` packs it into `bundle.js` (as `farms`) when the folder has it. The app's **My farm** view reads it: the demo farms in its picker, their texts, and `date`, the day the text is sent, from which the app counts days of water (My farm, and the live dam card). Without it, My farm starts on an empty map and counts days from the latest satellite look. For a farm with `dams_in_app: false`, My farm uses the farm's own `dams[]` (its radius cannot grow past `radius_km`).
+
+```json
+{
+  "schema_version": "1.0", "generated_at": "2026-10-02T12:30:00Z", "date": "2026-10-02", "radius_km": 3.0,
+  "about": "...", "source": "...",
+  "farms": [ { "farm_id": "farm-d", "name": "Farm D (near Dubbo)", "lat": -32.22, "lon": 148.635, "radius_km": 3.0,
+               "region": "nsw_cw", "region_name": "NSW Central West", "near_town": "Dubbo", "town_km": 4.7,
+               "dams_in_app": true, "data_through": "2026-09-14",
+               "dams": [ { "number": 1, "name": "Dam 1", "dam_id": "nsw_cw-0407", "dea_uid": "r638...",
+                           "distance_km": 0.94, "lat": -32.21365, "lon": 148.64156, "area_ha": 1.17,
+                           "status": "already_low", "issued_on": "2026-09-13", "window_end": "2026-12-12",
+                           "level_pct": 0, "chance": null, "damdays_days": null,
+                           "text_kind": "low", "days_left": null } ],
+               "sms": "Fri 2 Oct (satellite 13 Sep)\n...", "sms_septets": 146, "long": "..." } ]
+}
+```
+
+| field | meaning |
+|---|---|
+| `date` | the day the texts are for |
+| `farms[].lat`, `lon`, `radius_km` | the homestead point and the radius; a farm's dams are every dam within the radius (there are no property boundaries) |
+| `farms[].dams_in_app` | `true` if the farm's dams are in this dataset's `forecasts.json` (the app shows one region; demo farms cover both development regions) |
+| `farms[].dams[]` | the farm's dams, closest first: `number` (Dam 1 = closest), the stable `dam_id`, and the dam's live row copied from the forecasts (same fields and units as `forecasts.json`) |
+| `dams[].text_kind` | what the text says about the dam on `date`: `"forecast"`, `"low"`, `"not_refilled"` or `"no_look"` (no clear look in the 60 days before `date`) |
+| `dams[].days_left` | forecast dams only: the DamDays floor counted from `date` (`damdays_days` minus the days since `issued_on`); 180 or more is shown "6 months+" |
+| `farms[].sms` | the weekly SMS: GSM-7 only, 160 places or fewer, lines separated by `\n` |
+| `farms[].long` | the longer app/email version (2 to 4 lines) |
+
+In every farmer-facing text, "%" means only how full a dam is, and a chance is written "6 in 10", never as a percent.

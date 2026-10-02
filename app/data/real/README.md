@@ -4,6 +4,8 @@ These six JSON files (format: `app/DATA_CONTRACT.md`) and their packed copy `bun
 
     .venv/Scripts/python.exe scripts/11_export_app.py --rung L3 --season 2018 --refit-live
 
+`farms.json` (the demo farms and this week's texts, for the app's My farm view) is written separately, by `scripts/16_weekly_texts.py` from these forecasts; `bundle.js` packs it too. After re-running step 16, run `app/tools/build_bundle.py app/data/real` again.
+
 `--refit-live` refits the production model (about 25 minutes at rung L3); without it the saved fit in `data_cache/preds/LIVE/tidemark/L3_live.pkl` is reused and the export takes under a minute. The exporter writes the JSON files, checks every contract rule (`damdays.export.app_data.contract_problems`), then runs `app/tools/build_bundle.py app/data/real`, which lists "real" first in `app/data/datasets.js`.
 
 **After the sealed region is opened** (Sat 3 Oct 17:30 AEST, `scripts/20_open_sealed_region.py --open`), fill the "Sealed region" panel; nothing else changes and it takes seconds:

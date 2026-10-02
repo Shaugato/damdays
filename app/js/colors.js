@@ -7,11 +7,17 @@ window.DamDays = window.DamDays || {};
 DamDays.colors = (function () {
   "use strict";
 
-  /** The colour band a chance falls in, or null when there is no chance to show. */
+  /** The colour band a chance falls in (by its "N in 10"), or null when there is no chance to show. */
   function bandFor(chance) {
     if (chance === null || chance === undefined) return null;
     const bands = DamDays.settings.chanceBands;
-    return bands.find((band) => chance >= band.min && chance < band.max) || bands[bands.length - 1];
+    const tenths = DamDays.text.inTen(chance);
+    return bands.find((band) => tenths >= band.minTenths && tenths <= band.maxTenths) || bands[bands.length - 1];
+  }
+
+  /** True if a chance is shown as "5 in 10" or more (settings.likelyInTen). */
+  function isLikely(chance) {
+    return chance !== null && chance !== undefined && DamDays.text.inTen(chance) >= DamDays.settings.likelyInTen;
   }
 
   /** Fill colour for a chance; grey when there is no forecast. */
@@ -44,5 +50,5 @@ DamDays.colors = (function () {
       '<ul class="legend-items" aria-labelledby="' + container.id + '-title">' + items.join("") + "</ul>";
   }
 
-  return { bandFor, colorFor, renderLegend };
+  return { bandFor, colorFor, isLikely, renderLegend };
 })();
