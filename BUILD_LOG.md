@@ -13,3 +13,5 @@ A plain, timestamped record of what was built and when (AEST). Commit history ha
 | Fri 12:30 | Step 3 started: Tidemark core (per-dam correction, season rating, runway curve, DamDays floor and band), each built and independently reviewed. |
 | Fri 14:24 | Step 3 done: Tidemark L1 on validation years (below-a-third skill +0.171, passes PREREG bars; runway curve; DamDays floor holds 90%; lender rating AUC 0.787). Each part independently reviewed. 252 tests. |
 | Fri 14:30 | Step 4 started: neural-net members (L2), physics water-balance features (L3), app data exporter (real forecasts). |
+| Fri 18:10 | Step 4 done: neural nets (L2) and physics (L3); app shows real forecasts. Ladder table: all rungs reproduce pre-event validation within +-0.006; highest passing rung L3 (below-a-third +0.180, dry-out +0.194). 312 tests. |
+| Fri 18:20 | Step 5a started: test-setting fits (no scoring), sealed-opening runner with a dry run on a dev region, freeze addendum draft. |
