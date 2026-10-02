@@ -1,0 +1,14 @@
+# DamDays: exact versions used during the event build (Python 3.12, Windows, CPU only).
+# Install:   python -m venv .venv
+#            .venv/Scripts/python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+numpy==2.5.3
+pandas==3.0.6
+scipy==1.18.1
+scikit-learn==1.9.1
+lightgbm==4.7.0
+torch==2.14.1+cpu
+pyshp==3.1.6
+h5py==3.16.0
+requests==2.34.2
+matplotlib==3.11.2
+pytest==9.1.1
