@@ -1,0 +1,4754 @@
+{
+ "generated": "2026-10-02 13:27:17",
+ "block": "VAL",
+ "twin": true,
+ "n_boot_main": 500,
+ "exact_checks": [
+  {
+   "check": "H R30: issues, person-period rows, events",
+   "expected": "283,836 / 1,000,128 / 94,623",
+   "got": "283,836 / 1,000,128 / 94,623",
+   "match": true
+  },
+  {
+   "check": "H D0: issues, person-period rows, events",
+   "expected": "365,109 / 1,362,265 / 60,783",
+   "got": "365,109 / 1,362,265 / 60,783",
+   "match": true
+  },
+  {
+   "check": "H_all R30: issues, person-period rows, events",
+   "expected": "674,873 / 2,263,705 / 309,683",
+   "got": "674,873 / 2,263,705 / 309,683",
+   "match": true
+  },
+  {
+   "check": "H_all D0: issues, person-period rows, events",
+   "expected": "896,778 / 3,222,863 / 251,639",
+   "got": "896,778 / 3,222,863 / 251,639",
+   "match": true
+  },
+  {
+   "check": "R30 primary rows at 30/60/90/180 d",
+   "expected": "66,453 at each",
+   "got": "66,453 / 66,453 / 66,453 / 66,453",
+   "match": true
+  },
+  {
+   "check": "R30 primary base rate at 30/60/90/180 d",
+   "expected": "0.0811 / 0.1710 / 0.2387 / 0.3248",
+   "got": "0.0811 / 0.1710 / 0.2387 / 0.3248",
+   "match": true
+  },
+  {
+   "check": "D0 primary rows at 30/60/90/180 d",
+   "expected": "86,651 at each",
+   "got": "86,651 / 86,651 / 86,651 / 86,651",
+   "match": true
+  },
+  {
+   "check": "D0 primary base rate at 30/60/90/180 d",
+   "expected": "0.0369 / 0.0792 / 0.1142 / 0.1653",
+   "got": "0.0369 / 0.0792 / 0.1142 / 0.1653",
+   "match": true
+  }
+ ],
+ "score_checks": [
+  {
+   "kind": "R30",
+   "horizon": 30,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B0",
+   "expected": 0.0944,
+   "got": 0.09447,
+   "difference": 7e-05,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.09426
+  },
+  {
+   "kind": "R30",
+   "horizon": 30,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B2",
+   "expected": 0.072,
+   "got": 0.07208,
+   "difference": 8e-05,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.07183
+  },
+  {
+   "kind": "R30",
+   "horizon": 30,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "auc",
+   "expected": 0.7933,
+   "got": 0.79367,
+   "difference": 0.00037,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.79367
+  },
+  {
+   "kind": "R30",
+   "horizon": 30,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "cal_slope",
+   "expected": 1.097,
+   "got": 1.10054,
+   "difference": 0.00354,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": 1.10054
+  },
+  {
+   "kind": "R30",
+   "horizon": 30,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "citl",
+   "expected": -0.095,
+   "got": -0.09291,
+   "difference": 0.00209,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": -0.09291
+  },
+  {
+   "kind": "R30",
+   "horizon": 30,
+   "model": "H (reference: pre-event H with PHY)",
+   "metric": "bss_B0",
+   "expected": 0.0987,
+   "got": 0.09607,
+   "difference": -0.00263,
+   "tolerance": null,
+   "verdict": "reference (PHY not in yet)",
+   "official_purged": 0.09585
+  },
+  {
+   "kind": "R30",
+   "horizon": 60,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B0",
+   "expected": 0.146,
+   "got": 0.14653,
+   "difference": 0.00053,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.14612
+  },
+  {
+   "kind": "R30",
+   "horizon": 60,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B2",
+   "expected": 0.0964,
+   "got": 0.09689,
+   "difference": 0.00049,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.09687
+  },
+  {
+   "kind": "R30",
+   "horizon": 60,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "auc",
+   "expected": 0.7811,
+   "got": 0.78168,
+   "difference": 0.00058,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.78168
+  },
+  {
+   "kind": "R30",
+   "horizon": 60,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "cal_slope",
+   "expected": 1.055,
+   "got": 1.0554,
+   "difference": 0.0004,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": 1.0554
+  },
+  {
+   "kind": "R30",
+   "horizon": 60,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "citl",
+   "expected": -0.111,
+   "got": -0.11168,
+   "difference": -0.00068,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": -0.11168
+  },
+  {
+   "kind": "R30",
+   "horizon": 60,
+   "model": "H (reference: pre-event H with PHY)",
+   "metric": "bss_B0",
+   "expected": 0.1509,
+   "got": 0.14739,
+   "difference": -0.00351,
+   "tolerance": null,
+   "verdict": "reference (PHY not in yet)",
+   "official_purged": 0.14697
+  },
+  {
+   "kind": "R30",
+   "horizon": 90,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B0",
+   "expected": 0.1723,
+   "got": 0.17195,
+   "difference": -0.00035,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.17163
+  },
+  {
+   "kind": "R30",
+   "horizon": 90,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B2",
+   "expected": 0.1006,
+   "got": 0.10022,
+   "difference": -0.00038,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.10015
+  },
+  {
+   "kind": "R30",
+   "horizon": 90,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "auc",
+   "expected": 0.7812,
+   "got": 0.78106,
+   "difference": -0.00014,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.78106
+  },
+  {
+   "kind": "R30",
+   "horizon": 90,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "cal_slope",
+   "expected": 1.036,
+   "got": 1.03061,
+   "difference": -0.00539,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": 1.03061
+  },
+  {
+   "kind": "R30",
+   "horizon": 90,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "citl",
+   "expected": -0.217,
+   "got": -0.21732,
+   "difference": -0.00032,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": -0.21732
+  },
+  {
+   "kind": "R30",
+   "horizon": 90,
+   "model": "H (reference: pre-event H with PHY)",
+   "metric": "bss_B0",
+   "expected": 0.1759,
+   "got": 0.17299,
+   "difference": -0.00291,
+   "tolerance": null,
+   "verdict": "reference (PHY not in yet)",
+   "official_purged": 0.17267
+  },
+  {
+   "kind": "R30",
+   "horizon": 180,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B0",
+   "expected": 0.1858,
+   "got": 0.18509,
+   "difference": -0.00071,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.18401
+  },
+  {
+   "kind": "R30",
+   "horizon": 180,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B2",
+   "expected": 0.0904,
+   "got": 0.08962,
+   "difference": -0.00078,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.08942
+  },
+  {
+   "kind": "R30",
+   "horizon": 180,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "auc",
+   "expected": 0.7896,
+   "got": 0.789,
+   "difference": -0.0006,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.789
+  },
+  {
+   "kind": "R30",
+   "horizon": 180,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "cal_slope",
+   "expected": 1.061,
+   "got": 1.05506,
+   "difference": -0.00594,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": 1.05506
+  },
+  {
+   "kind": "R30",
+   "horizon": 180,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "citl",
+   "expected": -0.415,
+   "got": -0.41375,
+   "difference": 0.00125,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": -0.41375
+  },
+  {
+   "kind": "R30",
+   "horizon": 180,
+   "model": "H (reference: pre-event H with PHY)",
+   "metric": "bss_B0",
+   "expected": 0.1988,
+   "got": 0.19782,
+   "difference": -0.00098,
+   "tolerance": null,
+   "verdict": "reference (PHY not in yet)",
+   "official_purged": 0.19675
+  },
+  {
+   "kind": "D0",
+   "horizon": 30,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B0",
+   "expected": 0.0869,
+   "got": 0.08626,
+   "difference": -0.00064,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.08622
+  },
+  {
+   "kind": "D0",
+   "horizon": 30,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B2",
+   "expected": 0.0626,
+   "got": 0.06198,
+   "difference": -0.00062,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.06158
+  },
+  {
+   "kind": "D0",
+   "horizon": 30,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "auc",
+   "expected": 0.843,
+   "got": 0.84271,
+   "difference": -0.00029,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.84271
+  },
+  {
+   "kind": "D0",
+   "horizon": 30,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "cal_slope",
+   "expected": 1.129,
+   "got": 1.12985,
+   "difference": 0.00085,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": 1.12985
+  },
+  {
+   "kind": "D0",
+   "horizon": 30,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "citl",
+   "expected": -0.126,
+   "got": -0.13349,
+   "difference": -0.00749,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": -0.13349
+  },
+  {
+   "kind": "D0",
+   "horizon": 30,
+   "model": "H (reference: pre-event H with PHY)",
+   "metric": "bss_B0",
+   "expected": 0.0965,
+   "got": 0.08654,
+   "difference": -0.00996,
+   "tolerance": null,
+   "verdict": "reference (PHY not in yet)",
+   "official_purged": 0.0865
+  },
+  {
+   "kind": "D0",
+   "horizon": 60,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B0",
+   "expected": 0.1414,
+   "got": 0.14172,
+   "difference": 0.00032,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.14145
+  },
+  {
+   "kind": "D0",
+   "horizon": 60,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B2",
+   "expected": 0.0847,
+   "got": 0.08509,
+   "difference": 0.00039,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.08508
+  },
+  {
+   "kind": "D0",
+   "horizon": 60,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "auc",
+   "expected": 0.8349,
+   "got": 0.83507,
+   "difference": 0.00017,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.83507
+  },
+  {
+   "kind": "D0",
+   "horizon": 60,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "cal_slope",
+   "expected": 1.089,
+   "got": 1.08904,
+   "difference": 4e-05,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": 1.08904
+  },
+  {
+   "kind": "D0",
+   "horizon": 60,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "citl",
+   "expected": -0.159,
+   "got": -0.16115,
+   "difference": -0.00215,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": -0.16115
+  },
+  {
+   "kind": "D0",
+   "horizon": 60,
+   "model": "H (reference: pre-event H with PHY)",
+   "metric": "bss_B0",
+   "expected": 0.154,
+   "got": 0.14445,
+   "difference": -0.00955,
+   "tolerance": null,
+   "verdict": "reference (PHY not in yet)",
+   "official_purged": 0.14418
+  },
+  {
+   "kind": "D0",
+   "horizon": 90,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B0",
+   "expected": 0.1746,
+   "got": 0.17475,
+   "difference": 0.00015,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.17438
+  },
+  {
+   "kind": "D0",
+   "horizon": 90,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B2",
+   "expected": 0.0913,
+   "got": 0.09149,
+   "difference": 0.00019,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.09147
+  },
+  {
+   "kind": "D0",
+   "horizon": 90,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "auc",
+   "expected": 0.831,
+   "got": 0.83138,
+   "difference": 0.00038,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.83138
+  },
+  {
+   "kind": "D0",
+   "horizon": 90,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "cal_slope",
+   "expected": 1.059,
+   "got": 1.05847,
+   "difference": -0.00053,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": 1.05847
+  },
+  {
+   "kind": "D0",
+   "horizon": 90,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "citl",
+   "expected": -0.247,
+   "got": -0.25179,
+   "difference": -0.00479,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": -0.25179
+  },
+  {
+   "kind": "D0",
+   "horizon": 90,
+   "model": "H (reference: pre-event H with PHY)",
+   "metric": "bss_B0",
+   "expected": 0.1851,
+   "got": 0.17674,
+   "difference": -0.00836,
+   "tolerance": null,
+   "verdict": "reference (PHY not in yet)",
+   "official_purged": 0.17638
+  },
+  {
+   "kind": "D0",
+   "horizon": 180,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B0",
+   "expected": 0.2191,
+   "got": 0.21907,
+   "difference": -3e-05,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.21837
+  },
+  {
+   "kind": "D0",
+   "horizon": 180,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "bss_B2",
+   "expected": 0.0772,
+   "got": 0.07712,
+   "difference": -8e-05,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.07707
+  },
+  {
+   "kind": "D0",
+   "horizon": 180,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "auc",
+   "expected": 0.8355,
+   "got": 0.83574,
+   "difference": 0.00024,
+   "tolerance": 0.006,
+   "verdict": "within",
+   "official_purged": 0.83574
+  },
+  {
+   "kind": "D0",
+   "horizon": 180,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "cal_slope",
+   "expected": 1.103,
+   "got": 1.1029,
+   "difference": -0.0001,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": 1.1029
+  },
+  {
+   "kind": "D0",
+   "horizon": 180,
+   "model": "H_all (like for like: pre-event haz4)",
+   "metric": "citl",
+   "expected": -0.399,
+   "got": -0.40738,
+   "difference": -0.00838,
+   "tolerance": 0.05,
+   "verdict": "within",
+   "official_purged": -0.40738
+  },
+  {
+   "kind": "D0",
+   "horizon": 180,
+   "model": "H (reference: pre-event H with PHY)",
+   "metric": "bss_B0",
+   "expected": 0.2353,
+   "got": 0.23084,
+   "difference": -0.00446,
+   "tolerance": null,
+   "verdict": "reference (PHY not in yet)",
+   "official_purged": 0.23014
+  }
+ ],
+ "fan_scores": [
+  {
+   "kind": "R30",
+   "model": "H",
+   "baselines": "official (purged)",
+   "got": 0.15306,
+   "expected": null
+  },
+  {
+   "kind": "R30",
+   "model": "H",
+   "baselines": "pre-event recipe",
+   "got": 0.15356,
+   "expected": 0.1561,
+   "note": "pre-event H with PHY (reference)"
+  },
+  {
+   "kind": "R30",
+   "model": "H_all",
+   "baselines": "pre-event recipe",
+   "got": 0.14951,
+   "expected": 0.1496,
+   "note": "pre-event haz4 (like for like)"
+  },
+  {
+   "kind": "D0",
+   "model": "H",
+   "baselines": "official (purged)",
+   "got": 0.1593,
+   "expected": null
+  },
+  {
+   "kind": "D0",
+   "model": "H",
+   "baselines": "pre-event recipe",
+   "got": 0.15964,
+   "expected": 0.1677,
+   "note": "pre-event H with PHY (reference)"
+  },
+  {
+   "kind": "D0",
+   "model": "H_all",
+   "baselines": "pre-event recipe",
+   "got": 0.15545,
+   "expected": 0.1555,
+   "note": "pre-event haz4 (like for like)"
+  }
+ ],
+ "shape_checks": {
+  "H": {
+   "R30_falling_rows": 0,
+   "D0_falling_rows": 0,
+   "R30_raw_falling_rows": 0,
+   "crossings_before_max_rule_all_rows": 0.01674,
+   "crossings_before_max_rule_primary_rows": 0.01159,
+   "crossings_after_max_rule": 0.0,
+   "rows_changed_by_max_rule": 6003
+  },
+  "H_all": {
+   "R30_falling_rows": 0,
+   "D0_falling_rows": 0,
+   "R30_raw_falling_rows": 0,
+   "crossings_before_max_rule_all_rows": 0.04146,
+   "crossings_before_max_rule_primary_rows": 0.00784,
+   "crossings_after_max_rule": 0.0,
+   "rows_changed_by_max_rule": 14863
+  }
+ },
+ "baseline_consistency": {
+  "R30": {
+   "b0_90_max_abs_diff": 0.0,
+   "b2_90_share_identical": 0.68217,
+   "b2_90_max_abs_diff": 0.08067,
+   "b2_90_mean_abs_diff": 0.00184
+  },
+  "D0": {
+   "b0_90_max_abs_diff": 0.0,
+   "b2_90_share_identical": 0.61432,
+   "b2_90_max_abs_diff": 0.08317,
+   "b2_90_mean_abs_diff": 0.00129
+  }
+ },
+ "fits": {
+  "H": {
+   "R30": {
+    "kind": "R30",
+    "block": "VAL",
+    "cutoff": "2009-01-01",
+    "population": "dam_like",
+    "features": [
+     "rel",
+     "last3",
+     "s60",
+     "s120",
+     "max365",
+     "min365",
+     "low365_R30",
+     "log_n_pixels",
+     "month",
+     "dtt_trend_R30",
+     "dam_rate_R30",
+     "clim_dd",
+     "clim_fast",
+     "dtt_clim_R30",
+     "dtt_fast_R30",
+     "rec",
+     "since_full",
+     "since_low_R30",
+     "anom_own",
+     "sin_doy",
+     "cos_doy",
+     "gap_prev",
+     "full_c",
+     "wet_share_c",
+     "fill_share_c",
+     "pixel_compactness",
+     "R_anom",
+     "R_chg3",
+     "R_zero",
+     "iv_start",
+     "iv_len"
+    ],
+    "issues": 283836,
+    "issues_used": 280494,
+    "person_period_rows": 1000128,
+    "person_period_events": 94623,
+    "rows_per_interval": {
+     "(0,30]": 280494,
+     "(30,60]": 261009,
+     "(60,90]": 239316,
+     "(90,180]": 219309
+    },
+    "events_per_interval": {
+     "(0,30]": 17552,
+     "(30,60]": 20035,
+     "(60,90]": 18630,
+     "(90,180]": 38406
+    },
+    "issues_selected_with_post_cutoff_looks": 2163,
+    "top_features_by_gain": {
+     "iv_start": 0.1822,
+     "dam_rate_R30": 0.1411,
+     "low365_R30": 0.108,
+     "dtt_fast_R30": 0.0697,
+     "month": 0.0658,
+     "sin_doy": 0.0563,
+     "R_anom": 0.0478,
+     "cos_doy": 0.0434
+    },
+    "seconds": 33
+   },
+   "D0": {
+    "kind": "D0",
+    "block": "VAL",
+    "cutoff": "2009-01-01",
+    "population": "dam_like",
+    "features": [
+     "rel",
+     "last3",
+     "s60",
+     "s120",
+     "max365",
+     "min365",
+     "low365_D0",
+     "log_n_pixels",
+     "month",
+     "dtt_trend_D0",
+     "dam_rate_D0",
+     "clim_dd",
+     "clim_fast",
+     "dtt_clim_D0",
+     "dtt_fast_D0",
+     "rec",
+     "since_full",
+     "since_low_D0",
+     "anom_own",
+     "sin_doy",
+     "cos_doy",
+     "gap_prev",
+     "full_c",
+     "wet_share_c",
+     "fill_share_c",
+     "pixel_compactness",
+     "R_anom",
+     "R_chg3",
+     "R_zero",
+     "iv_start",
+     "iv_len"
+    ],
+    "issues": 365109,
+    "issues_used": 360679,
+    "person_period_rows": 1362265,
+    "person_period_events": 60783,
+    "rows_per_interval": {
+     "(0,30]": 360679,
+     "(30,60]": 348091,
+     "(60,90]": 333675,
+     "(90,180]": 319820
+    },
+    "events_per_interval": {
+     "(0,30]": 9975,
+     "(30,60]": 12138,
+     "(60,90]": 11909,
+     "(90,180]": 26761
+    },
+    "issues_selected_with_post_cutoff_looks": 2740,
+    "top_features_by_gain": {
+     "dam_rate_D0": 0.1727,
+     "iv_start": 0.1392,
+     "low365_D0": 0.0892,
+     "wet_share_c": 0.0578,
+     "month": 0.0513,
+     "dtt_fast_D0": 0.0491,
+     "log_n_pixels": 0.0473,
+     "sin_doy": 0.0452
+    },
+    "seconds": 40
+   }
+  },
+  "H_all": {
+   "R30": {
+    "kind": "R30",
+    "block": "VAL",
+    "cutoff": "2009-01-01",
+    "population": "all",
+    "features": [
+     "rel",
+     "last3",
+     "s60",
+     "s120",
+     "max365",
+     "min365",
+     "low365_R30",
+     "log_n_pixels",
+     "month",
+     "dtt_trend_R30",
+     "dam_rate_R30",
+     "clim_dd",
+     "clim_fast",
+     "dtt_clim_R30",
+     "dtt_fast_R30",
+     "rec",
+     "since_full",
+     "since_low_R30",
+     "anom_own",
+     "sin_doy",
+     "cos_doy",
+     "gap_prev",
+     "full_c",
+     "wet_share_c",
+     "fill_share_c",
+     "pixel_compactness",
+     "R_anom",
+     "R_chg3",
+     "R_zero",
+     "iv_start",
+     "iv_len"
+    ],
+    "issues": 674873,
+    "issues_used": 668141,
+    "person_period_rows": 2263705,
+    "person_period_events": 309683,
+    "rows_per_interval": {
+     "(0,30]": 668141,
+     "(30,60]": 602444,
+     "(60,90]": 528778,
+     "(90,180]": 464342
+    },
+    "events_per_interval": {
+     "(0,30]": 61947,
+     "(30,60]": 70671,
+     "(60,90]": 61924,
+     "(90,180]": 115141
+    },
+    "issues_selected_with_post_cutoff_looks": 4553,
+    "top_features_by_gain": {
+     "iv_start": 0.1882,
+     "dam_rate_R30": 0.1662,
+     "low365_R30": 0.1317,
+     "wet_share_c": 0.0609,
+     "sin_doy": 0.0513,
+     "month": 0.0488,
+     "dtt_fast_R30": 0.0417,
+     "cos_doy": 0.038
+    },
+    "seconds": 61
+   },
+   "D0": {
+    "kind": "D0",
+    "block": "VAL",
+    "cutoff": "2009-01-01",
+    "population": "all",
+    "features": [
+     "rel",
+     "last3",
+     "s60",
+     "s120",
+     "max365",
+     "min365",
+     "low365_D0",
+     "log_n_pixels",
+     "month",
+     "dtt_trend_D0",
+     "dam_rate_D0",
+     "clim_dd",
+     "clim_fast",
+     "dtt_clim_D0",
+     "dtt_fast_D0",
+     "rec",
+     "since_full",
+     "since_low_D0",
+     "anom_own",
+     "sin_doy",
+     "cos_doy",
+     "gap_prev",
+     "full_c",
+     "wet_share_c",
+     "fill_share_c",
+     "pixel_compactness",
+     "R_anom",
+     "R_chg3",
+     "R_zero",
+     "iv_start",
+     "iv_len"
+    ],
+    "issues": 896778,
+    "issues_used": 887090,
+    "person_period_rows": 3222863,
+    "person_period_events": 251639,
+    "rows_per_interval": {
+     "(0,30]": 887090,
+     "(30,60]": 836633,
+     "(60,90]": 776979,
+     "(90,180]": 722161
+    },
+    "events_per_interval": {
+     "(0,30]": 44622,
+     "(30,60]": 55006,
+     "(60,90]": 50635,
+     "(90,180]": 101376
+    },
+    "issues_selected_with_post_cutoff_looks": 6418,
+    "top_features_by_gain": {
+     "dam_rate_D0": 0.2111,
+     "low365_D0": 0.1911,
+     "iv_start": 0.138,
+     "wet_share_c": 0.0738,
+     "month": 0.043,
+     "last3": 0.0395,
+     "sin_doy": 0.0337,
+     "cos_doy": 0.029
+    },
+    "seconds": 112
+   }
+  }
+ },
+ "curves": {
+  "H|R30|primary|official": {
+   "30": {
+    "point": {
+     "base_rate": 0.08108,
+     "mean_p": 0.09057,
+     "brier": 0.06718,
+     "bss_B0": 0.09585,
+     "bss_B2": 0.07346,
+     "auc": 0.79493,
+     "prec_at_50_recall": 0.24316,
+     "cal_intercept": 0.06476,
+     "cal_slope": 1.10704,
+     "citl": -0.13304
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.07697,
+      0.08536
+     ],
+     "mean_p": [
+      0.0873,
+      0.0943
+     ],
+     "brier": [
+      0.06423,
+      0.07042
+     ],
+     "bss_B0": [
+      0.08749,
+      0.10501
+     ],
+     "bss_B2": [
+      0.0659,
+      0.08114
+     ],
+     "auc": [
+      0.78626,
+      0.80424
+     ],
+     "prec_at_50_recall": [
+      0.22823,
+      0.25985
+     ],
+     "cal_intercept": [
+      -0.03272,
+      0.1623
+     ],
+     "cal_slope": [
+      1.06293,
+      1.15977
+     ],
+     "citl": [
+      -0.17616,
+      -0.09052
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.06662,
+      0.0943
+     ],
+     "mean_p": [
+      0.07856,
+      0.10302
+     ],
+     "brier": [
+      0.05684,
+      0.07655
+     ],
+     "bss_B0": [
+      0.07948,
+      0.10707
+     ],
+     "bss_B2": [
+      0.05969,
+      0.08497
+     ],
+     "auc": [
+      0.78304,
+      0.80574
+     ],
+     "prec_at_50_recall": [
+      0.20656,
+      0.27127
+     ],
+     "cal_intercept": [
+      -0.11767,
+      0.22051
+     ],
+     "cal_slope": [
+      1.05693,
+      1.15869
+     ],
+     "citl": [
+      -0.27239,
+      -0.03028
+     ]
+    },
+    "rows": 66453,
+    "events": 5388
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.17098,
+     "mean_p": 0.18614,
+     "brier": 0.12008,
+     "bss_B0": 0.14697,
+     "bss_B2": 0.09777,
+     "auc": 0.782,
+     "prec_at_50_recall": 0.41241,
+     "cal_intercept": -0.08886,
+     "cal_slope": 1.02964,
+     "citl": -0.12223
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.16364,
+      0.17938
+     ],
+     "mean_p": [
+      0.17983,
+      0.19306
+     ],
+     "brier": [
+      0.11608,
+      0.1247
+     ],
+     "bss_B0": [
+      0.13528,
+      0.1588
+     ],
+     "bss_B2": [
+      0.08787,
+      0.10772
+     ],
+     "auc": [
+      0.77217,
+      0.79095
+     ],
+     "prec_at_50_recall": [
+      0.39415,
+      0.43257
+     ],
+     "cal_intercept": [
+      -0.15043,
+      -0.02387
+     ],
+     "cal_slope": [
+      0.98843,
+      1.07368
+     ],
+     "citl": [
+      -0.16196,
+      -0.07982
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.14507,
+      0.19638
+     ],
+     "mean_p": [
+      0.16581,
+      0.20991
+     ],
+     "brier": [
+      0.10643,
+      0.13205
+     ],
+     "bss_B0": [
+      0.12844,
+      0.16445
+     ],
+     "bss_B2": [
+      0.07953,
+      0.11604
+     ],
+     "auc": [
+      0.77225,
+      0.79376
+     ],
+     "prec_at_50_recall": [
+      0.36523,
+      0.4568
+     ],
+     "cal_intercept": [
+      -0.26538,
+      0.08102
+     ],
+     "cal_slope": [
+      0.98032,
+      1.09071
+     ],
+     "citl": [
+      -0.29941,
+      0.02107
+     ]
+    },
+    "rows": 66453,
+    "events": 11362
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.23868,
+     "mean_p": 0.27025,
+     "brier": 0.14848,
+     "bss_B0": 0.17267,
+     "bss_B2": 0.10127,
+     "auc": 0.78141,
+     "prec_at_50_recall": 0.5213,
+     "cal_intercept": -0.21073,
+     "cal_slope": 0.99558,
+     "citl": -0.20767
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.22911,
+      0.24998
+     ],
+     "mean_p": [
+      0.26188,
+      0.27933
+     ],
+     "brier": [
+      0.1441,
+      0.1534
+     ],
+     "bss_B0": [
+      0.15754,
+      0.18723
+     ],
+     "bss_B2": [
+      0.0895,
+      0.11289
+     ],
+     "auc": [
+      0.77147,
+      0.79174
+     ],
+     "prec_at_50_recall": [
+      0.49992,
+      0.54442
+     ],
+     "cal_intercept": [
+      -0.25917,
+      -0.15808
+     ],
+     "cal_slope": [
+      0.95235,
+      1.04088
+     ],
+     "citl": [
+      -0.24796,
+      -0.16347
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.20468,
+      0.27118
+     ],
+     "mean_p": [
+      0.24397,
+      0.30197
+     ],
+     "brier": [
+      0.13667,
+      0.15842
+     ],
+     "bss_B0": [
+      0.14605,
+      0.19564
+     ],
+     "bss_B2": [
+      0.07905,
+      0.12576
+     ],
+     "auc": [
+      0.77055,
+      0.79239
+     ],
+     "prec_at_50_recall": [
+      0.464,
+      0.57283
+     ],
+     "cal_intercept": [
+      -0.41956,
+      -0.03033
+     ],
+     "cal_slope": [
+      0.94441,
+      1.05813
+     ],
+     "citl": [
+      -0.42851,
+      -0.0427
+     ]
+    },
+    "rows": 66453,
+    "events": 15861
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.32477,
+     "mean_p": 0.38426,
+     "brier": 0.17117,
+     "bss_B0": 0.19675,
+     "bss_B2": 0.10364,
+     "auc": 0.79091,
+     "prec_at_50_recall": 0.65727,
+     "cal_intercept": -0.33559,
+     "cal_slope": 1.02407,
+     "citl": -0.34105
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.31152,
+      0.33885
+     ],
+     "mean_p": [
+      0.37442,
+      0.39513
+     ],
+     "brier": [
+      0.16643,
+      0.17609
+     ],
+     "bss_B0": [
+      0.17736,
+      0.21482
+     ],
+     "bss_B2": [
+      0.09021,
+      0.11771
+     ],
+     "auc": [
+      0.77937,
+      0.80067
+     ],
+     "prec_at_50_recall": [
+      0.62786,
+      0.68189
+     ],
+     "cal_intercept": [
+      -0.38335,
+      -0.28404
+     ],
+     "cal_slope": [
+      0.97991,
+      1.07101
+     ],
+     "citl": [
+      -0.38947,
+      -0.29336
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.28107,
+      0.36304
+     ],
+     "mean_p": [
+      0.35278,
+      0.42197
+     ],
+     "brier": [
+      0.16619,
+      0.17673
+     ],
+     "bss_B0": [
+      0.15155,
+      0.22817
+     ],
+     "bss_B2": [
+      0.07627,
+      0.13359
+     ],
+     "auc": [
+      0.77445,
+      0.80353
+     ],
+     "prec_at_50_recall": [
+      0.57863,
+      0.71819
+     ],
+     "cal_intercept": [
+      -0.59153,
+      -0.1402
+     ],
+     "cal_slope": [
+      0.95123,
+      1.09765
+     ],
+     "citl": [
+      -0.59131,
+      -0.15715
+     ]
+    },
+    "rows": 66453,
+    "events": 21582
+   }
+  },
+  "H|R30|dam_like+at_risk|official": {
+   "30": {
+    "point": {
+     "base_rate": 0.06047,
+     "mean_p": 0.06626,
+     "brier": 0.05094,
+     "bss_B0": 0.09347,
+     "bss_B2": 0.07101,
+     "auc": 0.82258,
+     "prec_at_50_recall": 0.22582,
+     "cal_intercept": 0.16868,
+     "cal_slope": 1.13293,
+     "citl": -0.10719
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.05717,
+      0.06359
+     ],
+     "mean_p": [
+      0.06371,
+      0.06877
+     ],
+     "brier": [
+      0.04842,
+      0.05329
+     ],
+     "bss_B0": [
+      0.08693,
+      0.09963
+     ],
+     "bss_B2": [
+      0.06533,
+      0.07572
+     ],
+     "auc": [
+      0.81574,
+      0.82891
+     ],
+     "prec_at_50_recall": [
+      0.21396,
+      0.23807
+     ],
+     "cal_intercept": [
+      0.0865,
+      0.23932
+     ],
+     "cal_slope": [
+      1.09549,
+      1.1683
+     ],
+     "citl": [
+      -0.14912,
+      -0.07958
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.05048,
+      0.06956
+     ],
+     "mean_p": [
+      0.05797,
+      0.07393
+     ],
+     "brier": [
+      0.04336,
+      0.05768
+     ],
+     "bss_B0": [
+      0.08155,
+      0.10271
+     ],
+     "bss_B2": [
+      0.0623,
+      0.07987
+     ],
+     "auc": [
+      0.80491,
+      0.83577
+     ],
+     "prec_at_50_recall": [
+      0.19476,
+      0.24906
+     ],
+     "cal_intercept": [
+      0.0024,
+      0.28579
+     ],
+     "cal_slope": [
+      1.0567,
+      1.18136
+     ],
+     "citl": [
+      -0.19165,
+      -0.04194
+     ]
+    },
+    "rows": 127203,
+    "events": 7692
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.13221,
+     "mean_p": 0.14042,
+     "brier": 0.09554,
+     "bss_B0": 0.14651,
+     "bss_B2": 0.10409,
+     "auc": 0.81201,
+     "prec_at_50_recall": 0.38898,
+     "cal_intercept": 0.03497,
+     "cal_slope": 1.08548,
+     "citl": -0.08256
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.12629,
+      0.13801
+     ],
+     "mean_p": [
+      0.13537,
+      0.1452
+     ],
+     "brier": [
+      0.09187,
+      0.09903
+     ],
+     "bss_B0": [
+      0.13782,
+      0.15627
+     ],
+     "bss_B2": [
+      0.09684,
+      0.1116
+     ],
+     "auc": [
+      0.80498,
+      0.81883
+     ],
+     "prec_at_50_recall": [
+      0.37317,
+      0.4033
+     ],
+     "cal_intercept": [
+      -0.02443,
+      0.0868
+     ],
+     "cal_slope": [
+      1.04944,
+      1.11929
+     ],
+     "citl": [
+      -0.12019,
+      -0.05283
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.11208,
+      0.14724
+     ],
+     "mean_p": [
+      0.12417,
+      0.15457
+     ],
+     "brier": [
+      0.08449,
+      0.10429
+     ],
+     "bss_B0": [
+      0.12808,
+      0.16103
+     ],
+     "bss_B2": [
+      0.08662,
+      0.12011
+     ],
+     "auc": [
+      0.79663,
+      0.82267
+     ],
+     "prec_at_50_recall": [
+      0.34384,
+      0.42116
+     ],
+     "cal_intercept": [
+      -0.09876,
+      0.1423
+     ],
+     "cal_slope": [
+      1.03026,
+      1.12753
+     ],
+     "citl": [
+      -0.18873,
+      0.01066
+     ]
+    },
+    "rows": 127203,
+    "events": 16818
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.19684,
+     "mean_p": 0.21011,
+     "brier": 0.12625,
+     "bss_B0": 0.1734,
+     "bss_B2": 0.12035,
+     "auc": 0.80441,
+     "prec_at_50_recall": 0.49561,
+     "cal_intercept": -0.06191,
+     "cal_slope": 1.04096,
+     "citl": -0.10226
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.1882,
+      0.20551
+     ],
+     "mean_p": [
+      0.20277,
+      0.21654
+     ],
+     "brier": [
+      0.12211,
+      0.13019
+     ],
+     "bss_B0": [
+      0.16343,
+      0.18517
+     ],
+     "bss_B2": [
+      0.11225,
+      0.12781
+     ],
+     "auc": [
+      0.79769,
+      0.81171
+     ],
+     "prec_at_50_recall": [
+      0.47866,
+      0.51478
+     ],
+     "cal_intercept": [
+      -0.10931,
+      -0.0105
+     ],
+     "cal_slope": [
+      1.00748,
+      1.08115
+     ],
+     "citl": [
+      -0.14439,
+      -0.06808
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.16671,
+      0.21989
+     ],
+     "mean_p": [
+      0.18748,
+      0.22906
+     ],
+     "brier": [
+      0.11392,
+      0.13546
+     ],
+     "bss_B0": [
+      0.15185,
+      0.19191
+     ],
+     "bss_B2": [
+      0.09738,
+      0.13996
+     ],
+     "auc": [
+      0.79185,
+      0.81468
+     ],
+     "prec_at_50_recall": [
+      0.44718,
+      0.5276
+     ],
+     "cal_intercept": [
+      -0.20849,
+      0.05557
+     ],
+     "cal_slope": [
+      0.98996,
+      1.09005
+     ],
+     "citl": [
+      -0.24555,
+      0.01722
+     ]
+    },
+    "rows": 127203,
+    "events": 25039
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.32487,
+     "mean_p": 0.34762,
+     "brier": 0.16951,
+     "bss_B0": 0.19859,
+     "bss_B2": 0.11676,
+     "auc": 0.78776,
+     "prec_at_50_recall": 0.64135,
+     "cal_intercept": -0.12361,
+     "cal_slope": 1.0189,
+     "citl": -0.13205
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.31105,
+      0.33812
+     ],
+     "mean_p": [
+      0.33752,
+      0.35674
+     ],
+     "brier": [
+      0.16494,
+      0.17356
+     ],
+     "bss_B0": [
+      0.18224,
+      0.21291
+     ],
+     "bss_B2": [
+      0.10594,
+      0.12618
+     ],
+     "auc": [
+      0.77903,
+      0.79671
+     ],
+     "prec_at_50_recall": [
+      0.62281,
+      0.66419
+     ],
+     "cal_intercept": [
+      -0.17782,
+      -0.07723
+     ],
+     "cal_slope": [
+      0.98151,
+      1.061
+     ],
+     "citl": [
+      -0.18303,
+      -0.09423
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.28234,
+      0.36776
+     ],
+     "mean_p": [
+      0.3152,
+      0.37543
+     ],
+     "brier": [
+      0.16028,
+      0.17705
+     ],
+     "bss_B0": [
+      0.16832,
+      0.23258
+     ],
+     "bss_B2": [
+      0.09163,
+      0.14171
+     ],
+     "auc": [
+      0.77139,
+      0.80343
+     ],
+     "prec_at_50_recall": [
+      0.57763,
+      0.69652
+     ],
+     "cal_intercept": [
+      -0.36036,
+      0.05939
+     ],
+     "cal_slope": [
+      0.94086,
+      1.10771
+     ],
+     "citl": [
+      -0.39032,
+      0.04551
+     ]
+    },
+    "rows": 127203,
+    "events": 41325
+   }
+  },
+  "H|R30|persistent+octmar+at_risk|official": {
+   "30": {
+    "point": {
+     "base_rate": 0.06029,
+     "mean_p": 0.07721,
+     "brier": 0.05361,
+     "bss_B0": 0.05033,
+     "bss_B2": 0.03758,
+     "auc": 0.77755,
+     "prec_at_50_recall": 0.1712,
+     "cal_intercept": -0.29446,
+     "cal_slope": 0.99625,
+     "citl": -0.28691
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.05612,
+      0.06445
+     ],
+     "mean_p": [
+      0.07369,
+      0.08049
+     ],
+     "brier": [
+      0.05051,
+      0.05706
+     ],
+     "bss_B0": [
+      0.03849,
+      0.05949
+     ],
+     "bss_B2": [
+      0.02817,
+      0.04578
+     ],
+     "auc": [
+      0.76644,
+      0.78902
+     ],
+     "prec_at_50_recall": [
+      0.15788,
+      0.18345
+     ],
+     "cal_intercept": [
+      -0.42587,
+      -0.17894
+     ],
+     "cal_slope": [
+      0.94715,
+      1.04641
+     ],
+     "citl": [
+      -0.35294,
+      -0.2352
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.04989,
+      0.06911
+     ],
+     "mean_p": [
+      0.06237,
+      0.09286
+     ],
+     "brier": [
+      0.04491,
+      0.06025
+     ],
+     "bss_B0": [
+      0.02316,
+      0.07453
+     ],
+     "bss_B2": [
+      0.01209,
+      0.0601
+     ],
+     "auc": [
+      0.75795,
+      0.80002
+     ],
+     "prec_at_50_recall": [
+      0.14272,
+      0.2006
+     ],
+     "cal_intercept": [
+      -0.54665,
+      0.04528
+     ],
+     "cal_slope": [
+      0.91451,
+      1.12228
+     ],
+     "citl": [
+      -0.43259,
+      -0.12627
+     ]
+    },
+    "rows": 45500,
+    "events": 2743
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.13727,
+     "mean_p": 0.1594,
+     "brier": 0.1076,
+     "bss_B0": 0.08482,
+     "bss_B2": 0.04686,
+     "auc": 0.75799,
+     "prec_at_50_recall": 0.31059,
+     "cal_intercept": -0.33226,
+     "cal_slope": 0.90033,
+     "citl": -0.20258
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.12923,
+      0.1457
+     ],
+     "mean_p": [
+      0.15273,
+      0.16591
+     ],
+     "brier": [
+      0.10283,
+      0.11319
+     ],
+     "bss_B0": [
+      0.06988,
+      0.09804
+     ],
+     "bss_B2": [
+      0.03376,
+      0.06044
+     ],
+     "auc": [
+      0.74656,
+      0.7689
+     ],
+     "prec_at_50_recall": [
+      0.28978,
+      0.32935
+     ],
+     "cal_intercept": [
+      -0.42471,
+      -0.23839
+     ],
+     "cal_slope": [
+      0.85564,
+      0.94741
+     ],
+     "citl": [
+      -0.26165,
+      -0.1518
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.1149,
+      0.15309
+     ],
+     "mean_p": [
+      0.13441,
+      0.18713
+     ],
+     "brier": [
+      0.09371,
+      0.11756
+     ],
+     "bss_B0": [
+      0.05742,
+      0.11524
+     ],
+     "bss_B2": [
+      0.02368,
+      0.07667
+     ],
+     "auc": [
+      0.73977,
+      0.78632
+     ],
+     "prec_at_50_recall": [
+      0.26529,
+      0.34648
+     ],
+     "cal_intercept": [
+      -0.48084,
+      -0.0794
+     ],
+     "cal_slope": [
+      0.82639,
+      1.03273
+     ],
+     "citl": [
+      -0.3738,
+      -0.02497
+     ]
+    },
+    "rows": 45500,
+    "events": 6246
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.2027,
+     "mean_p": 0.23345,
+     "brier": 0.14355,
+     "bss_B0": 0.10343,
+     "bss_B2": 0.03574,
+     "auc": 0.75175,
+     "prec_at_50_recall": 0.40879,
+     "cal_intercept": -0.34819,
+     "cal_slope": 0.85443,
+     "citl": -0.2193
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.19212,
+      0.2151
+     ],
+     "mean_p": [
+      0.22463,
+      0.24233
+     ],
+     "brier": [
+      0.13853,
+      0.15093
+     ],
+     "bss_B0": [
+      0.08756,
+      0.11884
+     ],
+     "bss_B2": [
+      0.02076,
+      0.05
+     ],
+     "auc": [
+      0.73872,
+      0.76202
+     ],
+     "prec_at_50_recall": [
+      0.38704,
+      0.42883
+     ],
+     "cal_intercept": [
+      -0.4093,
+      -0.27828
+     ],
+     "cal_slope": [
+      0.80794,
+      0.89508
+     ],
+     "citl": [
+      -0.27283,
+      -0.16571
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.17063,
+      0.22635
+     ],
+     "mean_p": [
+      0.20116,
+      0.26809
+     ],
+     "brier": [
+      0.12379,
+      0.1568
+     ],
+     "bss_B0": [
+      0.06964,
+      0.14137
+     ],
+     "bss_B2": [
+      0.00746,
+      0.08019
+     ],
+     "auc": [
+      0.7311,
+      0.78477
+     ],
+     "prec_at_50_recall": [
+      0.36332,
+      0.44624
+     ],
+     "cal_intercept": [
+      -0.525,
+      -0.1019
+     ],
+     "cal_slope": [
+      0.77124,
+      1.01402
+     ],
+     "citl": [
+      -0.45034,
+      0.0012
+     ]
+    },
+    "rows": 45500,
+    "events": 9223
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.30809,
+     "mean_p": 0.3354,
+     "brier": 0.17102,
+     "bss_B0": 0.17748,
+     "bss_B2": 0.02242,
+     "auc": 0.77508,
+     "prec_at_50_recall": 0.59429,
+     "cal_intercept": -0.16625,
+     "cal_slope": 0.98475,
+     "citl": -0.159
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.29089,
+      0.32973
+     ],
+     "mean_p": [
+      0.32442,
+      0.34673
+     ],
+     "brier": [
+      0.16522,
+      0.17855
+     ],
+     "bss_B0": [
+      0.15572,
+      0.1944
+     ],
+     "bss_B2": [
+      0.0038,
+      0.03831
+     ],
+     "auc": [
+      0.76174,
+      0.78603
+     ],
+     "prec_at_50_recall": [
+      0.56672,
+      0.62268
+     ],
+     "cal_intercept": [
+      -0.23551,
+      -0.09443
+     ],
+     "cal_slope": [
+      0.93206,
+      1.0321
+     ],
+     "citl": [
+      -0.22402,
+      -0.08969
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.24474,
+      0.35107
+     ],
+     "mean_p": [
+      0.29082,
+      0.37784
+     ],
+     "brier": [
+      0.15438,
+      0.18191
+     ],
+     "bss_B0": [
+      0.14051,
+      0.20165
+     ],
+     "bss_B2": [
+      -0.02755,
+      0.06331
+     ],
+     "auc": [
+      0.75708,
+      0.79308
+     ],
+     "prec_at_50_recall": [
+      0.51584,
+      0.64325
+     ],
+     "cal_intercept": [
+      -0.52448,
+      0.12122
+     ],
+     "cal_slope": [
+      0.90794,
+      1.06995
+     ],
+     "citl": [
+      -0.53237,
+      0.11863
+     ]
+    },
+    "rows": 45500,
+    "events": 14018
+   }
+  },
+  "H|R30|primary|pre_event": {
+   "30": {
+    "point": {
+     "base_rate": 0.08108,
+     "mean_p": 0.09057,
+     "brier": 0.06718,
+     "bss_B0": 0.09607,
+     "bss_B2": 0.07371,
+     "auc": 0.79493,
+     "prec_at_50_recall": 0.24316,
+     "cal_intercept": 0.06476,
+     "cal_slope": 1.10704,
+     "citl": -0.13304
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 5388
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.17098,
+     "mean_p": 0.18614,
+     "brier": 0.12008,
+     "bss_B0": 0.14739,
+     "bss_B2": 0.0978,
+     "auc": 0.782,
+     "prec_at_50_recall": 0.41241,
+     "cal_intercept": -0.08886,
+     "cal_slope": 1.02964,
+     "citl": -0.12223
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 11362
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.23868,
+     "mean_p": 0.27025,
+     "brier": 0.14848,
+     "bss_B0": 0.17299,
+     "bss_B2": 0.10134,
+     "auc": 0.78141,
+     "prec_at_50_recall": 0.5213,
+     "cal_intercept": -0.21073,
+     "cal_slope": 0.99558,
+     "citl": -0.20767
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 15861
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.32477,
+     "mean_p": 0.38426,
+     "brier": 0.17117,
+     "bss_B0": 0.19782,
+     "bss_B2": 0.10383,
+     "auc": 0.79091,
+     "prec_at_50_recall": 0.65727,
+     "cal_intercept": -0.33559,
+     "cal_slope": 1.02407,
+     "citl": -0.34105
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 21582
+   }
+  },
+  "H_raw|R30|primary|official": {
+   "30": {
+    "point": {
+     "base_rate": 0.08108,
+     "mean_p": 0.09041,
+     "brier": 0.06716,
+     "bss_B0": 0.09613,
+     "bss_B2": 0.07374,
+     "auc": 0.79512,
+     "prec_at_50_recall": 0.244,
+     "cal_intercept": 0.07004,
+     "cal_slope": 1.10857,
+     "citl": -0.13083
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 5388
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.17098,
+     "mean_p": 0.18584,
+     "brier": 0.12007,
+     "bss_B0": 0.14706,
+     "bss_B2": 0.09786,
+     "auc": 0.78195,
+     "prec_at_50_recall": 0.41301,
+     "cal_intercept": -0.08562,
+     "cal_slope": 1.03033,
+     "citl": -0.11986
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 11362
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.23868,
+     "mean_p": 0.26983,
+     "brier": 0.14845,
+     "bss_B0": 0.17281,
+     "bss_B2": 0.10143,
+     "auc": 0.78138,
+     "prec_at_50_recall": 0.5213,
+     "cal_intercept": -0.20718,
+     "cal_slope": 0.99675,
+     "citl": -0.20492
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 15861
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.32477,
+     "mean_p": 0.38384,
+     "brier": 0.17116,
+     "bss_B0": 0.19683,
+     "bss_B2": 0.10373,
+     "auc": 0.79082,
+     "prec_at_50_recall": 0.65631,
+     "cal_intercept": -0.33263,
+     "cal_slope": 1.02534,
+     "citl": -0.33844
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 21582
+   }
+  },
+  "H_raw|R30|primary|pre_event": {
+   "30": {
+    "point": {
+     "base_rate": 0.08108,
+     "mean_p": 0.09041,
+     "brier": 0.06716,
+     "bss_B0": 0.09634,
+     "bss_B2": 0.07399,
+     "auc": 0.79512,
+     "prec_at_50_recall": 0.244,
+     "cal_intercept": 0.07004,
+     "cal_slope": 1.10857,
+     "citl": -0.13083
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 5388
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.17098,
+     "mean_p": 0.18584,
+     "brier": 0.12007,
+     "bss_B0": 0.14747,
+     "bss_B2": 0.09789,
+     "auc": 0.78195,
+     "prec_at_50_recall": 0.41301,
+     "cal_intercept": -0.08562,
+     "cal_slope": 1.03033,
+     "citl": -0.11986
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 11362
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.23868,
+     "mean_p": 0.26983,
+     "brier": 0.14845,
+     "bss_B0": 0.17313,
+     "bss_B2": 0.1015,
+     "auc": 0.78138,
+     "prec_at_50_recall": 0.5213,
+     "cal_intercept": -0.20718,
+     "cal_slope": 0.99675,
+     "citl": -0.20492
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 15861
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.32477,
+     "mean_p": 0.38384,
+     "brier": 0.17116,
+     "bss_B0": 0.1979,
+     "bss_B2": 0.10392,
+     "auc": 0.79082,
+     "prec_at_50_recall": 0.65631,
+     "cal_intercept": -0.33263,
+     "cal_slope": 1.02534,
+     "citl": -0.33844
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 21582
+   }
+  },
+  "H_all|R30|primary|official": {
+   "30": {
+    "point": {
+     "base_rate": 0.08108,
+     "mean_p": 0.08761,
+     "brier": 0.0673,
+     "bss_B0": 0.09426,
+     "bss_B2": 0.07183,
+     "auc": 0.79367,
+     "prec_at_50_recall": 0.23957,
+     "cal_intercept": 0.09824,
+     "cal_slope": 1.10054,
+     "citl": -0.09291
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 5388
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.17098,
+     "mean_p": 0.18487,
+     "brier": 0.1202,
+     "bss_B0": 0.14612,
+     "bss_B2": 0.09687,
+     "auc": 0.78168,
+     "prec_at_50_recall": 0.40915,
+     "cal_intercept": -0.04743,
+     "cal_slope": 1.0554,
+     "citl": -0.11168
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 11362
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.23868,
+     "mean_p": 0.27214,
+     "brier": 0.14866,
+     "bss_B0": 0.17163,
+     "bss_B2": 0.10015,
+     "auc": 0.78106,
+     "prec_at_50_recall": 0.52037,
+     "cal_intercept": -0.19552,
+     "cal_slope": 1.03061,
+     "citl": -0.21732
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 15861
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.32477,
+     "mean_p": 0.39877,
+     "brier": 0.17389,
+     "bss_B0": 0.18401,
+     "bss_B2": 0.08942,
+     "auc": 0.789,
+     "prec_at_50_recall": 0.64815,
+     "cal_intercept": -0.40347,
+     "cal_slope": 1.05506,
+     "citl": -0.41375
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 21582
+   }
+  },
+  "H_all|R30|primary|pre_event": {
+   "30": {
+    "point": {
+     "base_rate": 0.08108,
+     "mean_p": 0.08761,
+     "brier": 0.0673,
+     "bss_B0": 0.09447,
+     "bss_B2": 0.07208,
+     "auc": 0.79367,
+     "prec_at_50_recall": 0.23957,
+     "cal_intercept": 0.09824,
+     "cal_slope": 1.10054,
+     "citl": -0.09291
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 5388
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.17098,
+     "mean_p": 0.18487,
+     "brier": 0.1202,
+     "bss_B0": 0.14653,
+     "bss_B2": 0.09689,
+     "auc": 0.78168,
+     "prec_at_50_recall": 0.40915,
+     "cal_intercept": -0.04743,
+     "cal_slope": 1.0554,
+     "citl": -0.11168
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 11362
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.23868,
+     "mean_p": 0.27214,
+     "brier": 0.14866,
+     "bss_B0": 0.17195,
+     "bss_B2": 0.10022,
+     "auc": 0.78106,
+     "prec_at_50_recall": 0.52037,
+     "cal_intercept": -0.19552,
+     "cal_slope": 1.03061,
+     "citl": -0.21732
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 15861
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.32477,
+     "mean_p": 0.39877,
+     "brier": 0.17389,
+     "bss_B0": 0.18509,
+     "bss_B2": 0.08962,
+     "auc": 0.789,
+     "prec_at_50_recall": 0.64815,
+     "cal_intercept": -0.40347,
+     "cal_slope": 1.05506,
+     "citl": -0.41375
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 66453,
+    "events": 21582
+   }
+  },
+  "H|D0|primary|official": {
+   "30": {
+    "point": {
+     "base_rate": 0.03694,
+     "mean_p": 0.04104,
+     "brier": 0.03247,
+     "bss_B0": 0.0865,
+     "bss_B2": 0.06187,
+     "auc": 0.84355,
+     "prec_at_50_recall": 0.17908,
+     "cal_intercept": 0.178,
+     "cal_slope": 1.12204,
+     "citl": -0.11854
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.03447,
+      0.03994
+     ],
+     "mean_p": [
+      0.03884,
+      0.04331
+     ],
+     "brier": [
+      0.03049,
+      0.03482
+     ],
+     "bss_B0": [
+      0.07667,
+      0.09713
+     ],
+     "bss_B2": [
+      0.05448,
+      0.0697
+     ],
+     "auc": [
+      0.83371,
+      0.85349
+     ],
+     "prec_at_50_recall": [
+      0.16096,
+      0.19574
+     ],
+     "cal_intercept": [
+      0.0419,
+      0.33277
+     ],
+     "cal_slope": [
+      1.0747,
+      1.17695
+     ],
+     "citl": [
+      -0.17627,
+      -0.0539
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.02916,
+      0.04447
+     ],
+     "mean_p": [
+      0.03499,
+      0.04663
+     ],
+     "brier": [
+      0.02616,
+      0.03848
+     ],
+     "bss_B0": [
+      0.06882,
+      0.09724
+     ],
+     "bss_B2": [
+      0.04728,
+      0.07398
+     ],
+     "auc": [
+      0.83216,
+      0.85244
+     ],
+     "prec_at_50_recall": [
+      0.14004,
+      0.2019
+     ],
+     "cal_intercept": [
+      -0.06784,
+      0.37243
+     ],
+     "cal_slope": [
+      1.06624,
+      1.17251
+     ],
+     "citl": [
+      -0.28918,
+      0.01577
+     ]
+    },
+    "rows": 86651,
+    "events": 3201
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.07916,
+     "mean_p": 0.08693,
+     "brier": 0.06226,
+     "bss_B0": 0.14418,
+     "bss_B2": 0.088,
+     "auc": 0.83671,
+     "prec_at_50_recall": 0.3082,
+     "cal_intercept": 0.01561,
+     "cal_slope": 1.07733,
+     "citl": -0.11873
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.07409,
+      0.08497
+     ],
+     "mean_p": [
+      0.08245,
+      0.09136
+     ],
+     "brier": [
+      0.0588,
+      0.0662
+     ],
+     "bss_B0": [
+      0.13024,
+      0.15781
+     ],
+     "bss_B2": [
+      0.07863,
+      0.09826
+     ],
+     "auc": [
+      0.82757,
+      0.84577
+     ],
+     "prec_at_50_recall": [
+      0.28553,
+      0.33349
+     ],
+     "cal_intercept": [
+      -0.07998,
+      0.11461
+     ],
+     "cal_slope": [
+      1.03113,
+      1.12742
+     ],
+     "citl": [
+      -0.16799,
+      -0.06586
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.06436,
+      0.09308
+     ],
+     "mean_p": [
+      0.07529,
+      0.09912
+     ],
+     "brier": [
+      0.05294,
+      0.07072
+     ],
+     "bss_B0": [
+      0.11461,
+      0.16506
+     ],
+     "bss_B2": [
+      0.05852,
+      0.1123
+     ],
+     "auc": [
+      0.8258,
+      0.84684
+     ],
+     "prec_at_50_recall": [
+      0.25726,
+      0.3574
+     ],
+     "cal_intercept": [
+      -0.28743,
+      0.30762
+     ],
+     "cal_slope": [
+      1.01514,
+      1.1536
+     ],
+     "citl": [
+      -0.33314,
+      0.04975
+     ]
+    },
+    "rows": 86651,
+    "events": 6859
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.11417,
+     "mean_p": 0.13115,
+     "brier": 0.08303,
+     "bss_B0": 0.17638,
+     "bss_B2": 0.09367,
+     "auc": 0.83184,
+     "prec_at_50_recall": 0.39662,
+     "cal_intercept": -0.14431,
+     "cal_slope": 1.03724,
+     "citl": -0.19405
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.10701,
+      0.12261
+     ],
+     "mean_p": [
+      0.12464,
+      0.13738
+     ],
+     "brier": [
+      0.07862,
+      0.08773
+     ],
+     "bss_B0": [
+      0.16037,
+      0.19361
+     ],
+     "bss_B2": [
+      0.08266,
+      0.10633
+     ],
+     "auc": [
+      0.82229,
+      0.84152
+     ],
+     "prec_at_50_recall": [
+      0.37123,
+      0.42252
+     ],
+     "cal_intercept": [
+      -0.22085,
+      -0.05802
+     ],
+     "cal_slope": [
+      0.99935,
+      1.08555
+     ],
+     "citl": [
+      -0.24491,
+      -0.13831
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.09475,
+      0.13369
+     ],
+     "mean_p": [
+      0.11593,
+      0.14904
+     ],
+     "brier": [
+      0.07349,
+      0.0915
+     ],
+     "bss_B0": [
+      0.13611,
+      0.20774
+     ],
+     "bss_B2": [
+      0.05355,
+      0.12588
+     ],
+     "auc": [
+      0.8203,
+      0.84201
+     ],
+     "prec_at_50_recall": [
+      0.33336,
+      0.46151
+     ],
+     "cal_intercept": [
+      -0.45201,
+      0.15108
+     ],
+     "cal_slope": [
+      0.96681,
+      1.12244
+     ],
+     "citl": [
+      -0.43342,
+      0.00112
+     ]
+    },
+    "rows": 86651,
+    "events": 9893
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.16532,
+     "mean_p": 0.19887,
+     "brier": 0.10502,
+     "bss_B0": 0.23014,
+     "bss_B2": 0.09097,
+     "auc": 0.83663,
+     "prec_at_50_recall": 0.53435,
+     "cal_intercept": -0.22476,
+     "cal_slope": 1.07777,
+     "citl": -0.29469
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.15448,
+      0.17756
+     ],
+     "mean_p": [
+      0.19024,
+      0.20722
+     ],
+     "brier": [
+      0.10028,
+      0.11028
+     ],
+     "bss_B0": [
+      0.20759,
+      0.25367
+     ],
+     "bss_B2": [
+      0.07707,
+      0.10564
+     ],
+     "auc": [
+      0.82489,
+      0.84794
+     ],
+     "prec_at_50_recall": [
+      0.49785,
+      0.57496
+     ],
+     "cal_intercept": [
+      -0.29997,
+      -0.15168
+     ],
+     "cal_slope": [
+      1.03204,
+      1.12821
+     ],
+     "citl": [
+      -0.35414,
+      -0.23122
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.14214,
+      0.18816
+     ],
+     "mean_p": [
+      0.17851,
+      0.2228
+     ],
+     "brier": [
+      0.09872,
+      0.11209
+     ],
+     "bss_B0": [
+      0.18688,
+      0.26945
+     ],
+     "bss_B2": [
+      0.05399,
+      0.12963
+     ],
+     "auc": [
+      0.82084,
+      0.85181
+     ],
+     "prec_at_50_recall": [
+      0.45243,
+      0.61071
+     ],
+     "cal_intercept": [
+      -0.5167,
+      0.02516
+     ],
+     "cal_slope": [
+      1.00108,
+      1.17392
+     ],
+     "citl": [
+      -0.52629,
+      -0.12534
+     ]
+    },
+    "rows": 86651,
+    "events": 14325
+   }
+  },
+  "H|D0|dam_like+at_risk|official": {
+   "30": {
+    "point": {
+     "base_rate": 0.02653,
+     "mean_p": 0.02942,
+     "brier": 0.02362,
+     "bss_B0": 0.08019,
+     "bss_B2": 0.05639,
+     "auc": 0.8636,
+     "prec_at_50_recall": 0.15497,
+     "cal_intercept": 0.2404,
+     "cal_slope": 1.13418,
+     "citl": -0.11471
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.025,
+      0.02892
+     ],
+     "mean_p": [
+      0.0281,
+      0.03125
+     ],
+     "brier": [
+      0.0223,
+      0.0255
+     ],
+     "bss_B0": [
+      0.07197,
+      0.08903
+     ],
+     "bss_B2": [
+      0.05036,
+      0.06413
+     ],
+     "auc": [
+      0.85569,
+      0.8723
+     ],
+     "prec_at_50_recall": [
+      0.14125,
+      0.17348
+     ],
+     "cal_intercept": [
+      0.1111,
+      0.36992
+     ],
+     "cal_slope": [
+      1.08762,
+      1.17798
+     ],
+     "citl": [
+      -0.16466,
+      -0.05953
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.02171,
+      0.03082
+     ],
+     "mean_p": [
+      0.02554,
+      0.03267
+     ],
+     "brier": [
+      0.01957,
+      0.02715
+     ],
+     "bss_B0": [
+      0.06589,
+      0.08882
+     ],
+     "bss_B2": [
+      0.04662,
+      0.069
+     ],
+     "auc": [
+      0.85107,
+      0.87429
+     ],
+     "prec_at_50_recall": [
+      0.1296,
+      0.17863
+     ],
+     "cal_intercept": [
+      0.02603,
+      0.41071
+     ],
+     "cal_slope": [
+      1.08064,
+      1.18557
+     ],
+     "citl": [
+      -0.21753,
+      -0.02658
+     ]
+    },
+    "rows": 160529,
+    "events": 4259
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.05947,
+     "mean_p": 0.06428,
+     "brier": 0.04773,
+     "bss_B0": 0.13667,
+     "bss_B2": 0.08442,
+     "auc": 0.85574,
+     "prec_at_50_recall": 0.28554,
+     "cal_intercept": 0.10477,
+     "cal_slope": 1.10223,
+     "citl": -0.09575
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.05588,
+      0.06398
+     ],
+     "mean_p": [
+      0.06161,
+      0.06804
+     ],
+     "brier": [
+      0.04536,
+      0.05086
+     ],
+     "bss_B0": [
+      0.12494,
+      0.14848
+     ],
+     "bss_B2": [
+      0.07621,
+      0.09272
+     ],
+     "auc": [
+      0.84784,
+      0.86353
+     ],
+     "prec_at_50_recall": [
+      0.26553,
+      0.30897
+     ],
+     "cal_intercept": [
+      0.02221,
+      0.20286
+     ],
+     "cal_slope": [
+      1.06848,
+      1.14464
+     ],
+     "citl": [
+      -0.14595,
+      -0.05194
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.04908,
+      0.06749
+     ],
+     "mean_p": [
+      0.05653,
+      0.07091
+     ],
+     "brier": [
+      0.04047,
+      0.05358
+     ],
+     "bss_B0": [
+      0.11347,
+      0.15019
+     ],
+     "bss_B2": [
+      0.06403,
+      0.10284
+     ],
+     "auc": [
+      0.84307,
+      0.8654
+     ],
+     "prec_at_50_recall": [
+      0.2435,
+      0.31659
+     ],
+     "cal_intercept": [
+      -0.14054,
+      0.29945
+     ],
+     "cal_slope": [
+      1.0326,
+      1.16215
+     ],
+     "citl": [
+      -0.23886,
+      0.01014
+     ]
+    },
+    "rows": 160529,
+    "events": 9547
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.09106,
+     "mean_p": 0.09935,
+     "brier": 0.06784,
+     "bss_B0": 0.16755,
+     "bss_B2": 0.09521,
+     "auc": 0.84705,
+     "prec_at_50_recall": 0.36864,
+     "cal_intercept": -0.02933,
+     "cal_slope": 1.0554,
+     "citl": -0.1175
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.08585,
+      0.09795
+     ],
+     "mean_p": [
+      0.09535,
+      0.10514
+     ],
+     "brier": [
+      0.06442,
+      0.07202
+     ],
+     "bss_B0": [
+      0.15318,
+      0.17947
+     ],
+     "bss_B2": [
+      0.08591,
+      0.10498
+     ],
+     "auc": [
+      0.83819,
+      0.85419
+     ],
+     "prec_at_50_recall": [
+      0.34426,
+      0.39038
+     ],
+     "cal_intercept": [
+      -0.10165,
+      0.04251
+     ],
+     "cal_slope": [
+      1.02023,
+      1.09363
+     ],
+     "citl": [
+      -0.16643,
+      -0.07374
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.0739,
+      0.1036
+     ],
+     "mean_p": [
+      0.08788,
+      0.1089
+     ],
+     "brier": [
+      0.05796,
+      0.07491
+     ],
+     "bss_B0": [
+      0.14192,
+      0.18563
+     ],
+     "bss_B2": [
+      0.06696,
+      0.11819
+     ],
+     "auc": [
+      0.83549,
+      0.85583
+     ],
+     "prec_at_50_recall": [
+      0.31732,
+      0.40539
+     ],
+     "cal_intercept": [
+      -0.27763,
+      0.1787
+     ],
+     "cal_slope": [
+      0.98506,
+      1.11752
+     ],
+     "citl": [
+      -0.29015,
+      0.00817
+     ]
+    },
+    "rows": 160529,
+    "events": 14617
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.15881,
+     "mean_p": 0.1748,
+     "brier": 0.10344,
+     "bss_B0": 0.2138,
+     "bss_B2": 0.09232,
+     "auc": 0.83104,
+     "prec_at_50_recall": 0.49254,
+     "cal_intercept": -0.09586,
+     "cal_slope": 1.04726,
+     "citl": -0.14827
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.14965,
+      0.17033
+     ],
+     "mean_p": [
+      0.16861,
+      0.18406
+     ],
+     "brier": [
+      0.09925,
+      0.10888
+     ],
+     "bss_B0": [
+      0.19417,
+      0.23121
+     ],
+     "bss_B2": [
+      0.08151,
+      0.10249
+     ],
+     "auc": [
+      0.82161,
+      0.83945
+     ],
+     "prec_at_50_recall": [
+      0.46309,
+      0.52268
+     ],
+     "cal_intercept": [
+      -0.16295,
+      -0.04124
+     ],
+     "cal_slope": [
+      1.00909,
+      1.08227
+     ],
+     "citl": [
+      -0.20429,
+      -0.10043
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.13223,
+      0.182
+     ],
+     "mean_p": [
+      0.15421,
+      0.19238
+     ],
+     "brier": [
+      0.09274,
+      0.11317
+     ],
+     "bss_B0": [
+      0.18895,
+      0.23681
+     ],
+     "bss_B2": [
+      0.07074,
+      0.11038
+     ],
+     "auc": [
+      0.81989,
+      0.84116
+     ],
+     "prec_at_50_recall": [
+      0.43644,
+      0.54532
+     ],
+     "cal_intercept": [
+      -0.3325,
+      0.11959
+     ],
+     "cal_slope": [
+      0.99071,
+      1.10756
+     ],
+     "citl": [
+      -0.38162,
+      0.02655
+     ]
+    },
+    "rows": 160529,
+    "events": 25494
+   }
+  },
+  "H|D0|persistent+octmar+at_risk|official": {
+   "30": {
+    "point": {
+     "base_rate": 0.01423,
+     "mean_p": 0.01975,
+     "brier": 0.01357,
+     "bss_B0": 0.03295,
+     "bss_B2": 0.02767,
+     "auc": 0.82373,
+     "prec_at_50_recall": 0.07072,
+     "cal_intercept": 0.07737,
+     "cal_slope": 1.13081,
+     "citl": -0.34418
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.01238,
+      0.01601
+     ],
+     "mean_p": [
+      0.01848,
+      0.02087
+     ],
+     "brier": [
+      0.01194,
+      0.01517
+     ],
+     "bss_B0": [
+      0.02,
+      0.04422
+     ],
+     "bss_B2": [
+      0.01672,
+      0.03592
+     ],
+     "auc": [
+      0.804,
+      0.8432
+     ],
+     "prec_at_50_recall": [
+      0.05691,
+      0.08734
+     ],
+     "cal_intercept": [
+      -0.26968,
+      0.40543
+     ],
+     "cal_slope": [
+      1.03563,
+      1.23
+     ],
+     "citl": [
+      -0.46763,
+      -0.23566
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.01101,
+      0.01857
+     ],
+     "mean_p": [
+      0.01592,
+      0.02314
+     ],
+     "brier": [
+      0.01069,
+      0.01725
+     ],
+     "bss_B0": [
+      0.01169,
+      0.0472
+     ],
+     "bss_B2": [
+      0.01066,
+      0.0401
+     ],
+     "auc": [
+      0.80277,
+      0.84349
+     ],
+     "prec_at_50_recall": [
+      0.04854,
+      0.09663
+     ],
+     "cal_intercept": [
+      -0.39308,
+      0.4608
+     ],
+     "cal_slope": [
+      1.01475,
+      1.23131
+     ],
+     "citl": [
+      -0.55177,
+      -0.12091
+     ]
+    },
+    "rows": 58249,
+    "events": 829
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.03373,
+     "mean_p": 0.04272,
+     "brier": 0.03037,
+     "bss_B0": 0.06886,
+     "bss_B2": 0.04904,
+     "auc": 0.82156,
+     "prec_at_50_recall": 0.14172,
+     "cal_intercept": 0.06795,
+     "cal_slope": 1.13245,
+     "citl": -0.26192
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.02965,
+      0.03747
+     ],
+     "mean_p": [
+      0.04003,
+      0.04503
+     ],
+     "brier": [
+      0.02714,
+      0.03329
+     ],
+     "bss_B0": [
+      0.04813,
+      0.08554
+     ],
+     "bss_B2": [
+      0.03227,
+      0.06282
+     ],
+     "auc": [
+      0.80393,
+      0.83836
+     ],
+     "prec_at_50_recall": [
+      0.12057,
+      0.16411
+     ],
+     "cal_intercept": [
+      -0.1861,
+      0.30388
+     ],
+     "cal_slope": [
+      1.05489,
+      1.22215
+     ],
+     "citl": [
+      -0.38667,
+      -0.16962
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.0272,
+      0.04027
+     ],
+     "mean_p": [
+      0.03465,
+      0.04977
+     ],
+     "brier": [
+      0.02511,
+      0.0354
+     ],
+     "bss_B0": [
+      0.03408,
+      0.09364
+     ],
+     "bss_B2": [
+      0.02161,
+      0.07187
+     ],
+     "auc": [
+      0.7989,
+      0.84147
+     ],
+     "prec_at_50_recall": [
+      0.09971,
+      0.183
+     ],
+     "cal_intercept": [
+      -0.37661,
+      0.45393
+     ],
+     "cal_slope": [
+      0.99636,
+      1.25274
+     ],
+     "citl": [
+      -0.45893,
+      -0.08601
+     ]
+    },
+    "rows": 58249,
+    "events": 1965
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.05063,
+     "mean_p": 0.066,
+     "brier": 0.04441,
+     "bss_B0": 0.07553,
+     "bss_B2": 0.04337,
+     "auc": 0.80932,
+     "prec_at_50_recall": 0.17838,
+     "cal_intercept": -0.16384,
+     "cal_slope": 1.06922,
+     "citl": -0.30851
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.04493,
+      0.05625
+     ],
+     "mean_p": [
+      0.06192,
+      0.06947
+     ],
+     "brier": [
+      0.04015,
+      0.04852
+     ],
+     "bss_B0": [
+      0.05099,
+      0.09478
+     ],
+     "bss_B2": [
+      0.02529,
+      0.05984
+     ],
+     "auc": [
+      0.79168,
+      0.82608
+     ],
+     "prec_at_50_recall": [
+      0.15314,
+      0.20748
+     ],
+     "cal_intercept": [
+      -0.35974,
+      0.03307
+     ],
+     "cal_slope": [
+      0.99524,
+      1.15
+     ],
+     "citl": [
+      -0.41387,
+      -0.21389
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.04062,
+      0.05995
+     ],
+     "mean_p": [
+      0.05462,
+      0.07653
+     ],
+     "brier": [
+      0.03724,
+      0.05062
+     ],
+     "bss_B0": [
+      0.02097,
+      0.10969
+     ],
+     "bss_B2": [
+      4e-05,
+      0.07872
+     ],
+     "auc": [
+      0.78471,
+      0.82805
+     ],
+     "prec_at_50_recall": [
+      0.13186,
+      0.22604
+     ],
+     "cal_intercept": [
+      -0.57475,
+      0.20545
+     ],
+     "cal_slope": [
+      0.92911,
+      1.19108
+     ],
+     "citl": [
+      -0.5266,
+      -0.1252
+     ]
+    },
+    "rows": 58249,
+    "events": 2949
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.07937,
+     "mean_p": 0.10455,
+     "brier": 0.06601,
+     "bss_B0": 0.09416,
+     "bss_B2": 0.01795,
+     "auc": 0.80333,
+     "prec_at_50_recall": 0.24799,
+     "cal_intercept": -0.23986,
+     "cal_slope": 1.06266,
+     "citl": -0.34343
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.06992,
+      0.08776
+     ],
+     "mean_p": [
+      0.09868,
+      0.10966
+     ],
+     "brier": [
+      0.05964,
+      0.07141
+     ],
+     "bss_B0": [
+      0.06795,
+      0.1191
+     ],
+     "bss_B2": [
+      -0.00968,
+      0.0433
+     ],
+     "auc": [
+      0.78679,
+      0.8197
+     ],
+     "prec_at_50_recall": [
+      0.21414,
+      0.27799
+     ],
+     "cal_intercept": [
+      -0.40111,
+      -0.08988
+     ],
+     "cal_slope": [
+      0.98452,
+      1.14488
+     ],
+     "citl": [
+      -0.46271,
+      -0.24466
+     ]
+    },
+    "ci_region_year": {
+     "base_rate": [
+      0.06586,
+      0.08786
+     ],
+     "mean_p": [
+      0.08823,
+      0.12087
+     ],
+     "brier": [
+      0.05868,
+      0.07168
+     ],
+     "bss_B0": [
+      0.05927,
+      0.11931
+     ],
+     "bss_B2": [
+      -0.01932,
+      0.06157
+     ],
+     "auc": [
+      0.7864,
+      0.81933
+     ],
+     "prec_at_50_recall": [
+      0.2032,
+      0.27572
+     ],
+     "cal_intercept": [
+      -0.50015,
+      0.04821
+     ],
+     "cal_slope": [
+      0.96694,
+      1.1769
+     ],
+     "citl": [
+      -0.54314,
+      -0.16143
+     ]
+    },
+    "rows": 58249,
+    "events": 4623
+   }
+  },
+  "H|D0|primary|pre_event": {
+   "30": {
+    "point": {
+     "base_rate": 0.03694,
+     "mean_p": 0.04104,
+     "brier": 0.03247,
+     "bss_B0": 0.08654,
+     "bss_B2": 0.06227,
+     "auc": 0.84355,
+     "prec_at_50_recall": 0.17908,
+     "cal_intercept": 0.178,
+     "cal_slope": 1.12204,
+     "citl": -0.11854
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 3201
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.07916,
+     "mean_p": 0.08693,
+     "brier": 0.06226,
+     "bss_B0": 0.14445,
+     "bss_B2": 0.088,
+     "auc": 0.83671,
+     "prec_at_50_recall": 0.3082,
+     "cal_intercept": 0.01561,
+     "cal_slope": 1.07733,
+     "citl": -0.11873
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 6859
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.11417,
+     "mean_p": 0.13115,
+     "brier": 0.08303,
+     "bss_B0": 0.17674,
+     "bss_B2": 0.09368,
+     "auc": 0.83184,
+     "prec_at_50_recall": 0.39662,
+     "cal_intercept": -0.14431,
+     "cal_slope": 1.03724,
+     "citl": -0.19405
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 9893
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.16532,
+     "mean_p": 0.19887,
+     "brier": 0.10502,
+     "bss_B0": 0.23084,
+     "bss_B2": 0.09102,
+     "auc": 0.83663,
+     "prec_at_50_recall": 0.53435,
+     "cal_intercept": -0.22476,
+     "cal_slope": 1.07777,
+     "citl": -0.29469
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 14325
+   }
+  },
+  "H_all|D0|primary|official": {
+   "30": {
+    "point": {
+     "base_rate": 0.03694,
+     "mean_p": 0.04158,
+     "brier": 0.03248,
+     "bss_B0": 0.08622,
+     "bss_B2": 0.06158,
+     "auc": 0.84271,
+     "prec_at_50_recall": 0.16965,
+     "cal_intercept": 0.1831,
+     "cal_slope": 1.12985,
+     "citl": -0.13349
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 3201
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.07916,
+     "mean_p": 0.08988,
+     "brier": 0.06246,
+     "bss_B0": 0.14145,
+     "bss_B2": 0.08508,
+     "auc": 0.83507,
+     "prec_at_50_recall": 0.30554,
+     "cal_intercept": -0.00778,
+     "cal_slope": 1.08904,
+     "citl": -0.16115
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 6859
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.11417,
+     "mean_p": 0.13665,
+     "brier": 0.08323,
+     "bss_B0": 0.17438,
+     "bss_B2": 0.09147,
+     "auc": 0.83138,
+     "prec_at_50_recall": 0.3906,
+     "cal_intercept": -0.17526,
+     "cal_slope": 1.05847,
+     "citl": -0.25179
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 9893
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.16532,
+     "mean_p": 0.21336,
+     "brier": 0.10663,
+     "bss_B0": 0.21837,
+     "bss_B2": 0.07707,
+     "auc": 0.83574,
+     "prec_at_50_recall": 0.52828,
+     "cal_intercept": -0.32179,
+     "cal_slope": 1.1029,
+     "citl": -0.40738
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 14325
+   }
+  },
+  "H_all|D0|primary|pre_event": {
+   "30": {
+    "point": {
+     "base_rate": 0.03694,
+     "mean_p": 0.04158,
+     "brier": 0.03248,
+     "bss_B0": 0.08626,
+     "bss_B2": 0.06198,
+     "auc": 0.84271,
+     "prec_at_50_recall": 0.16965,
+     "cal_intercept": 0.1831,
+     "cal_slope": 1.12985,
+     "citl": -0.13349
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 3201
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.07916,
+     "mean_p": 0.08988,
+     "brier": 0.06246,
+     "bss_B0": 0.14172,
+     "bss_B2": 0.08509,
+     "auc": 0.83507,
+     "prec_at_50_recall": 0.30554,
+     "cal_intercept": -0.00778,
+     "cal_slope": 1.08904,
+     "citl": -0.16115
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 6859
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.11417,
+     "mean_p": 0.13665,
+     "brier": 0.08323,
+     "bss_B0": 0.17475,
+     "bss_B2": 0.09149,
+     "auc": 0.83138,
+     "prec_at_50_recall": 0.3906,
+     "cal_intercept": -0.17526,
+     "cal_slope": 1.05847,
+     "citl": -0.25179
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 9893
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.16532,
+     "mean_p": 0.21336,
+     "brier": 0.10663,
+     "bss_B0": 0.21907,
+     "bss_B2": 0.07712,
+     "auc": 0.83574,
+     "prec_at_50_recall": 0.52828,
+     "cal_intercept": -0.32179,
+     "cal_slope": 1.1029,
+     "citl": -0.40738
+    },
+    "ci_dam": {},
+    "ci_region_year": {},
+    "rows": 86651,
+    "events": 14325
+   }
+  }
+ },
+ "slices_90d": {
+  "H_90d|R30": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.27025,
+    "brier": 0.14848,
+    "bss_B0": 0.17267,
+    "bss_B2": 0.10166,
+    "auc": 0.78141,
+    "prec_at_50_recall": 0.5213,
+    "cal_intercept": -0.21073,
+    "cal_slope": 0.99558,
+    "citl": -0.20767,
+    "bss_vs_G2c": -0.00217,
+    "d_bss_B0_vs_G2c": -0.00179,
+    "d_auc_vs_G2c": -0.00077,
+    "bss_vs_G2": 0.00323,
+    "d_bss_B0_vs_G2": 0.00268,
+    "d_auc_vs_G2": 0.00051,
+    "bss_vs_tidemark_L1": 0.00153,
+    "d_bss_B0_vs_tidemark_L1": 0.00127,
+    "d_auc_vs_tidemark_L1": -0.00031
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.22911,
+     0.24998
+    ],
+    "mean_p": [
+     0.26188,
+     0.27933
+    ],
+    "brier": [
+     0.1441,
+     0.1534
+    ],
+    "bss_B0": [
+     0.15754,
+     0.18723
+    ],
+    "bss_B2": [
+     0.09003,
+     0.11326
+    ],
+    "auc": [
+     0.77147,
+     0.79174
+    ],
+    "prec_at_50_recall": [
+     0.49992,
+     0.54442
+    ],
+    "cal_intercept": [
+     -0.25917,
+     -0.15808
+    ],
+    "cal_slope": [
+     0.95235,
+     1.04088
+    ],
+    "citl": [
+     -0.24796,
+     -0.16347
+    ],
+    "bss_vs_G2c": [
+     -0.00488,
+     0.00065
+    ],
+    "d_bss_B0_vs_G2c": [
+     -0.00403,
+     0.00054
+    ],
+    "d_auc_vs_G2c": [
+     -0.00203,
+     0.00044
+    ],
+    "bss_vs_G2": [
+     -0.00179,
+     0.00803
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00149,
+     0.00673
+    ],
+    "d_auc_vs_G2": [
+     -0.00176,
+     0.00256
+    ],
+    "bss_vs_tidemark_L1": [
+     -0.00393,
+     0.00655
+    ],
+    "d_bss_B0_vs_tidemark_L1": [
+     -0.00325,
+     0.00547
+    ],
+    "d_auc_vs_tidemark_L1": [
+     -0.00259,
+     0.0019
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.20468,
+     0.27118
+    ],
+    "mean_p": [
+     0.24397,
+     0.30197
+    ],
+    "brier": [
+     0.13667,
+     0.15842
+    ],
+    "bss_B0": [
+     0.14605,
+     0.19564
+    ],
+    "bss_B2": [
+     0.07958,
+     0.12623
+    ],
+    "auc": [
+     0.77055,
+     0.79239
+    ],
+    "prec_at_50_recall": [
+     0.464,
+     0.57283
+    ],
+    "cal_intercept": [
+     -0.41956,
+     -0.03033
+    ],
+    "cal_slope": [
+     0.94441,
+     1.05813
+    ],
+    "citl": [
+     -0.42851,
+     -0.0427
+    ],
+    "bss_vs_G2c": [
+     -0.00759,
+     0.00308
+    ],
+    "d_bss_B0_vs_G2c": [
+     -0.00621,
+     0.00252
+    ],
+    "d_auc_vs_G2c": [
+     -0.0036,
+     0.00173
+    ],
+    "bss_vs_G2": [
+     -0.00636,
+     0.01373
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00524,
+     0.01162
+    ],
+    "d_auc_vs_G2": [
+     -0.00463,
+     0.00569
+    ],
+    "bss_vs_tidemark_L1": [
+     -0.00903,
+     0.01377
+    ],
+    "d_bss_B0_vs_tidemark_L1": [
+     -0.00738,
+     0.01164
+    ],
+    "d_auc_vs_tidemark_L1": [
+     -0.00556,
+     0.00552
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2c",
+    "G2",
+    "tidemark_L1"
+   ]
+  },
+  "H_raw_90d|R30": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.26983,
+    "brier": 0.14845,
+    "bss_B0": 0.17281,
+    "bss_B2": 0.10182,
+    "auc": 0.78138,
+    "prec_at_50_recall": 0.5213,
+    "cal_intercept": -0.20718,
+    "cal_slope": 0.99675,
+    "citl": -0.20492,
+    "bss_vs_G2c": -0.00199,
+    "d_bss_B0_vs_G2c": -0.00164,
+    "d_auc_vs_G2c": -0.00081,
+    "bss_vs_G2": 0.0034,
+    "d_bss_B0_vs_G2": 0.00283,
+    "d_auc_vs_G2": 0.00048
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2c",
+    "G2"
+   ]
+  },
+  "H_all_90d|R30": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.27214,
+    "brier": 0.14866,
+    "bss_B0": 0.17163,
+    "bss_B2": 0.10053,
+    "auc": 0.78106,
+    "prec_at_50_recall": 0.52037,
+    "cal_intercept": -0.19552,
+    "cal_slope": 1.03061,
+    "citl": -0.21732,
+    "bss_vs_G2": 0.00198,
+    "d_bss_B0_vs_G2": 0.00164,
+    "d_auc_vs_G2": 0.00016,
+    "bss_vs_G2c": -0.00342,
+    "d_bss_B0_vs_G2c": -0.00282,
+    "d_auc_vs_G2c": -0.00113
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.22892,
+     0.25006
+    ],
+    "mean_p": [
+     0.26456,
+     0.28245
+    ],
+    "brier": [
+     0.14413,
+     0.1538
+    ],
+    "bss_B0": [
+     0.15595,
+     0.18826
+    ],
+    "bss_B2": [
+     0.09091,
+     0.11183
+    ],
+    "auc": [
+     0.77098,
+     0.79197
+    ],
+    "prec_at_50_recall": [
+     0.49718,
+     0.54591
+    ],
+    "cal_intercept": [
+     -0.24446,
+     -0.14586
+    ],
+    "cal_slope": [
+     0.9901,
+     1.07479
+    ],
+    "citl": [
+     -0.26171,
+     -0.17485
+    ],
+    "bss_vs_G2": [
+     -0.00157,
+     0.0052
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00126,
+     0.00434
+    ],
+    "d_auc_vs_G2": [
+     -0.00127,
+     0.00175
+    ],
+    "bss_vs_G2c": [
+     -0.00815,
+     0.00088
+    ],
+    "d_bss_B0_vs_G2c": [
+     -0.00671,
+     0.00073
+    ],
+    "d_auc_vs_G2c": [
+     -0.00327,
+     0.00066
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.20561,
+     0.27158
+    ],
+    "mean_p": [
+     0.24903,
+     0.30031
+    ],
+    "brier": [
+     0.13682,
+     0.15853
+    ],
+    "bss_B0": [
+     0.14548,
+     0.19553
+    ],
+    "bss_B2": [
+     0.07901,
+     0.12275
+    ],
+    "auc": [
+     0.7707,
+     0.79416
+    ],
+    "prec_at_50_recall": [
+     0.47157,
+     0.56483
+    ],
+    "cal_intercept": [
+     -0.42479,
+     -0.01874
+    ],
+    "cal_slope": [
+     0.97891,
+     1.09981
+    ],
+    "citl": [
+     -0.44023,
+     -0.07394
+    ],
+    "bss_vs_G2": [
+     -0.00346,
+     0.00692
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00277,
+     0.00598
+    ],
+    "d_auc_vs_G2": [
+     -0.0024,
+     0.00268
+    ],
+    "bss_vs_G2c": [
+     -0.01057,
+     0.00359
+    ],
+    "d_bss_B0_vs_G2c": [
+     -0.00887,
+     0.00292
+    ],
+    "d_auc_vs_G2c": [
+     -0.00317,
+     0.00075
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "G2c"
+   ]
+  },
+  "H_90d|D0": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.13115,
+    "brier": 0.08303,
+    "bss_B0": 0.17638,
+    "bss_B2": 0.09366,
+    "auc": 0.83184,
+    "prec_at_50_recall": 0.39662,
+    "cal_intercept": -0.14431,
+    "cal_slope": 1.03724,
+    "citl": -0.19405,
+    "bss_vs_G2c": -4e-05,
+    "d_bss_B0_vs_G2c": -4e-05,
+    "d_auc_vs_G2c": 2e-05,
+    "bss_vs_G2": 0.00123,
+    "d_bss_B0_vs_G2": 0.00102,
+    "d_auc_vs_G2": -0.00042,
+    "bss_vs_tidemark_L1": -0.00077,
+    "d_bss_B0_vs_tidemark_L1": -0.00064,
+    "d_auc_vs_tidemark_L1": -0.00138
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.10701,
+     0.12261
+    ],
+    "mean_p": [
+     0.12464,
+     0.13738
+    ],
+    "brier": [
+     0.07862,
+     0.08773
+    ],
+    "bss_B0": [
+     0.16037,
+     0.19361
+    ],
+    "bss_B2": [
+     0.0826,
+     0.10633
+    ],
+    "auc": [
+     0.82229,
+     0.84152
+    ],
+    "prec_at_50_recall": [
+     0.37123,
+     0.42252
+    ],
+    "cal_intercept": [
+     -0.22085,
+     -0.05802
+    ],
+    "cal_slope": [
+     0.99935,
+     1.08555
+    ],
+    "citl": [
+     -0.24491,
+     -0.13831
+    ],
+    "bss_vs_G2c": [
+     -0.00423,
+     0.00392
+    ],
+    "d_bss_B0_vs_G2c": [
+     -0.00347,
+     0.00327
+    ],
+    "d_auc_vs_G2c": [
+     -0.00141,
+     0.00142
+    ],
+    "bss_vs_G2": [
+     -0.00512,
+     0.00732
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00417,
+     0.00601
+    ],
+    "d_auc_vs_G2": [
+     -0.00288,
+     0.00199
+    ],
+    "bss_vs_tidemark_L1": [
+     -0.00793,
+     0.00583
+    ],
+    "d_bss_B0_vs_tidemark_L1": [
+     -0.00653,
+     0.0048
+    ],
+    "d_auc_vs_tidemark_L1": [
+     -0.00403,
+     0.00096
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.09475,
+     0.13369
+    ],
+    "mean_p": [
+     0.11593,
+     0.14904
+    ],
+    "brier": [
+     0.07349,
+     0.0915
+    ],
+    "bss_B0": [
+     0.13611,
+     0.20774
+    ],
+    "bss_B2": [
+     0.05373,
+     0.12569
+    ],
+    "auc": [
+     0.8203,
+     0.84201
+    ],
+    "prec_at_50_recall": [
+     0.33336,
+     0.46151
+    ],
+    "cal_intercept": [
+     -0.45201,
+     0.15108
+    ],
+    "cal_slope": [
+     0.96681,
+     1.12244
+    ],
+    "citl": [
+     -0.43342,
+     0.00112
+    ],
+    "bss_vs_G2c": [
+     -0.00609,
+     0.00465
+    ],
+    "d_bss_B0_vs_G2c": [
+     -0.00491,
+     0.00389
+    ],
+    "d_auc_vs_G2c": [
+     -0.00256,
+     0.00258
+    ],
+    "bss_vs_G2": [
+     -0.00868,
+     0.01387
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00696,
+     0.01186
+    ],
+    "d_auc_vs_G2": [
+     -0.00593,
+     0.00472
+    ],
+    "bss_vs_tidemark_L1": [
+     -0.01178,
+     0.01189
+    ],
+    "d_bss_B0_vs_tidemark_L1": [
+     -0.00987,
+     0.01001
+    ],
+    "d_auc_vs_tidemark_L1": [
+     -0.00726,
+     0.00411
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2c",
+    "G2",
+    "tidemark_L1"
+   ]
+  },
+  "H_all_90d|D0": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.13665,
+    "brier": 0.08323,
+    "bss_B0": 0.17438,
+    "bss_B2": 0.09146,
+    "auc": 0.83138,
+    "prec_at_50_recall": 0.3906,
+    "cal_intercept": -0.17526,
+    "cal_slope": 1.05847,
+    "citl": -0.25179,
+    "bss_vs_G2": -0.00119,
+    "d_bss_B0_vs_G2": -0.00098,
+    "d_auc_vs_G2": -0.00089,
+    "bss_vs_G2c": -0.00247,
+    "d_bss_B0_vs_G2c": -0.00203,
+    "d_auc_vs_G2c": -0.00044
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.10726,
+     0.12294
+    ],
+    "mean_p": [
+     0.13114,
+     0.14373
+    ],
+    "brier": [
+     0.07911,
+     0.08793
+    ],
+    "bss_B0": [
+     0.15857,
+     0.1919
+    ],
+    "bss_B2": [
+     0.08052,
+     0.10242
+    ],
+    "auc": [
+     0.82103,
+     0.84217
+    ],
+    "prec_at_50_recall": [
+     0.36916,
+     0.41913
+    ],
+    "cal_intercept": [
+     -0.24952,
+     -0.09635
+    ],
+    "cal_slope": [
+     1.01586,
+     1.1054
+    ],
+    "citl": [
+     -0.30191,
+     -0.1976
+    ],
+    "bss_vs_G2": [
+     -0.00501,
+     0.00259
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.0041,
+     0.00215
+    ],
+    "d_auc_vs_G2": [
+     -0.00226,
+     0.00058
+    ],
+    "bss_vs_G2c": [
+     -0.00948,
+     0.00393
+    ],
+    "d_bss_B0_vs_G2c": [
+     -0.00786,
+     0.00327
+    ],
+    "d_auc_vs_G2c": [
+     -0.0029,
+     0.00176
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.09479,
+     0.13178
+    ],
+    "mean_p": [
+     0.12229,
+     0.15273
+    ],
+    "brier": [
+     0.07371,
+     0.09119
+    ],
+    "bss_B0": [
+     0.13455,
+     0.20369
+    ],
+    "bss_B2": [
+     0.05296,
+     0.12036
+    ],
+    "auc": [
+     0.82002,
+     0.84101
+    ],
+    "prec_at_50_recall": [
+     0.33097,
+     0.44821
+    ],
+    "cal_intercept": [
+     -0.47988,
+     0.09069
+    ],
+    "cal_slope": [
+     0.98651,
+     1.13197
+    ],
+    "citl": [
+     -0.48799,
+     -0.07065
+    ],
+    "bss_vs_G2": [
+     -0.0077,
+     0.00517
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00618,
+     0.00434
+    ],
+    "d_auc_vs_G2": [
+     -0.00379,
+     0.00193
+    ],
+    "bss_vs_G2c": [
+     -0.01147,
+     0.00445
+    ],
+    "d_bss_B0_vs_G2c": [
+     -0.0099,
+     0.00373
+    ],
+    "d_auc_vs_G2c": [
+     -0.00316,
+     0.00238
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "G2c"
+   ]
+  }
+ }
+}

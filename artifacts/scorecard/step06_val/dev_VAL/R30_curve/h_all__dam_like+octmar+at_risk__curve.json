@@ -1,0 +1,113 @@
+{
+ "model": "h_all",
+ "task": "R30_curve",
+ "task_description": "Runway curve: P(below a third within 30 / 60 / 90 / 180 days)",
+ "block": "VAL",
+ "arena": "dev",
+ "subset": "dam_like+octmar+at_risk",
+ "rows_passed_in": 358525,
+ "rows_in_subset": 75160,
+ "pred_hash": "e77d7602312b4dba",
+ "test_ledger": null,
+ "note": "step 6 (scripts/06_hazard_curve.py)",
+ "horizons": [
+  {
+   "horizon": 30,
+   "rows": 66453,
+   "events": 5388,
+   "rows_without_label": 8707,
+   "point": {
+    "base_rate": 0.08108,
+    "mean_p": 0.08761,
+    "brier": 0.0673,
+    "bss_B0": 0.09426,
+    "bss_B2": 0.07183,
+    "auc": 0.79367,
+    "prec_at_50_recall": 0.23957,
+    "cal_intercept": 0.09824,
+    "cal_slope": 1.10054,
+    "citl": -0.09291
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "bootstrap": {}
+  },
+  {
+   "horizon": 60,
+   "rows": 66453,
+   "events": 11362,
+   "rows_without_label": 8707,
+   "point": {
+    "base_rate": 0.17098,
+    "mean_p": 0.18487,
+    "brier": 0.1202,
+    "bss_B0": 0.14612,
+    "bss_B2": 0.09687,
+    "auc": 0.78168,
+    "prec_at_50_recall": 0.40915,
+    "cal_intercept": -0.04743,
+    "cal_slope": 1.0554,
+    "citl": -0.11168
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "bootstrap": {}
+  },
+  {
+   "horizon": 90,
+   "rows": 66453,
+   "events": 15861,
+   "rows_without_label": 8707,
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.27214,
+    "brier": 0.14866,
+    "bss_B0": 0.17163,
+    "bss_B2": 0.10015,
+    "auc": 0.78106,
+    "prec_at_50_recall": 0.52037,
+    "cal_intercept": -0.19552,
+    "cal_slope": 1.03061,
+    "citl": -0.21732
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "bootstrap": {}
+  },
+  {
+   "horizon": 180,
+   "rows": 66453,
+   "events": 21582,
+   "rows_without_label": 8707,
+   "point": {
+    "base_rate": 0.32477,
+    "mean_p": 0.39877,
+    "brier": 0.17389,
+    "bss_B0": 0.18401,
+    "bss_B2": 0.08942,
+    "auc": 0.789,
+    "prec_at_50_recall": 0.64815,
+    "cal_intercept": -0.40347,
+    "cal_slope": 1.05506,
+    "citl": -0.41375
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "bootstrap": {}
+  }
+ ],
+ "bss_B0_by_horizon": {
+  "30": 0.09426,
+  "60": 0.14612,
+  "90": 0.17163,
+  "180": 0.18401
+ },
+ "monotonicity": {
+  "rows": 75160,
+  "rows_falling": 0,
+  "share_rows_falling": 0.0,
+  "largest_fall": 0.0
+ },
+ "time": "2026-10-02 13:23:26",
+ "seconds": 1.1
+}

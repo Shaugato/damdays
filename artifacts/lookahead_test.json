@@ -1,12 +1,16 @@
 {
  "nsw_cw": {
-  "generator": "core features (build_all)",
+  "generator": "core features (build_all) + frailty sums",
   "cut": "2014-07-09",
   "result": "PASS: 0 mismatching values",
   "tables_compared": {
    "p1": {
     "rows": 976290,
     "columns": 75
+   },
+   "p1_frailty": {
+    "rows": 976290,
+    "columns": 9
    },
    "p2_dam": {
     "rows": 80366,
@@ -25,16 +29,21 @@
   "p1_rows_failing_label_ok_compared": 101118,
   "p1_rows_whose_labels_changed_after_truncation": 12489,
   "planted_peek_rows_caught": 3058,
+  "planted_frailty_leak_rows_caught": 11040,
   "neighbour_grid_dates_compared": 661
  },
  "wvic_sesa": {
-  "generator": "core features (build_all)",
+  "generator": "core features (build_all) + frailty sums",
   "cut": "2012-07-09",
   "result": "PASS: 0 mismatching values",
   "tables_compared": {
    "p1": {
     "rows": 448599,
     "columns": 75
+   },
+   "p1_frailty": {
+    "rows": 448599,
+    "columns": 9
    },
    "p2_dam": {
     "rows": 81216,
@@ -53,6 +62,7 @@
   "p1_rows_failing_label_ok_compared": 168441,
   "p1_rows_whose_labels_changed_after_truncation": 164,
   "planted_peek_rows_caught": 3335,
+  "planted_frailty_leak_rows_caught": 174,
   "neighbour_grid_dates_compared": 613
  }
 }

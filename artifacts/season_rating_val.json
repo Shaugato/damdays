@@ -1,0 +1,2496 @@
+{
+ "generated": "2026-10-02 12:56:01",
+ "block": "VAL",
+ "n_boot": 500,
+ "model": "season_rating",
+ "prereg_P2_cell": {
+  "d_auc_vs_RAIN": 0.2493,
+  "ci_dam": [
+   0.22838,
+   0.27317
+  ],
+  "ci_region_year": [
+   0.17551,
+   0.31753
+  ],
+  "pass_bar": {
+   "rule": "dAUC vs RAIN >= 0.05 with the dam/cell 95% interval above 0",
+   "passed": true,
+   "region_year_interval_above_0": true
+  },
+  "kill_rule": {
+   "rule": "triggered if RAIN comes within 0.02 AUC of the rating",
+   "triggered": false
+  },
+  "gain_over_B2": {
+   "d_auc": 0.01407,
+   "ci_dam": [
+    0.00874,
+    0.02055
+   ],
+   "bss_B2": 0.0059,
+   "bss_B2_ci_dam": [
+    -0.00454,
+    0.01763
+   ]
+  }
+ },
+ "prereg_P2_dam": {
+  "d_auc_vs_RAIN": 0.23061,
+  "ci_dam": [
+   0.21127,
+   0.25016
+  ],
+  "ci_region_year": [
+   0.1648,
+   0.29923
+  ],
+  "pass_bar": {
+   "rule": "dAUC vs RAIN >= 0.05 with the dam/cell 95% interval above 0",
+   "passed": true,
+   "region_year_interval_above_0": true
+  },
+  "kill_rule": {
+   "rule": "triggered if RAIN comes within 0.02 AUC of the rating",
+   "triggered": false
+  },
+  "gain_over_B2": {
+   "d_auc": 0.01713,
+   "ci_dam": [
+    0.01255,
+    0.02183
+   ],
+   "bss_B2": 0.01059,
+   "bss_B2_ci_dam": [
+    0.00073,
+    0.01913
+   ]
+  }
+ },
+ "checks": [
+  {
+   "check": "P2_cell AUC",
+   "expected": 0.7873,
+   "got": 0.78715,
+   "difference": -0.00015,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "FINAL_SPEC check value about 0.787"
+  },
+  {
+   "check": "P2_cell dAUC vs RAIN",
+   "expected": 0.2464,
+   "got": 0.2493,
+   "difference": 0.0029,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "this build's RAIN uses causal rain deciles (step 3: AUC 0.538 cells / 0.549 dams vs 0.541 / 0.553 pre-event), so the gap to RAIN should come out about +0.003 / +0.004 larger"
+  },
+  {
+   "check": "P2_cell dAUC vs RAIN+",
+   "expected": 0.1547,
+   "got": 0.15632,
+   "difference": 0.00162,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "RAIN+ is step 3's refit on causal inputs (cell AUC 0.631 vs 0.633 pre-event)"
+  },
+  {
+   "check": "P2_cell dAUC vs B2",
+   "expected": 0.0142,
+   "got": 0.01407,
+   "difference": -0.00013,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell BSS vs B0",
+   "expected": 0.1489,
+   "got": 0.14878,
+   "difference": -0.00012,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell BSS vs B2",
+   "expected": 0.0061,
+   "got": 0.0059,
+   "difference": -0.0002,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell calibration slope",
+   "expected": 0.9272,
+   "got": 0.9236,
+   "difference": -0.0036,
+   "tolerance": 0.05,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell CITL",
+   "expected": -0.1979,
+   "got": -0.19342,
+   "difference": 0.00448,
+   "tolerance": 0.05,
+   "within_tolerance": true,
+   "note": "VAL over-predicts (wet 2010-12)"
+  },
+  {
+   "check": "P2_cell within-season AUC",
+   "expected": 0.7893,
+   "got": 0.7893,
+   "difference": -0.0,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell within-cell AUC",
+   "expected": 0.5169,
+   "got": 0.51731,
+   "difference": 0.00041,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell B2 within-season AUC",
+   "expected": 0.7814,
+   "got": 0.78144,
+   "difference": 4e-05,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell B2 within-cell AUC",
+   "expected": 0.1823,
+   "got": 0.1823,
+   "difference": 0.0,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell within-season AUC, model - B2",
+   "expected": 0.0079,
+   "got": 0.00786,
+   "difference": -4e-05,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "pre-event cell CI [+0.0021, +0.0132]"
+  },
+  {
+   "check": "P2_cell RAIN+ within-season AUC",
+   "expected": 0.6035,
+   "got": 0.60199,
+   "difference": -0.00151,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "RAIN+ is step 3's refit on causal inputs (cell AUC 0.631 vs 0.633 pre-event)"
+  },
+  {
+   "check": "P2_cell within-cell AUC, model - RAIN+",
+   "expected": -0.0866,
+   "got": -0.08375,
+   "difference": 0.00285,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "pre-event cell CI [-0.1092, -0.0643]; RAIN+ is step 3's refit on causal inputs (cell AUC 0.631 vs 0.633 pre-event)"
+  },
+  {
+   "check": "P2_dam AUC",
+   "expected": 0.7796,
+   "got": 0.77935,
+   "difference": -0.00025,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam dAUC vs RAIN",
+   "expected": 0.2264,
+   "got": 0.23061,
+   "difference": 0.00421,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "this build's RAIN uses causal rain deciles (step 3: AUC 0.538 cells / 0.549 dams vs 0.541 / 0.553 pre-event), so the gap to RAIN should come out about +0.003 / +0.004 larger"
+  },
+  {
+   "check": "P2_dam dAUC vs B2",
+   "expected": 0.0174,
+   "got": 0.01713,
+   "difference": -0.00027,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam BSS vs B2",
+   "expected": 0.0107,
+   "got": 0.01059,
+   "difference": -0.00011,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam calibration slope",
+   "expected": 0.9719,
+   "got": 0.96732,
+   "difference": -0.00458,
+   "tolerance": 0.05,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam CITL",
+   "expected": -0.2344,
+   "got": -0.23014,
+   "difference": 0.00426,
+   "tolerance": 0.05,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam_g AUC (prior swap)",
+   "expected": 0.767,
+   "got": 0.76679,
+   "difference": -0.00021,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "hybrid stage G"
+  },
+  {
+   "check": "P2_dam_g BSS vs B2 (prior swap)",
+   "expected": 0.0022,
+   "got": 0.00211,
+   "difference": -9e-05,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "hybrid stage G"
+  },
+  {
+   "check": "P2_dam_g calibration slope (prior swap)",
+   "expected": 0.9052,
+   "got": 0.90187,
+   "difference": -0.00333,
+   "tolerance": 0.05,
+   "within_tolerance": true,
+   "note": "hybrid stage G"
+  },
+  {
+   "check": "P2_dam_g CITL (prior swap)",
+   "expected": -0.193,
+   "got": -0.18835,
+   "difference": 0.00465,
+   "tolerance": 0.05,
+   "within_tolerance": true,
+   "note": "hybrid stage G"
+  },
+  {
+   "check": "P2_dam_g AUC, no prior swap",
+   "expected": 0.7712,
+   "got": 0.77085,
+   "difference": -0.00035,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam_g BSS vs B2, no prior swap",
+   "expected": -0.0518,
+   "got": -0.05159,
+   "difference": 0.00021,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam_g CITL, no prior swap",
+   "expected": -0.5702,
+   "got": -0.56585,
+   "difference": 0.00435,
+   "tolerance": 0.05,
+   "within_tolerance": true,
+   "note": ""
+  },
+  {
+   "check": "ablation plain (no B2 start): cell dAUC vs main",
+   "expected": -0.0048,
+   "got": -0.00503,
+   "difference": -0.00023,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "hybrid stage G, CI [-0.0077, -0.0018]"
+  },
+  {
+   "check": "ablation all waterbodies: cell dAUC vs main",
+   "expected": -0.0089,
+   "got": -0.00866,
+   "difference": 0.00024,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "hybrid stage G, CI [-0.0134, -0.0040]"
+  },
+  {
+   "check": "ablation min cells: cell dAUC vs main",
+   "expected": -0.0035,
+   "got": -0.00356,
+   "difference": -6e-05,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "hybrid stage G, CI [-0.0069, -0.0001]"
+  },
+  {
+   "check": "ablation best-dam cells: cell dAUC vs main",
+   "expected": -0.0092,
+   "got": -0.00927,
+   "difference": -7e-05,
+   "tolerance": 0.006,
+   "within_tolerance": true,
+   "note": "hybrid stage G, CI [-0.0141, -0.0047]"
+  }
+ ],
+ "exact_checks": [
+  {
+   "check": "P2_cell scored rows (events)",
+   "expected": "9,848 (1,684)",
+   "got": "9,848 (1,684)",
+   "match": true
+  },
+  {
+   "check": "P2_dam scored rows (events)",
+   "expected": "11,557 (2,069)",
+   "got": "11,557 (2,069)",
+   "match": true
+  },
+  {
+   "check": "P2_dam_g scored rows (events)",
+   "expected": "10,949 (1,461)",
+   "got": "10,949 (1,461)",
+   "match": true
+  },
+  {
+   "check": "fit: dam-like TRAIN seasons (dry)",
+   "expected": "32,355 (5,788)",
+   "got": "32,355 (5,788)",
+   "match": true
+  }
+ ],
+ "area_index_causality": {
+  "first_season_deleted": 2012,
+  "values_compared": 932400,
+  "values_changed_up_to_cut": 0,
+  "values_changed_after_cut": 537140,
+  "passed": true
+ },
+ "fit": {
+  "variant": "main",
+  "about": "PREREG P2: LightGBM boosted from logit(B2), HSN inputs, dam-like seasons, 3 seeds",
+  "block": "VAL",
+  "population": "dam_like",
+  "fit_seasons": 32355,
+  "fit_dry": 5788,
+  "predicted_seasons": 11781,
+  "features": [
+   "dam_rate_P2",
+   "b2N",
+   "dam_rate_D0",
+   "dam_rate_R30",
+   "lag1",
+   "lag2",
+   "rate5",
+   "rate_R30",
+   "lag1_R30",
+   "full_c",
+   "wet_share_c",
+   "fill_share_c",
+   "n_hist_c",
+   "log_n_pixels",
+   "pixel_compactness",
+   "elongation",
+   "rel",
+   "pc",
+   "last3",
+   "s60",
+   "s120",
+   "rec",
+   "max365",
+   "min365",
+   "since_full",
+   "anom_own",
+   "armed",
+   "since_arm",
+   "low365_D0",
+   "since_low_D0",
+   "dtt_trend_D0",
+   "dtt_clim_D0",
+   "dtt_fast_D0",
+   "low365_R30",
+   "since_low_R30",
+   "age",
+   "R_anom",
+   "R_chg3",
+   "R_zero",
+   "area10_dry_last",
+   "area10_dry_longrun",
+   "area25_dry_last",
+   "area25_dry_longrun",
+   "area25_damlike_dry_last",
+   "area25_damlike_dry_longrun"
+  ],
+  "n_features": 45,
+  "seeds": [
+   0,
+   1,
+   2
+  ],
+  "params": {
+   "n_estimators": 150,
+   "learning_rate": 0.03,
+   "num_leaves": 7,
+   "min_child_samples": 200,
+   "subsample": 0.8,
+   "subsample_freq": 1,
+   "colsample_bytree": 0.8,
+   "reg_lambda": 1.0,
+   "verbose": -1,
+   "n_jobs": 3,
+   "deterministic": true,
+   "force_row_wise": true
+  },
+  "top_features_by_gain": {
+   "b2N": 0.148,
+   "R_anom": 0.1184,
+   "wet_share_c": 0.0945,
+   "since_low_R30": 0.0618,
+   "low365_D0": 0.0597,
+   "R_chg3": 0.052,
+   "R_zero": 0.0517,
+   "age": 0.0479,
+   "dam_rate_P2": 0.0465,
+   "log_n_pixels": 0.0418
+  },
+  "seconds": 2.6,
+  "start_vs_step3_B2": 0.0,
+  "start_g_vs_step3_B2": 0.0
+ },
+ "within": {
+  "P2_cell": {
+   "point": {
+    "season:model": 0.7893,
+    "season:RAIN": 0.47442,
+    "season:RAIN+": 0.60199,
+    "season:B2": 0.78144,
+    "season:model_minus_RAIN": 0.31488,
+    "season:model_minus_RAIN+": 0.1873,
+    "season:model_minus_B2": 0.00786,
+    "cell:model": 0.51731,
+    "cell:RAIN": 0.61423,
+    "cell:RAIN+": 0.60107,
+    "cell:B2": 0.1823,
+    "cell:model_minus_RAIN": -0.09692,
+    "cell:model_minus_RAIN+": -0.08375,
+    "cell:model_minus_B2": 0.33501
+   },
+   "ci": {
+    "season:model": [
+     0.7755,
+     0.8029
+    ],
+    "season:RAIN": [
+     0.45235,
+     0.49288
+    ],
+    "season:RAIN+": [
+     0.58182,
+     0.62159
+    ],
+    "season:B2": [
+     0.76752,
+     0.79425
+    ],
+    "season:model_minus_RAIN": [
+     0.29087,
+     0.34345
+    ],
+    "season:model_minus_RAIN+": [
+     0.16903,
+     0.20607
+    ],
+    "season:model_minus_B2": [
+     0.00226,
+     0.01407
+    ],
+    "cell:model": [
+     0.49996,
+     0.53655
+    ],
+    "cell:RAIN": [
+     0.59502,
+     0.63208
+    ],
+    "cell:RAIN+": [
+     0.58477,
+     0.61945
+    ],
+    "cell:B2": [
+     0.16891,
+     0.19624
+    ],
+    "cell:model_minus_RAIN": [
+     -0.11744,
+     -0.07508
+    ],
+    "cell:model_minus_RAIN+": [
+     -0.10595,
+     -0.06296
+    ],
+    "cell:model_minus_B2": [
+     0.31396,
+     0.35505
+    ]
+   },
+   "unit": "cell"
+  },
+  "P2_dam": {
+   "point": {
+    "season:model": 0.78084,
+    "season:RAIN": 0.48229,
+    "season:RAIN+": 0.61056,
+    "season:B2": 0.77134,
+    "season:model_minus_RAIN": 0.29855,
+    "season:model_minus_RAIN+": 0.17028,
+    "season:model_minus_B2": 0.0095,
+    "dam:model": 0.52145,
+    "dam:RAIN": 0.626,
+    "dam:RAIN+": 0.61467,
+    "dam:B2": 0.18194,
+    "dam:model_minus_RAIN": -0.10455,
+    "dam:model_minus_RAIN+": -0.09321,
+    "dam:model_minus_B2": 0.33952
+   },
+   "ci": {
+    "season:model": [
+     0.7678,
+     0.79335
+    ],
+    "season:RAIN": [
+     0.46518,
+     0.50076
+    ],
+    "season:RAIN+": [
+     0.59059,
+     0.62743
+    ],
+    "season:B2": [
+     0.75797,
+     0.78416
+    ],
+    "season:model_minus_RAIN": [
+     0.27729,
+     0.32044
+    ],
+    "season:model_minus_RAIN+": [
+     0.15276,
+     0.18849
+    ],
+    "season:model_minus_B2": [
+     0.00499,
+     0.01364
+    ],
+    "dam:model": [
+     0.50376,
+     0.53696
+    ],
+    "dam:RAIN": [
+     0.6097,
+     0.64251
+    ],
+    "dam:RAIN+": [
+     0.59854,
+     0.63007
+    ],
+    "dam:B2": [
+     0.16814,
+     0.19446
+    ],
+    "dam:model_minus_RAIN": [
+     -0.12447,
+     -0.08714
+    ],
+    "dam:model_minus_RAIN+": [
+     -0.11433,
+     -0.07497
+    ],
+    "dam:model_minus_B2": [
+     0.32054,
+     0.35855
+    ]
+   },
+   "unit": "dam"
+  },
+  "P2_dam_g": {
+   "point": {
+    "season:model": 0.7696,
+    "season:RAIN": 0.47515,
+    "season:RAIN+": 0.60591,
+    "season:B2": 0.76222,
+    "season:model_minus_RAIN": 0.29446,
+    "season:model_minus_RAIN+": 0.16369,
+    "season:model_minus_B2": 0.00738,
+    "dam:model": 0.50034,
+    "dam:RAIN": 0.63949,
+    "dam:RAIN+": 0.61678,
+    "dam:B2": 0.15237,
+    "dam:model_minus_RAIN": -0.13915,
+    "dam:model_minus_RAIN+": -0.11644,
+    "dam:model_minus_B2": 0.34797
+   },
+   "ci": {
+    "season:model": [
+     0.75431,
+     0.78254
+    ],
+    "season:RAIN": [
+     0.45626,
+     0.4953
+    ],
+    "season:RAIN+": [
+     0.58568,
+     0.62414
+    ],
+    "season:B2": [
+     0.74696,
+     0.77637
+    ],
+    "season:model_minus_RAIN": [
+     0.2693,
+     0.32095
+    ],
+    "season:model_minus_RAIN+": [
+     0.14403,
+     0.18397
+    ],
+    "season:model_minus_B2": [
+     0.00142,
+     0.01342
+    ],
+    "dam:model": [
+     0.48083,
+     0.51748
+    ],
+    "dam:RAIN": [
+     0.62048,
+     0.65602
+    ],
+    "dam:RAIN+": [
+     0.59839,
+     0.63683
+    ],
+    "dam:B2": [
+     0.13921,
+     0.16741
+    ],
+    "dam:model_minus_RAIN": [
+     -0.15923,
+     -0.11842
+    ],
+    "dam:model_minus_RAIN+": [
+     -0.13741,
+     -0.09555
+    ],
+    "dam:model_minus_B2": [
+     0.32637,
+     0.3693
+    ]
+   },
+   "unit": "dam"
+  }
+ },
+ "scores": {
+  "P2_cell": {
+   "task": "P2_cell",
+   "point": {
+    "base_rate": 0.171,
+    "mean_p": 0.19452,
+    "brier": 0.12079,
+    "bss_B0": 0.14878,
+    "bss_B2": 0.0059,
+    "auc": 0.78715,
+    "prec_at_50_recall": 0.40696,
+    "auc_within_season": 0.7893,
+    "auc_within_cell": 0.51731,
+    "cal_intercept": -0.2706,
+    "cal_slope": 0.9236,
+    "citl": -0.19342,
+    "bss_vs_RAIN": 0.14757,
+    "d_bss_B0_vs_RAIN": 0.14736,
+    "d_auc_vs_RAIN": 0.2493,
+    "bss_vs_RAIN+": 0.12237,
+    "d_bss_B0_vs_RAIN+": 0.11869,
+    "d_auc_vs_RAIN+": 0.15632,
+    "bss_vs_B2": 0.0059,
+    "d_bss_B0_vs_B2": 0.00505,
+    "d_auc_vs_B2": 0.01407
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.15985,
+     0.18092
+    ],
+    "mean_p": [
+     0.18572,
+     0.2031
+    ],
+    "brier": [
+     0.11516,
+     0.12623
+    ],
+    "bss_B0": [
+     0.12634,
+     0.1689
+    ],
+    "bss_B2": [
+     -0.00454,
+     0.01763
+    ],
+    "auc": [
+     0.77382,
+     0.8002
+    ],
+    "prec_at_50_recall": [
+     0.37501,
+     0.43799
+    ],
+    "auc_within_season": [
+     0.7755,
+     0.8029
+    ],
+    "auc_within_cell": [
+     0.48744,
+     0.54797
+    ],
+    "cal_intercept": [
+     -0.3565,
+     -0.19503
+    ],
+    "cal_slope": [
+     0.86773,
+     0.97529
+    ],
+    "citl": [
+     -0.25566,
+     -0.13158
+    ],
+    "bss_vs_RAIN": [
+     0.12538,
+     0.16711
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.12515,
+     0.16664
+    ],
+    "d_auc_vs_RAIN": [
+     0.22838,
+     0.27317
+    ],
+    "bss_vs_RAIN+": [
+     0.09944,
+     0.14281
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.0963,
+     0.13861
+    ],
+    "d_auc_vs_RAIN+": [
+     0.13758,
+     0.17288
+    ],
+    "bss_vs_B2": [
+     -0.00454,
+     0.01763
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.00388,
+     0.01526
+    ],
+    "d_auc_vs_B2": [
+     0.00874,
+     0.02055
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.13418,
+     0.2051
+    ],
+    "mean_p": [
+     0.17644,
+     0.20776
+    ],
+    "brier": [
+     0.10744,
+     0.13319
+    ],
+    "bss_B0": [
+     0.06172,
+     0.20895
+    ],
+    "bss_B2": [
+     -0.04486,
+     0.04875
+    ],
+    "auc": [
+     0.76414,
+     0.80743
+    ],
+    "prec_at_50_recall": [
+     0.31633,
+     0.49512
+    ],
+    "auc_within_season": [
+     0.76256,
+     0.81142
+    ],
+    "auc_within_cell": [
+     0.44024,
+     0.59963
+    ],
+    "cal_intercept": [
+     -0.65059,
+     0.1006
+    ],
+    "cal_slope": [
+     0.81198,
+     1.04067
+    ],
+    "citl": [
+     -0.53347,
+     0.0833
+    ],
+    "bss_vs_RAIN": [
+     0.06681,
+     0.20486
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.06753,
+     0.20388
+    ],
+    "d_auc_vs_RAIN": [
+     0.17551,
+     0.31753
+    ],
+    "bss_vs_RAIN+": [
+     0.03571,
+     0.17973
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.03469,
+     0.17385
+    ],
+    "d_auc_vs_RAIN+": [
+     0.11676,
+     0.19892
+    ],
+    "bss_vs_B2": [
+     -0.04486,
+     0.04875
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.03966,
+     0.04074
+    ],
+    "d_auc_vs_B2": [
+     -0.00195,
+     0.02891
+    ]
+   },
+   "rows": {
+    "passed_in": 10045,
+    "in_subset": 10045,
+    "in_subset_without_label": 197,
+    "scored": 9848,
+    "events": 1684,
+    "dams": 1434,
+    "dams_with_event": 791,
+    "region_years": 14
+   },
+   "refs": [
+    "RAIN",
+    "RAIN+",
+    "B2"
+   ]
+  },
+  "P2_dam": {
+   "task": "P2_dam",
+   "point": {
+    "base_rate": 0.17903,
+    "mean_p": 0.20876,
+    "brier": 0.12555,
+    "bss_B0": 0.14686,
+    "bss_B2": 0.01059,
+    "auc": 0.77935,
+    "prec_at_50_recall": 0.41483,
+    "auc_within_season": 0.78084,
+    "auc_within_dam": 0.52145,
+    "cal_intercept": -0.262,
+    "cal_slope": 0.96732,
+    "citl": -0.23014,
+    "bss_vs_RAIN": 0.14536,
+    "d_bss_B0_vs_RAIN": 0.1451,
+    "d_auc_vs_RAIN": 0.23061,
+    "bss_vs_RAIN+": 0.11494,
+    "d_bss_B0_vs_RAIN+": 0.11079,
+    "d_auc_vs_RAIN+": 0.13883,
+    "bss_vs_B2": 0.01059,
+    "d_bss_B0_vs_B2": 0.00913,
+    "d_auc_vs_B2": 0.01713
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.16936,
+     0.1892
+    ],
+    "mean_p": [
+     0.20088,
+     0.21616
+    ],
+    "brier": [
+     0.1209,
+     0.13067
+    ],
+    "bss_B0": [
+     0.12777,
+     0.16613
+    ],
+    "bss_B2": [
+     0.00073,
+     0.01913
+    ],
+    "auc": [
+     0.76672,
+     0.79105
+    ],
+    "prec_at_50_recall": [
+     0.38861,
+     0.44783
+    ],
+    "auc_within_season": [
+     0.7678,
+     0.79335
+    ],
+    "auc_within_dam": [
+     0.49093,
+     0.54706
+    ],
+    "cal_intercept": [
+     -0.33419,
+     -0.1822
+    ],
+    "cal_slope": [
+     0.91841,
+     1.01916
+    ],
+    "citl": [
+     -0.28104,
+     -0.17724
+    ],
+    "bss_vs_RAIN": [
+     0.12629,
+     0.16436
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.12656,
+     0.16445
+    ],
+    "d_auc_vs_RAIN": [
+     0.21127,
+     0.25016
+    ],
+    "bss_vs_RAIN+": [
+     0.09354,
+     0.13405
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.09027,
+     0.12902
+    ],
+    "d_auc_vs_RAIN+": [
+     0.12109,
+     0.15549
+    ],
+    "bss_vs_B2": [
+     0.00073,
+     0.01913
+    ],
+    "d_bss_B0_vs_B2": [
+     0.00063,
+     0.01649
+    ],
+    "d_auc_vs_B2": [
+     0.01255,
+     0.02183
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.13966,
+     0.21491
+    ],
+    "mean_p": [
+     0.19104,
+     0.22206
+    ],
+    "brier": [
+     0.11125,
+     0.13865
+    ],
+    "bss_B0": [
+     0.06261,
+     0.20462
+    ],
+    "bss_B2": [
+     -0.04655,
+     0.05924
+    ],
+    "auc": [
+     0.75416,
+     0.80187
+    ],
+    "prec_at_50_recall": [
+     0.31922,
+     0.50801
+    ],
+    "auc_within_season": [
+     0.75294,
+     0.8043
+    ],
+    "auc_within_dam": [
+     0.44866,
+     0.61052
+    ],
+    "cal_intercept": [
+     -0.6677,
+     0.09994
+    ],
+    "cal_slope": [
+     0.84381,
+     1.09537
+    ],
+    "citl": [
+     -0.56806,
+     0.04376
+    ],
+    "bss_vs_RAIN": [
+     0.06197,
+     0.20046
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.06207,
+     0.2004
+    ],
+    "d_auc_vs_RAIN": [
+     0.1648,
+     0.29923
+    ],
+    "bss_vs_RAIN+": [
+     0.03264,
+     0.1696
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.03163,
+     0.16225
+    ],
+    "d_auc_vs_RAIN+": [
+     0.10893,
+     0.17221
+    ],
+    "bss_vs_B2": [
+     -0.04655,
+     0.05924
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.04204,
+     0.05008
+    ],
+    "d_auc_vs_B2": [
+     0.00115,
+     0.03395
+    ]
+   },
+   "rows": {
+    "passed_in": 11781,
+    "in_subset": 11781,
+    "in_subset_without_label": 224,
+    "scored": 11557,
+    "events": 2069,
+    "dams": 1682,
+    "dams_with_event": 971,
+    "region_years": 14
+   },
+   "refs": [
+    "RAIN",
+    "RAIN+",
+    "B2"
+   ]
+  },
+  "P2_dam_g": {
+   "task": "P2_dam_g",
+   "point": {
+    "base_rate": 0.13344,
+    "mean_p": 0.15323,
+    "brier": 0.10373,
+    "bss_B0": 0.10344,
+    "bss_B2": 0.00211,
+    "auc": 0.76679,
+    "prec_at_50_recall": 0.30714,
+    "auc_within_season": 0.7696,
+    "auc_within_dam": 0.50034,
+    "cal_intercept": -0.31853,
+    "cal_slope": 0.90187,
+    "citl": -0.18835,
+    "bss_vs_RAIN": 0.10167,
+    "d_bss_B0_vs_RAIN": 0.10147,
+    "d_auc_vs_RAIN": 0.21692,
+    "bss_vs_RAIN+": 0.07897,
+    "d_bss_B0_vs_RAIN+": 0.07687,
+    "d_auc_vs_RAIN+": 0.12703,
+    "bss_vs_B2": 0.00211,
+    "d_bss_B0_vs_B2": 0.0019,
+    "d_auc_vs_B2": 0.01603
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.12553,
+     0.14202
+    ],
+    "mean_p": [
+     0.14721,
+     0.15925
+    ],
+    "brier": [
+     0.09865,
+     0.10882
+    ],
+    "bss_B0": [
+     0.08291,
+     0.1229
+    ],
+    "bss_B2": [
+     -0.00776,
+     0.0118
+    ],
+    "auc": [
+     0.75208,
+     0.77924
+    ],
+    "prec_at_50_recall": [
+     0.28423,
+     0.3392
+    ],
+    "auc_within_season": [
+     0.75431,
+     0.78254
+    ],
+    "auc_within_dam": [
+     0.46753,
+     0.5291
+    ],
+    "cal_intercept": [
+     -0.42254,
+     -0.21483
+    ],
+    "cal_slope": [
+     0.84188,
+     0.95714
+    ],
+    "citl": [
+     -0.24791,
+     -0.12153
+    ],
+    "bss_vs_RAIN": [
+     0.08089,
+     0.12051
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.08044,
+     0.12056
+    ],
+    "d_auc_vs_RAIN": [
+     0.19381,
+     0.23901
+    ],
+    "bss_vs_RAIN+": [
+     0.05792,
+     0.09763
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.05627,
+     0.09503
+    ],
+    "d_auc_vs_RAIN+": [
+     0.10849,
+     0.14563
+    ],
+    "bss_vs_B2": [
+     -0.00776,
+     0.0118
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.00701,
+     0.01057
+    ],
+    "d_auc_vs_B2": [
+     0.01014,
+     0.02223
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.0982,
+     0.16667
+    ],
+    "mean_p": [
+     0.13891,
+     0.16462
+    ],
+    "brier": [
+     0.08705,
+     0.11974
+    ],
+    "bss_B0": [
+     0.02022,
+     0.15907
+    ],
+    "bss_B2": [
+     -0.0542,
+     0.04729
+    ],
+    "auc": [
+     0.74114,
+     0.79131
+    ],
+    "prec_at_50_recall": [
+     0.22613,
+     0.38945
+    ],
+    "auc_within_season": [
+     0.74078,
+     0.79902
+    ],
+    "auc_within_dam": [
+     0.42231,
+     0.59254
+    ],
+    "cal_intercept": [
+     -0.82241,
+     0.13044
+    ],
+    "cal_slope": [
+     0.77948,
+     1.04215
+    ],
+    "citl": [
+     -0.58007,
+     0.12798
+    ],
+    "bss_vs_RAIN": [
+     0.01101,
+     0.15587
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.01101,
+     0.15531
+    ],
+    "d_auc_vs_RAIN": [
+     0.13679,
+     0.3031
+    ],
+    "bss_vs_RAIN+": [
+     -0.01091,
+     0.13351
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     -0.01055,
+     0.13055
+    ],
+    "d_auc_vs_RAIN+": [
+     0.08853,
+     0.16859
+    ],
+    "bss_vs_B2": [
+     -0.0542,
+     0.04729
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.05072,
+     0.04181
+    ],
+    "d_auc_vs_B2": [
+     -0.00404,
+     0.03585
+    ]
+   },
+   "rows": {
+    "passed_in": 11781,
+    "in_subset": 11781,
+    "in_subset_without_label": 832,
+    "scored": 10949,
+    "events": 1461,
+    "dams": 1682,
+    "dams_with_event": 822,
+    "region_years": 14
+   },
+   "refs": [
+    "RAIN",
+    "RAIN+",
+    "B2"
+   ]
+  },
+  "P2_dam_g.no_prior_swap": {
+   "task": "P2_dam_g",
+   "point": {
+    "base_rate": 0.13344,
+    "mean_p": 0.19906,
+    "brier": 0.10931,
+    "bss_B0": 0.05519,
+    "bss_B2": -0.05159,
+    "auc": 0.77085,
+    "prec_at_50_recall": 0.31645,
+    "auc_within_season": 0.77397,
+    "auc_within_dam": 0.52051,
+    "cal_intercept": -0.63814,
+    "cal_slope": 0.92438,
+    "citl": -0.56585,
+    "bss_vs_RAIN": 0.05332,
+    "d_bss_B0_vs_RAIN": 0.05322,
+    "d_auc_vs_RAIN": 0.22098,
+    "bss_vs_RAIN+": 0.0294,
+    "d_bss_B0_vs_RAIN+": 0.02862,
+    "d_auc_vs_RAIN+": 0.13108,
+    "bss_vs_B2": -0.05159,
+    "d_bss_B0_vs_B2": -0.04636,
+    "d_auc_vs_B2": 0.02009
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.12553,
+     0.14202
+    ],
+    "mean_p": [
+     0.19153,
+     0.20646
+    ],
+    "brier": [
+     0.10448,
+     0.11419
+    ],
+    "bss_B0": [
+     0.02681,
+     0.08191
+    ],
+    "bss_B2": [
+     -0.07096,
+     -0.03189
+    ],
+    "auc": [
+     0.75642,
+     0.78324
+    ],
+    "prec_at_50_recall": [
+     0.2923,
+     0.34106
+    ],
+    "auc_within_season": [
+     0.75905,
+     0.78673
+    ],
+    "auc_within_dam": [
+     0.48723,
+     0.54997
+    ],
+    "cal_intercept": [
+     -0.72731,
+     -0.54525
+    ],
+    "cal_slope": [
+     0.86779,
+     0.98269
+    ],
+    "citl": [
+     -0.62446,
+     -0.4991
+    ],
+    "bss_vs_RAIN": [
+     0.02568,
+     0.07969
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.02571,
+     0.07943
+    ],
+    "d_auc_vs_RAIN": [
+     0.19792,
+     0.24289
+    ],
+    "bss_vs_RAIN+": [
+     0.00036,
+     0.05557
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.00035,
+     0.05419
+    ],
+    "d_auc_vs_RAIN+": [
+     0.11268,
+     0.15064
+    ],
+    "bss_vs_B2": [
+     -0.07096,
+     -0.03189
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.06375,
+     -0.02867
+    ],
+    "d_auc_vs_B2": [
+     0.01314,
+     0.02792
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.0982,
+     0.16667
+    ],
+    "mean_p": [
+     0.18229,
+     0.21217
+    ],
+    "brier": [
+     0.09643,
+     0.12164
+    ],
+    "bss_B0": [
+     -0.094,
+     0.14937
+    ],
+    "bss_B2": [
+     -0.18174,
+     0.03592
+    ],
+    "auc": [
+     0.74339,
+     0.79615
+    ],
+    "prec_at_50_recall": [
+     0.23118,
+     0.39963
+    ],
+    "auc_within_season": [
+     0.74318,
+     0.80479
+    ],
+    "auc_within_dam": [
+     0.44792,
+     0.60756
+    ],
+    "cal_intercept": [
+     -1.08589,
+     -0.22514
+    ],
+    "cal_slope": [
+     0.7889,
+     1.07815
+    ],
+    "citl": [
+     -0.96149,
+     -0.24952
+    ],
+    "bss_vs_RAIN": [
+     -0.10201,
+     0.14716
+    ],
+    "d_bss_B0_vs_RAIN": [
+     -0.10133,
+     0.14718
+    ],
+    "d_auc_vs_RAIN": [
+     0.14322,
+     0.30898
+    ],
+    "bss_vs_RAIN+": [
+     -0.12498,
+     0.12276
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     -0.12197,
+     0.11907
+    ],
+    "d_auc_vs_RAIN+": [
+     0.09023,
+     0.17499
+    ],
+    "bss_vs_B2": [
+     -0.18174,
+     0.03592
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.16742,
+     0.03203
+    ],
+    "d_auc_vs_B2": [
+     -0.00487,
+     0.04117
+    ]
+   },
+   "rows": {
+    "passed_in": 11781,
+    "in_subset": 11781,
+    "in_subset_without_label": 832,
+    "scored": 10949,
+    "events": 1461,
+    "dams": 1682,
+    "dams_with_event": 822,
+    "region_years": 14
+   },
+   "refs": [
+    "RAIN",
+    "RAIN+",
+    "B2"
+   ]
+  },
+  "cell_min": {
+   "task": "P2_cell",
+   "point": {
+    "base_rate": 0.171,
+    "mean_p": 0.20395,
+    "brier": 0.12151,
+    "bss_B0": 0.1437,
+    "bss_B2": -3e-05,
+    "auc": 0.78359,
+    "prec_at_50_recall": 0.40422,
+    "auc_within_season": 0.78537,
+    "auc_within_cell": 0.51894,
+    "cal_intercept": -0.28414,
+    "cal_slope": 0.97725,
+    "citl": -0.26175,
+    "bss_vs_main": -0.00597,
+    "d_bss_B0_vs_main": -0.00508,
+    "d_auc_vs_main": -0.00356,
+    "bss_vs_RAIN": 0.14249,
+    "d_bss_B0_vs_RAIN": 0.14229,
+    "d_auc_vs_RAIN": 0.24573
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.15985,
+     0.18092
+    ],
+    "mean_p": [
+     0.19472,
+     0.21219
+    ],
+    "brier": [
+     0.11587,
+     0.12693
+    ],
+    "bss_B0": [
+     0.11987,
+     0.16455
+    ],
+    "bss_B2": [
+     -0.01058,
+     0.01193
+    ],
+    "auc": [
+     0.77075,
+     0.79605
+    ],
+    "prec_at_50_recall": [
+     0.37328,
+     0.43832
+    ],
+    "auc_within_season": [
+     0.77206,
+     0.79925
+    ],
+    "auc_within_cell": [
+     0.48913,
+     0.55035
+    ],
+    "cal_intercept": [
+     -0.36989,
+     -0.20532
+    ],
+    "cal_slope": [
+     0.92335,
+     1.02949
+    ],
+    "citl": [
+     -0.32353,
+     -0.19893
+    ],
+    "bss_vs_main": [
+     -0.01107,
+     -0.00113
+    ],
+    "d_bss_B0_vs_main": [
+     -0.00939,
+     -0.00096
+    ],
+    "d_auc_vs_main": [
+     -0.00713,
+     -0.00034
+    ],
+    "bss_vs_RAIN": [
+     0.12047,
+     0.16299
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.1203,
+     0.16252
+    ],
+    "d_auc_vs_RAIN": [
+     0.22391,
+     0.26837
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.13418,
+     0.2051
+    ],
+    "mean_p": [
+     0.1858,
+     0.21766
+    ],
+    "brier": [
+     0.1084,
+     0.13333
+    ],
+    "bss_B0": [
+     0.05325,
+     0.20617
+    ],
+    "bss_B2": [
+     -0.05796,
+     0.04776
+    ],
+    "auc": [
+     0.76027,
+     0.8045
+    ],
+    "prec_at_50_recall": [
+     0.31296,
+     0.4959
+    ],
+    "auc_within_season": [
+     0.75733,
+     0.80737
+    ],
+    "auc_within_cell": [
+     0.44252,
+     0.60245
+    ],
+    "cal_intercept": [
+     -0.67394,
+     0.0912
+    ],
+    "cal_slope": [
+     0.8586,
+     1.09871
+    ],
+    "citl": [
+     -0.59472,
+     0.01082
+    ],
+    "bss_vs_main": [
+     -0.01414,
+     0.0003
+    ],
+    "d_bss_B0_vs_main": [
+     -0.01285,
+     0.00025
+    ],
+    "d_auc_vs_main": [
+     -0.00675,
+     -0.0007
+    ],
+    "bss_vs_RAIN": [
+     0.05309,
+     0.20227
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.05367,
+     0.20234
+    ],
+    "d_auc_vs_RAIN": [
+     0.17199,
+     0.31325
+    ]
+   },
+   "rows": {
+    "passed_in": 10045,
+    "in_subset": 10045,
+    "in_subset_without_label": 197,
+    "scored": 9848,
+    "events": 1684,
+    "dams": 1434,
+    "dams_with_event": 791,
+    "region_years": 14
+   },
+   "refs": [
+    "main",
+    "RAIN"
+   ]
+  },
+  "cell_best": {
+   "task": "P2_cell",
+   "point": {
+    "base_rate": 0.171,
+    "mean_p": 0.20829,
+    "brier": 0.12293,
+    "bss_B0": 0.13367,
+    "bss_B2": -0.01175,
+    "auc": 0.77788,
+    "prec_at_50_recall": 0.39512,
+    "auc_within_season": 0.77936,
+    "auc_within_cell": 0.51657,
+    "cal_intercept": -0.33031,
+    "cal_slope": 0.96115,
+    "citl": -0.29286,
+    "bss_vs_main": -0.01775,
+    "d_bss_B0_vs_main": -0.01511,
+    "d_auc_vs_main": -0.00927,
+    "bss_vs_RAIN": 0.13244,
+    "d_bss_B0_vs_RAIN": 0.13226,
+    "d_auc_vs_RAIN": 0.24003
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.15985,
+     0.18092
+    ],
+    "mean_p": [
+     0.19886,
+     0.21657
+    ],
+    "brier": [
+     0.11709,
+     0.1281
+    ],
+    "bss_B0": [
+     0.10855,
+     0.15505
+    ],
+    "bss_B2": [
+     -0.02377,
+     0.00062
+    ],
+    "auc": [
+     0.76404,
+     0.79029
+    ],
+    "prec_at_50_recall": [
+     0.36417,
+     0.43259
+    ],
+    "auc_within_season": [
+     0.76544,
+     0.79373
+    ],
+    "auc_within_cell": [
+     0.48659,
+     0.54761
+    ],
+    "cal_intercept": [
+     -0.42196,
+     -0.25067
+    ],
+    "cal_slope": [
+     0.90622,
+     1.01796
+    ],
+    "citl": [
+     -0.35584,
+     -0.22587
+    ],
+    "bss_vs_main": [
+     -0.0262,
+     -0.01046
+    ],
+    "d_bss_B0_vs_main": [
+     -0.02239,
+     -0.00894
+    ],
+    "d_auc_vs_main": [
+     -0.01435,
+     -0.00483
+    ],
+    "bss_vs_RAIN": [
+     0.10984,
+     0.15374
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.10998,
+     0.15321
+    ],
+    "d_auc_vs_RAIN": [
+     0.21847,
+     0.26219
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.13418,
+     0.2051
+    ],
+    "mean_p": [
+     0.18961,
+     0.22191
+    ],
+    "brier": [
+     0.10972,
+     0.13467
+    ],
+    "bss_B0": [
+     0.04359,
+     0.19737
+    ],
+    "bss_B2": [
+     -0.07267,
+     0.03772
+    ],
+    "auc": [
+     0.7545,
+     0.7995
+    ],
+    "prec_at_50_recall": [
+     0.3062,
+     0.48967
+    ],
+    "auc_within_season": [
+     0.7519,
+     0.80212
+    ],
+    "auc_within_cell": [
+     0.43956,
+     0.59857
+    ],
+    "cal_intercept": [
+     -0.72755,
+     0.03897
+    ],
+    "cal_slope": [
+     0.84283,
+     1.08286
+    ],
+    "citl": [
+     -0.62431,
+     -0.02113
+    ],
+    "bss_vs_main": [
+     -0.02915,
+     -0.01012
+    ],
+    "d_bss_B0_vs_main": [
+     -0.02643,
+     -0.00818
+    ],
+    "d_auc_vs_main": [
+     -0.01348,
+     -0.00577
+    ],
+    "bss_vs_RAIN": [
+     0.03824,
+     0.19403
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.03825,
+     0.19404
+    ],
+    "d_auc_vs_RAIN": [
+     0.16579,
+     0.30812
+    ]
+   },
+   "rows": {
+    "passed_in": 10045,
+    "in_subset": 10045,
+    "in_subset_without_label": 197,
+    "scored": 9848,
+    "events": 1684,
+    "dams": 1434,
+    "dams_with_event": 791,
+    "region_years": 14
+   },
+   "refs": [
+    "main",
+    "RAIN"
+   ]
+  },
+  "no_area_index": {
+   "task": "P2_cell",
+   "point": {
+    "base_rate": 0.171,
+    "mean_p": 0.1934,
+    "brier": 0.12079,
+    "bss_B0": 0.14874,
+    "bss_B2": 0.00585,
+    "auc": 0.78631,
+    "prec_at_50_recall": 0.40716,
+    "auc_within_season": 0.78853,
+    "auc_within_cell": 0.5185,
+    "cal_intercept": -0.26816,
+    "cal_slope": 0.91803,
+    "citl": -0.18465,
+    "bss_vs_main": -5e-05,
+    "d_bss_B0_vs_main": -4e-05,
+    "d_auc_vs_main": -0.00085,
+    "bss_vs_RAIN": 0.14753,
+    "d_bss_B0_vs_RAIN": 0.14733,
+    "d_auc_vs_RAIN": 0.24845
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.15985,
+     0.18092
+    ],
+    "mean_p": [
+     0.18468,
+     0.20178
+    ],
+    "brier": [
+     0.1152,
+     0.12623
+    ],
+    "bss_B0": [
+     0.12658,
+     0.16886
+    ],
+    "bss_B2": [
+     -0.00466,
+     0.01825
+    ],
+    "auc": [
+     0.77302,
+     0.79928
+    ],
+    "prec_at_50_recall": [
+     0.37539,
+     0.44108
+    ],
+    "auc_within_season": [
+     0.77474,
+     0.80222
+    ],
+    "auc_within_cell": [
+     0.4888,
+     0.54945
+    ],
+    "cal_intercept": [
+     -0.35359,
+     -0.19253
+    ],
+    "cal_slope": [
+     0.86282,
+     0.97044
+    ],
+    "citl": [
+     -0.24684,
+     -0.12264
+    ],
+    "bss_vs_main": [
+     -0.00118,
+     0.00105
+    ],
+    "d_bss_B0_vs_main": [
+     -0.00099,
+     0.0009
+    ],
+    "d_auc_vs_main": [
+     -0.00145,
+     -0.00025
+    ],
+    "bss_vs_RAIN": [
+     0.12566,
+     0.16734
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.12541,
+     0.167
+    ],
+    "d_auc_vs_RAIN": [
+     0.22762,
+     0.2721
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.13418,
+     0.2051
+    ],
+    "mean_p": [
+     0.17493,
+     0.20705
+    ],
+    "brier": [
+     0.10753,
+     0.13323
+    ],
+    "bss_B0": [
+     0.06237,
+     0.20703
+    ],
+    "bss_B2": [
+     -0.04424,
+     0.04719
+    ],
+    "auc": [
+     0.76297,
+     0.80686
+    ],
+    "prec_at_50_recall": [
+     0.31508,
+     0.49935
+    ],
+    "auc_within_season": [
+     0.76173,
+     0.81116
+    ],
+    "auc_within_cell": [
+     0.4428,
+     0.59983
+    ],
+    "cal_intercept": [
+     -0.64742,
+     0.1013
+    ],
+    "cal_slope": [
+     0.8066,
+     1.03188
+    ],
+    "citl": [
+     -0.52264,
+     0.09301
+    ],
+    "bss_vs_main": [
+     -0.00195,
+     0.00178
+    ],
+    "d_bss_B0_vs_main": [
+     -0.00164,
+     0.00158
+    ],
+    "d_auc_vs_main": [
+     -0.00188,
+     1e-05
+    ],
+    "bss_vs_RAIN": [
+     0.06586,
+     0.20416
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.06657,
+     0.20357
+    ],
+    "d_auc_vs_RAIN": [
+     0.1743,
+     0.31631
+    ]
+   },
+   "rows": {
+    "passed_in": 10045,
+    "in_subset": 10045,
+    "in_subset_without_label": 197,
+    "scored": 9848,
+    "events": 1684,
+    "dams": 1434,
+    "dams_with_event": 791,
+    "region_years": 14
+   },
+   "refs": [
+    "main",
+    "RAIN"
+   ]
+  },
+  "plain": {
+   "task": "P2_cell",
+   "point": {
+    "base_rate": 0.171,
+    "mean_p": 0.18962,
+    "brier": 0.12096,
+    "bss_B0": 0.1476,
+    "bss_B2": 0.00452,
+    "auc": 0.78212,
+    "prec_at_50_recall": 0.39642,
+    "auc_within_season": 0.78456,
+    "auc_within_cell": 0.50725,
+    "cal_intercept": -0.09488,
+    "cal_slope": 1.04835,
+    "citl": -0.14786,
+    "bss_vs_main": -0.00139,
+    "d_bss_B0_vs_main": -0.00118,
+    "d_auc_vs_main": -0.00503,
+    "bss_vs_RAIN": 0.14639,
+    "d_bss_B0_vs_RAIN": 0.14618,
+    "d_auc_vs_RAIN": 0.24426
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.15985,
+     0.18092
+    ],
+    "mean_p": [
+     0.18188,
+     0.19698
+    ],
+    "brier": [
+     0.11522,
+     0.12631
+    ],
+    "bss_B0": [
+     0.1279,
+     0.16645
+    ],
+    "bss_B2": [
+     -0.00631,
+     0.01783
+    ],
+    "auc": [
+     0.76877,
+     0.79501
+    ],
+    "prec_at_50_recall": [
+     0.36786,
+     0.42755
+    ],
+    "auc_within_season": [
+     0.77093,
+     0.79787
+    ],
+    "auc_within_cell": [
+     0.47808,
+     0.53785
+    ],
+    "cal_intercept": [
+     -0.19372,
+     -0.01006
+    ],
+    "cal_slope": [
+     0.98286,
+     1.11084
+    ],
+    "citl": [
+     -0.20901,
+     -0.08758
+    ],
+    "bss_vs_main": [
+     -0.00768,
+     0.00566
+    ],
+    "d_bss_B0_vs_main": [
+     -0.00645,
+     0.00483
+    ],
+    "d_auc_vs_main": [
+     -0.00797,
+     -0.00105
+    ],
+    "bss_vs_RAIN": [
+     0.12757,
+     0.16432
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.12737,
+     0.16412
+    ],
+    "d_auc_vs_RAIN": [
+     0.22262,
+     0.26823
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.13418,
+     0.2051
+    ],
+    "mean_p": [
+     0.17052,
+     0.20393
+    ],
+    "brier": [
+     0.10656,
+     0.13459
+    ],
+    "bss_B0": [
+     0.07749,
+     0.19643
+    ],
+    "bss_B2": [
+     -0.03411,
+     0.03697
+    ],
+    "auc": [
+     0.75792,
+     0.80354
+    ],
+    "prec_at_50_recall": [
+     0.30795,
+     0.48767
+    ],
+    "auc_within_season": [
+     0.75659,
+     0.81089
+    ],
+    "auc_within_cell": [
+     0.44079,
+     0.58022
+    ],
+    "cal_intercept": [
+     -0.50072,
+     0.27729
+    ],
+    "cal_slope": [
+     0.90788,
+     1.18404
+    ],
+    "citl": [
+     -0.47753,
+     0.12055
+    ],
+    "bss_vs_main": [
+     -0.01775,
+     0.01999
+    ],
+    "d_bss_B0_vs_main": [
+     -0.01423,
+     0.01857
+    ],
+    "d_auc_vs_main": [
+     -0.01063,
+     0.00085
+    ],
+    "bss_vs_RAIN": [
+     0.07457,
+     0.19574
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.07498,
+     0.19627
+    ],
+    "d_auc_vs_RAIN": [
+     0.17208,
+     0.31453
+    ]
+   },
+   "rows": {
+    "passed_in": 10045,
+    "in_subset": 10045,
+    "in_subset_without_label": 197,
+    "scored": 9848,
+    "events": 1684,
+    "dams": 1434,
+    "dams_with_event": 791,
+    "region_years": 14
+   },
+   "refs": [
+    "main",
+    "RAIN"
+   ]
+  },
+  "all_waterbodies": {
+   "task": "P2_cell",
+   "point": {
+    "base_rate": 0.171,
+    "mean_p": 0.18488,
+    "brier": 0.12137,
+    "bss_B0": 0.14467,
+    "bss_B2": 0.0011,
+    "auc": 0.77849,
+    "prec_at_50_recall": 0.41013,
+    "auc_within_season": 0.78556,
+    "auc_within_cell": 0.49571,
+    "cal_intercept": -0.22862,
+    "cal_slope": 0.89653,
+    "citl": -0.11544,
+    "bss_vs_main": -0.00483,
+    "d_bss_B0_vs_main": -0.00411,
+    "d_auc_vs_main": -0.00866,
+    "bss_vs_RAIN": 0.14346,
+    "d_bss_B0_vs_RAIN": 0.14325,
+    "d_auc_vs_RAIN": 0.24064
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.15985,
+     0.18092
+    ],
+    "mean_p": [
+     0.17627,
+     0.19289
+    ],
+    "brier": [
+     0.1155,
+     0.1269
+    ],
+    "bss_B0": [
+     0.12242,
+     0.16468
+    ],
+    "bss_B2": [
+     -0.00911,
+     0.01135
+    ],
+    "auc": [
+     0.7651,
+     0.79246
+    ],
+    "prec_at_50_recall": [
+     0.37468,
+     0.43719
+    ],
+    "auc_within_season": [
+     0.77213,
+     0.79944
+    ],
+    "auc_within_cell": [
+     0.46391,
+     0.5297
+    ],
+    "cal_intercept": [
+     -0.3208,
+     -0.14013
+    ],
+    "cal_slope": [
+     0.84255,
+     0.95343
+    ],
+    "citl": [
+     -0.17677,
+     -0.05461
+    ],
+    "bss_vs_main": [
+     -0.01294,
+     0.00292
+    ],
+    "d_bss_B0_vs_main": [
+     -0.01086,
+     0.00247
+    ],
+    "d_auc_vs_main": [
+     -0.01315,
+     -0.00449
+    ],
+    "bss_vs_RAIN": [
+     0.12142,
+     0.16352
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.12114,
+     0.16314
+    ],
+    "d_auc_vs_RAIN": [
+     0.21807,
+     0.26531
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.13418,
+     0.2051
+    ],
+    "mean_p": [
+     0.1701,
+     0.19885
+    ],
+    "brier": [
+     0.10731,
+     0.13479
+    ],
+    "bss_B0": [
+     0.07401,
+     0.19536
+    ],
+    "bss_B2": [
+     -0.03955,
+     0.03236
+    ],
+    "auc": [
+     0.75344,
+     0.80057
+    ],
+    "prec_at_50_recall": [
+     0.31254,
+     0.49506
+    ],
+    "auc_within_season": [
+     0.76295,
+     0.81081
+    ],
+    "auc_within_cell": [
+     0.44434,
+     0.55791
+    ],
+    "cal_intercept": [
+     -0.63807,
+     0.1348
+    ],
+    "cal_slope": [
+     0.79165,
+     1.0121
+    ],
+    "citl": [
+     -0.46928,
+     0.19754
+    ],
+    "bss_vs_main": [
+     -0.03131,
+     0.02426
+    ],
+    "d_bss_B0_vs_main": [
+     -0.0253,
+     0.02123
+    ],
+    "d_auc_vs_main": [
+     -0.0207,
+     0.00455
+    ],
+    "bss_vs_RAIN": [
+     0.06829,
+     0.19644
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.0676,
+     0.19653
+    ],
+    "d_auc_vs_RAIN": [
+     0.16102,
+     0.31697
+    ]
+   },
+   "rows": {
+    "passed_in": 10045,
+    "in_subset": 10045,
+    "in_subset_without_label": 197,
+    "scored": 9848,
+    "events": 1684,
+    "dams": 1434,
+    "dams_with_event": 791,
+    "region_years": 14
+   },
+   "refs": [
+    "main",
+    "RAIN"
+   ]
+  }
+ }
+}

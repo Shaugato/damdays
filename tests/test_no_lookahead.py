@@ -21,7 +21,11 @@ Fixes from the pre-event leakage audit:
   * The cuts are mid-year and off the 1st/16th neighbour grid.
   * It runs on every generator inside build_all, so a new feature added
     there is covered automatically. A generator built outside build_all
-    (physics, sequences, frailty sums) should be added to GENERATORS below.
+    (physics, sequences) should be added to GENERATORS below.
+  * Tidemark's per-dam frailty sums (damdays.models.frailty) are rebuilt
+    from each P1 table and compared too (table "p1_frailty"). They are
+    where future LABELS could leak, so a planted leak (records counted
+    without the 120-day wait) must be caught as well.
 
 PREREG static quantities (the pre-2016 "full", population flags, at-risk
 flags) are held fixed: they define WHAT is scored, not model inputs.
@@ -40,17 +44,49 @@ from damdays import config
 from damdays.data.events import build_events
 from damdays.features.build import build_all
 from damdays.features.spec import LABEL_COLUMNS
+from damdays.models import frailty, fusion, rows
 
 CUTS = {"nsw_cw": "2014-07-09", "wvic_sesa": "2012-07-09"}
 HORIZON = pd.Timedelta(days=config.HORIZON_DAYS)
 
+
+def frailty_sums(p1, final_after_days=config.ANSWER_FINAL_DAYS):
+    """The frailty sums R, V, n of every P1 issue, for each event kind (damdays.models.frailty).
+
+    Tidemark's real anchor is a tree's prediction from causal features, which
+    this test already proves causal. Any causal probability exercises the
+    same time rules, so a stand-in is used: the issue's own dam_rate_<kind>.
+    What is tested: a past forecast counts only once its answer is final
+    (t_j + 120 days <= t), and the answers of final records survive truncation.
+    final_after_days=0 plants a leak (a record counts from its own issue day).
+    """
+    out = p1[["uid", "issue_date"]].reset_index(drop=True)
+    every_row = np.arange(len(p1))
+    for kind in rows.P1_KINDS:
+        at_risk = p1[rows.p1_at_risk_column(kind)].to_numpy(dtype=bool)
+        is_record = at_risk & fusion.track_record_mask(p1, kind, every_row)
+        y = p1[rows.p1_label(kind)].to_numpy(dtype=float)
+        p = np.clip(np.nan_to_num(p1[f"dam_rate_{kind}"].to_numpy(dtype=float), nan=0.5), 0.01, 0.99)
+        R, V, n = frailty.matured_residual_sums(p1["uid"], p1["issue_date"], is_record, y, p, final_after_days)
+        out[f"frailty_R_{kind}"], out[f"frailty_V_{kind}"], out[f"frailty_n_{kind}"] = R, V, n
+    return out
+
+
+def core_features_and_frailty(*inputs):
+    """build_all's tables plus the frailty sums computed from its P1 table."""
+    tables = build_all(*inputs, verbose=False)
+    tables["p1_frailty"] = frailty_sums(tables["p1"])
+    return tables
+
+
 # Generators to test: name -> function(panel, attrs, events, rain_by_cell) -> dict of tables.
-GENERATORS = {"core features (build_all)": lambda *inputs: build_all(*inputs, verbose=False)}
+GENERATORS = {"core features (build_all) + frailty sums": core_features_and_frailty}
 
 # How to compare each table: (key columns, date column used to select "before the cut").
 # A checkpoint for year Y is dated 1 Jan Y (it uses looks before that date).
 TABLES = {
     "p1": (["uid", "issue_date"], "issue_date"),
+    "p1_frailty": (["uid", "issue_date"], "issue_date"),
     "p2_dam": (["uid", "season"], "issue_date"),
     "p2_cell": (["hex_id", "season"], "issue_date"),
     "checkpoints": (["uid", "year"], None),
@@ -230,6 +266,11 @@ def test_features_before_the_cut_do_not_change(builds, generator, region):
     planted = compare(before_cut(with_planted_peek(full["p1"]), "p1", cut),
                       before_cut(with_planted_peek(truncated["p1"]), "p1", cut), TABLES["p1"][0])
     assert "planted_peek" in planted, "a planted look-ahead column was not caught"
+    # Same for the frailty: counting records without the 120-day wait reads future labels.
+    leaky = compare(before_cut(frailty_sums(full["p1"], final_after_days=0), "p1_frailty", cut),
+                    before_cut(frailty_sums(truncated["p1"], final_after_days=0), "p1_frailty", cut),
+                    TABLES["p1_frailty"][0])
+    assert "frailty_R_R30" in leaky, "a planted frailty leak (no 120-day wait) was not caught"
 
     save_summary(region, {
         "generator": generator, "cut": cut, "result": "PASS: 0 mismatching values",
@@ -238,6 +279,7 @@ def test_features_before_the_cut_do_not_change(builds, generator, region):
         "p1_rows_failing_label_ok_compared": int((~p1_full["label_ok"]).sum()),
         "p1_rows_whose_labels_changed_after_truncation": int(labels_changed.sum()),
         "planted_peek_rows_caught": planted["planted_peek"],
+        "planted_frailty_leak_rows_caught": leaky["frailty_R_R30"],
         "neighbour_grid_dates_compared": int((pd.to_datetime(full["neighbour_grid"]["grid"])
                                               < pd.Timestamp(cut)).sum()),
     })

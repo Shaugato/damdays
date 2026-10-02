@@ -1,0 +1,6860 @@
+{
+ "generated": "2026-10-02 14:15:07",
+ "block": "VAL",
+ "rung": "L1",
+ "n_boot_main": 500,
+ "n_boot_side": 200,
+ "integration": [
+  {
+   "check": "R30 90-day probability (p90_R30)",
+   "step": "step 4",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 358525
+  },
+  {
+   "check": "R30 anchor before frailty",
+   "step": "step 4",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 358525
+  },
+  {
+   "check": "R30 frailty b",
+   "step": "step 4",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 358525
+  },
+  {
+   "check": "R30 tree T vs the benchmark G2",
+   "step": "step 3",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 358525
+  },
+  {
+   "check": "D0 90-day probability (p90_D0)",
+   "step": "step 4",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "D0 anchor before frailty",
+   "step": "step 4",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "D0 frailty b",
+   "step": "step 4",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "D0 tree T vs the benchmark G2",
+   "step": "step 3",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "D0g 90-day probability (p90_D0g)",
+   "step": "step 4",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "D0g anchor before frailty",
+   "step": "step 4",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "D0g frailty b",
+   "step": "step 4",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "D0g tree T vs the benchmark G2",
+   "step": "step 3",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "R30 before the max rule",
+   "step": "step 4",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 358525
+  },
+  {
+   "check": "R30 runway curve at 30 days",
+   "step": "step 6",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 358525
+  },
+  {
+   "check": "R30 runway curve at 60 days",
+   "step": "step 6",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 358525
+  },
+  {
+   "check": "R30 runway curve at 90 days",
+   "step": "step 6",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 358525
+  },
+  {
+   "check": "R30 runway curve at 180 days",
+   "step": "step 6",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 358525
+  },
+  {
+   "check": "D0 runway curve at 30 days",
+   "step": "step 6",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "D0 runway curve at 60 days",
+   "step": "step 6",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "D0 runway curve at 90 days",
+   "step": "step 6",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "D0 runway curve at 180 days",
+   "step": "step 6",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 461839
+  },
+  {
+   "check": "floor: log 10% quantile",
+   "step": "step 7",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 358525
+  },
+  {
+   "check": "floor: days (shift 0 = step 7's raw floor)",
+   "step": "step 7",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 358525
+  },
+  {
+   "check": "P2 dam rating p",
+   "step": "step 5",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 11781
+  },
+  {
+   "check": "P2 dam rating p (gradual)",
+   "step": "step 5",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 11781
+  },
+  {
+   "check": "P2 cell rating p",
+   "step": "step 5",
+   "status": "compared",
+   "max_abs_diff": 0.0,
+   "identical": true,
+   "rows": 10045
+  }
+ ],
+ "exact_checks": [
+  {
+   "check": "P1_R30 primary: scored rows (events)",
+   "expected": "66,453 (15,861)",
+   "got": "66,453 (15,861)",
+   "match": true
+  },
+  {
+   "check": "P1_D0 primary: scored rows (events)",
+   "expected": "86,651 (9,893)",
+   "got": "86,651 (9,893)",
+   "match": true
+  },
+  {
+   "check": "P1_D0g primary: scored rows (events)",
+   "expected": "83,747 (6,989)",
+   "got": "83,747 (6,989)",
+   "match": true
+  },
+  {
+   "check": "P1_R30 persistent+octmar+at_risk: scored rows (events)",
+   "expected": "45,500 (9,223)",
+   "got": "45,500 (9,223)",
+   "match": true
+  },
+  {
+   "check": "P1_D0 persistent+octmar+at_risk: scored rows (events)",
+   "expected": "58,249 (2,949)",
+   "got": "58,249 (2,949)",
+   "match": true
+  },
+  {
+   "check": "P1_D0g persistent+octmar+at_risk: scored rows (events)",
+   "expected": "57,382 (2,082)",
+   "got": "57,382 (2,082)",
+   "match": true
+  },
+  {
+   "check": "P1_R30 dam_like+at_risk: scored rows (events)",
+   "expected": "127,203 (25,039)",
+   "got": "127,203 (25,039)",
+   "match": true
+  },
+  {
+   "check": "P1_D0 dam_like+at_risk: scored rows (events)",
+   "expected": "160,529 (14,617)",
+   "got": "160,529 (14,617)",
+   "match": true
+  },
+  {
+   "check": "P1_D0g dam_like+at_risk: scored rows (events)",
+   "expected": "155,876 (9,964)",
+   "got": "155,876 (9,964)",
+   "match": true
+  },
+  {
+   "check": "P2_cell all: scored rows (events)",
+   "expected": "9,848 (1,684)",
+   "got": "9,848 (1,684)",
+   "match": true
+  },
+  {
+   "check": "P2_dam dam_like: scored rows (events)",
+   "expected": "11,557 (2,069)",
+   "got": "11,557 (2,069)",
+   "match": true
+  },
+  {
+   "check": "P2_dam_g dam_like: scored rows (events)",
+   "expected": "10,949 (1,461)",
+   "got": "10,949 (1,461)",
+   "match": true
+  },
+  {
+   "check": "tree T R30: fit rows (events)",
+   "expected": "659,554 (192,700)",
+   "got": "659,554 (192,700)",
+   "match": true
+  },
+  {
+   "check": "tree T D0: fit rows (events)",
+   "expected": "875,286 (148,942)",
+   "got": "875,286 (148,942)",
+   "match": true
+  },
+  {
+   "check": "tree T D0g: fit rows (events)",
+   "expected": "815,946 (89,602)",
+   "got": "815,946 (89,602)",
+   "match": true
+  },
+  {
+   "check": "curve H R30: issues / person-period rows / events",
+   "expected": "283,836 / 1,000,128 / 94,623",
+   "got": "283,836 / 1,000,128 / 94,623",
+   "match": true
+  },
+  {
+   "check": "curve R30: primary base rate at 30/60/90/180 d",
+   "expected": "0.0811 / 0.1710 / 0.2387 / 0.3248",
+   "got": "0.0811 / 0.1710 / 0.2387 / 0.3248",
+   "match": true
+  },
+  {
+   "check": "curve H D0: issues / person-period rows / events",
+   "expected": "365,109 / 1,362,265 / 60,783",
+   "got": "365,109 / 1,362,265 / 60,783",
+   "match": true
+  },
+  {
+   "check": "curve D0: primary base rate at 30/60/90/180 d",
+   "expected": "0.0369 / 0.0792 / 0.1142 / 0.1653",
+   "got": "0.0369 / 0.0792 / 0.1142 / 0.1653",
+   "match": true
+  },
+  {
+   "check": "season rating: dam-like TRAIN seasons (dry)",
+   "expected": "32,355 (5,788)",
+   "got": "32,355 (5,788)",
+   "match": true
+  }
+ ],
+ "level_checks": [
+  {
+   "check": "R30 headline (after max rule), BSS vs B0",
+   "expected": 0.1727,
+   "got": 0.1714,
+   "difference": -0.0013,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "G2c+RE (no max rule)"
+  },
+  {
+   "check": "R30 before max rule, BSS vs B0",
+   "expected": 0.1727,
+   "got": 0.17196,
+   "difference": -0.00074,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "G2c+RE"
+  },
+  {
+   "check": "R30 before max rule, BSS vs B2",
+   "expected": 0.1014,
+   "got": 0.10089,
+   "difference": -0.00051,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "G2c+RE"
+  },
+  {
+   "check": "R30 before max rule, AUC",
+   "expected": 0.7819,
+   "got": 0.78185,
+   "difference": -5e-05,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "G2c+RE"
+  },
+  {
+   "check": "R30 before max rule, calibration slope",
+   "expected": 0.9692,
+   "got": 0.96986,
+   "difference": 0.00066,
+   "tolerance": 0.05,
+   "within": true,
+   "source": "G2c+RE"
+  },
+  {
+   "check": "R30 persistent, before max rule, BSS vs B0",
+   "expected": 0.1383,
+   "got": 0.13853,
+   "difference": 0.00023,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "G2c+RE"
+  },
+  {
+   "check": "D0 BSS vs B0",
+   "expected": 0.1771,
+   "got": 0.17701,
+   "difference": -9e-05,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "G2c+RE"
+  },
+  {
+   "check": "D0 BSS vs B2",
+   "expected": 0.0941,
+   "got": 0.09436,
+   "difference": 0.00026,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "G2c+RE"
+  },
+  {
+   "check": "D0 AUC",
+   "expected": 0.8328,
+   "got": 0.83323,
+   "difference": 0.00043,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "G2c+RE"
+  },
+  {
+   "check": "D0 calibration slope",
+   "expected": 1.0103,
+   "got": 1.01512,
+   "difference": 0.00482,
+   "tolerance": 0.05,
+   "within": true,
+   "source": "G2c+RE"
+  },
+  {
+   "check": "D0 persistent, BSS vs B0",
+   "expected": 0.0819,
+   "got": 0.08173,
+   "difference": -0.00017,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "G2c+RE"
+  }
+ ],
+ "gain_checks": [
+  {
+   "check": "R30 gain over G2, before max rule",
+   "expected": 0.0024,
+   "bench_ci": [
+    0.0004,
+    0.0042
+   ],
+   "got": 0.00197,
+   "got_ci": [
+    0.00023,
+    0.0036
+   ],
+   "like_for_like": true,
+   "inside_bench_ci": true,
+   "source": "G2c+RE vs G2c"
+  },
+  {
+   "check": "R30 gain over G2, before max rule, persistent",
+   "expected": 0.0039,
+   "bench_ci": [
+    0.0018,
+    0.0066
+   ],
+   "got": 0.00334,
+   "got_ci": [
+    0.00123,
+    0.00534
+   ],
+   "like_for_like": true,
+   "inside_bench_ci": true,
+   "source": "G2c+RE vs G2c"
+  },
+  {
+   "check": "R30 AUC gain over G2, before max rule",
+   "expected": 0.001,
+   "bench_ci": [
+    0.0001,
+    0.0019
+   ],
+   "got": 0.00094,
+   "got_ci": [
+    2e-05,
+    0.00182
+   ],
+   "like_for_like": true,
+   "inside_bench_ci": true,
+   "source": "G2c+RE vs G2c"
+  },
+  {
+   "check": "D0 gain over G2",
+   "expected": 0.002,
+   "bench_ci": [
+    0.0002,
+    0.0041
+   ],
+   "got": 0.00165,
+   "got_ci": [
+    3e-05,
+    0.00327
+   ],
+   "like_for_like": true,
+   "inside_bench_ci": true,
+   "source": "G2c+RE vs G2c"
+  },
+  {
+   "check": "D0 gain over G2, persistent",
+   "expected": 0.0033,
+   "bench_ci": [
+    0.0006,
+    0.0063
+   ],
+   "got": 0.00305,
+   "got_ci": [
+    0.00069,
+    0.0057
+   ],
+   "like_for_like": true,
+   "inside_bench_ci": true,
+   "source": "G2c+RE vs G2c"
+  },
+  {
+   "check": "D0 AUC gain over G2",
+   "expected": 0.001,
+   "bench_ci": [
+    0.0002,
+    0.0018
+   ],
+   "got": 0.00096,
+   "got_ci": [
+    0.00017,
+    0.00175
+   ],
+   "like_for_like": true,
+   "inside_bench_ci": true,
+   "source": "G2c+RE vs G2c"
+  },
+  {
+   "check": "R30 headline gain over G2 (after max rule)",
+   "expected": 0.0024,
+   "bench_ci": null,
+   "got": 0.00141,
+   "got_ci": [
+    -0.00037,
+    0.003
+   ],
+   "like_for_like": false,
+   "inside_bench_ci": null,
+   "source": "the bench had no max rule; step 4 measured its cost at -0.0006"
+  },
+  {
+   "check": "D0g gain over G2",
+   "expected": 0.0005,
+   "bench_ci": [
+    -0.0014,
+    0.0024
+   ],
+   "got": 0.0012,
+   "got_ci": [
+    -0.0006,
+    0.00279
+   ],
+   "like_for_like": false,
+   "inside_bench_ci": true,
+   "source": "no twin without nets: hybrid stage B frailty removal cost (full model)"
+  }
+ ],
+ "floor_checks": [
+  {
+   "check": "floor as issued on VAL (raw q10, shift 0), all",
+   "expected": 0.8997,
+   "got": 0.9,
+   "difference": 0.0003,
+   "tolerance": 0.005,
+   "within": true
+  },
+  {
+   "check": "floor as issued on VAL, primary",
+   "expected": 0.9098,
+   "got": 0.90985,
+   "difference": 5e-05,
+   "tolerance": 0.005,
+   "within": true
+  },
+  {
+   "check": "floor as issued, median days (all)",
+   "expected": 45.28,
+   "got": 45.00339,
+   "difference": -0.27661,
+   "tolerance": 3.0,
+   "within": true
+  },
+  {
+   "check": "LOYO conformal floor, all (pre-event procedure)",
+   "expected": 0.9001,
+   "got": 0.90015,
+   "difference": 5e-05,
+   "tolerance": 0.005,
+   "within": true
+  },
+  {
+   "check": "LOYO conformal floor, primary",
+   "expected": 0.9102,
+   "got": 0.90977,
+   "difference": -0.00043,
+   "tolerance": 0.005,
+   "within": true
+  },
+  {
+   "check": "LOYO worst July-June year (all)",
+   "expected": 0.878,
+   "got": 0.87803,
+   "difference": 3e-05,
+   "tolerance": 0.01,
+   "within": true
+  },
+  {
+   "check": "LOYO median floor, days (all)",
+   "expected": 45.03,
+   "got": 44.8334,
+   "difference": -0.1966,
+   "tolerance": 3.0,
+   "within": true
+  },
+  {
+   "check": "LOYO median floor, days (primary)",
+   "expected": 44.61,
+   "got": 44.23985,
+   "difference": -0.37015,
+   "tolerance": 3.0,
+   "within": true
+  },
+  {
+   "check": "LOYO share of floors >= 90 days (all)",
+   "expected": 0.259,
+   "got": 0.26261,
+   "difference": 0.00361,
+   "tolerance": 0.02,
+   "within": true
+  }
+ ],
+ "p2_checks": [
+  {
+   "check": "P2_cell AUC",
+   "expected": 0.7873,
+   "got": 0.78715,
+   "difference": -0.00015,
+   "tolerance": 0.006,
+   "within": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell dAUC vs RAIN",
+   "expected": 0.2464,
+   "got": 0.2493,
+   "difference": 0.0029,
+   "tolerance": 0.006,
+   "within": true,
+   "note": "this build's RAIN uses causal rain deciles, so the gap to RAIN comes out about +0.003 larger (step 5)"
+  },
+  {
+   "check": "P2_cell dAUC vs RAIN+",
+   "expected": 0.1547,
+   "got": 0.15632,
+   "difference": 0.00162,
+   "tolerance": 0.006,
+   "within": true,
+   "note": "RAIN+ refitted on causal inputs (step 3)"
+  },
+  {
+   "check": "P2_cell dAUC vs B2",
+   "expected": 0.0142,
+   "got": 0.01407,
+   "difference": -0.00013,
+   "tolerance": 0.006,
+   "within": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell BSS vs B0",
+   "expected": 0.1489,
+   "got": 0.14878,
+   "difference": -0.00012,
+   "tolerance": 0.006,
+   "within": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell BSS vs B2",
+   "expected": 0.0061,
+   "got": 0.0059,
+   "difference": -0.0002,
+   "tolerance": 0.006,
+   "within": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell calibration slope",
+   "expected": 0.9272,
+   "got": 0.9236,
+   "difference": -0.0036,
+   "tolerance": 0.05,
+   "within": true,
+   "note": ""
+  },
+  {
+   "check": "P2_cell CITL",
+   "expected": -0.1979,
+   "got": -0.19342,
+   "difference": 0.00448,
+   "tolerance": 0.05,
+   "within": true,
+   "note": "VAL over-predicts (wet 2010-12)"
+  },
+  {
+   "check": "P2_cell within-season AUC",
+   "expected": 0.7893,
+   "got": 0.7893,
+   "difference": -0.0,
+   "tolerance": 0.006,
+   "within": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam AUC",
+   "expected": 0.7796,
+   "got": 0.77935,
+   "difference": -0.00025,
+   "tolerance": 0.006,
+   "within": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam dAUC vs RAIN",
+   "expected": 0.2264,
+   "got": 0.23061,
+   "difference": 0.00421,
+   "tolerance": 0.006,
+   "within": true,
+   "note": "this build's RAIN uses causal rain deciles, so the gap to RAIN comes out about +0.003 larger (step 5)"
+  },
+  {
+   "check": "P2_dam dAUC vs B2",
+   "expected": 0.0174,
+   "got": 0.01713,
+   "difference": -0.00027,
+   "tolerance": 0.006,
+   "within": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam BSS vs B2",
+   "expected": 0.0107,
+   "got": 0.01059,
+   "difference": -0.00011,
+   "tolerance": 0.006,
+   "within": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam calibration slope",
+   "expected": 0.9719,
+   "got": 0.96732,
+   "difference": -0.00458,
+   "tolerance": 0.05,
+   "within": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam CITL",
+   "expected": -0.2344,
+   "got": -0.23014,
+   "difference": 0.00426,
+   "tolerance": 0.05,
+   "within": true,
+   "note": ""
+  },
+  {
+   "check": "P2_dam_g AUC (prior swap)",
+   "expected": 0.767,
+   "got": 0.76679,
+   "difference": -0.00021,
+   "tolerance": 0.006,
+   "within": true,
+   "note": "hybrid stage G"
+  },
+  {
+   "check": "P2_dam_g BSS vs B2 (prior swap)",
+   "expected": 0.0022,
+   "got": 0.00211,
+   "difference": -9e-05,
+   "tolerance": 0.006,
+   "within": true,
+   "note": "hybrid stage G"
+  },
+  {
+   "check": "P2_dam_g calibration slope",
+   "expected": 0.9052,
+   "got": 0.90187,
+   "difference": -0.00333,
+   "tolerance": 0.05,
+   "within": true,
+   "note": "hybrid stage G"
+  },
+  {
+   "check": "P2_dam_g CITL",
+   "expected": -0.193,
+   "got": -0.18835,
+   "difference": 0.00465,
+   "tolerance": 0.05,
+   "within": true,
+   "note": "hybrid stage G"
+  }
+ ],
+ "prereg_p1_pass_bars": {
+  "bss_B0": {
+   "value": 0.1714,
+   "ci_low": 0.15622,
+   "bar": ">= +0.10 and dam CI above 0",
+   "passed": true
+  },
+  "bss_B2": {
+   "value": 0.10028,
+   "bar": ">= +0.05",
+   "passed": true
+  },
+  "cal_slope": {
+   "value": 0.96797,
+   "bar": "0.8 to 1.2",
+   "passed": true
+  },
+  "all_passed": true
+ },
+ "prereg_p2": {
+  "P2_cell": {
+   "d_auc_vs_RAIN": 0.2493,
+   "ci_dam": [
+    0.22838,
+    0.27317
+   ],
+   "ci_region_year": [
+    0.17551,
+    0.31753
+   ],
+   "passed": true,
+   "kill_rule_triggered": false
+  },
+  "P2_dam": {
+   "d_auc_vs_RAIN": 0.23061,
+   "ci_dam": [
+    0.21127,
+    0.25016
+   ],
+   "ci_region_year": [
+    0.1648,
+    0.29923
+   ],
+   "passed": true,
+   "kill_rule_triggered": false
+  },
+  "P2_dam_g": {
+   "d_auc_vs_RAIN": 0.21692,
+   "ci_dam": [
+    0.19381,
+    0.23901
+   ],
+   "ci_region_year": [
+    0.13679,
+    0.3031
+   ],
+   "passed": true,
+   "kill_rule_triggered": false
+  }
+ },
+ "p1": {
+  "P1_R30|primary|L1": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.2713,
+    "brier": 0.1487,
+    "bss_B0": 0.1714,
+    "bss_B2": 0.10028,
+    "auc": 0.78173,
+    "prec_at_50_recall": 0.52061,
+    "cal_intercept": -0.23828,
+    "cal_slope": 0.96797,
+    "citl": -0.21671,
+    "bss_vs_G2": 0.0017,
+    "d_bss_B0_vs_G2": 0.00141,
+    "d_auc_vs_G2": 0.00083
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.22911,
+     0.24998
+    ],
+    "mean_p": [
+     0.26275,
+     0.28047
+    ],
+    "brier": [
+     0.1441,
+     0.15338
+    ],
+    "bss_B0": [
+     0.15622,
+     0.18767
+    ],
+    "bss_B2": [
+     0.08924,
+     0.11186
+    ],
+    "auc": [
+     0.77199,
+     0.79211
+    ],
+    "prec_at_50_recall": [
+     0.49847,
+     0.54844
+    ],
+    "cal_intercept": [
+     -0.28495,
+     -0.18856
+    ],
+    "cal_slope": [
+     0.92939,
+     1.0094
+    ],
+    "citl": [
+     -0.2579,
+     -0.17566
+    ],
+    "bss_vs_G2": [
+     -0.00045,
+     0.0036
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00037,
+     0.003
+    ],
+    "d_auc_vs_G2": [
+     -6e-05,
+     0.00169
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.20468,
+     0.27118
+    ],
+    "mean_p": [
+     0.2468,
+     0.29839
+    ],
+    "brier": [
+     0.13676,
+     0.15882
+    ],
+    "bss_B0": [
+     0.13765,
+     0.20009
+    ],
+    "bss_B2": [
+     0.07773,
+     0.12586
+    ],
+    "auc": [
+     0.76885,
+     0.7951
+    ],
+    "prec_at_50_recall": [
+     0.46804,
+     0.56993
+    ],
+    "cal_intercept": [
+     -0.44552,
+     -0.05834
+    ],
+    "cal_slope": [
+     0.91082,
+     1.03642
+    ],
+    "citl": [
+     -0.43502,
+     -0.0439
+    ],
+    "bss_vs_G2": [
+     -0.00176,
+     0.00536
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00147,
+     0.0044
+    ],
+    "d_auc_vs_G2": [
+     -0.00081,
+     0.00225
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|L1_premax": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.27073,
+    "brier": 0.1486,
+    "bss_B0": 0.17196,
+    "bss_B2": 0.10089,
+    "auc": 0.78185,
+    "prec_at_50_recall": 0.51962,
+    "cal_intercept": -0.2334,
+    "cal_slope": 0.96986,
+    "citl": -0.21297,
+    "bss_vs_G2": 0.00237,
+    "d_bss_B0_vs_G2": 0.00197,
+    "d_auc_vs_G2": 0.00094
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.22911,
+     0.24998
+    ],
+    "mean_p": [
+     0.26224,
+     0.2799
+    ],
+    "brier": [
+     0.14402,
+     0.15328
+    ],
+    "bss_B0": [
+     0.1569,
+     0.18829
+    ],
+    "bss_B2": [
+     0.08984,
+     0.11242
+    ],
+    "auc": [
+     0.77222,
+     0.79221
+    ],
+    "prec_at_50_recall": [
+     0.4984,
+     0.54763
+    ],
+    "cal_intercept": [
+     -0.28022,
+     -0.18335
+    ],
+    "cal_slope": [
+     0.9315,
+     1.01147
+    ],
+    "citl": [
+     -0.25405,
+     -0.17146
+    ],
+    "bss_vs_G2": [
+     0.00028,
+     0.00433
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00023,
+     0.0036
+    ],
+    "d_auc_vs_G2": [
+     2e-05,
+     0.00182
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.20468,
+     0.27118
+    ],
+    "mean_p": [
+     0.24626,
+     0.29767
+    ],
+    "brier": [
+     0.13669,
+     0.15871
+    ],
+    "bss_B0": [
+     0.13855,
+     0.20048
+    ],
+    "bss_B2": [
+     0.07823,
+     0.12631
+    ],
+    "auc": [
+     0.76893,
+     0.79521
+    ],
+    "prec_at_50_recall": [
+     0.468,
+     0.56925
+    ],
+    "cal_intercept": [
+     -0.44066,
+     -0.05324
+    ],
+    "cal_slope": [
+     0.91289,
+     1.03814
+    ],
+    "citl": [
+     -0.43064,
+     -0.04036
+    ],
+    "bss_vs_G2": [
+     -0.00093,
+     0.00582
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00078,
+     0.00486
+    ],
+    "d_auc_vs_G2": [
+     -0.00066,
+     0.00228
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|persistent+octmar+at_risk|L1": {
+   "point": {
+    "base_rate": 0.2027,
+    "mean_p": 0.22706,
+    "brier": 0.13794,
+    "bss_B0": 0.13847,
+    "bss_B2": 0.07402,
+    "auc": 0.76989,
+    "prec_at_50_recall": 0.43903,
+    "cal_intercept": -0.22408,
+    "cal_slope": 0.94569,
+    "citl": -0.17519,
+    "bss_vs_G2": 0.00379,
+    "d_bss_B0_vs_G2": 0.00328,
+    "d_auc_vs_G2": 0.00239
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.19212,
+     0.2151
+    ],
+    "mean_p": [
+     0.21825,
+     0.23628
+    ],
+    "brier": [
+     0.13311,
+     0.14408
+    ],
+    "bss_B0": [
+     0.12351,
+     0.15127
+    ],
+    "bss_B2": [
+     0.06308,
+     0.08482
+    ],
+    "auc": [
+     0.75948,
+     0.78028
+    ],
+    "prec_at_50_recall": [
+     0.41597,
+     0.46055
+    ],
+    "cal_intercept": [
+     -0.28466,
+     -0.16152
+    ],
+    "cal_slope": [
+     0.90096,
+     0.98996
+    ],
+    "citl": [
+     -0.22711,
+     -0.11946
+    ],
+    "bss_vs_G2": [
+     0.00136,
+     0.00616
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00117,
+     0.00527
+    ],
+    "d_auc_vs_G2": [
+     0.00122,
+     0.00354
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.17063,
+     0.22635
+    ],
+    "mean_p": [
+     0.19652,
+     0.25983
+    ],
+    "brier": [
+     0.11947,
+     0.15023
+    ],
+    "bss_B0": [
+     0.10542,
+     0.17374
+    ],
+    "bss_B2": [
+     0.04762,
+     0.11214
+    ],
+    "auc": [
+     0.75185,
+     0.79955
+    ],
+    "prec_at_50_recall": [
+     0.38796,
+     0.4832
+    ],
+    "cal_intercept": [
+     -0.39187,
+     0.0084
+    ],
+    "cal_slope": [
+     0.87883,
+     1.07805
+    ],
+    "citl": [
+     -0.38917,
+     0.01988
+    ],
+    "bss_vs_G2": [
+     0.00032,
+     0.00718
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00028,
+     0.00634
+    ],
+    "d_auc_vs_G2": [
+     0.00012,
+     0.00382
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 51840,
+    "in_subset_without_label": 6340,
+    "scored": 45500,
+    "events": 9223,
+    "dams": 967,
+    "dams_with_event": 776,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|persistent+octmar+at_risk|L1_premax": {
+   "point": {
+    "base_rate": 0.2027,
+    "mean_p": 0.22701,
+    "brier": 0.13793,
+    "bss_B0": 0.13853,
+    "bss_B2": 0.07409,
+    "auc": 0.76992,
+    "prec_at_50_recall": 0.43882,
+    "cal_intercept": -0.22357,
+    "cal_slope": 0.94587,
+    "citl": -0.17481,
+    "bss_vs_G2": 0.00386,
+    "d_bss_B0_vs_G2": 0.00334,
+    "d_auc_vs_G2": 0.00241
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.19212,
+     0.2151
+    ],
+    "mean_p": [
+     0.21821,
+     0.23625
+    ],
+    "brier": [
+     0.13311,
+     0.14408
+    ],
+    "bss_B0": [
+     0.12357,
+     0.15129
+    ],
+    "bss_B2": [
+     0.06305,
+     0.08481
+    ],
+    "auc": [
+     0.75956,
+     0.78028
+    ],
+    "prec_at_50_recall": [
+     0.41599,
+     0.46072
+    ],
+    "cal_intercept": [
+     -0.28421,
+     -0.16106
+    ],
+    "cal_slope": [
+     0.90107,
+     0.99042
+    ],
+    "citl": [
+     -0.22687,
+     -0.11905
+    ],
+    "bss_vs_G2": [
+     0.00143,
+     0.00625
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00123,
+     0.00534
+    ],
+    "d_auc_vs_G2": [
+     0.00124,
+     0.00356
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.17063,
+     0.22635
+    ],
+    "mean_p": [
+     0.19648,
+     0.25977
+    ],
+    "brier": [
+     0.11947,
+     0.15023
+    ],
+    "bss_B0": [
+     0.10547,
+     0.17383
+    ],
+    "bss_B2": [
+     0.04761,
+     0.1123
+    ],
+    "auc": [
+     0.75185,
+     0.79958
+    ],
+    "prec_at_50_recall": [
+     0.388,
+     0.48338
+    ],
+    "cal_intercept": [
+     -0.39173,
+     0.00867
+    ],
+    "cal_slope": [
+     0.87908,
+     1.07831
+    ],
+    "citl": [
+     -0.38882,
+     0.02038
+    ],
+    "bss_vs_G2": [
+     0.00032,
+     0.00732
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00028,
+     0.0064
+    ],
+    "d_auc_vs_G2": [
+     0.00012,
+     0.00387
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 51840,
+    "in_subset_without_label": 6340,
+    "scored": 45500,
+    "events": 9223,
+    "dams": 967,
+    "dams_with_event": 776,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|dam_like+at_risk|L1": {
+   "point": {
+    "base_rate": 0.19684,
+    "mean_p": 0.20873,
+    "brier": 0.12604,
+    "bss_B0": 0.17479,
+    "bss_B2": 0.12205,
+    "auc": 0.80526,
+    "prec_at_50_recall": 0.49566,
+    "cal_intercept": -0.09612,
+    "cal_slope": 0.99729,
+    "citl": -0.09348,
+    "bss_vs_G2": 0.00211,
+    "d_bss_B0_vs_G2": 0.00175,
+    "d_auc_vs_G2": 0.00137
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.1882,
+     0.20551
+    ],
+    "mean_p": [
+     0.20099,
+     0.21566
+    ],
+    "brier": [
+     0.12183,
+     0.13022
+    ],
+    "bss_B0": [
+     0.165,
+     0.18645
+    ],
+    "bss_B2": [
+     0.11413,
+     0.1304
+    ],
+    "auc": [
+     0.7982,
+     0.81251
+    ],
+    "prec_at_50_recall": [
+     0.47698,
+     0.51807
+    ],
+    "cal_intercept": [
+     -0.1406,
+     -0.05147
+    ],
+    "cal_slope": [
+     0.96762,
+     1.02563
+    ],
+    "citl": [
+     -0.13511,
+     -0.06278
+    ],
+    "bss_vs_G2": [
+     0.00043,
+     0.004
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00035,
+     0.00331
+    ],
+    "d_auc_vs_G2": [
+     0.00068,
+     0.00218
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.16671,
+     0.21989
+    ],
+    "mean_p": [
+     0.18856,
+     0.22854
+    ],
+    "brier": [
+     0.11352,
+     0.13509
+    ],
+    "bss_B0": [
+     0.15009,
+     0.1963
+    ],
+    "bss_B2": [
+     0.09802,
+     0.14294
+    ],
+    "auc": [
+     0.79346,
+     0.81764
+    ],
+    "prec_at_50_recall": [
+     0.44968,
+     0.53058
+    ],
+    "cal_intercept": [
+     -0.25696,
+     0.048
+    ],
+    "cal_slope": [
+     0.94901,
+     1.0496
+    ],
+    "citl": [
+     -0.25514,
+     0.04294
+    ],
+    "bss_vs_G2": [
+     -0.00048,
+     0.00525
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00041,
+     0.0043
+    ],
+    "d_auc_vs_G2": [
+     0.00053,
+     0.00235
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 147780,
+    "in_subset_without_label": 20577,
+    "scored": 127203,
+    "events": 25039,
+    "dams": 1672,
+    "dams_with_event": 1480,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30_sens|primary|L1": {
+   "point": {
+    "base_rate": 0.2157,
+    "mean_p": 0.26431,
+    "brier": 0.14144,
+    "bss_B0": 0.15853,
+    "bss_B2": 0.09115,
+    "auc": 0.78351,
+    "prec_at_50_recall": 0.49017,
+    "cal_intercept": -0.35262,
+    "cal_slope": 0.9732,
+    "citl": -0.33489,
+    "bss_vs_G2": 0.00169,
+    "d_bss_B0_vs_G2": 0.00143,
+    "d_auc_vs_G2": 0.0006
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.20578,
+     0.22514
+    ],
+    "mean_p": [
+     0.25654,
+     0.27348
+    ],
+    "brier": [
+     0.13721,
+     0.1458
+    ],
+    "bss_B0": [
+     0.14617,
+     0.17214
+    ],
+    "bss_B2": [
+     0.08181,
+     0.10259
+    ],
+    "auc": [
+     0.77456,
+     0.7914
+    ],
+    "prec_at_50_recall": [
+     0.47241,
+     0.51282
+    ],
+    "cal_intercept": [
+     -0.39424,
+     -0.30446
+    ],
+    "cal_slope": [
+     0.93941,
+     1.00733
+    ],
+    "citl": [
+     -0.37441,
+     -0.299
+    ],
+    "bss_vs_G2": [
+     -0.00022,
+     0.00339
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00019,
+     0.00285
+    ],
+    "d_auc_vs_G2": [
+     -0.00013,
+     0.00139
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.17447,
+     0.25217
+    ],
+    "mean_p": [
+     0.24091,
+     0.29025
+    ],
+    "brier": [
+     0.12573,
+     0.1536
+    ],
+    "bss_B0": [
+     0.1185,
+     0.19136
+    ],
+    "bss_B2": [
+     0.0661,
+     0.1151
+    ],
+    "auc": [
+     0.7716,
+     0.79989
+    ],
+    "prec_at_50_recall": [
+     0.42145,
+     0.54792
+    ],
+    "cal_intercept": [
+     -0.61124,
+     -0.16524
+    ],
+    "cal_slope": [
+     0.90964,
+     1.04791
+    ],
+    "citl": [
+     -0.59861,
+     -0.1601
+    ],
+    "bss_vs_G2": [
+     -0.00167,
+     0.00514
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00144,
+     0.00426
+    ],
+    "d_auc_vs_G2": [
+     -0.00109,
+     0.0021
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 0,
+    "scored": 75160,
+    "events": 16212,
+    "dams": 1671,
+    "dams_with_event": 1449,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|L1": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.13695,
+    "brier": 0.08296,
+    "bss_B0": 0.17701,
+    "bss_B2": 0.09436,
+    "auc": 0.83323,
+    "prec_at_50_recall": 0.40233,
+    "cal_intercept": -0.24032,
+    "cal_slope": 1.01512,
+    "citl": -0.25918,
+    "bss_vs_G2": 0.002,
+    "d_bss_B0_vs_G2": 0.00165,
+    "d_auc_vs_G2": 0.00096
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.10701,
+     0.12261
+    ],
+    "mean_p": [
+     0.13022,
+     0.14378
+    ],
+    "brier": [
+     0.07876,
+     0.08763
+    ],
+    "bss_B0": [
+     0.16004,
+     0.19429
+    ],
+    "bss_B2": [
+     0.08344,
+     0.10538
+    ],
+    "auc": [
+     0.82271,
+     0.84301
+    ],
+    "prec_at_50_recall": [
+     0.37766,
+     0.42828
+    ],
+    "cal_intercept": [
+     -0.30788,
+     -0.16839
+    ],
+    "cal_slope": [
+     0.97535,
+     1.06026
+    ],
+    "citl": [
+     -0.30841,
+     -0.20461
+    ],
+    "bss_vs_G2": [
+     4e-05,
+     0.00398
+    ],
+    "d_bss_B0_vs_G2": [
+     3e-05,
+     0.00327
+    ],
+    "d_auc_vs_G2": [
+     0.00017,
+     0.00175
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.09475,
+     0.13369
+    ],
+    "mean_p": [
+     0.12198,
+     0.15272
+    ],
+    "brier": [
+     0.07346,
+     0.09145
+    ],
+    "bss_B0": [
+     0.13396,
+     0.2083
+    ],
+    "bss_B2": [
+     0.05662,
+     0.12677
+    ],
+    "auc": [
+     0.82286,
+     0.84491
+    ],
+    "prec_at_50_recall": [
+     0.34324,
+     0.46278
+    ],
+    "cal_intercept": [
+     -0.52015,
+     0.0264
+    ],
+    "cal_slope": [
+     0.95722,
+     1.09321
+    ],
+    "citl": [
+     -0.49501,
+     -0.0722
+    ],
+    "bss_vs_G2": [
+     -0.00151,
+     0.00565
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00124,
+     0.00471
+    ],
+    "d_auc_vs_G2": [
+     5e-05,
+     0.00183
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|persistent+octmar+at_risk|L1": {
+   "point": {
+    "base_rate": 0.05063,
+    "mean_p": 0.06599,
+    "brier": 0.04411,
+    "bss_B0": 0.08173,
+    "bss_B2": 0.04945,
+    "auc": 0.81622,
+    "prec_at_50_recall": 0.18792,
+    "cal_intercept": -0.18684,
+    "cal_slope": 1.06028,
+    "citl": -0.31052,
+    "bss_vs_G2": 0.00331,
+    "d_bss_B0_vs_G2": 0.00305,
+    "d_auc_vs_G2": 0.00108
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.04493,
+     0.05625
+    ],
+    "mean_p": [
+     0.06155,
+     0.06976
+    ],
+    "brier": [
+     0.03992,
+     0.04805
+    ],
+    "bss_B0": [
+     0.05629,
+     0.10301
+    ],
+    "bss_B2": [
+     0.03004,
+     0.06655
+    ],
+    "auc": [
+     0.7988,
+     0.83338
+    ],
+    "prec_at_50_recall": [
+     0.16467,
+     0.21116
+    ],
+    "cal_intercept": [
+     -0.3589,
+     -0.00642
+    ],
+    "cal_slope": [
+     0.9889,
+     1.1433
+    ],
+    "citl": [
+     -0.40303,
+     -0.21981
+    ],
+    "bss_vs_G2": [
+     0.00076,
+     0.00619
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00069,
+     0.0057
+    ],
+    "d_auc_vs_G2": [
+     -0.00031,
+     0.00245
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.04062,
+     0.05995
+    ],
+    "mean_p": [
+     0.05511,
+     0.07549
+    ],
+    "brier": [
+     0.03732,
+     0.05044
+    ],
+    "bss_B0": [
+     0.03899,
+     0.11163
+    ],
+    "bss_B2": [
+     0.01286,
+     0.07929
+    ],
+    "auc": [
+     0.80035,
+     0.82783
+    ],
+    "prec_at_50_recall": [
+     0.14758,
+     0.22568
+    ],
+    "cal_intercept": [
+     -0.48231,
+     0.09537
+    ],
+    "cal_slope": [
+     0.97664,
+     1.13941
+    ],
+    "citl": [
+     -0.50176,
+     -0.15478
+    ],
+    "bss_vs_G2": [
+     -0.00175,
+     0.00683
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00165,
+     0.00632
+    ],
+    "d_auc_vs_G2": [
+     -0.00104,
+     0.00332
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 65705,
+    "in_subset_without_label": 7456,
+    "scored": 58249,
+    "events": 2949,
+    "dams": 967,
+    "dams_with_event": 383,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|dam_like+at_risk|L1": {
+   "point": {
+    "base_rate": 0.09106,
+    "mean_p": 0.10258,
+    "brier": 0.06751,
+    "bss_B0": 0.17158,
+    "bss_B2": 0.09951,
+    "auc": 0.84843,
+    "prec_at_50_recall": 0.37736,
+    "cal_intercept": -0.13044,
+    "cal_slope": 1.02212,
+    "citl": -0.16389,
+    "bss_vs_G2": 0.00187,
+    "d_bss_B0_vs_G2": 0.00155,
+    "d_auc_vs_G2": 0.00097
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.08585,
+     0.09795
+    ],
+    "mean_p": [
+     0.0984,
+     0.10875
+    ],
+    "brier": [
+     0.06431,
+     0.07155
+    ],
+    "bss_B0": [
+     0.15682,
+     0.18509
+    ],
+    "bss_B2": [
+     0.08869,
+     0.10793
+    ],
+    "auc": [
+     0.84027,
+     0.85641
+    ],
+    "prec_at_50_recall": [
+     0.35259,
+     0.40153
+    ],
+    "cal_intercept": [
+     -0.19883,
+     -0.07485
+    ],
+    "cal_slope": [
+     0.98948,
+     1.05441
+    ],
+    "citl": [
+     -0.20914,
+     -0.12135
+    ],
+    "bss_vs_G2": [
+     0.00044,
+     0.00354
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00036,
+     0.00293
+    ],
+    "d_auc_vs_G2": [
+     0.0003,
+     0.00159
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.0739,
+     0.1036
+    ],
+    "mean_p": [
+     0.09169,
+     0.11295
+    ],
+    "brier": [
+     0.05777,
+     0.07439
+    ],
+    "bss_B0": [
+     0.1454,
+     0.19289
+    ],
+    "bss_B2": [
+     0.07414,
+     0.12133
+    ],
+    "auc": [
+     0.83851,
+     0.85728
+    ],
+    "prec_at_50_recall": [
+     0.32592,
+     0.41696
+    ],
+    "cal_intercept": [
+     -0.3652,
+     0.04889
+    ],
+    "cal_slope": [
+     0.96952,
+     1.08232
+    ],
+    "citl": [
+     -0.33609,
+     -0.01168
+    ],
+    "bss_vs_G2": [
+     -0.0011,
+     0.00449
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00092,
+     0.00375
+    ],
+    "d_auc_vs_G2": [
+     0.00042,
+     0.00151
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 185300,
+    "in_subset_without_label": 24771,
+    "scored": 160529,
+    "events": 14617,
+    "dams": 1675,
+    "dams_with_event": 1063,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0_sens|primary|L1": {
+   "point": {
+    "base_rate": 0.10374,
+    "mean_p": 0.13345,
+    "brier": 0.07783,
+    "bss_B0": 0.16269,
+    "bss_B2": 0.08644,
+    "auc": 0.83463,
+    "prec_at_50_recall": 0.37887,
+    "cal_intercept": -0.33095,
+    "cal_slope": 1.018,
+    "citl": -0.35327,
+    "bss_vs_G2": 0.00192,
+    "d_bss_B0_vs_G2": 0.00161,
+    "d_auc_vs_G2": 0.00079
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.09774,
+     0.11129
+    ],
+    "mean_p": [
+     0.1286,
+     0.13963
+    ],
+    "brier": [
+     0.07426,
+     0.08236
+    ],
+    "bss_B0": [
+     0.14547,
+     0.17931
+    ],
+    "bss_B2": [
+     0.07375,
+     0.09706
+    ],
+    "auc": [
+     0.82455,
+     0.84524
+    ],
+    "prec_at_50_recall": [
+     0.35779,
+     0.40268
+    ],
+    "cal_intercept": [
+     -0.40464,
+     -0.26395
+    ],
+    "cal_slope": [
+     0.9757,
+     1.06014
+    ],
+    "citl": [
+     -0.40175,
+     -0.29954
+    ],
+    "bss_vs_G2": [
+     -0.00014,
+     0.00364
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00011,
+     0.00304
+    ],
+    "d_auc_vs_G2": [
+     5e-05,
+     0.00148
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.08172,
+     0.12388
+    ],
+    "mean_p": [
+     0.11909,
+     0.14781
+    ],
+    "brier": [
+     0.06713,
+     0.08651
+    ],
+    "bss_B0": [
+     0.11366,
+     0.19814
+    ],
+    "bss_B2": [
+     0.04751,
+     0.11574
+    ],
+    "auc": [
+     0.82312,
+     0.84599
+    ],
+    "prec_at_50_recall": [
+     0.31011,
+     0.43702
+    ],
+    "cal_intercept": [
+     -0.62983,
+     -0.09377
+    ],
+    "cal_slope": [
+     0.94923,
+     1.08465
+    ],
+    "citl": [
+     -0.59946,
+     -0.18324
+    ],
+    "bss_vs_G2": [
+     -0.00164,
+     0.00556
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00138,
+     0.0046
+    ],
+    "d_auc_vs_G2": [
+     -0.00019,
+     0.00172
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 0,
+    "scored": 97192,
+    "events": 10083,
+    "dams": 1675,
+    "dams_with_event": 1020,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|L1": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10166,
+    "brier": 0.06307,
+    "bss_B0": 0.17333,
+    "bss_B2": 0.1232,
+    "auc": 0.85798,
+    "prec_at_50_recall": 0.35225,
+    "cal_intercept": -0.19475,
+    "cal_slope": 1.05088,
+    "citl": -0.26749,
+    "bss_vs_G2": 0.00145,
+    "d_bss_B0_vs_G2": 0.0012,
+    "d_auc_vs_G2": 0.00113
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.07772,
+     0.08999
+    ],
+    "mean_p": [
+     0.09667,
+     0.10672
+    ],
+    "brier": [
+     0.05961,
+     0.06718
+    ],
+    "bss_B0": [
+     0.15548,
+     0.19089
+    ],
+    "bss_B2": [
+     0.10994,
+     0.13654
+    ],
+    "auc": [
+     0.84833,
+     0.86737
+    ],
+    "prec_at_50_recall": [
+     0.32521,
+     0.38067
+    ],
+    "cal_intercept": [
+     -0.27831,
+     -0.11404
+    ],
+    "cal_slope": [
+     1.00679,
+     1.0971
+    ],
+    "citl": [
+     -0.32656,
+     -0.20533
+    ],
+    "bss_vs_G2": [
+     -0.00072,
+     0.00337
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.0006,
+     0.00279
+    ],
+    "d_auc_vs_G2": [
+     0.00033,
+     0.00193
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.06384,
+     0.10157
+    ],
+    "mean_p": [
+     0.08774,
+     0.11583
+    ],
+    "brier": [
+     0.0528,
+     0.07252
+    ],
+    "bss_B0": [
+     0.11584,
+     0.21451
+    ],
+    "bss_B2": [
+     0.07868,
+     0.15867
+    ],
+    "auc": [
+     0.84903,
+     0.86746
+    ],
+    "prec_at_50_recall": [
+     0.28233,
+     0.42462
+    ],
+    "cal_intercept": [
+     -0.51669,
+     0.1298
+    ],
+    "cal_slope": [
+     0.99758,
+     1.11786
+    ],
+    "citl": [
+     -0.52657,
+     -0.04497
+    ],
+    "bss_vs_G2": [
+     -0.0012,
+     0.00421
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00098,
+     0.00357
+    ],
+    "d_auc_vs_G2": [
+     7e-05,
+     0.00229
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|persistent+octmar+at_risk|L1": {
+   "point": {
+    "base_rate": 0.03628,
+    "mean_p": 0.04938,
+    "brier": 0.03157,
+    "bss_B0": 0.0966,
+    "bss_B2": 0.06763,
+    "auc": 0.86139,
+    "prec_at_50_recall": 0.18454,
+    "cal_intercept": -0.12354,
+    "cal_slope": 1.1108,
+    "citl": -0.35888,
+    "bss_vs_G2": 0.0056,
+    "d_bss_B0_vs_G2": 0.00508,
+    "d_auc_vs_G2": 0.00195
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.0314,
+     0.04103
+    ],
+    "mean_p": [
+     0.0457,
+     0.05262
+    ],
+    "brier": [
+     0.02793,
+     0.03502
+    ],
+    "bss_B0": [
+     0.06752,
+     0.12101
+    ],
+    "bss_B2": [
+     0.04256,
+     0.08692
+    ],
+    "auc": [
+     0.84769,
+     0.87513
+    ],
+    "prec_at_50_recall": [
+     0.15688,
+     0.21142
+    ],
+    "cal_intercept": [
+     -0.31707,
+     0.0525
+    ],
+    "cal_slope": [
+     1.04251,
+     1.17822
+    ],
+    "citl": [
+     -0.47547,
+     -0.24556
+    ],
+    "bss_vs_G2": [
+     0.002,
+     0.00966
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00182,
+     0.00872
+    ],
+    "d_auc_vs_G2": [
+     0.00038,
+     0.00346
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.02933,
+     0.04376
+    ],
+    "mean_p": [
+     0.03931,
+     0.0578
+    ],
+    "brier": [
+     0.02574,
+     0.03682
+    ],
+    "bss_B0": [
+     0.04713,
+     0.1321
+    ],
+    "bss_B2": [
+     0.0207,
+     0.10309
+    ],
+    "auc": [
+     0.84648,
+     0.87594
+    ],
+    "prec_at_50_recall": [
+     0.13982,
+     0.22814
+    ],
+    "cal_intercept": [
+     -0.46981,
+     0.1966
+    ],
+    "cal_slope": [
+     1.01531,
+     1.2008
+    ],
+    "citl": [
+     -0.56518,
+     -0.1828
+    ],
+    "bss_vs_G2": [
+     0.0016,
+     0.00938
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00151,
+     0.00863
+    ],
+    "d_auc_vs_G2": [
+     0.00019,
+     0.00417
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 65705,
+    "in_subset_without_label": 8323,
+    "scored": 57382,
+    "events": 2082,
+    "dams": 967,
+    "dams_with_event": 285,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|dam_like+at_risk|L1": {
+   "point": {
+    "base_rate": 0.06392,
+    "mean_p": 0.07332,
+    "brier": 0.04914,
+    "bss_B0": 0.16693,
+    "bss_B2": 0.12482,
+    "auc": 0.87376,
+    "prec_at_50_recall": 0.33143,
+    "cal_intercept": -0.08163,
+    "cal_slope": 1.05784,
+    "citl": -0.17988,
+    "bss_vs_G2": 0.00205,
+    "d_bss_B0_vs_G2": 0.00172,
+    "d_auc_vs_G2": 0.00142
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.05997,
+     0.0689
+    ],
+    "mean_p": [
+     0.07074,
+     0.07737
+    ],
+    "brier": [
+     0.0465,
+     0.05225
+    ],
+    "bss_B0": [
+     0.15163,
+     0.18194
+    ],
+    "bss_B2": [
+     0.11323,
+     0.13655
+    ],
+    "auc": [
+     0.86561,
+     0.88027
+    ],
+    "prec_at_50_recall": [
+     0.31018,
+     0.35363
+    ],
+    "cal_intercept": [
+     -0.1661,
+     -0.00851
+    ],
+    "cal_slope": [
+     1.02757,
+     1.08811
+    ],
+    "citl": [
+     -0.24705,
+     -0.13311
+    ],
+    "bss_vs_G2": [
+     0.00026,
+     0.00365
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00021,
+     0.00302
+    ],
+    "d_auc_vs_G2": [
+     0.00068,
+     0.00208
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.04928,
+     0.07479
+    ],
+    "mean_p": [
+     0.06312,
+     0.08197
+    ],
+    "brier": [
+     0.03971,
+     0.05565
+    ],
+    "bss_B0": [
+     0.1329,
+     0.19058
+    ],
+    "bss_B2": [
+     0.09412,
+     0.14919
+    ],
+    "auc": [
+     0.86601,
+     0.88234
+    ],
+    "prec_at_50_recall": [
+     0.27097,
+     0.38359
+    ],
+    "cal_intercept": [
+     -0.34937,
+     0.13265
+    ],
+    "cal_slope": [
+     1.00074,
+     1.11765
+    ],
+    "citl": [
+     -0.37096,
+     -0.01049
+    ],
+    "bss_vs_G2": [
+     -0.00076,
+     0.00496
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00063,
+     0.00421
+    ],
+    "d_auc_vs_G2": [
+     0.00061,
+     0.00214
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 185300,
+    "in_subset_without_label": 29424,
+    "scored": 155876,
+    "events": 9964,
+    "dams": 1675,
+    "dams_with_event": 886,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g_sens|primary|L1": {
+   "point": {
+    "base_rate": 0.07574,
+    "mean_p": 0.09851,
+    "brier": 0.05881,
+    "bss_B0": 0.15886,
+    "bss_B2": 0.11323,
+    "auc": 0.85899,
+    "prec_at_50_recall": 0.33074,
+    "cal_intercept": -0.27949,
+    "cal_slope": 1.05057,
+    "citl": -0.35174,
+    "bss_vs_G2": 0.00141,
+    "d_bss_B0_vs_G2": 0.00119,
+    "d_auc_vs_G2": 0.00105
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.07077,
+     0.08218
+    ],
+    "mean_p": [
+     0.09491,
+     0.10313
+    ],
+    "brier": [
+     0.05584,
+     0.06287
+    ],
+    "bss_B0": [
+     0.14135,
+     0.17705
+    ],
+    "bss_B2": [
+     0.09674,
+     0.12654
+    ],
+    "auc": [
+     0.84942,
+     0.86806
+    ],
+    "prec_at_50_recall": [
+     0.30653,
+     0.3581
+    ],
+    "cal_intercept": [
+     -0.36042,
+     -0.20571
+    ],
+    "cal_slope": [
+     1.00908,
+     1.09188
+    ],
+    "citl": [
+     -0.40715,
+     -0.28865
+    ],
+    "bss_vs_G2": [
+     -0.00049,
+     0.0033
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.0004,
+     0.00277
+    ],
+    "d_auc_vs_G2": [
+     0.00025,
+     0.00186
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.05642,
+     0.09372
+    ],
+    "mean_p": [
+     0.08526,
+     0.11251
+    ],
+    "brier": [
+     0.0477,
+     0.06846
+    ],
+    "bss_B0": [
+     0.0978,
+     0.20176
+    ],
+    "bss_B2": [
+     0.06722,
+     0.14516
+    ],
+    "auc": [
+     0.8499,
+     0.86833
+    ],
+    "prec_at_50_recall": [
+     0.26169,
+     0.40094
+    ],
+    "cal_intercept": [
+     -0.60648,
+     -0.00684
+    ],
+    "cal_slope": [
+     1.00054,
+     1.10687
+    ],
+    "citl": [
+     -0.62504,
+     -0.1421
+    ],
+    "bss_vs_G2": [
+     -0.00138,
+     0.00399
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.0011,
+     0.00344
+    ],
+    "d_auc_vs_G2": [
+     -7e-05,
+     0.00206
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 2945,
+    "scored": 94247,
+    "events": 7138,
+    "dams": 1675,
+    "dams_with_event": 868,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  }
+ },
+ "curves": {
+  "R30_curve|primary": {
+   "30": {
+    "point": {
+     "base_rate": 0.08108,
+     "mean_p": 0.09057,
+     "brier": 0.06718,
+     "bss_B0": 0.09585,
+     "bss_B2": 0.07346,
+     "auc": 0.79493,
+     "prec_at_50_recall": 0.24316,
+     "cal_intercept": 0.06476,
+     "cal_slope": 1.10704,
+     "citl": -0.13304
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.07697,
+      0.08536
+     ],
+     "mean_p": [
+      0.0873,
+      0.0943
+     ],
+     "brier": [
+      0.06423,
+      0.07042
+     ],
+     "bss_B0": [
+      0.08749,
+      0.10501
+     ],
+     "bss_B2": [
+      0.0659,
+      0.08114
+     ],
+     "auc": [
+      0.78626,
+      0.80424
+     ],
+     "prec_at_50_recall": [
+      0.22823,
+      0.25985
+     ],
+     "cal_intercept": [
+      -0.03272,
+      0.1623
+     ],
+     "cal_slope": [
+      1.06293,
+      1.15977
+     ],
+     "citl": [
+      -0.17616,
+      -0.09052
+     ]
+    },
+    "rows": 66453,
+    "events": 5388
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.17098,
+     "mean_p": 0.18614,
+     "brier": 0.12008,
+     "bss_B0": 0.14697,
+     "bss_B2": 0.09777,
+     "auc": 0.782,
+     "prec_at_50_recall": 0.41241,
+     "cal_intercept": -0.08886,
+     "cal_slope": 1.02964,
+     "citl": -0.12223
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.16364,
+      0.17938
+     ],
+     "mean_p": [
+      0.17983,
+      0.19306
+     ],
+     "brier": [
+      0.11608,
+      0.1247
+     ],
+     "bss_B0": [
+      0.13528,
+      0.1588
+     ],
+     "bss_B2": [
+      0.08787,
+      0.10772
+     ],
+     "auc": [
+      0.77217,
+      0.79095
+     ],
+     "prec_at_50_recall": [
+      0.39415,
+      0.43257
+     ],
+     "cal_intercept": [
+      -0.15043,
+      -0.02387
+     ],
+     "cal_slope": [
+      0.98843,
+      1.07368
+     ],
+     "citl": [
+      -0.16196,
+      -0.07982
+     ]
+    },
+    "rows": 66453,
+    "events": 11362
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.23868,
+     "mean_p": 0.27025,
+     "brier": 0.14848,
+     "bss_B0": 0.17267,
+     "bss_B2": 0.10127,
+     "auc": 0.78141,
+     "prec_at_50_recall": 0.5213,
+     "cal_intercept": -0.21073,
+     "cal_slope": 0.99558,
+     "citl": -0.20767
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.22911,
+      0.24998
+     ],
+     "mean_p": [
+      0.26188,
+      0.27933
+     ],
+     "brier": [
+      0.1441,
+      0.1534
+     ],
+     "bss_B0": [
+      0.15754,
+      0.18723
+     ],
+     "bss_B2": [
+      0.0895,
+      0.11289
+     ],
+     "auc": [
+      0.77147,
+      0.79174
+     ],
+     "prec_at_50_recall": [
+      0.49992,
+      0.54442
+     ],
+     "cal_intercept": [
+      -0.25917,
+      -0.15808
+     ],
+     "cal_slope": [
+      0.95235,
+      1.04088
+     ],
+     "citl": [
+      -0.24796,
+      -0.16347
+     ]
+    },
+    "rows": 66453,
+    "events": 15861
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.32477,
+     "mean_p": 0.38426,
+     "brier": 0.17117,
+     "bss_B0": 0.19675,
+     "bss_B2": 0.10364,
+     "auc": 0.79091,
+     "prec_at_50_recall": 0.65727,
+     "cal_intercept": -0.33559,
+     "cal_slope": 1.02407,
+     "citl": -0.34105
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.31152,
+      0.33885
+     ],
+     "mean_p": [
+      0.37442,
+      0.39513
+     ],
+     "brier": [
+      0.16643,
+      0.17609
+     ],
+     "bss_B0": [
+      0.17736,
+      0.21482
+     ],
+     "bss_B2": [
+      0.09021,
+      0.11771
+     ],
+     "auc": [
+      0.77937,
+      0.80067
+     ],
+     "prec_at_50_recall": [
+      0.62786,
+      0.68189
+     ],
+     "cal_intercept": [
+      -0.38335,
+      -0.28404
+     ],
+     "cal_slope": [
+      0.97991,
+      1.07101
+     ],
+     "citl": [
+      -0.38947,
+      -0.29336
+     ]
+    },
+    "rows": 66453,
+    "events": 21582
+   }
+  },
+  "R30_curve|dam_like+at_risk": {
+   "30": {
+    "point": {
+     "base_rate": 0.06047,
+     "mean_p": 0.06626,
+     "brier": 0.05094,
+     "bss_B0": 0.09347,
+     "bss_B2": 0.07101,
+     "auc": 0.82258,
+     "prec_at_50_recall": 0.22582,
+     "cal_intercept": 0.16868,
+     "cal_slope": 1.13293,
+     "citl": -0.10719
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.05717,
+      0.06359
+     ],
+     "mean_p": [
+      0.06371,
+      0.06877
+     ],
+     "brier": [
+      0.04842,
+      0.05329
+     ],
+     "bss_B0": [
+      0.08693,
+      0.09963
+     ],
+     "bss_B2": [
+      0.06533,
+      0.07572
+     ],
+     "auc": [
+      0.81574,
+      0.82891
+     ],
+     "prec_at_50_recall": [
+      0.21396,
+      0.23807
+     ],
+     "cal_intercept": [
+      0.0865,
+      0.23932
+     ],
+     "cal_slope": [
+      1.09549,
+      1.1683
+     ],
+     "citl": [
+      -0.14912,
+      -0.07958
+     ]
+    },
+    "rows": 127203,
+    "events": 7692
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.13221,
+     "mean_p": 0.14042,
+     "brier": 0.09554,
+     "bss_B0": 0.14651,
+     "bss_B2": 0.10409,
+     "auc": 0.81201,
+     "prec_at_50_recall": 0.38898,
+     "cal_intercept": 0.03497,
+     "cal_slope": 1.08548,
+     "citl": -0.08256
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.12629,
+      0.13801
+     ],
+     "mean_p": [
+      0.13537,
+      0.1452
+     ],
+     "brier": [
+      0.09187,
+      0.09903
+     ],
+     "bss_B0": [
+      0.13782,
+      0.15627
+     ],
+     "bss_B2": [
+      0.09684,
+      0.1116
+     ],
+     "auc": [
+      0.80498,
+      0.81883
+     ],
+     "prec_at_50_recall": [
+      0.37317,
+      0.4033
+     ],
+     "cal_intercept": [
+      -0.02443,
+      0.0868
+     ],
+     "cal_slope": [
+      1.04944,
+      1.11929
+     ],
+     "citl": [
+      -0.12019,
+      -0.05283
+     ]
+    },
+    "rows": 127203,
+    "events": 16818
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.19684,
+     "mean_p": 0.21011,
+     "brier": 0.12625,
+     "bss_B0": 0.1734,
+     "bss_B2": 0.12035,
+     "auc": 0.80441,
+     "prec_at_50_recall": 0.49561,
+     "cal_intercept": -0.06191,
+     "cal_slope": 1.04096,
+     "citl": -0.10226
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.1882,
+      0.20551
+     ],
+     "mean_p": [
+      0.20277,
+      0.21654
+     ],
+     "brier": [
+      0.12211,
+      0.13019
+     ],
+     "bss_B0": [
+      0.16343,
+      0.18517
+     ],
+     "bss_B2": [
+      0.11225,
+      0.12781
+     ],
+     "auc": [
+      0.79769,
+      0.81171
+     ],
+     "prec_at_50_recall": [
+      0.47866,
+      0.51478
+     ],
+     "cal_intercept": [
+      -0.10931,
+      -0.0105
+     ],
+     "cal_slope": [
+      1.00748,
+      1.08115
+     ],
+     "citl": [
+      -0.14439,
+      -0.06808
+     ]
+    },
+    "rows": 127203,
+    "events": 25039
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.32487,
+     "mean_p": 0.34762,
+     "brier": 0.16951,
+     "bss_B0": 0.19859,
+     "bss_B2": 0.11676,
+     "auc": 0.78776,
+     "prec_at_50_recall": 0.64135,
+     "cal_intercept": -0.12361,
+     "cal_slope": 1.0189,
+     "citl": -0.13205
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.31105,
+      0.33812
+     ],
+     "mean_p": [
+      0.33752,
+      0.35674
+     ],
+     "brier": [
+      0.16494,
+      0.17356
+     ],
+     "bss_B0": [
+      0.18224,
+      0.21291
+     ],
+     "bss_B2": [
+      0.10594,
+      0.12618
+     ],
+     "auc": [
+      0.77903,
+      0.79671
+     ],
+     "prec_at_50_recall": [
+      0.62281,
+      0.66419
+     ],
+     "cal_intercept": [
+      -0.17782,
+      -0.07723
+     ],
+     "cal_slope": [
+      0.98151,
+      1.061
+     ],
+     "citl": [
+      -0.18303,
+      -0.09423
+     ]
+    },
+    "rows": 127203,
+    "events": 41325
+   }
+  },
+  "R30_curve|persistent+octmar+at_risk": {
+   "30": {
+    "point": {
+     "base_rate": 0.06029,
+     "mean_p": 0.07721,
+     "brier": 0.05361,
+     "bss_B0": 0.05033,
+     "bss_B2": 0.03758,
+     "auc": 0.77755,
+     "prec_at_50_recall": 0.1712,
+     "cal_intercept": -0.29446,
+     "cal_slope": 0.99625,
+     "citl": -0.28691
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.05612,
+      0.06445
+     ],
+     "mean_p": [
+      0.07369,
+      0.08049
+     ],
+     "brier": [
+      0.05051,
+      0.05706
+     ],
+     "bss_B0": [
+      0.03849,
+      0.05949
+     ],
+     "bss_B2": [
+      0.02817,
+      0.04578
+     ],
+     "auc": [
+      0.76644,
+      0.78902
+     ],
+     "prec_at_50_recall": [
+      0.15788,
+      0.18345
+     ],
+     "cal_intercept": [
+      -0.42587,
+      -0.17894
+     ],
+     "cal_slope": [
+      0.94715,
+      1.04641
+     ],
+     "citl": [
+      -0.35294,
+      -0.2352
+     ]
+    },
+    "rows": 45500,
+    "events": 2743
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.13727,
+     "mean_p": 0.1594,
+     "brier": 0.1076,
+     "bss_B0": 0.08482,
+     "bss_B2": 0.04686,
+     "auc": 0.75799,
+     "prec_at_50_recall": 0.31059,
+     "cal_intercept": -0.33226,
+     "cal_slope": 0.90033,
+     "citl": -0.20258
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.12923,
+      0.1457
+     ],
+     "mean_p": [
+      0.15273,
+      0.16591
+     ],
+     "brier": [
+      0.10283,
+      0.11319
+     ],
+     "bss_B0": [
+      0.06988,
+      0.09804
+     ],
+     "bss_B2": [
+      0.03376,
+      0.06044
+     ],
+     "auc": [
+      0.74656,
+      0.7689
+     ],
+     "prec_at_50_recall": [
+      0.28978,
+      0.32935
+     ],
+     "cal_intercept": [
+      -0.42471,
+      -0.23839
+     ],
+     "cal_slope": [
+      0.85564,
+      0.94741
+     ],
+     "citl": [
+      -0.26165,
+      -0.1518
+     ]
+    },
+    "rows": 45500,
+    "events": 6246
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.2027,
+     "mean_p": 0.23345,
+     "brier": 0.14355,
+     "bss_B0": 0.10343,
+     "bss_B2": 0.03574,
+     "auc": 0.75175,
+     "prec_at_50_recall": 0.40879,
+     "cal_intercept": -0.34819,
+     "cal_slope": 0.85443,
+     "citl": -0.2193
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.19212,
+      0.2151
+     ],
+     "mean_p": [
+      0.22463,
+      0.24233
+     ],
+     "brier": [
+      0.13853,
+      0.15093
+     ],
+     "bss_B0": [
+      0.08756,
+      0.11884
+     ],
+     "bss_B2": [
+      0.02076,
+      0.05
+     ],
+     "auc": [
+      0.73872,
+      0.76202
+     ],
+     "prec_at_50_recall": [
+      0.38704,
+      0.42883
+     ],
+     "cal_intercept": [
+      -0.4093,
+      -0.27828
+     ],
+     "cal_slope": [
+      0.80794,
+      0.89508
+     ],
+     "citl": [
+      -0.27283,
+      -0.16571
+     ]
+    },
+    "rows": 45500,
+    "events": 9223
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.30809,
+     "mean_p": 0.3354,
+     "brier": 0.17102,
+     "bss_B0": 0.17748,
+     "bss_B2": 0.02242,
+     "auc": 0.77508,
+     "prec_at_50_recall": 0.59429,
+     "cal_intercept": -0.16625,
+     "cal_slope": 0.98475,
+     "citl": -0.159
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.29089,
+      0.32973
+     ],
+     "mean_p": [
+      0.32442,
+      0.34673
+     ],
+     "brier": [
+      0.16522,
+      0.17855
+     ],
+     "bss_B0": [
+      0.15572,
+      0.1944
+     ],
+     "bss_B2": [
+      0.0038,
+      0.03831
+     ],
+     "auc": [
+      0.76174,
+      0.78603
+     ],
+     "prec_at_50_recall": [
+      0.56672,
+      0.62268
+     ],
+     "cal_intercept": [
+      -0.23551,
+      -0.09443
+     ],
+     "cal_slope": [
+      0.93206,
+      1.0321
+     ],
+     "citl": [
+      -0.22402,
+      -0.08969
+     ]
+    },
+    "rows": 45500,
+    "events": 14018
+   }
+  },
+  "D0_curve|primary": {
+   "30": {
+    "point": {
+     "base_rate": 0.03694,
+     "mean_p": 0.04104,
+     "brier": 0.03247,
+     "bss_B0": 0.0865,
+     "bss_B2": 0.06187,
+     "auc": 0.84355,
+     "prec_at_50_recall": 0.17908,
+     "cal_intercept": 0.178,
+     "cal_slope": 1.12204,
+     "citl": -0.11854
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.03447,
+      0.03994
+     ],
+     "mean_p": [
+      0.03884,
+      0.04331
+     ],
+     "brier": [
+      0.03049,
+      0.03482
+     ],
+     "bss_B0": [
+      0.07667,
+      0.09713
+     ],
+     "bss_B2": [
+      0.05448,
+      0.0697
+     ],
+     "auc": [
+      0.83371,
+      0.85349
+     ],
+     "prec_at_50_recall": [
+      0.16096,
+      0.19574
+     ],
+     "cal_intercept": [
+      0.0419,
+      0.33277
+     ],
+     "cal_slope": [
+      1.0747,
+      1.17695
+     ],
+     "citl": [
+      -0.17627,
+      -0.0539
+     ]
+    },
+    "rows": 86651,
+    "events": 3201
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.07916,
+     "mean_p": 0.08693,
+     "brier": 0.06226,
+     "bss_B0": 0.14418,
+     "bss_B2": 0.088,
+     "auc": 0.83671,
+     "prec_at_50_recall": 0.3082,
+     "cal_intercept": 0.01561,
+     "cal_slope": 1.07733,
+     "citl": -0.11873
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.07409,
+      0.08497
+     ],
+     "mean_p": [
+      0.08245,
+      0.09136
+     ],
+     "brier": [
+      0.0588,
+      0.0662
+     ],
+     "bss_B0": [
+      0.13024,
+      0.15781
+     ],
+     "bss_B2": [
+      0.07863,
+      0.09826
+     ],
+     "auc": [
+      0.82757,
+      0.84577
+     ],
+     "prec_at_50_recall": [
+      0.28553,
+      0.33349
+     ],
+     "cal_intercept": [
+      -0.07998,
+      0.11461
+     ],
+     "cal_slope": [
+      1.03113,
+      1.12742
+     ],
+     "citl": [
+      -0.16799,
+      -0.06586
+     ]
+    },
+    "rows": 86651,
+    "events": 6859
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.11417,
+     "mean_p": 0.13115,
+     "brier": 0.08303,
+     "bss_B0": 0.17638,
+     "bss_B2": 0.09367,
+     "auc": 0.83184,
+     "prec_at_50_recall": 0.39662,
+     "cal_intercept": -0.14431,
+     "cal_slope": 1.03724,
+     "citl": -0.19405
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.10701,
+      0.12261
+     ],
+     "mean_p": [
+      0.12464,
+      0.13738
+     ],
+     "brier": [
+      0.07862,
+      0.08773
+     ],
+     "bss_B0": [
+      0.16037,
+      0.19361
+     ],
+     "bss_B2": [
+      0.08266,
+      0.10633
+     ],
+     "auc": [
+      0.82229,
+      0.84152
+     ],
+     "prec_at_50_recall": [
+      0.37123,
+      0.42252
+     ],
+     "cal_intercept": [
+      -0.22085,
+      -0.05802
+     ],
+     "cal_slope": [
+      0.99935,
+      1.08555
+     ],
+     "citl": [
+      -0.24491,
+      -0.13831
+     ]
+    },
+    "rows": 86651,
+    "events": 9893
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.16532,
+     "mean_p": 0.19887,
+     "brier": 0.10502,
+     "bss_B0": 0.23014,
+     "bss_B2": 0.09097,
+     "auc": 0.83663,
+     "prec_at_50_recall": 0.53435,
+     "cal_intercept": -0.22476,
+     "cal_slope": 1.07777,
+     "citl": -0.29469
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.15448,
+      0.17756
+     ],
+     "mean_p": [
+      0.19024,
+      0.20722
+     ],
+     "brier": [
+      0.10028,
+      0.11028
+     ],
+     "bss_B0": [
+      0.20759,
+      0.25367
+     ],
+     "bss_B2": [
+      0.07707,
+      0.10564
+     ],
+     "auc": [
+      0.82489,
+      0.84794
+     ],
+     "prec_at_50_recall": [
+      0.49785,
+      0.57496
+     ],
+     "cal_intercept": [
+      -0.29997,
+      -0.15168
+     ],
+     "cal_slope": [
+      1.03204,
+      1.12821
+     ],
+     "citl": [
+      -0.35414,
+      -0.23122
+     ]
+    },
+    "rows": 86651,
+    "events": 14325
+   }
+  },
+  "D0_curve|dam_like+at_risk": {
+   "30": {
+    "point": {
+     "base_rate": 0.02653,
+     "mean_p": 0.02942,
+     "brier": 0.02362,
+     "bss_B0": 0.08019,
+     "bss_B2": 0.05639,
+     "auc": 0.8636,
+     "prec_at_50_recall": 0.15497,
+     "cal_intercept": 0.2404,
+     "cal_slope": 1.13418,
+     "citl": -0.11471
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.025,
+      0.02892
+     ],
+     "mean_p": [
+      0.0281,
+      0.03125
+     ],
+     "brier": [
+      0.0223,
+      0.0255
+     ],
+     "bss_B0": [
+      0.07197,
+      0.08903
+     ],
+     "bss_B2": [
+      0.05036,
+      0.06413
+     ],
+     "auc": [
+      0.85569,
+      0.8723
+     ],
+     "prec_at_50_recall": [
+      0.14125,
+      0.17348
+     ],
+     "cal_intercept": [
+      0.1111,
+      0.36992
+     ],
+     "cal_slope": [
+      1.08762,
+      1.17798
+     ],
+     "citl": [
+      -0.16466,
+      -0.05953
+     ]
+    },
+    "rows": 160529,
+    "events": 4259
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.05947,
+     "mean_p": 0.06428,
+     "brier": 0.04773,
+     "bss_B0": 0.13667,
+     "bss_B2": 0.08442,
+     "auc": 0.85574,
+     "prec_at_50_recall": 0.28554,
+     "cal_intercept": 0.10477,
+     "cal_slope": 1.10223,
+     "citl": -0.09575
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.05588,
+      0.06398
+     ],
+     "mean_p": [
+      0.06161,
+      0.06804
+     ],
+     "brier": [
+      0.04536,
+      0.05086
+     ],
+     "bss_B0": [
+      0.12494,
+      0.14848
+     ],
+     "bss_B2": [
+      0.07621,
+      0.09272
+     ],
+     "auc": [
+      0.84784,
+      0.86353
+     ],
+     "prec_at_50_recall": [
+      0.26553,
+      0.30897
+     ],
+     "cal_intercept": [
+      0.02221,
+      0.20286
+     ],
+     "cal_slope": [
+      1.06848,
+      1.14464
+     ],
+     "citl": [
+      -0.14595,
+      -0.05194
+     ]
+    },
+    "rows": 160529,
+    "events": 9547
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.09106,
+     "mean_p": 0.09935,
+     "brier": 0.06784,
+     "bss_B0": 0.16755,
+     "bss_B2": 0.09521,
+     "auc": 0.84705,
+     "prec_at_50_recall": 0.36864,
+     "cal_intercept": -0.02933,
+     "cal_slope": 1.0554,
+     "citl": -0.1175
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.08585,
+      0.09795
+     ],
+     "mean_p": [
+      0.09535,
+      0.10514
+     ],
+     "brier": [
+      0.06442,
+      0.07202
+     ],
+     "bss_B0": [
+      0.15318,
+      0.17947
+     ],
+     "bss_B2": [
+      0.08591,
+      0.10498
+     ],
+     "auc": [
+      0.83819,
+      0.85419
+     ],
+     "prec_at_50_recall": [
+      0.34426,
+      0.39038
+     ],
+     "cal_intercept": [
+      -0.10165,
+      0.04251
+     ],
+     "cal_slope": [
+      1.02023,
+      1.09363
+     ],
+     "citl": [
+      -0.16643,
+      -0.07374
+     ]
+    },
+    "rows": 160529,
+    "events": 14617
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.15881,
+     "mean_p": 0.1748,
+     "brier": 0.10344,
+     "bss_B0": 0.2138,
+     "bss_B2": 0.09232,
+     "auc": 0.83104,
+     "prec_at_50_recall": 0.49254,
+     "cal_intercept": -0.09586,
+     "cal_slope": 1.04726,
+     "citl": -0.14827
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.14965,
+      0.17033
+     ],
+     "mean_p": [
+      0.16861,
+      0.18406
+     ],
+     "brier": [
+      0.09925,
+      0.10888
+     ],
+     "bss_B0": [
+      0.19417,
+      0.23121
+     ],
+     "bss_B2": [
+      0.08151,
+      0.10249
+     ],
+     "auc": [
+      0.82161,
+      0.83945
+     ],
+     "prec_at_50_recall": [
+      0.46309,
+      0.52268
+     ],
+     "cal_intercept": [
+      -0.16295,
+      -0.04124
+     ],
+     "cal_slope": [
+      1.00909,
+      1.08227
+     ],
+     "citl": [
+      -0.20429,
+      -0.10043
+     ]
+    },
+    "rows": 160529,
+    "events": 25494
+   }
+  },
+  "D0_curve|persistent+octmar+at_risk": {
+   "30": {
+    "point": {
+     "base_rate": 0.01423,
+     "mean_p": 0.01975,
+     "brier": 0.01357,
+     "bss_B0": 0.03295,
+     "bss_B2": 0.02767,
+     "auc": 0.82373,
+     "prec_at_50_recall": 0.07072,
+     "cal_intercept": 0.07737,
+     "cal_slope": 1.13081,
+     "citl": -0.34418
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.01238,
+      0.01601
+     ],
+     "mean_p": [
+      0.01848,
+      0.02087
+     ],
+     "brier": [
+      0.01194,
+      0.01517
+     ],
+     "bss_B0": [
+      0.02,
+      0.04422
+     ],
+     "bss_B2": [
+      0.01672,
+      0.03592
+     ],
+     "auc": [
+      0.804,
+      0.8432
+     ],
+     "prec_at_50_recall": [
+      0.05691,
+      0.08734
+     ],
+     "cal_intercept": [
+      -0.26968,
+      0.40543
+     ],
+     "cal_slope": [
+      1.03563,
+      1.23
+     ],
+     "citl": [
+      -0.46763,
+      -0.23566
+     ]
+    },
+    "rows": 58249,
+    "events": 829
+   },
+   "60": {
+    "point": {
+     "base_rate": 0.03373,
+     "mean_p": 0.04272,
+     "brier": 0.03037,
+     "bss_B0": 0.06886,
+     "bss_B2": 0.04904,
+     "auc": 0.82156,
+     "prec_at_50_recall": 0.14172,
+     "cal_intercept": 0.06795,
+     "cal_slope": 1.13245,
+     "citl": -0.26192
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.02965,
+      0.03747
+     ],
+     "mean_p": [
+      0.04003,
+      0.04503
+     ],
+     "brier": [
+      0.02714,
+      0.03329
+     ],
+     "bss_B0": [
+      0.04813,
+      0.08554
+     ],
+     "bss_B2": [
+      0.03227,
+      0.06282
+     ],
+     "auc": [
+      0.80393,
+      0.83836
+     ],
+     "prec_at_50_recall": [
+      0.12057,
+      0.16411
+     ],
+     "cal_intercept": [
+      -0.1861,
+      0.30388
+     ],
+     "cal_slope": [
+      1.05489,
+      1.22215
+     ],
+     "citl": [
+      -0.38667,
+      -0.16962
+     ]
+    },
+    "rows": 58249,
+    "events": 1965
+   },
+   "90": {
+    "point": {
+     "base_rate": 0.05063,
+     "mean_p": 0.066,
+     "brier": 0.04441,
+     "bss_B0": 0.07553,
+     "bss_B2": 0.04337,
+     "auc": 0.80932,
+     "prec_at_50_recall": 0.17838,
+     "cal_intercept": -0.16384,
+     "cal_slope": 1.06922,
+     "citl": -0.30851
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.04493,
+      0.05625
+     ],
+     "mean_p": [
+      0.06192,
+      0.06947
+     ],
+     "brier": [
+      0.04015,
+      0.04852
+     ],
+     "bss_B0": [
+      0.05099,
+      0.09478
+     ],
+     "bss_B2": [
+      0.02529,
+      0.05984
+     ],
+     "auc": [
+      0.79168,
+      0.82608
+     ],
+     "prec_at_50_recall": [
+      0.15314,
+      0.20748
+     ],
+     "cal_intercept": [
+      -0.35974,
+      0.03307
+     ],
+     "cal_slope": [
+      0.99524,
+      1.15
+     ],
+     "citl": [
+      -0.41387,
+      -0.21389
+     ]
+    },
+    "rows": 58249,
+    "events": 2949
+   },
+   "180": {
+    "point": {
+     "base_rate": 0.07937,
+     "mean_p": 0.10455,
+     "brier": 0.06601,
+     "bss_B0": 0.09416,
+     "bss_B2": 0.01795,
+     "auc": 0.80333,
+     "prec_at_50_recall": 0.24799,
+     "cal_intercept": -0.23986,
+     "cal_slope": 1.06266,
+     "citl": -0.34343
+    },
+    "ci_dam": {
+     "base_rate": [
+      0.06992,
+      0.08776
+     ],
+     "mean_p": [
+      0.09868,
+      0.10966
+     ],
+     "brier": [
+      0.05964,
+      0.07141
+     ],
+     "bss_B0": [
+      0.06795,
+      0.1191
+     ],
+     "bss_B2": [
+      -0.00968,
+      0.0433
+     ],
+     "auc": [
+      0.78679,
+      0.8197
+     ],
+     "prec_at_50_recall": [
+      0.21414,
+      0.27799
+     ],
+     "cal_intercept": [
+      -0.40111,
+      -0.08988
+     ],
+     "cal_slope": [
+      0.98452,
+      1.14488
+     ],
+     "citl": [
+      -0.46271,
+      -0.24466
+     ]
+    },
+    "rows": 58249,
+    "events": 4623
+   }
+  }
+ },
+ "headline_vs_curve": {
+  "R30": {
+   "rows": 75160,
+   "mean_gap": -0.00216,
+   "mean_abs_gap": 0.03581,
+   "p90_abs_gap": 0.08518
+  },
+  "D0": {
+   "rows": 97192,
+   "mean_gap": -0.00635,
+   "mean_abs_gap": 0.0254,
+   "p90_abs_gap": 0.06905
+  }
+ },
+ "floor": {
+  "rows_at_risk": 358525,
+  "rows_labelled": 304611,
+  "issued_all": {
+   "rows": 304611,
+   "rows_judged": 304611,
+   "share_not_judged": 0.0,
+   "coverage": 0.9,
+   "target": 0.9,
+   "on_target": true,
+   "median_floor_days": 45.00339,
+   "ci_dam": {
+    "coverage": [
+     0.89731,
+     0.90282
+    ]
+   },
+   "by_year": {
+    "2008": {
+     "coverage": 0.89273,
+     "rows": 18179
+    },
+    "2009": {
+     "coverage": 0.91761,
+     "rows": 37029
+    },
+    "2010": {
+     "coverage": 0.91561,
+     "rows": 54531
+    },
+    "2011": {
+     "coverage": 0.90906,
+     "rows": 32856
+    },
+    "2012": {
+     "coverage": 0.89413,
+     "rows": 25446
+    },
+    "2013": {
+     "coverage": 0.88116,
+     "rows": 57833
+    },
+    "2014": {
+     "coverage": 0.89498,
+     "rows": 45437
+    },
+    "2015": {
+     "coverage": 0.89399,
+     "rows": 33300
+    }
+   },
+   "worst_year": {
+    "year": 2013,
+    "coverage": 0.88116
+   },
+   "share_ge_90": 0.26361,
+   "share_180_plus": 0.09462,
+   "worst_year_coverage": 0.88116
+  },
+  "issued_primary": {
+   "rows": 66453,
+   "rows_judged": 66453,
+   "share_not_judged": 0.0,
+   "coverage": 0.90985,
+   "target": 0.9,
+   "on_target": true,
+   "median_floor_days": 44.43313,
+   "ci_dam": {
+    "coverage": [
+     0.90517,
+     0.9139
+    ]
+   },
+   "by_year": {
+    "2008": {
+     "coverage": 0.87991,
+     "rows": 5554
+    },
+    "2009": {
+     "coverage": 0.92567,
+     "rows": 9323
+    },
+    "2010": {
+     "coverage": 0.90913,
+     "rows": 12270
+    },
+    "2011": {
+     "coverage": 0.95631,
+     "rows": 4990
+    },
+    "2012": {
+     "coverage": 0.91209,
+     "rows": 4004
+    },
+    "2013": {
+     "coverage": 0.88665,
+     "rows": 13269
+    },
+    "2014": {
+     "coverage": 0.91219,
+     "rows": 10341
+    },
+    "2015": {
+     "coverage": 0.92032,
+     "rows": 6702
+    }
+   },
+   "worst_year": {
+    "year": 2008,
+    "coverage": 0.87991
+   },
+   "share_ge_90": 0.25501,
+   "share_180_plus": 0.08248,
+   "worst_year_coverage": 0.87991
+  },
+  "loyo_shifts_by_year": {
+   "2008": 0.0,
+   "2009": 0.01515,
+   "2010": 0.02036,
+   "2011": 0.0069,
+   "2012": 0.0,
+   "2013": -0.01517,
+   "2014": 0.0,
+   "2015": 0.0
+  },
+  "loyo_all": {
+   "rows": 304611,
+   "rows_judged": 304611,
+   "share_not_judged": 0.0,
+   "coverage": 0.90015,
+   "target": 0.9,
+   "on_target": true,
+   "median_floor_days": 44.8334,
+   "by_year": {
+    "2008": {
+     "coverage": 0.89273,
+     "rows": 18179
+    },
+    "2009": {
+     "coverage": 0.91923,
+     "rows": 37029
+    },
+    "2010": {
+     "coverage": 0.91803,
+     "rows": 54531
+    },
+    "2011": {
+     "coverage": 0.91009,
+     "rows": 32856
+    },
+    "2012": {
+     "coverage": 0.89413,
+     "rows": 25446
+    },
+    "2013": {
+     "coverage": 0.87803,
+     "rows": 57833
+    },
+    "2014": {
+     "coverage": 0.89498,
+     "rows": 45437
+    },
+    "2015": {
+     "coverage": 0.89399,
+     "rows": 33300
+    }
+   },
+   "worst_year": {
+    "year": 2013,
+    "coverage": 0.87803
+   },
+   "share_ge_90": 0.26261,
+   "share_180_plus": 0.09421,
+   "worst_year_coverage": 0.87803
+  },
+  "loyo_primary": {
+   "rows": 66453,
+   "rows_judged": 66453,
+   "share_not_judged": 0.0,
+   "coverage": 0.90977,
+   "target": 0.9,
+   "on_target": true,
+   "median_floor_days": 44.23985,
+   "by_year": {
+    "2008": {
+     "coverage": 0.87991,
+     "rows": 5554
+    },
+    "2009": {
+     "coverage": 0.92599,
+     "rows": 9323
+    },
+    "2010": {
+     "coverage": 0.91084,
+     "rows": 12270
+    },
+    "2011": {
+     "coverage": 0.95691,
+     "rows": 4990
+    },
+    "2012": {
+     "coverage": 0.91209,
+     "rows": 4004
+    },
+    "2013": {
+     "coverage": 0.88424,
+     "rows": 13269
+    },
+    "2014": {
+     "coverage": 0.91219,
+     "rows": 10341
+    },
+    "2015": {
+     "coverage": 0.92032,
+     "rows": 6702
+    }
+   },
+   "worst_year": {
+    "year": 2008,
+    "coverage": 0.87991
+   },
+   "share_ge_90": 0.25368,
+   "share_180_plus": 0.08191,
+   "worst_year_coverage": 0.87991
+  },
+  "shown_all": {
+   "rows": 304611,
+   "rows_judged": 304611,
+   "share_not_judged": 0.0,
+   "coverage": 0.90812,
+   "target": 0.9,
+   "on_target": true,
+   "median_floor_days": 45.0,
+   "by_year": {
+    "2008": {
+     "coverage": 0.9017,
+     "rows": 18179
+    },
+    "2009": {
+     "coverage": 0.92414,
+     "rows": 37029
+    },
+    "2010": {
+     "coverage": 0.91992,
+     "rows": 54531
+    },
+    "2011": {
+     "coverage": 0.91895,
+     "rows": 32856
+    },
+    "2012": {
+     "coverage": 0.90729,
+     "rows": 25446
+    },
+    "2013": {
+     "coverage": 0.88961,
+     "rows": 57833
+    },
+    "2014": {
+     "coverage": 0.90391,
+     "rows": 45437
+    },
+    "2015": {
+     "coverage": 0.90228,
+     "rows": 33300
+    }
+   },
+   "worst_year": {
+    "year": 2013,
+    "coverage": 0.88961
+   },
+   "share_ge_90": 0.26361,
+   "share_180_plus": 0.09462,
+   "worst_year_coverage": 0.88961
+  },
+  "shown_primary": {
+   "rows": 66453,
+   "rows_judged": 66453,
+   "share_not_judged": 0.0,
+   "coverage": 0.91453,
+   "target": 0.9,
+   "on_target": true,
+   "median_floor_days": 44.0,
+   "by_year": {
+    "2008": {
+     "coverage": 0.88837,
+     "rows": 5554
+    },
+    "2009": {
+     "coverage": 0.93039,
+     "rows": 9323
+    },
+    "2010": {
+     "coverage": 0.91149,
+     "rows": 12270
+    },
+    "2011": {
+     "coverage": 0.95852,
+     "rows": 4990
+    },
+    "2012": {
+     "coverage": 0.91608,
+     "rows": 4004
+    },
+    "2013": {
+     "coverage": 0.8914,
+     "rows": 13269
+    },
+    "2014": {
+     "coverage": 0.91809,
+     "rows": 10341
+    },
+    "2015": {
+     "coverage": 0.92629,
+     "rows": 6702
+    }
+   },
+   "worst_year": {
+    "year": 2008,
+    "coverage": 0.88837
+   },
+   "share_ge_90": 0.25501,
+   "share_180_plus": 0.08248,
+   "worst_year_coverage": 0.88837
+  },
+  "issued_all_incl_unlabelled": {
+   "rows": 358525,
+   "rows_judged": 358525,
+   "share_not_judged": 0.0,
+   "coverage": 0.9112,
+   "target": 0.9,
+   "on_target": true,
+   "median_floor_days": 47.64002,
+   "by_year": {
+    "2008": {
+     "coverage": 0.89951,
+     "rows": 19783
+    },
+    "2009": {
+     "coverage": 0.92832,
+     "rows": 43763
+    },
+    "2010": {
+     "coverage": 0.92652,
+     "rows": 65650
+    },
+    "2011": {
+     "coverage": 0.93265,
+     "rows": 47942
+    },
+    "2012": {
+     "coverage": 0.91274,
+     "rows": 36524
+    },
+    "2013": {
+     "coverage": 0.8885,
+     "rows": 63067
+    },
+    "2014": {
+     "coverage": 0.89833,
+     "rows": 47969
+    },
+    "2015": {
+     "coverage": 0.89467,
+     "rows": 33827
+    }
+   },
+   "worst_year": {
+    "year": 2013,
+    "coverage": 0.8885
+   },
+   "share_ge_90": 0.27924,
+   "share_180_plus": 0.10232,
+   "worst_year_coverage": 0.8885
+  }
+ },
+ "band": {
+  "R30": {
+   "band": [
+    -1.08675,
+    0.67332
+   ],
+   "coverage": {
+    "band": [
+     -1.08675,
+     0.67332
+    ],
+    "region_years": 16,
+    "covered": 15,
+    "coverage": 0.9375,
+    "drier_than_band": {},
+    "wetter_than_band": {
+     "nsw_cw:2011": -1.95323
+    },
+    "not_used": 0
+   },
+   "loyo_pooled": {
+    "region_years": 16,
+    "covered": 15,
+    "coverage": 0.9375,
+    "missed": {
+     "nsw_cw:2011": {
+      "offset": -1.95323,
+      "band": [
+       -1.08675,
+       0.67332
+      ]
+     }
+    }
+   },
+   "loyo_val_only": {
+    "region_years": 16,
+    "covered": 14,
+    "coverage": 0.875,
+    "missed": {
+     "nsw_cw:2011": {
+      "offset": -1.95323,
+      "band": [
+       -0.85951,
+       0.36687
+      ]
+     },
+     "wvic_sesa:2008": {
+      "offset": 0.36687,
+      "band": [
+       -1.95323,
+       0.29241
+      ]
+     }
+    }
+   },
+   "examples": {
+    "0.05": [
+     0.01744,
+     0.09354
+    ],
+    "0.1": [
+     0.03613,
+     0.17889
+    ],
+    "0.3": [
+     0.1263,
+     0.45661
+    ],
+    "0.5": [
+     0.25223,
+     0.66225
+    ]
+   },
+   "val_offsets": [
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2008",
+     "region": "nsw_cw",
+     "hydro_year": 2008,
+     "rows": 4184,
+     "events": 1124,
+     "base_rate": 0.26864,
+     "mean_p": 0.25561,
+     "offset": 0.0841,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2009",
+     "region": "nsw_cw",
+     "hydro_year": 2009,
+     "rows": 6289,
+     "events": 1216,
+     "base_rate": 0.19335,
+     "mean_p": 0.30602,
+     "offset": -0.75509,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2010",
+     "region": "nsw_cw",
+     "hydro_year": 2010,
+     "rows": 9720,
+     "events": 2062,
+     "base_rate": 0.21214,
+     "mean_p": 0.22917,
+     "offset": -0.12495,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2011",
+     "region": "nsw_cw",
+     "hydro_year": 2011,
+     "rows": 1667,
+     "events": 108,
+     "base_rate": 0.06479,
+     "mean_p": 0.26633,
+     "offset": -1.95323,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2012",
+     "region": "nsw_cw",
+     "hydro_year": 2012,
+     "rows": 3055,
+     "events": 645,
+     "base_rate": 0.21113,
+     "mean_p": 0.21257,
+     "offset": -0.01061,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2013",
+     "region": "nsw_cw",
+     "hydro_year": 2013,
+     "rows": 8149,
+     "events": 2596,
+     "base_rate": 0.31857,
+     "mean_p": 0.28531,
+     "offset": 0.20016,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2014",
+     "region": "nsw_cw",
+     "hydro_year": 2014,
+     "rows": 5926,
+     "events": 1634,
+     "base_rate": 0.27573,
+     "mean_p": 0.30594,
+     "offset": -0.18612,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2015",
+     "region": "nsw_cw",
+     "hydro_year": 2015,
+     "rows": 4586,
+     "events": 1217,
+     "base_rate": 0.26537,
+     "mean_p": 0.34805,
+     "offset": -0.5062,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2008",
+     "region": "wvic_sesa",
+     "hydro_year": 2008,
+     "rows": 1370,
+     "events": 391,
+     "base_rate": 0.2854,
+     "mean_p": 0.2276,
+     "offset": 0.36687,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2009",
+     "region": "wvic_sesa",
+     "hydro_year": 2009,
+     "rows": 3034,
+     "events": 790,
+     "base_rate": 0.26038,
+     "mean_p": 0.3161,
+     "offset": -0.34529,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2010",
+     "region": "wvic_sesa",
+     "hydro_year": 2010,
+     "rows": 2550,
+     "events": 331,
+     "base_rate": 0.1298,
+     "mean_p": 0.22969,
+     "offset": -0.85951,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2011",
+     "region": "wvic_sesa",
+     "hydro_year": 2011,
+     "rows": 3323,
+     "events": 323,
+     "base_rate": 0.0972,
+     "mean_p": 0.16158,
+     "offset": -0.66549,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2012",
+     "region": "wvic_sesa",
+     "hydro_year": 2012,
+     "rows": 949,
+     "events": 207,
+     "base_rate": 0.21812,
+     "mean_p": 0.22222,
+     "offset": -0.02839,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2013",
+     "region": "wvic_sesa",
+     "hydro_year": 2013,
+     "rows": 5120,
+     "events": 1135,
+     "base_rate": 0.22168,
+     "mean_p": 0.25126,
+     "offset": -0.19813,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2014",
+     "region": "wvic_sesa",
+     "hydro_year": 2014,
+     "rows": 4415,
+     "events": 1170,
+     "base_rate": 0.26501,
+     "mean_p": 0.29431,
+     "offset": -0.17852,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2015",
+     "region": "wvic_sesa",
+     "hydro_year": 2015,
+     "rows": 2116,
+     "events": 912,
+     "base_rate": 0.431,
+     "mean_p": 0.37299,
+     "offset": 0.29241,
+     "used": true
+    }
+   ],
+   "inner_offsets": [
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2001",
+     "region": "nsw_cw",
+     "hydro_year": 2001,
+     "rows": 2143,
+     "events": 293,
+     "base_rate": 0.13672,
+     "mean_p": 0.19412,
+     "offset": -0.52495,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2002",
+     "region": "nsw_cw",
+     "hydro_year": 2002,
+     "rows": 2935,
+     "events": 946,
+     "base_rate": 0.32232,
+     "mean_p": 0.23777,
+     "offset": 0.5173,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2003",
+     "region": "nsw_cw",
+     "hydro_year": 2003,
+     "rows": 7889,
+     "events": 3181,
+     "base_rate": 0.40322,
+     "mean_p": 0.2835,
+     "offset": 0.67332,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2004",
+     "region": "nsw_cw",
+     "hydro_year": 2004,
+     "rows": 8991,
+     "events": 3167,
+     "base_rate": 0.35224,
+     "mean_p": 0.29218,
+     "offset": 0.35774,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2005",
+     "region": "nsw_cw",
+     "hydro_year": 2005,
+     "rows": 6385,
+     "events": 2037,
+     "base_rate": 0.31903,
+     "mean_p": 0.29746,
+     "offset": 0.13329,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2006",
+     "region": "nsw_cw",
+     "hydro_year": 2006,
+     "rows": 4141,
+     "events": 1615,
+     "base_rate": 0.39,
+     "mean_p": 0.28583,
+     "offset": 0.57783,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2007",
+     "region": "nsw_cw",
+     "hydro_year": 2007,
+     "rows": 7427,
+     "events": 1169,
+     "base_rate": 0.1574,
+     "mean_p": 0.31305,
+     "offset": -1.08675,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2001",
+     "region": "wvic_sesa",
+     "hydro_year": 2001,
+     "rows": 1558,
+     "events": 226,
+     "base_rate": 0.14506,
+     "mean_p": 0.20997,
+     "offset": -0.5437,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2002",
+     "region": "wvic_sesa",
+     "hydro_year": 2002,
+     "rows": 1849,
+     "events": 373,
+     "base_rate": 0.20173,
+     "mean_p": 0.21976,
+     "offset": -0.1291,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2003",
+     "region": "wvic_sesa",
+     "hydro_year": 2003,
+     "rows": 3070,
+     "events": 765,
+     "base_rate": 0.24919,
+     "mean_p": 0.21428,
+     "offset": 0.24092,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2004",
+     "region": "wvic_sesa",
+     "hydro_year": 2004,
+     "rows": 4469,
+     "events": 1251,
+     "base_rate": 0.27993,
+     "mean_p": 0.21891,
+     "offset": 0.40537,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2005",
+     "region": "wvic_sesa",
+     "hydro_year": 2005,
+     "rows": 2821,
+     "events": 629,
+     "base_rate": 0.22297,
+     "mean_p": 0.22839,
+     "offset": -0.03762,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2006",
+     "region": "wvic_sesa",
+     "hydro_year": 2006,
+     "rows": 2710,
+     "events": 750,
+     "base_rate": 0.27675,
+     "mean_p": 0.2041,
+     "offset": 0.47336,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2007",
+     "region": "wvic_sesa",
+     "hydro_year": 2007,
+     "rows": 1573,
+     "events": 487,
+     "base_rate": 0.3096,
+     "mean_p": 0.29155,
+     "offset": 0.10762,
+     "used": true
+    }
+   ]
+  },
+  "D0": {
+   "band": [
+    -1.17084,
+    0.50011
+   ],
+   "coverage": {
+    "band": [
+     -1.17084,
+     0.50011
+    ],
+    "region_years": 16,
+    "covered": 15,
+    "coverage": 0.9375,
+    "drier_than_band": {},
+    "wetter_than_band": {
+     "nsw_cw:2011": -1.81026
+    },
+    "not_used": 0
+   },
+   "loyo_pooled": {
+    "region_years": 16,
+    "covered": 15,
+    "coverage": 0.9375,
+    "missed": {
+     "nsw_cw:2011": {
+      "offset": -1.81026,
+      "band": [
+       -1.17084,
+       0.50011
+      ]
+     }
+    }
+   },
+   "loyo_val_only": {
+    "region_years": 16,
+    "covered": 14,
+    "coverage": 0.875,
+    "missed": {
+     "nsw_cw:2011": {
+      "offset": -1.81026,
+      "band": [
+       -1.13361,
+       0.33135
+      ]
+     },
+     "wvic_sesa:2015": {
+      "offset": 0.33135,
+      "band": [
+       -1.81026,
+       0.29892
+      ]
+     }
+    }
+   },
+   "examples": {
+    "0.05": [
+     0.01606,
+     0.07985
+    ],
+    "0.1": [
+     0.03331,
+     0.15484
+    ],
+    "0.3": [
+     0.11731,
+     0.41406
+    ],
+    "0.5": [
+     0.2367,
+     0.62248
+    ]
+   },
+   "val_offsets": [
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2008",
+     "region": "nsw_cw",
+     "hydro_year": 2008,
+     "rows": 5862,
+     "events": 705,
+     "base_rate": 0.12027,
+     "mean_p": 0.12991,
+     "offset": -0.10977,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2009",
+     "region": "nsw_cw",
+     "hydro_year": 2009,
+     "rows": 8686,
+     "events": 831,
+     "base_rate": 0.09567,
+     "mean_p": 0.15434,
+     "offset": -0.67925,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2010",
+     "region": "nsw_cw",
+     "hydro_year": 2010,
+     "rows": 10981,
+     "events": 965,
+     "base_rate": 0.08788,
+     "mean_p": 0.10043,
+     "offset": -0.17464,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2011",
+     "region": "nsw_cw",
+     "hydro_year": 2011,
+     "rows": 1926,
+     "events": 55,
+     "base_rate": 0.02856,
+     "mean_p": 0.12353,
+     "offset": -1.81026,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2012",
+     "region": "nsw_cw",
+     "hydro_year": 2012,
+     "rows": 3804,
+     "events": 376,
+     "base_rate": 0.09884,
+     "mean_p": 0.1106,
+     "offset": -0.15018,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2013",
+     "region": "nsw_cw",
+     "hydro_year": 2013,
+     "rows": 11179,
+     "events": 1798,
+     "base_rate": 0.16084,
+     "mean_p": 0.14508,
+     "offset": 0.15467,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2014",
+     "region": "nsw_cw",
+     "hydro_year": 2014,
+     "rows": 8789,
+     "events": 1122,
+     "base_rate": 0.12766,
+     "mean_p": 0.15738,
+     "offset": -0.31049,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2015",
+     "region": "nsw_cw",
+     "hydro_year": 2015,
+     "rows": 5995,
+     "events": 584,
+     "base_rate": 0.09741,
+     "mean_p": 0.17849,
+     "offset": -0.88521,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2008",
+     "region": "wvic_sesa",
+     "hydro_year": 2008,
+     "rows": 2317,
+     "events": 326,
+     "base_rate": 0.1407,
+     "mean_p": 0.11295,
+     "offset": 0.29892,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2009",
+     "region": "wvic_sesa",
+     "hydro_year": 2009,
+     "rows": 4265,
+     "events": 636,
+     "base_rate": 0.14912,
+     "mean_p": 0.17402,
+     "offset": -0.23781,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2010",
+     "region": "wvic_sesa",
+     "hydro_year": 2010,
+     "rows": 3049,
+     "events": 148,
+     "base_rate": 0.04854,
+     "mean_p": 0.11603,
+     "offset": -1.13361,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2011",
+     "region": "wvic_sesa",
+     "hydro_year": 2011,
+     "rows": 3651,
+     "events": 116,
+     "base_rate": 0.03177,
+     "mean_p": 0.07139,
+     "offset": -0.92984,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2012",
+     "region": "wvic_sesa",
+     "hydro_year": 2012,
+     "rows": 1247,
+     "events": 131,
+     "base_rate": 0.10505,
+     "mean_p": 0.10977,
+     "offset": -0.05705,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2013",
+     "region": "wvic_sesa",
+     "hydro_year": 2013,
+     "rows": 6035,
+     "events": 630,
+     "base_rate": 0.10439,
+     "mean_p": 0.12191,
+     "offset": -0.20905,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2014",
+     "region": "wvic_sesa",
+     "hydro_year": 2014,
+     "rows": 5804,
+     "events": 745,
+     "base_rate": 0.12836,
+     "mean_p": 0.1462,
+     "offset": -0.1858,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2015",
+     "region": "wvic_sesa",
+     "hydro_year": 2015,
+     "rows": 3061,
+     "events": 725,
+     "base_rate": 0.23685,
+     "mean_p": 0.19238,
+     "offset": 0.33135,
+     "used": true
+    }
+   ],
+   "inner_offsets": [
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2001",
+     "region": "nsw_cw",
+     "hydro_year": 2001,
+     "rows": 2799,
+     "events": 171,
+     "base_rate": 0.06109,
+     "mean_p": 0.09629,
+     "offset": -0.58785,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2002",
+     "region": "nsw_cw",
+     "hydro_year": 2002,
+     "rows": 4922,
+     "events": 713,
+     "base_rate": 0.14486,
+     "mean_p": 0.12112,
+     "offset": 0.24632,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2003",
+     "region": "nsw_cw",
+     "hydro_year": 2003,
+     "rows": 11214,
+     "events": 2193,
+     "base_rate": 0.19556,
+     "mean_p": 0.14382,
+     "offset": 0.46854,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2004",
+     "region": "nsw_cw",
+     "hydro_year": 2004,
+     "rows": 12731,
+     "events": 2199,
+     "base_rate": 0.17273,
+     "mean_p": 0.14026,
+     "offset": 0.31433,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2005",
+     "region": "nsw_cw",
+     "hydro_year": 2005,
+     "rows": 8109,
+     "events": 1267,
+     "base_rate": 0.15625,
+     "mean_p": 0.14664,
+     "offset": 0.09663,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2006",
+     "region": "nsw_cw",
+     "hydro_year": 2006,
+     "rows": 7572,
+     "events": 1479,
+     "base_rate": 0.19532,
+     "mean_p": 0.13758,
+     "offset": 0.50011,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2007",
+     "region": "nsw_cw",
+     "hydro_year": 2007,
+     "rows": 9369,
+     "events": 587,
+     "base_rate": 0.06265,
+     "mean_p": 0.15039,
+     "offset": -1.17084,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2001",
+     "region": "wvic_sesa",
+     "hydro_year": 2001,
+     "rows": 1895,
+     "events": 104,
+     "base_rate": 0.05488,
+     "mean_p": 0.09676,
+     "offset": -0.70136,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2002",
+     "region": "wvic_sesa",
+     "hydro_year": 2002,
+     "rows": 2508,
+     "events": 275,
+     "base_rate": 0.10965,
+     "mean_p": 0.10899,
+     "offset": 0.00789,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2003",
+     "region": "wvic_sesa",
+     "hydro_year": 2003,
+     "rows": 3916,
+     "events": 506,
+     "base_rate": 0.12921,
+     "mean_p": 0.10469,
+     "offset": 0.28169,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2004",
+     "region": "wvic_sesa",
+     "hydro_year": 2004,
+     "rows": 5404,
+     "events": 803,
+     "base_rate": 0.14859,
+     "mean_p": 0.10885,
+     "offset": 0.42887,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2005",
+     "region": "wvic_sesa",
+     "hydro_year": 2005,
+     "rows": 4018,
+     "events": 443,
+     "base_rate": 0.11025,
+     "mean_p": 0.11608,
+     "offset": -0.06701,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2006",
+     "region": "wvic_sesa",
+     "hydro_year": 2006,
+     "rows": 4436,
+     "events": 543,
+     "base_rate": 0.12241,
+     "mean_p": 0.10435,
+     "offset": 0.20607,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2007",
+     "region": "wvic_sesa",
+     "hydro_year": 2007,
+     "rows": 2230,
+     "events": 323,
+     "base_rate": 0.14484,
+     "mean_p": 0.16049,
+     "offset": -0.15019,
+     "used": true
+    }
+   ]
+  },
+  "D0g": {
+   "band": [
+    -1.16393,
+    0.63923
+   ],
+   "coverage": {
+    "band": [
+     -1.16393,
+     0.63923
+    ],
+    "region_years": 16,
+    "covered": 14,
+    "coverage": 0.875,
+    "drier_than_band": {},
+    "wetter_than_band": {
+     "nsw_cw:2011": -2.12589,
+     "wvic_sesa:2010": -1.23599
+    },
+    "not_used": 0
+   },
+   "loyo_pooled": {
+    "region_years": 16,
+    "covered": 15,
+    "coverage": 0.9375,
+    "missed": {
+     "nsw_cw:2011": {
+      "offset": -2.12589,
+      "band": [
+       -1.23599,
+       0.63923
+      ]
+     }
+    }
+   },
+   "loyo_val_only": {
+    "region_years": 16,
+    "covered": 14,
+    "coverage": 0.875,
+    "missed": {
+     "nsw_cw:2011": {
+      "offset": -2.12589,
+      "band": [
+       -1.23599,
+       0.3978
+      ]
+     },
+     "wvic_sesa:2015": {
+      "offset": 0.3978,
+      "band": [
+       -2.12589,
+       0.36738
+      ]
+     }
+    }
+   },
+   "examples": {
+    "0.05": [
+     0.01617,
+     0.09069
+    ],
+    "0.1": [
+     0.03353,
+     0.17393
+    ],
+    "0.3": [
+     0.11803,
+     0.44817
+    ],
+    "0.5": [
+     0.23795,
+     0.65458
+    ]
+   },
+   "val_offsets": [
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2008",
+     "region": "nsw_cw",
+     "hydro_year": 2008,
+     "rows": 5688,
+     "events": 531,
+     "base_rate": 0.09335,
+     "mean_p": 0.09979,
+     "offset": -0.09088,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2009",
+     "region": "nsw_cw",
+     "hydro_year": 2009,
+     "rows": 8431,
+     "events": 576,
+     "base_rate": 0.06832,
+     "mean_p": 0.1196,
+     "offset": -0.75156,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2010",
+     "region": "nsw_cw",
+     "hydro_year": 2010,
+     "rows": 10520,
+     "events": 504,
+     "base_rate": 0.04791,
+     "mean_p": 0.0692,
+     "offset": -0.45171,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2011",
+     "region": "nsw_cw",
+     "hydro_year": 2011,
+     "rows": 1898,
+     "events": 27,
+     "base_rate": 0.01423,
+     "mean_p": 0.08712,
+     "offset": -2.12589,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2012",
+     "region": "nsw_cw",
+     "hydro_year": 2012,
+     "rows": 3692,
+     "events": 264,
+     "base_rate": 0.07151,
+     "mean_p": 0.07859,
+     "offset": -0.12064,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2013",
+     "region": "nsw_cw",
+     "hydro_year": 2013,
+     "rows": 10830,
+     "events": 1449,
+     "base_rate": 0.1338,
+     "mean_p": 0.11402,
+     "offset": 0.23075,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2014",
+     "region": "nsw_cw",
+     "hydro_year": 2014,
+     "rows": 8482,
+     "events": 815,
+     "base_rate": 0.09609,
+     "mean_p": 0.12471,
+     "offset": -0.36553,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "nsw_cw:2015",
+     "region": "nsw_cw",
+     "hydro_year": 2015,
+     "rows": 5833,
+     "events": 422,
+     "base_rate": 0.07235,
+     "mean_p": 0.14011,
+     "offset": -0.91952,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2008",
+     "region": "wvic_sesa",
+     "hydro_year": 2008,
+     "rows": 2231,
+     "events": 240,
+     "base_rate": 0.10758,
+     "mean_p": 0.08097,
+     "offset": 0.36738,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2009",
+     "region": "wvic_sesa",
+     "hydro_year": 2009,
+     "rows": 4035,
+     "events": 406,
+     "base_rate": 0.10062,
+     "mean_p": 0.11955,
+     "offset": -0.24136,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2010",
+     "region": "wvic_sesa",
+     "hydro_year": 2010,
+     "rows": 2982,
+     "events": 81,
+     "base_rate": 0.02716,
+     "mean_p": 0.07589,
+     "offset": -1.23599,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2011",
+     "region": "wvic_sesa",
+     "hydro_year": 2011,
+     "rows": 3601,
+     "events": 66,
+     "base_rate": 0.01833,
+     "mean_p": 0.04296,
+     "offset": -0.95605,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2012",
+     "region": "wvic_sesa",
+     "hydro_year": 2012,
+     "rows": 1201,
+     "events": 85,
+     "base_rate": 0.07077,
+     "mean_p": 0.07618,
+     "offset": -0.09135,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2013",
+     "region": "wvic_sesa",
+     "hydro_year": 2013,
+     "rows": 5801,
+     "events": 396,
+     "base_rate": 0.06826,
+     "mean_p": 0.07917,
+     "offset": -0.18688,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2014",
+     "region": "wvic_sesa",
+     "hydro_year": 2014,
+     "rows": 5616,
+     "events": 557,
+     "base_rate": 0.09918,
+     "mean_p": 0.10873,
+     "offset": -0.12601,
+     "used": true
+    },
+    {
+     "block": "VAL",
+     "region_year": "wvic_sesa:2015",
+     "region": "wvic_sesa",
+     "hydro_year": 2015,
+     "rows": 2906,
+     "events": 570,
+     "base_rate": 0.19615,
+     "mean_p": 0.15105,
+     "offset": 0.3978,
+     "used": true
+    }
+   ],
+   "inner_offsets": [
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2001",
+     "region": "nsw_cw",
+     "hydro_year": 2001,
+     "rows": 2745,
+     "events": 117,
+     "base_rate": 0.04262,
+     "mean_p": 0.06993,
+     "offset": -0.60418,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2002",
+     "region": "nsw_cw",
+     "hydro_year": 2002,
+     "rows": 4780,
+     "events": 571,
+     "base_rate": 0.11946,
+     "mean_p": 0.08831,
+     "offset": 0.39361,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2003",
+     "region": "nsw_cw",
+     "hydro_year": 2003,
+     "rows": 10639,
+     "events": 1618,
+     "base_rate": 0.15208,
+     "mean_p": 0.10723,
+     "offset": 0.50259,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2004",
+     "region": "nsw_cw",
+     "hydro_year": 2004,
+     "rows": 12135,
+     "events": 1603,
+     "base_rate": 0.1321,
+     "mean_p": 0.10365,
+     "offset": 0.34122,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2005",
+     "region": "nsw_cw",
+     "hydro_year": 2005,
+     "rows": 7726,
+     "events": 884,
+     "base_rate": 0.11442,
+     "mean_p": 0.10015,
+     "offset": 0.18559,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2006",
+     "region": "nsw_cw",
+     "hydro_year": 2006,
+     "rows": 7298,
+     "events": 1205,
+     "base_rate": 0.16511,
+     "mean_p": 0.1027,
+     "offset": 0.63923,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "nsw_cw:2007",
+     "region": "nsw_cw",
+     "hydro_year": 2007,
+     "rows": 9186,
+     "events": 404,
+     "base_rate": 0.04398,
+     "mean_p": 0.11095,
+     "offset": -1.16393,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2001",
+     "region": "wvic_sesa",
+     "hydro_year": 2001,
+     "rows": 1845,
+     "events": 54,
+     "base_rate": 0.02927,
+     "mean_p": 0.06049,
+     "offset": -0.83942,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2002",
+     "region": "wvic_sesa",
+     "hydro_year": 2002,
+     "rows": 2426,
+     "events": 193,
+     "base_rate": 0.07955,
+     "mean_p": 0.0761,
+     "offset": 0.05566,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2003",
+     "region": "wvic_sesa",
+     "hydro_year": 2003,
+     "rows": 3716,
+     "events": 306,
+     "base_rate": 0.08235,
+     "mean_p": 0.06524,
+     "offset": 0.29154,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2004",
+     "region": "wvic_sesa",
+     "hydro_year": 2004,
+     "rows": 5008,
+     "events": 407,
+     "base_rate": 0.08127,
+     "mean_p": 0.06617,
+     "offset": 0.25904,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2005",
+     "region": "wvic_sesa",
+     "hydro_year": 2005,
+     "rows": 3881,
+     "events": 306,
+     "base_rate": 0.07885,
+     "mean_p": 0.08086,
+     "offset": -0.03129,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2006",
+     "region": "wvic_sesa",
+     "hydro_year": 2006,
+     "rows": 4300,
+     "events": 407,
+     "base_rate": 0.09465,
+     "mean_p": 0.07289,
+     "offset": 0.32371,
+     "used": true
+    },
+    {
+     "block": "2002-2009",
+     "region_year": "wvic_sesa:2007",
+     "region": "wvic_sesa",
+     "hydro_year": 2007,
+     "rows": 2131,
+     "events": 224,
+     "base_rate": 0.10511,
+     "mean_p": 0.11071,
+     "offset": -0.06993,
+     "used": true
+    }
+   ]
+  }
+ },
+ "p2": {
+  "P2_cell|all|L1": {
+   "point": {
+    "base_rate": 0.171,
+    "mean_p": 0.19452,
+    "brier": 0.12079,
+    "bss_B0": 0.14878,
+    "bss_B2": 0.0059,
+    "auc": 0.78715,
+    "prec_at_50_recall": 0.40696,
+    "auc_within_season": 0.7893,
+    "auc_within_cell": 0.51731,
+    "cal_intercept": -0.2706,
+    "cal_slope": 0.9236,
+    "citl": -0.19342,
+    "bss_vs_RAIN": 0.14757,
+    "d_bss_B0_vs_RAIN": 0.14736,
+    "d_auc_vs_RAIN": 0.2493,
+    "bss_vs_RAIN+": 0.12237,
+    "d_bss_B0_vs_RAIN+": 0.11869,
+    "d_auc_vs_RAIN+": 0.15632,
+    "bss_vs_B2": 0.0059,
+    "d_bss_B0_vs_B2": 0.00505,
+    "d_auc_vs_B2": 0.01407
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.15985,
+     0.18092
+    ],
+    "mean_p": [
+     0.18572,
+     0.2031
+    ],
+    "brier": [
+     0.11516,
+     0.12623
+    ],
+    "bss_B0": [
+     0.12634,
+     0.1689
+    ],
+    "bss_B2": [
+     -0.00454,
+     0.01763
+    ],
+    "auc": [
+     0.77382,
+     0.8002
+    ],
+    "prec_at_50_recall": [
+     0.37501,
+     0.43799
+    ],
+    "auc_within_season": [
+     0.7755,
+     0.8029
+    ],
+    "auc_within_cell": [
+     0.48744,
+     0.54797
+    ],
+    "cal_intercept": [
+     -0.3565,
+     -0.19503
+    ],
+    "cal_slope": [
+     0.86773,
+     0.97529
+    ],
+    "citl": [
+     -0.25566,
+     -0.13158
+    ],
+    "bss_vs_RAIN": [
+     0.12538,
+     0.16711
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.12515,
+     0.16664
+    ],
+    "d_auc_vs_RAIN": [
+     0.22838,
+     0.27317
+    ],
+    "bss_vs_RAIN+": [
+     0.09944,
+     0.14281
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.0963,
+     0.13861
+    ],
+    "d_auc_vs_RAIN+": [
+     0.13758,
+     0.17288
+    ],
+    "bss_vs_B2": [
+     -0.00454,
+     0.01763
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.00388,
+     0.01526
+    ],
+    "d_auc_vs_B2": [
+     0.00874,
+     0.02055
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.13418,
+     0.2051
+    ],
+    "mean_p": [
+     0.17644,
+     0.20776
+    ],
+    "brier": [
+     0.10744,
+     0.13319
+    ],
+    "bss_B0": [
+     0.06172,
+     0.20895
+    ],
+    "bss_B2": [
+     -0.04486,
+     0.04875
+    ],
+    "auc": [
+     0.76414,
+     0.80743
+    ],
+    "prec_at_50_recall": [
+     0.31633,
+     0.49512
+    ],
+    "auc_within_season": [
+     0.76256,
+     0.81142
+    ],
+    "auc_within_cell": [
+     0.44024,
+     0.59963
+    ],
+    "cal_intercept": [
+     -0.65059,
+     0.1006
+    ],
+    "cal_slope": [
+     0.81198,
+     1.04067
+    ],
+    "citl": [
+     -0.53347,
+     0.0833
+    ],
+    "bss_vs_RAIN": [
+     0.06681,
+     0.20486
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.06753,
+     0.20388
+    ],
+    "d_auc_vs_RAIN": [
+     0.17551,
+     0.31753
+    ],
+    "bss_vs_RAIN+": [
+     0.03571,
+     0.17973
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.03469,
+     0.17385
+    ],
+    "d_auc_vs_RAIN+": [
+     0.11676,
+     0.19892
+    ],
+    "bss_vs_B2": [
+     -0.04486,
+     0.04875
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.03966,
+     0.04074
+    ],
+    "d_auc_vs_B2": [
+     -0.00195,
+     0.02891
+    ]
+   },
+   "rows": {
+    "passed_in": 10045,
+    "in_subset": 10045,
+    "in_subset_without_label": 197,
+    "scored": 9848,
+    "events": 1684,
+    "dams": 1434,
+    "dams_with_event": 791,
+    "region_years": 14
+   },
+   "refs": [
+    "RAIN",
+    "RAIN+",
+    "B2"
+   ]
+  },
+  "P2_dam|dam_like|L1": {
+   "point": {
+    "base_rate": 0.17903,
+    "mean_p": 0.20876,
+    "brier": 0.12555,
+    "bss_B0": 0.14686,
+    "bss_B2": 0.01059,
+    "auc": 0.77935,
+    "prec_at_50_recall": 0.41483,
+    "auc_within_season": 0.78084,
+    "auc_within_dam": 0.52145,
+    "cal_intercept": -0.262,
+    "cal_slope": 0.96732,
+    "citl": -0.23014,
+    "bss_vs_RAIN": 0.14536,
+    "d_bss_B0_vs_RAIN": 0.1451,
+    "d_auc_vs_RAIN": 0.23061,
+    "bss_vs_RAIN+": 0.11494,
+    "d_bss_B0_vs_RAIN+": 0.11079,
+    "d_auc_vs_RAIN+": 0.13883,
+    "bss_vs_B2": 0.01059,
+    "d_bss_B0_vs_B2": 0.00913,
+    "d_auc_vs_B2": 0.01713
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.16936,
+     0.1892
+    ],
+    "mean_p": [
+     0.20088,
+     0.21616
+    ],
+    "brier": [
+     0.1209,
+     0.13067
+    ],
+    "bss_B0": [
+     0.12777,
+     0.16613
+    ],
+    "bss_B2": [
+     0.00073,
+     0.01913
+    ],
+    "auc": [
+     0.76672,
+     0.79105
+    ],
+    "prec_at_50_recall": [
+     0.38861,
+     0.44783
+    ],
+    "auc_within_season": [
+     0.7678,
+     0.79335
+    ],
+    "auc_within_dam": [
+     0.49093,
+     0.54706
+    ],
+    "cal_intercept": [
+     -0.33419,
+     -0.1822
+    ],
+    "cal_slope": [
+     0.91841,
+     1.01916
+    ],
+    "citl": [
+     -0.28104,
+     -0.17724
+    ],
+    "bss_vs_RAIN": [
+     0.12629,
+     0.16436
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.12656,
+     0.16445
+    ],
+    "d_auc_vs_RAIN": [
+     0.21127,
+     0.25016
+    ],
+    "bss_vs_RAIN+": [
+     0.09354,
+     0.13405
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.09027,
+     0.12902
+    ],
+    "d_auc_vs_RAIN+": [
+     0.12109,
+     0.15549
+    ],
+    "bss_vs_B2": [
+     0.00073,
+     0.01913
+    ],
+    "d_bss_B0_vs_B2": [
+     0.00063,
+     0.01649
+    ],
+    "d_auc_vs_B2": [
+     0.01255,
+     0.02183
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.13966,
+     0.21491
+    ],
+    "mean_p": [
+     0.19104,
+     0.22206
+    ],
+    "brier": [
+     0.11125,
+     0.13865
+    ],
+    "bss_B0": [
+     0.06261,
+     0.20462
+    ],
+    "bss_B2": [
+     -0.04655,
+     0.05924
+    ],
+    "auc": [
+     0.75416,
+     0.80187
+    ],
+    "prec_at_50_recall": [
+     0.31922,
+     0.50801
+    ],
+    "auc_within_season": [
+     0.75294,
+     0.8043
+    ],
+    "auc_within_dam": [
+     0.44866,
+     0.61052
+    ],
+    "cal_intercept": [
+     -0.6677,
+     0.09994
+    ],
+    "cal_slope": [
+     0.84381,
+     1.09537
+    ],
+    "citl": [
+     -0.56806,
+     0.04376
+    ],
+    "bss_vs_RAIN": [
+     0.06197,
+     0.20046
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.06207,
+     0.2004
+    ],
+    "d_auc_vs_RAIN": [
+     0.1648,
+     0.29923
+    ],
+    "bss_vs_RAIN+": [
+     0.03264,
+     0.1696
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.03163,
+     0.16225
+    ],
+    "d_auc_vs_RAIN+": [
+     0.10893,
+     0.17221
+    ],
+    "bss_vs_B2": [
+     -0.04655,
+     0.05924
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.04204,
+     0.05008
+    ],
+    "d_auc_vs_B2": [
+     0.00115,
+     0.03395
+    ]
+   },
+   "rows": {
+    "passed_in": 11781,
+    "in_subset": 11781,
+    "in_subset_without_label": 224,
+    "scored": 11557,
+    "events": 2069,
+    "dams": 1682,
+    "dams_with_event": 971,
+    "region_years": 14
+   },
+   "refs": [
+    "RAIN",
+    "RAIN+",
+    "B2"
+   ]
+  },
+  "P2_dam_g|dam_like|L1": {
+   "point": {
+    "base_rate": 0.13344,
+    "mean_p": 0.15323,
+    "brier": 0.10373,
+    "bss_B0": 0.10344,
+    "bss_B2": 0.00211,
+    "auc": 0.76679,
+    "prec_at_50_recall": 0.30714,
+    "auc_within_season": 0.7696,
+    "auc_within_dam": 0.50034,
+    "cal_intercept": -0.31853,
+    "cal_slope": 0.90187,
+    "citl": -0.18835,
+    "bss_vs_RAIN": 0.10167,
+    "d_bss_B0_vs_RAIN": 0.10147,
+    "d_auc_vs_RAIN": 0.21692,
+    "bss_vs_RAIN+": 0.07897,
+    "d_bss_B0_vs_RAIN+": 0.07687,
+    "d_auc_vs_RAIN+": 0.12703,
+    "bss_vs_B2": 0.00211,
+    "d_bss_B0_vs_B2": 0.0019,
+    "d_auc_vs_B2": 0.01603
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.12553,
+     0.14202
+    ],
+    "mean_p": [
+     0.14721,
+     0.15925
+    ],
+    "brier": [
+     0.09865,
+     0.10882
+    ],
+    "bss_B0": [
+     0.08291,
+     0.1229
+    ],
+    "bss_B2": [
+     -0.00776,
+     0.0118
+    ],
+    "auc": [
+     0.75208,
+     0.77924
+    ],
+    "prec_at_50_recall": [
+     0.28423,
+     0.3392
+    ],
+    "auc_within_season": [
+     0.75431,
+     0.78254
+    ],
+    "auc_within_dam": [
+     0.46753,
+     0.5291
+    ],
+    "cal_intercept": [
+     -0.42254,
+     -0.21483
+    ],
+    "cal_slope": [
+     0.84188,
+     0.95714
+    ],
+    "citl": [
+     -0.24791,
+     -0.12153
+    ],
+    "bss_vs_RAIN": [
+     0.08089,
+     0.12051
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.08044,
+     0.12056
+    ],
+    "d_auc_vs_RAIN": [
+     0.19381,
+     0.23901
+    ],
+    "bss_vs_RAIN+": [
+     0.05792,
+     0.09763
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.05627,
+     0.09503
+    ],
+    "d_auc_vs_RAIN+": [
+     0.10849,
+     0.14563
+    ],
+    "bss_vs_B2": [
+     -0.00776,
+     0.0118
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.00701,
+     0.01057
+    ],
+    "d_auc_vs_B2": [
+     0.01014,
+     0.02223
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.0982,
+     0.16667
+    ],
+    "mean_p": [
+     0.13891,
+     0.16462
+    ],
+    "brier": [
+     0.08705,
+     0.11974
+    ],
+    "bss_B0": [
+     0.02022,
+     0.15907
+    ],
+    "bss_B2": [
+     -0.0542,
+     0.04729
+    ],
+    "auc": [
+     0.74114,
+     0.79131
+    ],
+    "prec_at_50_recall": [
+     0.22613,
+     0.38945
+    ],
+    "auc_within_season": [
+     0.74078,
+     0.79902
+    ],
+    "auc_within_dam": [
+     0.42231,
+     0.59254
+    ],
+    "cal_intercept": [
+     -0.82241,
+     0.13044
+    ],
+    "cal_slope": [
+     0.77948,
+     1.04215
+    ],
+    "citl": [
+     -0.58007,
+     0.12798
+    ],
+    "bss_vs_RAIN": [
+     0.01101,
+     0.15587
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.01101,
+     0.15531
+    ],
+    "d_auc_vs_RAIN": [
+     0.13679,
+     0.3031
+    ],
+    "bss_vs_RAIN+": [
+     -0.01091,
+     0.13351
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     -0.01055,
+     0.13055
+    ],
+    "d_auc_vs_RAIN+": [
+     0.08853,
+     0.16859
+    ],
+    "bss_vs_B2": [
+     -0.0542,
+     0.04729
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.05072,
+     0.04181
+    ],
+    "d_auc_vs_B2": [
+     -0.00404,
+     0.03585
+    ]
+   },
+   "rows": {
+    "passed_in": 11781,
+    "in_subset": 11781,
+    "in_subset_without_label": 832,
+    "scored": 10949,
+    "events": 1461,
+    "dams": 1682,
+    "dams_with_event": 822,
+    "region_years": 14
+   },
+   "refs": [
+    "RAIN",
+    "RAIN+",
+    "B2"
+   ]
+  }
+ },
+ "fit_summary": {
+  "rung": "L1",
+  "rung_about": "T + per-dam frailty + R30 max rule + hazard curve (no nets)",
+  "setting": "VAL",
+  "cutoff": "2009-01-01",
+  "members": {
+   "R30": {
+    "cutoff": "2009-01-01",
+    "fit_rows": 659554,
+    "fit_events": 192700,
+    "members": [
+     "T"
+    ],
+    "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+   },
+   "D0": {
+    "cutoff": "2009-01-01",
+    "fit_rows": 875286,
+    "fit_events": 148942,
+    "members": [
+     "T"
+    ],
+    "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+   },
+   "D0g": {
+    "cutoff": "2009-01-01",
+    "fit_rows": 815946,
+    "fit_events": 89602,
+    "members": [
+     "T"
+    ],
+    "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+   }
+  },
+  "members_seconds": 49,
+  "curves": {
+   "R30": {
+    "kind": "R30",
+    "block": "VAL",
+    "cutoff": "2009-01-01",
+    "population": "dam_like",
+    "features": [
+     "rel",
+     "last3",
+     "s60",
+     "s120",
+     "max365",
+     "min365",
+     "low365_R30",
+     "log_n_pixels",
+     "month",
+     "dtt_trend_R30",
+     "dam_rate_R30",
+     "clim_dd",
+     "clim_fast",
+     "dtt_clim_R30",
+     "dtt_fast_R30",
+     "rec",
+     "since_full",
+     "since_low_R30",
+     "anom_own",
+     "sin_doy",
+     "cos_doy",
+     "gap_prev",
+     "full_c",
+     "wet_share_c",
+     "fill_share_c",
+     "pixel_compactness",
+     "R_anom",
+     "R_chg3",
+     "R_zero",
+     "iv_start",
+     "iv_len"
+    ],
+    "issues": 283836,
+    "issues_used": 280494,
+    "person_period_rows": 1000128,
+    "person_period_events": 94623,
+    "rows_per_interval": {
+     "(0,30]": 280494,
+     "(30,60]": 261009,
+     "(60,90]": 239316,
+     "(90,180]": 219309
+    },
+    "events_per_interval": {
+     "(0,30]": 17552,
+     "(30,60]": 20035,
+     "(60,90]": 18630,
+     "(90,180]": 38406
+    },
+    "issues_selected_with_post_cutoff_looks": 2163,
+    "top_features_by_gain": {
+     "iv_start": 0.1822,
+     "dam_rate_R30": 0.1411,
+     "low365_R30": 0.108,
+     "dtt_fast_R30": 0.0697,
+     "month": 0.0658,
+     "sin_doy": 0.0563,
+     "R_anom": 0.0478,
+     "cos_doy": 0.0434
+    },
+    "seconds": 21
+   },
+   "D0": {
+    "kind": "D0",
+    "block": "VAL",
+    "cutoff": "2009-01-01",
+    "population": "dam_like",
+    "features": [
+     "rel",
+     "last3",
+     "s60",
+     "s120",
+     "max365",
+     "min365",
+     "low365_D0",
+     "log_n_pixels",
+     "month",
+     "dtt_trend_D0",
+     "dam_rate_D0",
+     "clim_dd",
+     "clim_fast",
+     "dtt_clim_D0",
+     "dtt_fast_D0",
+     "rec",
+     "since_full",
+     "since_low_D0",
+     "anom_own",
+     "sin_doy",
+     "cos_doy",
+     "gap_prev",
+     "full_c",
+     "wet_share_c",
+     "fill_share_c",
+     "pixel_compactness",
+     "R_anom",
+     "R_chg3",
+     "R_zero",
+     "iv_start",
+     "iv_len"
+    ],
+    "issues": 365109,
+    "issues_used": 360679,
+    "person_period_rows": 1362265,
+    "person_period_events": 60783,
+    "rows_per_interval": {
+     "(0,30]": 360679,
+     "(30,60]": 348091,
+     "(60,90]": 333675,
+     "(90,180]": 319820
+    },
+    "events_per_interval": {
+     "(0,30]": 9975,
+     "(30,60]": 12138,
+     "(60,90]": 11909,
+     "(90,180]": 26761
+    },
+    "issues_selected_with_post_cutoff_looks": 2740,
+    "top_features_by_gain": {
+     "dam_rate_D0": 0.1727,
+     "iv_start": 0.1392,
+     "low365_D0": 0.0892,
+     "wet_share_c": 0.0578,
+     "month": 0.0513,
+     "dtt_fast_D0": 0.0491,
+     "log_n_pixels": 0.0473,
+     "sin_doy": 0.0452
+    },
+    "seconds": 30
+   }
+  },
+  "floor": {
+   "cutoff": "2009-01-01",
+   "fit_rows": 636411,
+   "fit_rows_available": 636411,
+   "share_no_event_within_365": 0.3728,
+   "first_issue": "1988-01-03",
+   "last_issue": "2007-12-01",
+   "shift": 0.0,
+   "calibration_rows": 0,
+   "about": "no calibration block before this cutoff, so the raw 10% quantile",
+   "seconds": 12
+  },
+  "rating": {
+   "variant": "main",
+   "about": "PREREG P2: LightGBM boosted from logit(B2), HSN inputs, dam-like seasons, 3 seeds",
+   "block": "VAL",
+   "population": "dam_like",
+   "fit_seasons": 32355,
+   "fit_dry": 5788,
+   "features": [
+    "dam_rate_P2",
+    "b2N",
+    "dam_rate_D0",
+    "dam_rate_R30",
+    "lag1",
+    "lag2",
+    "rate5",
+    "rate_R30",
+    "lag1_R30",
+    "full_c",
+    "wet_share_c",
+    "fill_share_c",
+    "n_hist_c",
+    "log_n_pixels",
+    "pixel_compactness",
+    "elongation",
+    "rel",
+    "pc",
+    "last3",
+    "s60",
+    "s120",
+    "rec",
+    "max365",
+    "min365",
+    "since_full",
+    "anom_own",
+    "armed",
+    "since_arm",
+    "low365_D0",
+    "since_low_D0",
+    "dtt_trend_D0",
+    "dtt_clim_D0",
+    "dtt_fast_D0",
+    "low365_R30",
+    "since_low_R30",
+    "age",
+    "R_anom",
+    "R_chg3",
+    "R_zero",
+    "area10_dry_last",
+    "area10_dry_longrun",
+    "area25_dry_last",
+    "area25_dry_longrun",
+    "area25_damlike_dry_last",
+    "area25_damlike_dry_longrun"
+   ],
+   "n_features": 45,
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "params": {
+    "n_estimators": 150,
+    "learning_rate": 0.03,
+    "num_leaves": 7,
+    "min_child_samples": 200,
+    "subsample": 0.8,
+    "subsample_freq": 1,
+    "colsample_bytree": 0.8,
+    "reg_lambda": 1.0,
+    "verbose": -1,
+    "n_jobs": 3,
+    "deterministic": true,
+    "force_row_wise": true
+   },
+   "top_features_by_gain": {
+    "b2N": 0.148,
+    "R_anom": 0.1184,
+    "wet_share_c": 0.0945,
+    "since_low_R30": 0.0618,
+    "low365_D0": 0.0597,
+    "R_chg3": 0.052,
+    "R_zero": 0.0517,
+    "age": 0.0479,
+    "dam_rate_P2": 0.0465,
+    "log_n_pixels": 0.0418
+   },
+   "seconds": 2
+  },
+  "band_constants": {
+   "R30": [
+    -1.08675,
+    0.67332
+   ],
+   "D0": [
+    -1.17084,
+    0.50011
+   ],
+   "D0g": [
+    -1.16393,
+    0.63923
+   ]
+  },
+  "floor_shift": 0.0,
+  "members_about": {
+   "T": "LightGBM on the 29 G2c features (+ PHY at L3), all waterbodies, G2's settings"
+  }
+ },
+ "band_constants": {
+  "R30": [
+   -1.08675,
+   0.67332
+  ],
+  "D0": [
+   -1.17084,
+   0.50011
+  ],
+  "D0g": [
+   -1.16393,
+   0.63923
+  ]
+ }
+}

@@ -28,7 +28,7 @@ It takes about 5-8 minutes on a laptop and writes to `data_cache/features/` (not
 
 It keeps the rows a weaker test would drop: the forecasts just before the cut, whose 90-day answer runs past it, including those whose label cannot be determined. It also checks that it *can* fail: the truncation must change some labels, and a deliberately planted peeking column (the next look's level) must be caught on the same real tables. Only the labels are exempt, because they describe the future by definition.
 
-It compares every column of the P1 table, the P2 dam and cell tables, the yearly checkpoints and the neighbour grid. A new feature added to `build_all` is covered automatically; a generator built elsewhere (physics, sequences, frailty sums) is added with one line to `GENERATORS` in the test. What was compared is saved in [`artifacts/lookahead_test.json`](../artifacts/lookahead_test.json). Run it with `.venv/Scripts/python.exe -m pytest tests/test_no_lookahead.py` (about 5 minutes).
+It compares every column of the P1 table, the P2 dam and cell tables, the yearly checkpoints and the neighbour grid. A new feature added to `build_all` is covered automatically; a generator built elsewhere (physics, sequences) is added with one line to `GENERATORS` in the test. Tidemark's per-dam frailty sums (the dam's matured past residuals) are rebuilt from each P1 table and compared too, and a planted frailty leak (past forecasts counted without the 120-day wait) must be caught. What was compared is saved in [`artifacts/lookahead_test.json`](../artifacts/lookahead_test.json). Run it with `.venv/Scripts/python.exe -m pytest tests/test_no_lookahead.py` (about 5 minutes).
 
 ## 2. Forecasts and their answers (P1, the farmer runway)
 
