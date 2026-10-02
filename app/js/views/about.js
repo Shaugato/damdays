@@ -45,6 +45,10 @@ DamDays.views.about = (function () {
 
   /** The headline test scores, in plain words, if the scoreboard has them. */
   function scoresHtml(board) {
+    // A test-season export has one panel per test (development regions; sealed region).
+    if (board.panels && board.panels.length) {
+      return '<div class="score-panels">' + board.panels.map(panelHtml).join("") + "</div>";
+    }
     const lines = [];
     const runway = board.runway;
     if (runway && runway.skill_vs_usual_rate) {
@@ -65,6 +69,110 @@ DamDays.views.about = (function () {
     }
     if (!lines.length) return "";
     return '<p class="scores-source">' + esc(board.source_label || "") + "</p><ul>" + lines.join("") + "</ul>";
+  }
+
+  // ---- Test panels (scoreboard.panels) ----------------------------------------
+  /** 0.0143 -> "+0.014" (signed, fixed decimals). */
+  function signed(value, digits) {
+    return (value >= 0 ? "+" : "−") + Math.abs(value).toFixed(digits);
+  }
+
+  /** A Range {value, ci_low, ci_high} -> "+0.235, 95% range +0.224 to +0.248". */
+  function withRange(range, digits) {
+    return signed(range.value, digits) + ", 95% range " + signed(range.ci_low, digits) + " to " +
+           signed(range.ci_high, digits);
+  }
+
+  /** 0.23501 -> "23.5" (a share as a percentage with one decimal, as the README and docs write it). */
+  function percentOne(value) {
+    return (value * 100).toFixed(1);
+  }
+
+  /** A July-June year: 2023 -> "July 2023 to June 2024" (the pipeline names it by its first year). */
+  function julyJuneYear(year) {
+    return "July " + year + " to June " + (year + 1);
+  }
+
+  /** true / false / null -> "met" / "not met" / "not checked". */
+  function verdict(passed, yes, no) {
+    if (passed === true) return '<strong class="verdict-yes">' + yes + "</strong>";
+    if (passed === false) return '<strong class="verdict-no">' + no + "</strong>";
+    return "not checked";
+  }
+
+  /** Read "runway.skill_vs_usual_rate" from a panel. */
+  function field(panel, path) {
+    return path.split(".").reduce((part, key) => (part ? part[key] : null), panel);
+  }
+
+  /** "What we said before opening" list; with the result next to each line once scored. */
+  function expectationsHtml(panel) {
+    if (!panel.expectations || !panel.expectations.length) return "";
+    const items = panel.expectations.map((e) => {
+      const got = panel.status === "scored" ? field(panel, e.field) : null;
+      return "<li>" + esc(e.what) + ": " + signed(e.low, 2) + " to " + signed(e.high, 2) +
+             (got ? "; <strong>got " + signed(got.value, 3) + "</strong>" : "") + "</li>";
+    });
+    return '<p class="panel-small">What we said we expected, before opening it (PREREG.md):</p><ul class="panel-list">' +
+           items.join("") + "</ul>";
+  }
+
+  function pendingPanelHtml(panel) {
+    return '<section class="score-panel score-panel-pending" aria-label="' + esc(panel.title) + '">' +
+           '<p class="panel-status">Not opened yet</p>' +
+           "<h3>" + esc(panel.title) + "</h3>" +
+           '<p class="panel-label">' + esc(panel.label || "") + "</p>" +
+           "<p>" + esc(panel.text || "") + "</p>" + expectationsHtml(panel) + "</section>";
+  }
+
+  function panelHtml(panel) {
+    if (panel.status !== "scored") return pendingPanelHtml(panel);
+    const r = panel.runway;
+    const g = panel.rating;
+    const items = [];
+    if (r && r.skill_vs_usual_rate) {
+      items.push("<li><strong>Runway forecasts:</strong> " + percentOne(r.skill_vs_usual_rate.value) +
+                 "% less forecast error than always guessing the usual rate (Brier skill score " +
+                 withRange(r.skill_vs_usual_rate, 3) + ")" +
+                 (r.skill_vs_own_record ? ", and " + percentOne(r.skill_vs_own_record.value) +
+                  "% less than the dam's own track record" : "") + ".</li>");
+      if (r.gain_vs_benchmark) {
+        items.push("<li>Ahead of the pre-registered benchmark model G2, on the same forecasts (skill gain " +
+                   withRange(r.gain_vs_benchmark, 3) + ").</li>");
+      }
+      items.push("<li>" + r.n_forecasts.toLocaleString("en-AU") + " forecasts made October to March for " +
+                 r.n_dams.toLocaleString("en-AU") + " farm-like dams. Pre-registered pass bars: " +
+                 verdict(r.pass_bars_met, "met", "not met") + ".</li>");
+    }
+    if (g && g.rating_auc && g.rain_only_auc) {
+      items.push("<li><strong>Season rating:</strong> puts a cell that ran dry ahead of one that did not " +
+                 Math.round(g.rating_auc.value * 100) + " times in 100, against " +
+                 Math.round(g.rain_only_auc.value * 100) + " in 100 for rainfall alone (" +
+                 g.n_cells.toLocaleString("en-AU") + " cell-seasons, " + g.n_ran_dry.toLocaleString("en-AU") +
+                 " ran dry). Pre-registered bar (a gain of at least 0.05): " +
+                 verdict(g.pass_bar_met, "met", "not met") + "; kill rule " +
+                 verdict(g.kill_rule_triggered === null ? null : !g.kill_rule_triggered, "not triggered", "triggered") +
+                 ".</li>");
+    }
+    if (panel.floor) {
+      items.push("<li><strong>DamDays number:</strong> the \"at least N days, 9 times in 10\" promise held " +
+                 percentOne(panel.floor.held) + "% of the time (target 90%; worst year, " +
+                 julyJuneYear(panel.floor.worst_year.year) + ": " + percentOne(panel.floor.worst_year.coverage) +
+                 "%).</li>");
+    }
+    if (panel.band) {
+      // On the development test years the band's design was partly chosen after seeing them
+      // (PREREG.md, "Model"), so its coverage there is not an independent check. Say so.
+      const notIndependent = panel.key === "dev_test"
+        ? " Not an independent check: the range's design was partly chosen after seeing these years." : "";
+      items.push("<li><strong>Likely range:</strong> covered " + panel.band.covered + " of " + panel.band.region_years +
+                 " region-years." + notIndependent + "</li>");
+    }
+    return '<section class="score-panel" aria-label="' + esc(panel.title) + '">' +
+           '<p class="panel-status panel-status-done">Scored once</p>' +
+           "<h3>" + esc(panel.title) + "</h3>" +
+           '<p class="panel-label">' + esc(panel.label || "") + "</p>" +
+           '<ul class="panel-list">' + items.join("") + "</ul>" + expectationsHtml(panel) + "</section>";
   }
 
   return { init, show };

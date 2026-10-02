@@ -223,7 +223,20 @@ DamDays.views.rating = (function () {
            '<th scope="col">DamDays Rating</th></tr></thead><tbody>' +
            scoreRow("This season (" + season.season + ")", thisSeason) +
            scoreRow(all.label || "All past seasons", all) +
+           sealedRow(board) +
            "</tbody></table>";
+  }
+
+  /** The sealed region's line: its scores once opened, a placeholder before. Empty if the data has no such panel. */
+  function sealedRow(board) {
+    const panel = (board.panels || []).find((p) => p.key === "sealed");
+    if (!panel) return "";
+    if (panel.status === "scored" && panel.rating) {
+      return scoreRow("Sealed region, all test seasons (scored once)", panel.rating);
+    }
+    return '<tr class="row-pending"><th scope="row">' + esc(panel.title) + '<span class="score-range">' +
+           esc(panel.label || "") + '</span></th><td colspan="2">Not opened yet. Its scores appear here after ' +
+           "the opening, scored once with the frozen model.</td></tr>";
   }
 
   return { init, show };

@@ -6,18 +6,22 @@
   a planted leak (each dam's NEXT look moved to D) must change some statuses.
 * HAND CHECKS. On the first Rewind date, one dam that fell below a third and one
   that stayed above are re-read straight from the satellite looks: the last look,
-  its level, the chance (the VAL-setting forecast for that look), and the event:
-  two looks below 30% of full at most 30 days apart, after a refill to 60%.
+  its level, the chance (the forecast for that look by the model that never saw the
+  season: VAL-setting for a validation season, the frozen TEST-setting model for a
+  test season), and the event: two looks below 30% of full at most 30 days apart,
+  after a refill to 60%.
 * THE LIVE RUNWAY CURVE IS THE VALIDATED ONE. The production code path for the
   curve (live_model.fit_live_hazard + live_curves), run at the VAL cutoff
   1 Jan 2009, must give the saved VAL curves bit for bit. So the live curve is the
   validated recipe with only the cutoff moved.
 * THE LIVE FIT'S TIME RULES. The fit sizes saved with the live forecasts must equal
   an independent count of the rows whose answer was final before the cutoff.
-* COPIES. The scoreboard numbers equal the evaluation outputs they are copied from.
+* COPIES. The scoreboard numbers equal the evaluation outputs they are copied from
+  (validation results, or for a test season artifacts/test_results.json and the
+  scorecard's one-season result files).
 
-Needs the published files (scripts/11_export_app.py) and data_cache (scripts/01-08);
-skipped otherwise. About 2 minutes (two LightGBM fits).
+Needs the published files (scripts/11_export_app.py) and data_cache (scripts/01-08, and
+scripts/13 for a test season); skipped otherwise. About 2 minutes (two LightGBM fits).
 """
 import json
 
@@ -29,6 +33,7 @@ from damdays import config
 from damdays.export import app_data as ad
 from damdays.export import live_model
 from damdays.features import store
+from damdays.models import physics, tidemark
 from damdays.models.predictions import load_predictions, prediction_path
 
 REAL = config.REPO_DIR / "app" / "data" / "real"
@@ -36,20 +41,28 @@ REAL = config.REPO_DIR / "app" / "data" / "real"
 
 @pytest.fixture(scope="module")
 def data():
-    """The published documents, the app's dams, their looks, the events and the VAL forecasts (skip if missing)."""
+    """The published documents, the app's dams, their looks, the events and the forecasts (skip if missing).
+
+    val_p1   the rung's VAL-setting forecasts (for the live-curve check)
+    past_p1  the forecasts Rewind shows: those of the block of the Rewind season (VAL or TEST)
+    """
     needed = [REAL / "forecasts.json", config.CACHE_DIR / "panel.pkl", config.CACHE_DIR / "events.pkl"]
     if not all(path.exists() for path in needed):
         pytest.skip("needs app/data/real (scripts/11) and data_cache (scripts/01)")
     docs = {name: json.loads((REAL / f"{name}.json").read_text(encoding="utf-8"))
             for name in ("meta", "forecasts", "scoreboard")}
     rung = docs["meta"]["model"]["version"]
-    if not prediction_path("VAL", "tidemark", f"{rung}_p1").exists():
-        pytest.skip(f"needs the VAL forecasts of rung {rung} (scripts/08)")
+    block = docs["meta"]["rewind"]["block"]
+    for needed_block in {"VAL", block}:
+        if not prediction_path(needed_block, "tidemark", f"{rung}_p1").exists():
+            pytest.skip(f"needs the {needed_block} forecasts of rung {rung} (scripts/08 or scripts/13)")
     attrs = pd.read_pickle(config.CACHE_DIR / "attributes.pkl")
     dams = ad.app_dams(attrs, ad.app_regions(docs["meta"]["region"]["key"]))
     looks = ad.dam_looks(pd.read_pickle(config.CACHE_DIR / "panel.pkl"), dams)
-    return dict(docs=docs, rung=rung, dams=dams, looks=looks, events=pd.read_pickle(config.CACHE_DIR / "events.pkl"),
-                val_p1=load_predictions("VAL", "tidemark", f"{rung}_p1"),
+    val_p1 = load_predictions("VAL", "tidemark", f"{rung}_p1")
+    return dict(docs=docs, rung=rung, block=block, dams=dams, looks=looks,
+                events=pd.read_pickle(config.CACHE_DIR / "events.pkl"), val_p1=val_p1,
+                past_p1=val_p1 if block == "VAL" else load_predictions(block, "tidemark", f"{rung}_p1"),
                 band=tuple(docs["meta"]["rewind"]["band_R30"]))
 
 
@@ -77,7 +90,7 @@ def test_rewind_rows_use_only_what_was_known_on_the_day(data):
         day = pd.Timestamp(issue["issue_date"])
         looks = data["looks"][data["looks"]["date"] <= day]
         events = data["events"][data["events"]["confirm_date"] <= day]          # confirmed by the day
-        table, _ = ad.issue_tables(data["dams"], looks, events, day, data["val_p1"], data["band"])
+        table, _ = ad.issue_tables(data["dams"], looks, events, day, data["past_p1"], data["band"])
         rebuilt = pd.DataFrame(ad.rows_json(table)).set_index("dam_id")
         published = published_rows(issue)
         for column in ("status", "issued_on", "level_pct", "chance", "chance_low", "chance_high", "damdays_days"):
@@ -112,8 +125,8 @@ def check_forecast_basics(data, issue, row):
     last = looks[looks["date"] <= day].iloc[-1]
     assert row["issued_on"] == last["date"].strftime("%Y-%m-%d")
     assert row["level_pct"] == min(round(last["rel"] * 100), 150)
-    val = data["val_p1"]
-    p = val.loc[(val["uid"].astype(str) == uid) & (pd.to_datetime(val["issue_date"]) == last["date"]), "p90_R30"]
+    past = data["past_p1"]
+    p = past.loc[(past["uid"].astype(str) == uid) & (pd.to_datetime(past["issue_date"]) == last["date"]), "p90_R30"]
     assert len(p) == 1 and row["chance"] == round(float(p.iloc[0]), 3)
     return looks, last["date"]
 
@@ -152,13 +165,17 @@ def test_hand_check_a_dam_that_stayed_above_a_third(data):
 # The live runway curve is the validated recipe
 # ---------------------------------------------------------------------------
 def test_live_curve_code_reproduces_the_validated_curves(data):
+    extra = tidemark.RUNGS[data["rung"]].extra_features          # rung L3: the two water-balance columns
     table = store.load_p1(groups=("keys", "dam", "nbr"))
-    models = {kind: live_model.fit_live_hazard(table, kind, config.VAL_START)[0] for kind in ("R30", "D0")}
+    if extra:
+        table = physics.with_physics_columns(table)
+    models = {kind: live_model.fit_live_hazard(table, kind, config.VAL_START, extra)[0] for kind in ("R30", "D0")}
     val = data["val_p1"]
     sample = val[val["at_risk_R30"].astype(bool)].sample(5000, random_state=0).sort_values("row")
-    got = live_model.live_curves(models, table, sample["row"].to_numpy())
+    got = live_model.live_curves(models, table, sample["row"].to_numpy(), extra)
     saved = sample[[f"curve_R30_{h}" for h in ad.HORIZONS]].to_numpy()
-    assert np.array_equal(got, saved)
+    # Bit for bit at the stored precision (the ladder's saved forecasts, e.g. rung L3's, are float32).
+    assert np.array_equal(got.astype(saved.dtype), saved)
 
 
 # ---------------------------------------------------------------------------
@@ -198,6 +215,9 @@ def test_live_fit_sizes_match_an_independent_count(data):
 # ---------------------------------------------------------------------------
 def test_scoreboard_is_copied_from_the_evaluation_outputs(data):
     board, rung = data["docs"]["scoreboard"], data["rung"]
+    if board["source"] == "dev_test":
+        check_test_scoreboard(board)
+        return
     results = json.loads((config.ARTIFACTS_DIR / f"val_tidemark_{rung}.json").read_text())
     rain = json.loads((config.ARTIFACTS_DIR / "scorecard" / "step03_val" / "dev_VAL" / "P2_cell" / "rain__all.json")
                       .read_text())
@@ -211,3 +231,36 @@ def test_scoreboard_is_copied_from_the_evaluation_outputs(data):
     assert (all_seasons["n_cells"], all_seasons["n_ran_dry"]) == (p2["rows"]["scored"], p2["rows"]["events"])
     assert board["runway"]["skill_vs_usual_rate"]["value"] == p1["point"]["bss_B0"]
     assert board["runway"]["n_forecasts"] == p1["rows"]["scored"]
+
+
+def check_test_scoreboard(board):
+    """A test-season scoreboard: copied from artifacts/test_results.json and the scorecard's one-season files."""
+    results = json.loads((config.ARTIFACTS_DIR / "test_results.json").read_text())
+    scores = results["scores"]
+    p1 = scores["P1_R30 | dam_like+octmar+at_risk | tidemark"]
+    p2, rain = scores["P2_cell | all | tidemark"], scores["P2_cell | all | RAIN"]
+
+    def as_range(result, metric):
+        return dict(value=result["point"][metric], ci_low=result["ci_dam"][metric][0],
+                    ci_high=result["ci_dam"][metric][1])
+
+    assert board["is_validation"] is False and board["block"] == "TEST"
+    all_seasons = board["rating"]["all_seasons"]
+    assert all_seasons["rating_auc"] == as_range(p2, "auc")
+    assert all_seasons["rain_only_auc"] == as_range(rain, "auc")
+    assert (all_seasons["n_cells"], all_seasons["n_ran_dry"]) == (p2["rows"]["scored"], p2["rows"]["events"])
+    assert board["runway"]["skill_vs_usual_rate"] == as_range(p1, "bss_B0")
+    assert board["runway"]["n_forecasts"] == p1["rows"]["scored"]
+    dev = next(panel for panel in board["panels"] if panel["key"] == "dev_test")
+    assert dev["runway"]["gain_vs_benchmark"] == as_range(p1, "d_bss_B0_vs_G2")
+    assert dev["rating"]["gain_vs_rain"] == as_range(p2, "d_auc_vs_RAIN")
+    assert dev["rating"]["pass_bar_met"] == results["verdicts"]["p2_cell"]["passed"]
+    assert dev["runway"]["pass_bars_met"] == results["verdicts"]["p1_pass_bars_tidemark"]["all_passed"]
+    # The one-season line: the scorecard's own result files, on the frozen forecasts (TEST ledger: same_predictions).
+    folder = config.ARTIFACTS_DIR / "scorecard" / "step11_app" / "dev_TEST" / "P2_cell"
+    season_rating = json.loads((folder / "tidemark__all.json").read_text())
+    season_rain = json.loads((folder / "rain__all.json").read_text())
+    line = board["rating"]["by_season"][0]
+    assert line["rating_auc"] == as_range(season_rating, "auc")
+    assert line["rain_only_auc"] == as_range(season_rain, "auc")
+    assert season_rating["test_ledger"] == "same_predictions" and season_rain["test_ledger"] == "same_predictions"

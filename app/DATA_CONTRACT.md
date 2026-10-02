@@ -40,7 +40,7 @@ To look at the mock data even when real data exists, add `?data=mock` to the add
 
 **Honesty rules** (these matter more than the format):
 
-- Past forecasts (Rewind) and past seasons (Rating) must be **out of sample**: made by models fitted only on data from before the forecast date (the 2016-2026 TEST predictions; until the one-time TEST scoring, the 2009-2015 predictions of the model fitted before 2009, labelled as validation). Never in-sample fits.
+- Past forecasts (Rewind) and past seasons (Rating) must be **out of sample**: made by models fitted only on data from before the forecast date (the 2016-2026 TEST predictions of the frozen model, after the one-time TEST scoring; before it, the 2009-2015 predictions of the model fitted before 2009, labelled as validation). Never in-sample fits.
 - Outcomes use the PREREG event definitions: "below a third" (R30) for the farmer runway, "ran dry" (D0) for the season rating.
 - Scoreboard numbers are copied from the evaluation output, never retyped or rounded by hand.
 - `meta.is_mock` is `false` only for real exports. When it is `true`, the app shows a large MOCK banner.
@@ -237,8 +237,39 @@ The four `chance...` and `damdays_days` fields are `null` unless `status` is `"f
 | `runway` | object, optional | the farmer forecast's headline score, shown on the About page |
 | `runway.skill_vs_usual_rate` | Range | Brier skill score against the base rate (B0) |
 | `runway.n_forecasts` | integer | how many forecasts were scored |
+| `panels` | array, optional | one panel per one-time test, shown side by side on the About page; the Rating scoreboard adds the sealed panel's line (see below) |
 
 A **Score line** is `{ "n_cells": int, "n_ran_dry": int, "rain_only_auc": Range or null, "rating_auc": Range or null }`.
 A **Range** is `{ "value": number, "ci_low": number, "ci_high": number }`, where `ci_low` and `ci_high` are the 95% confidence range from the pipeline's bootstrap.
 
 The app only shows an AUC when at least 5 cells ran dry that season (`minDryCellsForScore` in `js/settings.js`). It says "too few dry cells to score fairly" otherwise.
+
+### `panels`: the one-time tests (written for a test-season export)
+
+```json
+"panels": [
+  { "key": "dev_test", "status": "scored", "title": "Development regions, 2016-2026, scored once",
+    "label": "NSW Central West and ...; scored once on 2 Oct 2026", "scored_at": "2026-10-02 20:38:10",
+    "runway": { "n_forecasts": 140000, "n_dams": 1600, "skill_vs_usual_rate": Range, "skill_vs_own_record": Range,
+                "gain_vs_benchmark": Range, "auc": Range, "calibration_slope": Range, "pass_bars_met": true },
+    "rating": { "n_cells": 14000, "n_ran_dry": 2300, "rating_auc": Range, "rain_only_auc": Range,
+                "gain_vs_rain": Range, "pass_bar_met": true, "kill_rule_triggered": false },
+    "floor": { "held": 0.90, "target": 0.9, "worst_year": { "year": 2023, "coverage": 0.87 } },
+    "band": { "covered": 20, "region_years": 20 } },
+  { "key": "sealed", "status": "pending", "title": "Sealed region: opened Sat 3 Oct 17:30",
+    "label": "Southern Downs, Granite Belt and New England", "text": "...",
+    "expectations": [ { "what": "Runway skill vs the usual rate (R30 BSS vs B0)", "low": 0.15, "high": 0.23,
+                        "field": "runway.skill_vs_usual_rate" } ] }
+]
+```
+
+| field | meaning |
+|---|---|
+| `key` | `"dev_test"` (development regions, test years) or `"sealed"` (the sealed region) |
+| `status` | `"scored"` (numbers below are filled) or `"pending"` (not opened yet: only `title`, `label`, `text`, `expectations`) |
+| `runway` | R30 on the primary set (farm-like dams, October-March forecasts): skill against the usual rate (B0) and the dam's own record (B2), the paired gain over the benchmark G2, AUC, calibration slope, and the pre-registered pass bars (`null` if not checked) |
+| `rating` | the 2 km cell rating: its AUC, the rainfall-only AUC, the paired AUC gain, the pre-registered bar (gain at least 0.05 with its range above 0) and the kill rule (rainfall-only within 0.02) |
+| `floor`, `band` | optional: DamDays floor coverage and season-band coverage |
+| `expectations` | optional: the PREREG pre-declared expectations; `field` names the panel number each is compared with once scored |
+
+Every number in a panel is copied from a scorecard result file (`dev_test`: `artifacts/test_results.json`; `sealed`: the files `scripts/20` writes to `artifacts/sealed/scorecard/sealed_TEST/` at the opening).

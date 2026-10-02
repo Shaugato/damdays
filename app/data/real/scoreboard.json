@@ -1,56 +1,173 @@
 {
- "source": "dev_val",
- "is_validation": true,
- "block": "VAL",
- "source_label": "Validation years 2009-2015, development regions (not the one-time test)",
- "note": "Validation-period numbers: the model learned only from answers known before 1 Jan 2009 and is scored on 2009-2015. Every design choice was made on these years. The test years (2016-2026) and the sealed region are scored once, separately.",
+ "source": "dev_test",
+ "is_validation": false,
+ "block": "TEST",
+ "source_label": "Development regions, 2016-2026, scored once",
+ "note": "The frozen model (Tidemark L3, config 7d466291008d) learned only from answers known before 1 Jul 2016. It was scored once, on 2 Oct 2026, on every forecast issued from July 2016 to June 2026 in the two development regions. These years were also looked at before the event, so these scores are slightly optimistic (PREREG.md); the sealed region, opened once on Sat 3 Oct, is the clean test.",
  "rating": {
   "all_seasons": {
-   "label": "All validation seasons 2009-10 to 2015-16 (both development regions)",
-   "n_cells": 9848,
-   "n_ran_dry": 1684,
+   "label": "All test seasons 2016-17 to 2025-26 (both development regions)",
+   "n_cells": 14331,
+   "n_ran_dry": 2316,
    "rain_only_auc": {
-    "value": 0.53786,
-    "ci_low": 0.51884,
-    "ci_high": 0.55558
+    "value": 0.52716,
+    "ci_low": 0.5131,
+    "ci_high": 0.54019
    },
    "rating_auc": {
-    "value": 0.78715,
-    "ci_low": 0.77382,
-    "ci_high": 0.8002
+    "value": 0.81249,
+    "ci_low": 0.79991,
+    "ci_high": 0.82373
    }
   },
   "by_season": [
    {
-    "season": "2013-14",
+    "season": "2018-19",
     "n_cells": 766,
-    "n_ran_dry": 210,
+    "n_ran_dry": 99,
     "rain_only_auc": {
-     "value": 0.44594,
-     "ci_low": 0.40314,
-     "ci_high": 0.48934
+     "value": 0.48202,
+     "ci_low": 0.41713,
+     "ci_high": 0.54332
     },
     "rating_auc": {
-     "value": 0.78034,
-     "ci_low": 0.74325,
-     "ci_high": 0.81102
+     "value": 0.81238,
+     "ci_low": 0.76547,
+     "ci_high": 0.84834
     }
    }
   ]
  },
  "runway": {
-  "label": "Validation years 2009-2015: below a third within 90 days, farm-like dams, October-March forecasts, both development regions",
+  "label": "Test years 2016-2026: below a third within 90 days, farm-like dams, October-March forecasts, both development regions",
   "skill_vs_usual_rate": {
-   "value": 0.1714,
-   "ci_low": 0.15622,
-   "ci_high": 0.18767
+   "value": 0.23501,
+   "ci_low": 0.2235,
+   "ci_high": 0.2483
   },
-  "n_forecasts": 66453
+  "n_forecasts": 142938
  },
+ "panels": [
+  {
+   "key": "dev_test",
+   "status": "scored",
+   "title": "Development regions, 2016-2026, scored once",
+   "label": "NSW Central West and western Victoria / SE South Australia; forecasts issued July 2016 to June 2026; scored once on 2 Oct 2026",
+   "scored_at": "2026-10-02 20:38:10",
+   "runway": {
+    "label": "Below a third within 90 days: farm-like dams, forecasts made October to March",
+    "n_forecasts": 142938,
+    "n_fell_below_third": 29415,
+    "n_dams": 1644,
+    "skill_vs_usual_rate": {
+     "value": 0.23501,
+     "ci_low": 0.2235,
+     "ci_high": 0.2483
+    },
+    "skill_vs_own_record": {
+     "value": 0.15547,
+     "ci_low": 0.14778,
+     "ci_high": 0.16452
+    },
+    "gain_vs_benchmark": {
+     "value": 0.01428,
+     "ci_low": 0.01137,
+     "ci_high": 0.01755
+    },
+    "auc": {
+     "value": 0.81838,
+     "ci_low": 0.81091,
+     "ci_high": 0.82604
+    },
+    "calibration_slope": {
+     "value": 1.09455,
+     "ci_low": 1.06117,
+     "ci_high": 1.12773
+    },
+    "pass_bars_met": true
+   },
+   "rating": {
+    "label": "Every dam in a 2 km cell runs dry, October to March; rated each 1 July",
+    "n_cells": 14331,
+    "n_ran_dry": 2316,
+    "rating_auc": {
+     "value": 0.81249,
+     "ci_low": 0.79991,
+     "ci_high": 0.82373
+    },
+    "rain_only_auc": {
+     "value": 0.52716,
+     "ci_low": 0.5131,
+     "ci_high": 0.54019
+    },
+    "gain_vs_rain": {
+     "value": 0.28534,
+     "ci_low": 0.26919,
+     "ci_high": 0.30278
+    },
+    "pass_bar_met": true,
+    "kill_rule_triggered": false
+   },
+   "floor": {
+    "label": "DamDays floor ('at least N days, 9 times in 10'): share that held",
+    "held": 0.90016,
+    "ci_low": 0.89807,
+    "ci_high": 0.90224,
+    "target": 0.9,
+    "n_forecasts": 729749,
+    "worst_year": {
+     "year": 2023,
+     "coverage": 0.87199
+    }
+   },
+   "band": {
+    "label": "Season band (R30): July-June region-years inside the likely range",
+    "covered": 20,
+    "region_years": 20
+   },
+   "sources": [
+    "artifacts/test_results.json",
+    "artifacts/test_results.md",
+    "artifacts/scorecard/step15_test/dev_TEST/"
+   ]
+  },
+  {
+   "key": "sealed",
+   "status": "pending",
+   "title": "Sealed region: opened Sat 3 Oct 17:30",
+   "label": "Southern Downs, Granite Belt and New England",
+   "text": "A third region, 4,711 waterbodies, was downloaded before the event and locked away (its file fingerprints are in SEALED_HASHES.csv). It is opened once, on camera, on Sat 3 Oct 2026 at 17:30 AEST, forecast with the frozen model and scored once. Its results will appear here.",
+   "expectations": [
+    {
+     "what": "Runway skill vs the usual rate (R30 BSS vs B0)",
+     "low": 0.15,
+     "high": 0.23,
+     "field": "runway.skill_vs_usual_rate"
+    },
+    {
+     "what": "Runway skill vs the dam's own record (R30 BSS vs B2)",
+     "low": 0.08,
+     "high": 0.15,
+     "field": "runway.skill_vs_own_record"
+    },
+    {
+     "what": "Tidemark minus the benchmark G2 (R30)",
+     "low": 0.01,
+     "high": 0.03,
+     "field": "runway.gain_vs_benchmark"
+    },
+    {
+     "what": "Rating AUC gain over rainfall-only (P2 cell)",
+     "low": 0.15,
+     "high": 0.3,
+     "field": "rating.gain_vs_rain"
+    }
+   ],
+   "fill_with": "scripts/11_export_app.py --panel-only --sealed-scores artifacts/sealed/scorecard/sealed_TEST"
+  }
+ ],
  "sources": {
-  "rating_all_seasons": "artifacts/val_tidemark_L1.json p2 'P2_cell|all|L1'",
-  "rain_all_seasons": "artifacts/scorecard/step03_val/dev_VAL/P2_cell/rain__all.json",
-  "by_season": "artifacts/scorecard/step11_app/dev_VAL/P2_cell/ (computed by the scorecard)",
-  "runway": "artifacts/val_tidemark_L1.json p1 'P1_R30|primary|L1'"
+  "test_results": "artifacts/test_results.json (scripts/15)",
+  "by_season": "artifacts/scorecard/step11_app/dev_TEST/P2_cell/ (the scorecard, same frozen forecasts; TEST ledger 'same_predictions')"
  }
 }

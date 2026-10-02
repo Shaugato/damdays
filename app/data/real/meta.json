@@ -1,7 +1,7 @@
 {
  "schema_version": "1.0",
  "is_mock": false,
- "generated_at": "2026-10-02T05:32:58Z",
+ "generated_at": "2026-10-02T11:47:21Z",
  "region": {
   "key": "nsw_cw",
   "name": "NSW Central West",
@@ -19,10 +19,10 @@
  "min_dam_area_ha": 0.54,
  "model": {
   "name": "Tidemark",
-  "version": "L1",
-  "config_hash": null
+  "version": "L3",
+  "config_hash": "7d466291008d"
  },
- "note": "Real DamDays forecasts. Runway: Tidemark L1 refitted on all answers known by 2026-09-14. Rewind and Rating: the validation season 2013-14, from the model fitted only on answers known before 2009. Scores are validation-period numbers.",
+ "note": "Real DamDays forecasts. Runway: Tidemark L3 refitted on all answers known by 2026-09-14. Rewind and Rating: the test season 2018-19, from the frozen model fitted only on answers known before 1 Jul 2016. Scores: development regions, 2016-2026, scored once; the sealed region is opened Sat 3 Oct 17:30.",
  "coverage": {
   "dams": 894,
   "dams_with_live_forecast": 576,
@@ -38,66 +38,71 @@
  "limits": [
   "Only dams of at least about 0.54 ha (6 Landsat pixels) are visible; smaller dams, tanks and bores are not.",
   "Water area, not depth: 'below a third' means below a third of the dam's usual full wet area.",
-  "Validation numbers: every score shown was measured on 2009-2015, years the model never learned from. The test years and the sealed region are scored once, separately.",
-  "It ranks farms better than it times droughts: the rating tells which cells run dry in a season (ranking accuracy 0.79 within a season), but not which seasons a given cell runs dry (0.52 within a cell's own history, close to a coin toss).",
-  "Very wet or very dry years: on 2009-2015 the runway forecasts were too high on average (average forecast 0.27, actual rate 0.24), mostly in the wet 2010-12 years. The likely range (season band) shows how far a wet or dry season can move a chance.",
+  "Test numbers: the scores were measured once on July 2016 to June 2026, years the model never learned from. The pre-event research had looked at these years, so they are slightly optimistic; the sealed region is the clean test.",
+  "It ranks farms better than it times droughts: the rating tells which cells run dry in a season (ranking accuracy 0.81 within a season), but not well which seasons a given cell runs dry (0.58 within a cell's own history).",
+  "On average the runway chances were a little high (average forecast 0.22, actual rate 0.21). The DamDays floor held for 90.0% of forecasts (target 90%), but only 87.2% in its worst July-June year (2023).",
   "Live forecasts start from each dam's latest clear satellite look; some looks are weeks old.",
-  "This is rung L1 of the pre-registered plan (PREREG.md, fallback ladder)."
+  "This is the frozen rung L3 (PREREG_ADDENDUM_1.md, config 7d466291008d)."
  ],
  "live": {
   "cutoff": "2026-09-15",
   "about": "production fit: every answer known by the last look",
   "band_R30": [
-   -1.95323,
-   0.67332
+   -1.96003,
+   0.7558
   ],
   "floor_shift": 0.0,
-  "curves_moved_to_headline": 3
+  "curves_moved_to_headline": 17
  },
  "rewind": {
-  "season": "2013-14",
-  "block": "VAL",
-  "model_cutoff": "2009-01-01",
-  "chosen": "most R30 starts among the app's dams",
+  "season": "2018-19",
+  "block": "TEST",
+  "model_cutoff": "2016-07-01",
+  "chosen": "given with --season",
   "r30_starts_per_season": {
-   "2009-10": 544,
-   "2010-11": 487,
-   "2011-12": 233,
-   "2012-13": 429,
-   "2013-14": 623,
-   "2014-15": 598
+   "2016-17": 527,
+   "2017-18": 662,
+   "2018-19": 437,
+   "2019-20": 457,
+   "2020-21": 442,
+   "2021-22": 360,
+   "2022-23": 321,
+   "2023-24": 483,
+   "2024-25": 511,
+   "2025-26": 543
   },
   "dates": [
-   "2013-11-01",
-   "2014-01-01",
-   "2014-03-01"
+   "2018-11-01",
+   "2019-01-01",
+   "2019-03-01"
   ],
   "tallies": {
-   "2013-11-01": {
-    "forecasts": 599,
-    "judged": 597,
-    "fell_below_third": 280,
-    "expected": 153.8,
-    "curves_moved": 10
+   "2018-11-01": {
+    "forecasts": 259,
+    "judged": 258,
+    "fell_below_third": 76,
+    "expected": 94.6,
+    "curves_moved": 7
    },
-   "2014-01-01": {
-    "forecasts": 374,
-    "judged": 371,
-    "fell_below_third": 115,
-    "expected": 117.0,
-    "curves_moved": 5
+   "2019-01-01": {
+    "forecasts": 289,
+    "judged": 288,
+    "fell_below_third": 106,
+    "expected": 96.7,
+    "curves_moved": 7
    },
-   "2014-03-01": {
-    "forecasts": 326,
-    "judged": 323,
-    "fell_below_third": 34,
-    "expected": 76.0,
-    "curves_moved": 33
+   "2019-03-01": {
+    "forecasts": 237,
+    "judged": 236,
+    "fell_below_third": 62,
+    "expected": 57.0,
+    "curves_moved": 76
    }
   },
   "band_R30": [
-   -1.0867518850920983,
-   0.6733199175472891
-  ]
+   -1.9600336770207685,
+   0.7558027436270113
+  ],
+  "forecast_files": "data_cache/preds/TEST/ (scripts/13; fingerprints match the scored ones)"
  }
 }

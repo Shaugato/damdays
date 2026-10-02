@@ -4,8 +4,8 @@ A static web page (no server, no build step) with four views:
 
 - **Runway** (for farmers): a map of dams coloured by the chance each falls below a third full in the next 90 days. Pick a dam for its card: the plain sentence, the DamDays number, the runway curve and the water history since 1988.
 - **Rewind**: pick a past date, see the forecasts as they were made then, and press "Reveal what happened". A tally shows hits and misses, and whether the chances came true.
-- **Rating** (for lenders): two maps side by side, a rainfall-only score against the DamDays Rating, for each 2 km cell. "Reveal which ran dry" shows the cells whose dams really ran dry, and a scoreboard.
-- **About**: how it works, how it was checked, honest limits, data credits and the COP31 link.
+- **Rating** (for lenders): two maps side by side, a rainfall-only score against the DamDays Rating, for each 2 km cell. "Reveal which ran dry" shows the cells whose dams really ran dry, and a scoreboard (this season, all test seasons, and the sealed region's line once it is opened).
+- **About**: how it works, how it was checked (one panel per one-time test: the development regions 2016-2026, scored once, and the sealed region, a placeholder until it is opened on Sat 3 Oct 17:30), honest limits, data credits and the COP31 link.
 
 ## Open it
 
@@ -18,7 +18,8 @@ A static web page (no server, no build step) with four views:
 The app reads the files described in [DATA_CONTRACT.md](DATA_CONTRACT.md). Until the real forecasts exist, it uses **mock data**, and a striped **MOCK DATA** banner sits at the top of every view.
 
 - Make the mock data again: `python app/tools/make_mock_data.py` (from the repo root).
-- Publish real data: write the six JSON files to `app/data/real/`, then run `python app/tools/build_bundle.py app/data/real`. The app then prefers the real data automatically.
+- Publish real data: write the six JSON files to `app/data/real/`, then run `python app/tools/build_bundle.py app/data/real`. The app then prefers the real data automatically. The real files are written by `scripts/11_export_app.py`; see [data/real/README.md](data/real/README.md) for where every number comes from.
+- After the sealed region is opened: `.venv/Scripts/python.exe scripts/11_export_app.py --panel-only --sealed-scores artifacts/sealed/scorecard/sealed_TEST` fills the sealed panel (seconds; nothing else changes).
 
 ## How the code is laid out
 
