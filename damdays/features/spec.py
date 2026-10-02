@@ -71,6 +71,20 @@ def p1_tree_features(kind):
 
 
 # ---------------------------------------------------------------------------
+# P1 water-balance columns: rung L3 adds them to T and H (damdays.models.physics).
+# Blank before 1993. The simulation starts from a Kalman-filtered level that
+# uses looks up to D, actual rain of months that ended before D's month and the
+# earlier-years average for D's own month; the 20 futures use the rain of the
+# same calendar months 1-20 years earlier (all before D); the balance's
+# parameters come from look pairs before 1 Jan of D's year.
+# ---------------------------------------------------------------------------
+PHYSICS_FEATURE_SPEC = [
+    "ph_p_R30",           # share of 20 simulated 90-day futures that fall below 30% of full (while armed)
+    "ph_p_D0",            # share that run dry (below half a pixel of the full wet area, while armed)
+]
+
+
+# ---------------------------------------------------------------------------
 # P2 season rating (dam level, issued 1 Jul). The PREREG "HSN" set without
 # the dropped regional block and without rain. State columns come from the
 # last look before 1 Jul (at most 60 days old).
@@ -153,6 +167,7 @@ for _kind in ("R30", "D0", "D0g"):
     check_feature_list(p1_tree_features(_kind))
 check_feature_list(P2_FEATURE_SPEC)
 check_feature_list(RAIN_INPUTS + RAIN_PLUS_INPUTS + PERS_INPUTS)
+check_feature_list(PHYSICS_FEATURE_SPEC)
 
 # ---------------------------------------------------------------------------
 # How the P1 table is stored: column groups with the same row order

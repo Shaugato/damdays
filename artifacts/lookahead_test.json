@@ -30,7 +30,8 @@
   "p1_rows_whose_labels_changed_after_truncation": 12489,
   "planted_peek_rows_caught": 3058,
   "planted_frailty_leak_rows_caught": 11040,
-  "neighbour_grid_dates_compared": 661
+  "neighbour_grid_dates_compared": 661,
+  "run_at": "2026-10-02 16:45:06"
  },
  "wvic_sesa": {
   "generator": "core features (build_all) + frailty sums",
@@ -63,6 +64,105 @@
   "p1_rows_whose_labels_changed_after_truncation": 164,
   "planted_peek_rows_caught": 3335,
   "planted_frailty_leak_rows_caught": 174,
-  "neighbour_grid_dates_compared": 613
+  "neighbour_grid_dates_compared": 613,
+  "run_at": "2026-10-02 16:45:25"
+ },
+ "nsw_cw | net sequences (damdays.features.sequences)": {
+  "generator": "net sequences (damdays.features.sequences)",
+  "cut": "2014-07-09",
+  "result": "PASS: 0 mismatching values",
+  "tables_compared": {
+   "sequence_months": {
+    "rows": 1057122,
+    "columns": 7
+   },
+   "p1_sequences": {
+    "rows": 1880383,
+    "columns": 3
+   }
+  },
+  "sequences_within_90_days_before_cut": 23059,
+  "cut_month_values_changed_by_truncation": {
+   "pc_ffill": 1347,
+   "observed": 1044,
+   "months_since": 1044,
+   "dry_ffill": 442,
+   "log_rain": 3091,
+   "rain_anomaly": 3091
+  },
+  "planted_issue_month_leak_rows_caught": 2001,
+  "run_at": "2026-10-02 16:45:13"
+ },
+ "wvic_sesa | net sequences (damdays.features.sequences)": {
+  "generator": "net sequences (damdays.features.sequences)",
+  "cut": "2012-07-09",
+  "result": "PASS: 0 mismatching values",
+  "tables_compared": {
+   "sequence_months": {
+    "rows": 1076112,
+    "columns": 7
+   },
+   "p1_sequences": {
+    "rows": 1058086,
+    "columns": 3
+   }
+  },
+  "sequences_within_90_days_before_cut": 3694,
+  "cut_month_values_changed_by_truncation": {
+   "pc_ffill": 93,
+   "observed": 121,
+   "months_since": 121,
+   "dry_ffill": 35,
+   "log_rain": 3384,
+   "rain_anomaly": 3384
+  },
+  "planted_issue_month_leak_rows_caught": 269,
+  "run_at": "2026-10-02 16:45:30"
+ },
+ "nsw_cw | physics water balance (damdays.models.physics)": {
+  "generator": "physics water balance (damdays.models.physics)",
+  "cut": "2014-07-09",
+  "result": "PASS: 0 mismatching values",
+  "tables_compared": {
+   "p1_physics": {
+    "rows": 976290,
+    "columns": 2
+   },
+   "physics_params": {
+    "rows": 22,
+    "columns": 7
+   }
+  },
+  "physics_values_within_90_days_before_cut": 12648,
+  "checkpoint_years_compared": 22,
+  "planted_peek_rows_caught": 3058,
+  "planted_current_month_rain_leak_caught": {
+   "ph_p_R30": 1091,
+   "ph_p_D0": 1075
+  },
+  "run_at": "2026-10-02 16:45:09"
+ },
+ "wvic_sesa | physics water balance (damdays.models.physics)": {
+  "generator": "physics water balance (damdays.models.physics)",
+  "cut": "2012-07-09",
+  "result": "PASS: 0 mismatching values",
+  "tables_compared": {
+   "p1_physics": {
+    "rows": 448599,
+    "columns": 2
+   },
+   "physics_params": {
+    "rows": 20,
+    "columns": 7
+   }
+  },
+  "physics_values_within_90_days_before_cut": 1325,
+  "checkpoint_years_compared": 20,
+  "planted_peek_rows_caught": 3335,
+  "planted_current_month_rain_leak_caught": {
+   "ph_p_R30": 37,
+   "ph_p_D0": 37
+  },
+  "run_at": "2026-10-02 16:45:26"
  }
 }

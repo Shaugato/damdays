@@ -274,12 +274,15 @@ def test_a_new_member_plugs_in_and_is_fused_on_the_log_odds_scale():
 
 
 def test_rungs_without_their_members_refuse_to_fit():
+    # A registry whose nets have no fit/predict functions (as before the nets were built).
+    unbuilt = dict(tidemark.MEMBERS, **{name: tidemark.Member(name, "not built", (0, 1, 2)) for name in ("S", "M")})
     with pytest.raises(NotImplementedError, match="S"):
-        tidemark.ready_rung("L2")
+        tidemark.ready_rung("L2", unbuilt)
     with pytest.raises(NotImplementedError):
-        tidemark.ready_rung("L3")
+        tidemark.ready_rung("L3", unbuilt)
     with pytest.raises(ValueError):
         tidemark.ready_rung("L9")
+    assert tidemark.ready_rung("L2").members == ("T", "S", "M")                  # the real nets are built
     built = dict(tidemark.MEMBERS, **{name: tidemark.Member(name, "stub", (0,), fit=print, predict=print)
                                       for name in ("S", "M")})
     with pytest.raises(NotImplementedError, match="ph_p_R30"):                  # the physics columns

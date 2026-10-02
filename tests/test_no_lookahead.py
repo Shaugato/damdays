@@ -26,14 +26,24 @@ Fixes from the pre-event leakage audit:
     from each P1 table and compared too (table "p1_frailty"). They are
     where future LABELS could leak, so a planted leak (records counted
     without the 120-day wait) must be caught as well.
+  * The physics generator (damdays.models.physics: the water-balance columns
+    ph_p_R30 / ph_p_D0 and the yearly balance parameters) is tested the same
+    way. A version with a planted leak (the Kalman filter reading the issue
+    month's own rain before the month is over) is built too and must be caught.
+  * The nets' 24-month input sequences (damdays.features.sequences): the
+    monthly table (one row per dam and month, compared for months that ended
+    before the cut) and every look's sequence (compared through a 64-bit
+    fingerprint of its 216 numbers). A planted leak (a window that includes
+    the unfinished issue month) must be caught.
 
 PREREG static quantities (the pre-2016 "full", population flags, at-risk
 flags) are held fixed: they define WHAT is scored, not model inputs.
 
-Runtime: about 5 minutes (4 builds, run 4 at a time).
+Runtime: about 15-25 minutes (4 builds per generator and planted leak, run 4 at a time).
 """
 import json
 import pickle
+import time
 
 import numpy as np
 import pandas as pd
@@ -42,9 +52,10 @@ from joblib import Parallel, delayed
 
 from damdays import config
 from damdays.data.events import build_events
+from damdays.features import sequences
 from damdays.features.build import build_all
 from damdays.features.spec import LABEL_COLUMNS
-from damdays.models import frailty, fusion, rows
+from damdays.models import frailty, fusion, physics, rows
 
 CUTS = {"nsw_cw": "2014-07-09", "wvic_sesa": "2012-07-09"}
 HORIZON = pd.Timedelta(days=config.HORIZON_DAYS)
@@ -79,8 +90,43 @@ def core_features_and_frailty(*inputs):
     return tables
 
 
+def physics_features(panel, attrs, events, rain_by_cell):
+    """The water-balance columns of every P1 issue and the yearly balance parameters (damdays.models.physics)."""
+    out = physics.build_physics(panel, attrs, rain_by_cell)
+    return {"p1_physics": out["p1_physics"], "physics_params": out["physics_params"]}
+
+
+def physics_with_planted_leak(panel, attrs, events, rain_by_cell):
+    """build_physics with a planted leak: the filter reads the issue month's OWN rain, before the month is over.
+
+    The honest filter uses that calendar month's average over earlier years.
+    This is the most likely physics leak, so the test must catch it.
+    """
+    honest = physics.same_month_earlier_years_mean
+    physics.same_month_earlier_years_mean = lambda values: values     # "average" = the month's own total
+    try:
+        return physics_features(panel, attrs, events, rain_by_cell)
+    finally:
+        physics.same_month_earlier_years_mean = honest
+
+
+def net_sequences(panel, attrs, events, rain_by_cell):
+    """The nets' monthly table and every look's 24-month sequence (damdays.features.sequences).
+
+    Also returns the monthly history and the look list (not compared directly):
+    sequences_can_fail rebuilds leaky sequences from them.
+    """
+    return sequences.lookahead_tables(panel, attrs, rain_by_cell)
+
+
 # Generators to test: name -> function(panel, attrs, events, rain_by_cell) -> dict of tables.
-GENERATORS = {"core features (build_all) + frailty sums": core_features_and_frailty}
+CORE = "core features (build_all) + frailty sums"
+PHYSICS = "physics water balance (damdays.models.physics)"
+SEQUENCES = "net sequences (damdays.features.sequences)"
+GENERATORS = {CORE: core_features_and_frailty, PHYSICS: physics_features, SEQUENCES: net_sequences}
+# Deliberately leaky versions, built the same way: the test checks they ARE caught.
+PLANTED_LEAKS = {PHYSICS: physics_with_planted_leak}
+BUILDERS = dict(GENERATORS, **{f"{name} [planted leak]": f for name, f in PLANTED_LEAKS.items()})
 
 # How to compare each table: (key columns, date column used to select "before the cut").
 # A checkpoint for year Y is dated 1 Jan Y (it uses looks before that date).
@@ -90,6 +136,10 @@ TABLES = {
     "p2_dam": (["uid", "season"], "issue_date"),
     "p2_cell": (["hex_id", "season"], "issue_date"),
     "checkpoints": (["uid", "year"], None),
+    "p1_physics": (["uid", "issue_date"], "issue_date"),
+    "physics_params": (["year"], None),     # balance parameters of checkpoint Y: pairs before 1 Jan Y
+    "sequence_months": (["uid", "month"], "month_complete"),   # a month counts once it has ended
+    "p1_sequences": (["uid", "issue_date"], "issue_date"),
 }
 
 
@@ -131,8 +181,8 @@ def region_inputs(region, cut=None):
 
 
 def build_one(generator, region, cut):
-    """Run one generator on one region's full (cut=None) or truncated data."""
-    return GENERATORS[generator](*region_inputs(region, cut))
+    """Run one generator (or planted-leak version) on one region's full (cut=None) or truncated data."""
+    return BUILDERS[generator](*region_inputs(region, cut))
 
 
 # ---------------------------------------------------------------------------
@@ -200,9 +250,9 @@ def compare_grid(reference, rebuilt, cut):
 # ---------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def builds():
-    """All (generator, region, full/truncated) builds, run up to 4 at a time."""
+    """All (generator, region, full/truncated) builds, planted leaks included, run up to 4 at a time."""
     load_inputs()   # skip early if the data layer is missing
-    jobs = [(g, region, cut) for g in GENERATORS for region, cut in CUTS.items() for cut in (None, cut)]
+    jobs = [(g, region, cut) for g in BUILDERS for region, cut in CUTS.items() for cut in (None, cut)]
     results = Parallel(n_jobs=min(4, len(jobs)), backend="loky")(
         delayed(build_one)(g, region, cut) for g, region, cut in jobs)
     return {job: result for job, result in zip(jobs, results)}
@@ -220,13 +270,117 @@ def with_planted_peek(p1):
     return p1
 
 
-def save_summary(region, summary):
-    """Record what was compared in artifacts/lookahead_test.json (one entry per region)."""
+def save_summary(key, summary):
+    """Record what was compared in artifacts/lookahead_test.json (one entry per region and generator).
+
+    Each entry carries the time it was written (run_at). A failure is recorded too ("FAIL: ..."),
+    so the ladder report (scripts/12_ladder_val.py, PREREG condition b) can never read an old
+    PASS after a newer run failed.
+    """
     path = config.ARTIFACTS_DIR / "lookahead_test.json"
     everything = json.loads(path.read_text()) if path.exists() else {}
-    everything[region] = summary
+    everything[key] = dict(summary, run_at=time.strftime("%Y-%m-%d %H:%M:%S"))
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(everything, indent=1, default=int))
+
+
+# ---------------------------------------------------------------------------
+# "The test must be able to fail": one check per generator
+# ---------------------------------------------------------------------------
+def core_can_fail(builds, region, cut):
+    """Core tables: risky rows were compared, truncation removed information, planted leaks are caught."""
+    full, truncated = builds[(CORE, region, None)], builds[(CORE, region, cut)]
+    p1_full = before_cut(full["p1"], "p1", cut).sort_values(["uid", "issue_date"])
+    p1_trunc = before_cut(truncated["p1"], "p1", cut).sort_values(["uid", "issue_date"])
+    near_cut = p1_full["issue_date"] >= pd.Timestamp(cut) - HORIZON
+    assert near_cut.sum() > 1000, "too few issues within 90 days of the cut were compared"
+    assert (~p1_full["label_ok"]).sum() > 0, "rows failing label_ok must be kept and compared"
+    labels_changed = ~same_values(p1_full["y_R30"].to_numpy(), p1_trunc["y_R30"].to_numpy())
+    labels_changed |= ~same_values(p1_full["label_ok"].to_numpy(), p1_trunc["label_ok"].to_numpy())
+    assert labels_changed.any(), "truncation removed no future information: the test would be vacuous"
+    planted = compare(before_cut(with_planted_peek(full["p1"]), "p1", cut),
+                      before_cut(with_planted_peek(truncated["p1"]), "p1", cut), TABLES["p1"][0])
+    assert "planted_peek" in planted, "a planted look-ahead column was not caught"
+    # Same for the frailty: counting records without the 120-day wait reads future labels.
+    leaky = compare(before_cut(frailty_sums(full["p1"], final_after_days=0), "p1_frailty", cut),
+                    before_cut(frailty_sums(truncated["p1"], final_after_days=0), "p1_frailty", cut),
+                    TABLES["p1_frailty"][0])
+    assert "frailty_R_R30" in leaky, "a planted frailty leak (no 120-day wait) was not caught"
+    return {
+        "p1_rows_within_90_days_before_cut": int(near_cut.sum()),
+        "p1_rows_failing_label_ok_compared": int((~p1_full["label_ok"]).sum()),
+        "p1_rows_whose_labels_changed_after_truncation": int(labels_changed.sum()),
+        "planted_peek_rows_caught": planted["planted_peek"],
+        "planted_frailty_leak_rows_caught": leaky["frailty_R_R30"],
+        "neighbour_grid_dates_compared": int((pd.to_datetime(full["neighbour_grid"]["grid"])
+                                              < pd.Timestamp(cut)).sum()),
+    }
+
+
+def physics_can_fail(builds, region, cut):
+    """Physics: values near the cut were compared, and two planted leaks are caught.
+
+    1. a column holding the dam's NEXT forecast's ph_p_R30;
+    2. the realistic one: the filter reading the issue month's own (unfinished) rain.
+    """
+    full, truncated = builds[(PHYSICS, region, None)], builds[(PHYSICS, region, cut)]
+    reference = before_cut(full["p1_physics"], "p1_physics", cut)
+    near_cut = (reference["issue_date"] >= pd.Timestamp(cut) - HORIZON) & reference["ph_p_R30"].notna()
+    assert near_cut.sum() > 1000, "too few physics values within 90 days of the cut were compared"
+
+    def with_next_value(table):
+        table = table.sort_values(["uid", "issue_date"]).copy()
+        table["planted_peek"] = table.groupby("uid")["ph_p_R30"].shift(-1)
+        return table
+
+    planted = compare(before_cut(with_next_value(full["p1_physics"]), "p1_physics", cut),
+                      before_cut(with_next_value(truncated["p1_physics"]), "p1_physics", cut),
+                      TABLES["p1_physics"][0])
+    assert "planted_peek" in planted, "a planted look-ahead column was not caught in the physics table"
+    leak_name = f"{PHYSICS} [planted leak]"
+    leaky = compare(before_cut(builds[(leak_name, region, None)]["p1_physics"], "p1_physics", cut),
+                    before_cut(builds[(leak_name, region, cut)]["p1_physics"], "p1_physics", cut),
+                    TABLES["p1_physics"][0])
+    assert leaky, "a planted physics leak (the issue month's own rain) was not caught"
+    return {
+        "physics_values_within_90_days_before_cut": int(near_cut.sum()),
+        "checkpoint_years_compared": int(len(before_cut(full["physics_params"], "physics_params", cut))),
+        "planted_peek_rows_caught": planted["planted_peek"],
+        "planted_current_month_rain_leak_caught": leaky,
+    }
+
+
+def sequences_can_fail(builds, region, cut):
+    """Sequences: looks near the cut were compared, truncation changed the cut's month, a planted leak is caught.
+
+    The planted leak is the realistic one: a window that ends AT the issue month
+    (whose looks and rain are not over on the issue day) instead of the month before.
+    """
+    full, truncated = builds[(SEQUENCES, region, None)], builds[(SEQUENCES, region, cut)]
+    reference = before_cut(full["p1_sequences"], "p1_sequences", cut)
+    near_cut = reference["issue_date"] >= pd.Timestamp(cut) - HORIZON
+    assert near_cut.sum() > 1000, "too few sequences within 90 days of the cut were compared"
+
+    cut_month = pd.Timestamp(cut).strftime("%Y-%m")       # the month the cut falls in: not over at the cut
+    changed = compare(full["sequence_months"].query("month == @cut_month"),
+                      truncated["sequence_months"].query("month == @cut_month"), TABLES["sequence_months"][0])
+    assert changed, "truncation changed nothing in the cut's own month: the test would be vacuous"
+
+    issues = before_cut(full["sequence_issues"], "p1_sequences", cut)
+    issues = issues[issues["issue_date"] >= pd.Timestamp(cut) - HORIZON]
+    leaky = compare(sequences.sequence_table(full["monthly_history"], issues, window_end_offset=0),
+                    sequences.sequence_table(truncated["monthly_history"], issues, window_end_offset=0),
+                    TABLES["p1_sequences"][0])
+    assert "sequence_fingerprint" in leaky, "a planted sequence leak (the unfinished issue month) was not caught"
+    return {
+        "sequences_within_90_days_before_cut": int(near_cut.sum()),
+        "cut_month_values_changed_by_truncation": changed,
+        "planted_issue_month_leak_rows_caught": leaky["sequence_fingerprint"],
+    }
+
+
+# A generator added to GENERATORS needs an entry here: a test that cannot fail proves nothing.
+CAN_FAIL = {CORE: core_can_fail, PHYSICS: physics_can_fail, SEQUENCES: sequences_can_fail}
 
 
 @pytest.mark.parametrize("generator", list(GENERATORS))
@@ -250,39 +404,21 @@ def test_features_before_the_cut_do_not_change(builds, generator, region):
         problems = compare_grid(full["neighbour_grid"], truncated["neighbour_grid"], cut)
         if problems:
             report["neighbour_grid"] = problems
+    key = region if generator == CORE else f"{region} | {generator}"
+    if report:
+        save_summary(key, {"generator": generator, "cut": cut, "result": f"FAIL: look-ahead found: {report}"})
     assert not report, f"look-ahead found in {generator}, {region}, cut {cut}: {report}"
 
     # The test must be able to fail. Check that it compared the risky rows,
     # that the truncation really removed future information, and that a
     # planted leak in these very tables is caught.
-    p1_full = before_cut(full["p1"], "p1", cut).sort_values(["uid", "issue_date"])
-    p1_trunc = before_cut(truncated["p1"], "p1", cut).sort_values(["uid", "issue_date"])
-    near_cut = p1_full["issue_date"] >= pd.Timestamp(cut) - HORIZON
-    assert near_cut.sum() > 1000, "too few issues within 90 days of the cut were compared"
-    assert (~p1_full["label_ok"]).sum() > 0, "rows failing label_ok must be kept and compared"
-    labels_changed = ~same_values(p1_full["y_R30"].to_numpy(), p1_trunc["y_R30"].to_numpy())
-    labels_changed |= ~same_values(p1_full["label_ok"].to_numpy(), p1_trunc["label_ok"].to_numpy())
-    assert labels_changed.any(), "truncation removed no future information: the test would be vacuous"
-    planted = compare(before_cut(with_planted_peek(full["p1"]), "p1", cut),
-                      before_cut(with_planted_peek(truncated["p1"]), "p1", cut), TABLES["p1"][0])
-    assert "planted_peek" in planted, "a planted look-ahead column was not caught"
-    # Same for the frailty: counting records without the 120-day wait reads future labels.
-    leaky = compare(before_cut(frailty_sums(full["p1"], final_after_days=0), "p1_frailty", cut),
-                    before_cut(frailty_sums(truncated["p1"], final_after_days=0), "p1_frailty", cut),
-                    TABLES["p1_frailty"][0])
-    assert "frailty_R_R30" in leaky, "a planted frailty leak (no 120-day wait) was not caught"
-
-    save_summary(region, {
-        "generator": generator, "cut": cut, "result": "PASS: 0 mismatching values",
-        "tables_compared": compared,
-        "p1_rows_within_90_days_before_cut": int(near_cut.sum()),
-        "p1_rows_failing_label_ok_compared": int((~p1_full["label_ok"]).sum()),
-        "p1_rows_whose_labels_changed_after_truncation": int(labels_changed.sum()),
-        "planted_peek_rows_caught": planted["planted_peek"],
-        "planted_frailty_leak_rows_caught": leaky["frailty_R_R30"],
-        "neighbour_grid_dates_compared": int((pd.to_datetime(full["neighbour_grid"]["grid"])
-                                              < pd.Timestamp(cut)).sum()),
-    })
+    try:
+        evidence = CAN_FAIL[generator](builds, region, cut)
+    except AssertionError as problem:
+        save_summary(key, {"generator": generator, "cut": cut, "result": f"FAIL: the test could not fail: {problem}"})
+        raise
+    save_summary(key, dict({"generator": generator, "cut": cut, "result": "PASS: 0 mismatching values",
+                            "tables_compared": compared}, **evidence))
 
 
 def test_comparison_catches_a_peeking_feature():

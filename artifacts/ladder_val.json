@@ -1,0 +1,994 @@
+{
+ "generated": "2026-10-02 18:01:08",
+ "block": "VAL",
+ "tolerance": 0.006,
+ "n_boot": 500,
+ "rule": "PREREG Fallback ladder: highest rung with (a) R30 and D0 VAL BSS within +-0.006 of the pre-event value and (b) the look-ahead test passed",
+ "not_the_freeze_decision": true,
+ "highest_passing": "L3",
+ "passing": [
+  "L0",
+  "L1",
+  "L2",
+  "L3"
+ ],
+ "ladder": [
+  {
+   "rung": "L0",
+   "about": "the benchmark G2: T alone",
+   "members": [
+    "T"
+   ],
+   "extra_features": [],
+   "fitted": true,
+   "fit_problem": null,
+   "source": "like for like. Bench hybrid/tables/val_stageA.csv 'G2c' (the bench's G2c is this build's G2: the G2 features with the causal dam rate). The same values are in hierarchical-pooling/gbm_VAL_*.csv, and val_final_scorecard.csv L3 minus its dBSS_vs_G2c gives them too.",
+   "kinds": {
+    "R30": {
+     "expected": 0.1707,
+     "in_rule": true,
+     "got": 0.16999,
+     "ci_dam": [
+      0.15565,
+      0.18607
+     ],
+     "ci_region_year": [
+      0.13797,
+      0.19674
+     ],
+     "difference": -0.00071,
+     "within": true
+    },
+    "D0": {
+     "expected": 0.1755,
+     "in_rule": true,
+     "got": 0.17536,
+     "ci_dam": [
+      0.15896,
+      0.19236
+     ],
+     "ci_region_year": [
+      0.13081,
+      0.20801
+     ],
+     "difference": -0.00014,
+     "within": true
+    },
+    "D0g": {
+     "expected": 0.1727,
+     "in_rule": false,
+     "got": 0.17213,
+     "ci_dam": [
+      0.15413,
+      0.18905
+     ],
+     "ci_region_year": [
+      0.11429,
+      0.21348
+     ],
+     "difference": -0.00057,
+     "within": true
+    }
+   },
+   "condition_a": true,
+   "lookahead": [
+    {
+     "generator": "core features (build_all) + frailty sums",
+     "region": "nsw_cw",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:06"
+    },
+    {
+     "generator": "core features (build_all) + frailty sums",
+     "region": "wvic_sesa",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:25"
+    }
+   ],
+   "condition_b": true,
+   "passes": true,
+   "prereg_p1_bars": true
+  },
+  {
+   "rung": "L1",
+   "about": "T + per-dam frailty + R30 max rule + hazard curve (no nets)",
+   "members": [
+    "T"
+   ],
+   "extra_features": [],
+   "fitted": true,
+   "fit_problem": null,
+   "source": "R30 and D0 like for like, except the R30 max rule: bench hierarchical-pooling/gbm_VAL_R30.csv and gbm_VAL_D0.csv 'G2c+RE' (the same tree and the same frailty, lambda 100). The hybrid tables have no L1 row. D0g has no twin: derived as val_stageA 'G2c' + val_stageB '-frailty' cost (+0.0005).",
+   "kinds": {
+    "R30": {
+     "expected": 0.1727,
+     "in_rule": true,
+     "got": 0.1714,
+     "ci_dam": [
+      0.15622,
+      0.18767
+     ],
+     "ci_region_year": [
+      0.13765,
+      0.20009
+     ],
+     "difference": -0.0013,
+     "within": true,
+     "hybrid_only_expected": 0.1735,
+     "hybrid_only_within": true
+    },
+    "D0": {
+     "expected": 0.1771,
+     "in_rule": true,
+     "got": 0.17701,
+     "ci_dam": [
+      0.16004,
+      0.19429
+     ],
+     "ci_region_year": [
+      0.13396,
+      0.2083
+     ],
+     "difference": -9e-05,
+     "within": true,
+     "hybrid_only_expected": 0.1752,
+     "hybrid_only_within": true
+    },
+    "D0g": {
+     "expected": 0.1732,
+     "in_rule": false,
+     "got": 0.17333,
+     "ci_dam": [
+      0.15548,
+      0.19089
+     ],
+     "ci_region_year": [
+      0.11584,
+      0.21451
+     ],
+     "difference": 0.00013,
+     "within": true,
+     "hybrid_only_expected": 0.1732,
+     "hybrid_only_within": true
+    }
+   },
+   "condition_a": true,
+   "lookahead": [
+    {
+     "generator": "core features (build_all) + frailty sums",
+     "region": "nsw_cw",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:06"
+    },
+    {
+     "generator": "core features (build_all) + frailty sums",
+     "region": "wvic_sesa",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:25"
+    }
+   ],
+   "condition_b": true,
+   "passes": true,
+   "prereg_p1_bars": true
+  },
+  {
+   "rung": "L2",
+   "about": "L1 + the nets S and M (no water-balance columns)",
+   "members": [
+    "T",
+    "S",
+    "M"
+   ],
+   "extra_features": [],
+   "fitted": true,
+   "fit_problem": null,
+   "source": "derived. Bench hybrid/tables/val_final_scorecard.csv (L3) minus the val_stageB.csv '-PHY' removal cost (0.0009 / 0.0025 / 0.0031; the same numbers are in decision_log.json stageB.PHY.cost_dam_like).",
+   "kinds": {
+    "R30": {
+     "expected": 0.1809,
+     "in_rule": true,
+     "got": 0.18,
+     "ci_dam": [
+      0.16495,
+      0.19698
+     ],
+     "ci_region_year": [
+      0.14282,
+      0.20858
+     ],
+     "difference": -0.0009,
+     "within": true
+    },
+    "D0": {
+     "expected": 0.1923,
+     "in_rule": true,
+     "got": 0.19177,
+     "ci_dam": [
+      0.17377,
+      0.20872
+     ],
+     "ci_region_year": [
+      0.1432,
+      0.22812
+     ],
+     "difference": -0.00053,
+     "within": true
+    },
+    "D0g": {
+     "expected": 0.1916,
+     "in_rule": false,
+     "got": 0.1921,
+     "ci_dam": [
+      0.17306,
+      0.20988
+     ],
+     "ci_region_year": [
+      0.13346,
+      0.23392
+     ],
+     "difference": 0.0005,
+     "within": true
+    }
+   },
+   "condition_a": true,
+   "lookahead": [
+    {
+     "generator": "core features (build_all) + frailty sums",
+     "region": "nsw_cw",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:06"
+    },
+    {
+     "generator": "core features (build_all) + frailty sums",
+     "region": "wvic_sesa",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:25"
+    },
+    {
+     "generator": "net sequences (damdays.features.sequences)",
+     "region": "nsw_cw",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:13"
+    },
+    {
+     "generator": "net sequences (damdays.features.sequences)",
+     "region": "wvic_sesa",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:30"
+    }
+   ],
+   "condition_b": true,
+   "passes": true,
+   "prereg_p1_bars": true
+  },
+  {
+   "rung": "L3",
+   "about": "full Tidemark: L2 + the 2 water-balance columns in T and H",
+   "members": [
+    "T",
+    "S",
+    "M"
+   ],
+   "extra_features": [
+    "ph_p_R30",
+    "ph_p_D0"
+   ],
+   "fitted": true,
+   "fit_problem": null,
+   "source": "like for like. Bench hybrid/tables/val_final_scorecard.csv: the frozen Tidemark v1 (freeze.json, config fe0ab596d1fe). FINAL_SPEC (E) quotes it as +0.182 / +0.195 / +0.195.",
+   "kinds": {
+    "R30": {
+     "expected": 0.1818,
+     "in_rule": true,
+     "got": 0.18033,
+     "ci_dam": [
+      0.16529,
+      0.19709
+     ],
+     "ci_region_year": [
+      0.14314,
+      0.20904
+     ],
+     "difference": -0.00147,
+     "within": true
+    },
+    "D0": {
+     "expected": 0.1948,
+     "in_rule": true,
+     "got": 0.19398,
+     "ci_dam": [
+      0.17585,
+      0.21129
+     ],
+     "ci_region_year": [
+      0.14553,
+      0.23107
+     ],
+     "difference": -0.00082,
+     "within": true
+    },
+    "D0g": {
+     "expected": 0.1947,
+     "in_rule": false,
+     "got": 0.19441,
+     "ci_dam": [
+      0.17541,
+      0.2122
+     ],
+     "ci_region_year": [
+      0.13618,
+      0.23606
+     ],
+     "difference": -0.00029,
+     "within": true
+    }
+   },
+   "condition_a": true,
+   "lookahead": [
+    {
+     "generator": "core features (build_all) + frailty sums",
+     "region": "nsw_cw",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:06"
+    },
+    {
+     "generator": "core features (build_all) + frailty sums",
+     "region": "wvic_sesa",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:25"
+    },
+    {
+     "generator": "net sequences (damdays.features.sequences)",
+     "region": "nsw_cw",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:13"
+    },
+    {
+     "generator": "net sequences (damdays.features.sequences)",
+     "region": "wvic_sesa",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:30"
+    },
+    {
+     "generator": "physics water balance (damdays.models.physics)",
+     "region": "nsw_cw",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:09"
+    },
+    {
+     "generator": "physics water balance (damdays.models.physics)",
+     "region": "wvic_sesa",
+     "result": "PASS: 0 mismatching values",
+     "run_at": "2026-10-02 16:45:26"
+    }
+   ],
+   "condition_b": true,
+   "passes": true,
+   "prereg_p1_bars": true
+  }
+ ],
+ "steps": [
+  {
+   "step": "L1 over L0",
+   "adds": "the frailty and the R30 max rule",
+   "kind": "R30",
+   "got": 0.00141,
+   "got_ci": [
+    -0.00037,
+    0.003
+   ],
+   "bench": 0.0024,
+   "bench_ci": [
+    0.0004,
+    0.0042
+   ],
+   "inside_bench_ci": true,
+   "source": "R30, D0: hierarchical-pooling G2c+RE vs G2c (no max rule). D0g: hybrid val_stageB '-frailty'"
+  },
+  {
+   "step": "L1 over L0",
+   "adds": "the frailty and the R30 max rule",
+   "kind": "D0",
+   "got": 0.00165,
+   "got_ci": [
+    3e-05,
+    0.00327
+   ],
+   "bench": 0.002,
+   "bench_ci": [
+    0.0002,
+    0.0041
+   ],
+   "inside_bench_ci": true,
+   "source": "R30, D0: hierarchical-pooling G2c+RE vs G2c (no max rule). D0g: hybrid val_stageB '-frailty'"
+  },
+  {
+   "step": "L1 over L0",
+   "adds": "the frailty and the R30 max rule",
+   "kind": "D0g",
+   "got": 0.0012,
+   "got_ci": [
+    -0.0006,
+    0.00279
+   ],
+   "bench": 0.0005,
+   "bench_ci": [
+    -0.0014,
+    0.0024
+   ],
+   "inside_bench_ci": true,
+   "source": "R30, D0: hierarchical-pooling G2c+RE vs G2c (no max rule). D0g: hybrid val_stageB '-frailty'"
+  },
+  {
+   "step": "L2 over L1",
+   "adds": "the nets S and M",
+   "kind": "R30",
+   "got": 0.0086,
+   "got_ci": [
+    0.00514,
+    0.01193
+   ],
+   "bench": 0.0074,
+   "bench_ci": [
+    0.0036,
+    0.0112
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_stageB '-nets' removal cost. Context, not like for like: that model's tree learned from dam-like dams only"
+  },
+  {
+   "step": "L2 over L1",
+   "adds": "the nets S and M",
+   "kind": "D0",
+   "got": 0.01476,
+   "got_ci": [
+    0.01127,
+    0.01859
+   ],
+   "bench": 0.0099,
+   "bench_ci": [
+    0.0054,
+    0.0151
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_stageB '-nets' removal cost. Context, not like for like: that model's tree learned from dam-like dams only"
+  },
+  {
+   "step": "L2 over L1",
+   "adds": "the nets S and M",
+   "kind": "D0g",
+   "got": 0.01877,
+   "got_ci": [
+    0.01388,
+    0.02385
+   ],
+   "bench": 0.0135,
+   "bench_ci": [
+    0.0073,
+    0.0204
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_stageB '-nets' removal cost. Context, not like for like: that model's tree learned from dam-like dams only"
+  },
+  {
+   "step": "L3 over L2",
+   "adds": "the 2 water-balance columns",
+   "kind": "R30",
+   "got": 0.00033,
+   "got_ci": [
+    -0.00016,
+    0.0009
+   ],
+   "bench": 0.0009,
+   "bench_ci": [
+    0.0003,
+    0.0014
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_stageB '-PHY' removal cost"
+  },
+  {
+   "step": "L3 over L2",
+   "adds": "the 2 water-balance columns",
+   "kind": "D0",
+   "got": 0.00221,
+   "got_ci": [
+    0.00131,
+    0.00304
+   ],
+   "bench": 0.0025,
+   "bench_ci": [
+    0.0014,
+    0.0035
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_stageB '-PHY' removal cost"
+  },
+  {
+   "step": "L3 over L2",
+   "adds": "the 2 water-balance columns",
+   "kind": "D0g",
+   "got": 0.00231,
+   "got_ci": [
+    0.00129,
+    0.00336
+   ],
+   "bench": 0.0031,
+   "bench_ci": [
+    0.002,
+    0.0043
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_stageB '-PHY' removal cost"
+  },
+  {
+   "step": "L3 over G2",
+   "adds": "everything, over the benchmark G2",
+   "kind": "R30",
+   "got": 0.01034,
+   "got_ci": [
+    0.00673,
+    0.01432
+   ],
+   "bench": 0.0111,
+   "bench_ci": [
+    0.0075,
+    0.0147
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_final_scorecard.csv dBSS_vs_G2c"
+  },
+  {
+   "step": "L3 over G2",
+   "adds": "everything, over the benchmark G2",
+   "kind": "D0",
+   "got": 0.01862,
+   "got_ci": [
+    0.01418,
+    0.02278
+   ],
+   "bench": 0.0193,
+   "bench_ci": [
+    0.0151,
+    0.0237
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_final_scorecard.csv dBSS_vs_G2c"
+  },
+  {
+   "step": "L3 over G2",
+   "adds": "everything, over the benchmark G2",
+   "kind": "D0g",
+   "got": 0.02228,
+   "got_ci": [
+    0.01649,
+    0.02807
+   ],
+   "bench": 0.022,
+   "bench_ci": [
+    0.0169,
+    0.0277
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_final_scorecard.csv dBSS_vs_G2c"
+  }
+ ],
+ "lookahead": {
+  "core | nsw_cw": {
+   "generator": "core features (build_all) + frailty sums",
+   "region": "nsw_cw",
+   "cut": "2014-07-09",
+   "result": "PASS: 0 mismatching values",
+   "run_at": "2026-10-02 16:45:06",
+   "passed": true
+  },
+  "core | wvic_sesa": {
+   "generator": "core features (build_all) + frailty sums",
+   "region": "wvic_sesa",
+   "cut": "2012-07-09",
+   "result": "PASS: 0 mismatching values",
+   "run_at": "2026-10-02 16:45:25",
+   "passed": true
+  },
+  "sequences | nsw_cw": {
+   "generator": "net sequences (damdays.features.sequences)",
+   "region": "nsw_cw",
+   "cut": "2014-07-09",
+   "result": "PASS: 0 mismatching values",
+   "run_at": "2026-10-02 16:45:13",
+   "passed": true
+  },
+  "sequences | wvic_sesa": {
+   "generator": "net sequences (damdays.features.sequences)",
+   "region": "wvic_sesa",
+   "cut": "2012-07-09",
+   "result": "PASS: 0 mismatching values",
+   "run_at": "2026-10-02 16:45:30",
+   "passed": true
+  },
+  "physics | nsw_cw": {
+   "generator": "physics water balance (damdays.models.physics)",
+   "region": "nsw_cw",
+   "cut": "2014-07-09",
+   "result": "PASS: 0 mismatching values",
+   "run_at": "2026-10-02 16:45:09",
+   "passed": true
+  },
+  "physics | wvic_sesa": {
+   "generator": "physics water balance (damdays.models.physics)",
+   "region": "wvic_sesa",
+   "cut": "2012-07-09",
+   "result": "PASS: 0 mismatching values",
+   "run_at": "2026-10-02 16:45:26",
+   "passed": true
+  }
+ },
+ "columns": {
+  "p1": true,
+  "p2_dam": true,
+  "p2_cell": true,
+  "p1_equals_contract": true,
+  "p1_columns": 45
+ },
+ "integration": [
+  {
+   "check": "L0 p90_R30 vs step 3's benchmark G2",
+   "rows": 358525,
+   "max_rel_diff": 0.0,
+   "verdict": "equal within 1e-12"
+  },
+  {
+   "check": "L0 p_T_R30 vs step 3's benchmark G2",
+   "rows": 358525,
+   "max_rel_diff": 0.0,
+   "verdict": "identical"
+  },
+  {
+   "check": "L0 p90_D0 vs step 3's benchmark G2",
+   "rows": 461839,
+   "max_rel_diff": 0.0,
+   "verdict": "equal within 1e-12"
+  },
+  {
+   "check": "L0 p_T_D0 vs step 3's benchmark G2",
+   "rows": 461839,
+   "max_rel_diff": 0.0,
+   "verdict": "identical"
+  },
+  {
+   "check": "L0 p90_D0g vs step 3's benchmark G2",
+   "rows": 461839,
+   "max_rel_diff": 0.0,
+   "verdict": "equal within 1e-12"
+  },
+  {
+   "check": "L0 p_T_D0g vs step 3's benchmark G2",
+   "rows": 461839,
+   "max_rel_diff": 0.0,
+   "verdict": "identical"
+  },
+  {
+   "check": "L1 vs the forecasts step 8 saved (tidemark/L1_p1.pkl)",
+   "rows": 461839,
+   "rows_match": true,
+   "columns": 33,
+   "saved_as_float32": false,
+   "max_rel_diff": 0.0,
+   "worst_column": "-",
+   "rows_differing": 0,
+   "dams_differing": [],
+   "members_agree": true,
+   "verdict": "identical"
+  },
+  {
+   "check": "L2 vs the forecasts step 9 saved (tidemark/L2_p1.pkl)",
+   "rows": 461839,
+   "rows_match": true,
+   "columns": 39,
+   "saved_as_float32": false,
+   "max_rel_diff": 0.00017,
+   "worst_column": "frailty_b_R30",
+   "rows_differing": 156,
+   "dams_differing": [
+    "r66xb3u4q_v3"
+   ],
+   "members_agree": true,
+   "verdict": "DIFFERENT on 156 rows of 1 dam(s)"
+  },
+  {
+   "check": "L3 vs the forecasts step 10 saved (tidemark/L3_p1.pkl)",
+   "rows": 461839,
+   "rows_match": true,
+   "columns": 39,
+   "saved_as_float32": true,
+   "max_rel_diff": 0.0,
+   "worst_column": "floor_days",
+   "rows_differing": 0,
+   "dams_differing": [],
+   "members_agree": true,
+   "verdict": "equal to float32 precision"
+  }
+ ],
+ "shared": [
+  {
+   "output": "tree T (no water-balance columns)",
+   "rungs": [
+    "L0",
+    "L1",
+    "L2"
+   ],
+   "identical": true
+  },
+  {
+   "output": "runway curve H (no water-balance columns)",
+   "rungs": [
+    "L0",
+    "L1",
+    "L2"
+   ],
+   "identical": true
+  },
+  {
+   "output": "nets S and M",
+   "rungs": [
+    "L2",
+    "L3"
+   ],
+   "identical": true
+  },
+  {
+   "output": "DamDays floor",
+   "rungs": [
+    "L0",
+    "L1",
+    "L2",
+    "L3"
+   ],
+   "identical": true
+  },
+  {
+   "output": "season rating P2 (dam p, gradual p, cell p)",
+   "rungs": [
+    "L0",
+    "L1",
+    "L2",
+    "L3"
+   ],
+   "identical": true
+  },
+  {
+   "output": "nets columns blank where the rung has no nets (L0, L1)",
+   "rungs": [
+    "L0",
+    "L1"
+   ],
+   "identical": true
+  },
+  {
+   "output": "L0 has no frailty and no R30 max rule",
+   "rungs": [
+    "L0"
+   ],
+   "identical": true
+  }
+ ],
+ "p2_cell": {
+  "point": {
+   "base_rate": 0.171,
+   "mean_p": 0.19452,
+   "brier": 0.12079,
+   "bss_B0": 0.14878,
+   "bss_B2": 0.0059,
+   "auc": 0.78715,
+   "prec_at_50_recall": 0.40696,
+   "auc_within_season": 0.7893,
+   "auc_within_cell": 0.51731,
+   "cal_intercept": -0.2706,
+   "cal_slope": 0.9236,
+   "citl": -0.19342,
+   "bss_vs_RAIN": 0.14757,
+   "d_bss_B0_vs_RAIN": 0.14736,
+   "d_auc_vs_RAIN": 0.2493,
+   "bss_vs_RAIN+": 0.12237,
+   "d_bss_B0_vs_RAIN+": 0.11869,
+   "d_auc_vs_RAIN+": 0.15632,
+   "bss_vs_B2": 0.0059,
+   "d_bss_B0_vs_B2": 0.00505,
+   "d_auc_vs_B2": 0.01407
+  },
+  "ci_dam": {
+   "base_rate": [
+    0.15985,
+    0.18092
+   ],
+   "mean_p": [
+    0.18572,
+    0.2031
+   ],
+   "brier": [
+    0.11516,
+    0.12623
+   ],
+   "bss_B0": [
+    0.12634,
+    0.1689
+   ],
+   "bss_B2": [
+    -0.00454,
+    0.01763
+   ],
+   "auc": [
+    0.77382,
+    0.8002
+   ],
+   "prec_at_50_recall": [
+    0.37501,
+    0.43799
+   ],
+   "auc_within_season": [
+    0.7755,
+    0.8029
+   ],
+   "auc_within_cell": [
+    0.48744,
+    0.54797
+   ],
+   "cal_intercept": [
+    -0.3565,
+    -0.19503
+   ],
+   "cal_slope": [
+    0.86773,
+    0.97529
+   ],
+   "citl": [
+    -0.25566,
+    -0.13158
+   ],
+   "bss_vs_RAIN": [
+    0.12538,
+    0.16711
+   ],
+   "d_bss_B0_vs_RAIN": [
+    0.12515,
+    0.16664
+   ],
+   "d_auc_vs_RAIN": [
+    0.22838,
+    0.27317
+   ],
+   "bss_vs_RAIN+": [
+    0.09944,
+    0.14281
+   ],
+   "d_bss_B0_vs_RAIN+": [
+    0.0963,
+    0.13861
+   ],
+   "d_auc_vs_RAIN+": [
+    0.13758,
+    0.17288
+   ],
+   "bss_vs_B2": [
+    -0.00454,
+    0.01763
+   ],
+   "d_bss_B0_vs_B2": [
+    -0.00388,
+    0.01526
+   ],
+   "d_auc_vs_B2": [
+    0.00874,
+    0.02055
+   ]
+  },
+  "ci_region_year": {
+   "base_rate": [
+    0.13418,
+    0.2051
+   ],
+   "mean_p": [
+    0.17644,
+    0.20776
+   ],
+   "brier": [
+    0.10744,
+    0.13319
+   ],
+   "bss_B0": [
+    0.06172,
+    0.20895
+   ],
+   "bss_B2": [
+    -0.04486,
+    0.04875
+   ],
+   "auc": [
+    0.76414,
+    0.80743
+   ],
+   "prec_at_50_recall": [
+    0.31633,
+    0.49512
+   ],
+   "auc_within_season": [
+    0.76256,
+    0.81142
+   ],
+   "auc_within_cell": [
+    0.44024,
+    0.59963
+   ],
+   "cal_intercept": [
+    -0.65059,
+    0.1006
+   ],
+   "cal_slope": [
+    0.81198,
+    1.04067
+   ],
+   "citl": [
+    -0.53347,
+    0.0833
+   ],
+   "bss_vs_RAIN": [
+    0.06681,
+    0.20486
+   ],
+   "d_bss_B0_vs_RAIN": [
+    0.06753,
+    0.20388
+   ],
+   "d_auc_vs_RAIN": [
+    0.17551,
+    0.31753
+   ],
+   "bss_vs_RAIN+": [
+    0.03571,
+    0.17973
+   ],
+   "d_bss_B0_vs_RAIN+": [
+    0.03469,
+    0.17385
+   ],
+   "d_auc_vs_RAIN+": [
+    0.11676,
+    0.19892
+   ],
+   "bss_vs_B2": [
+    -0.04486,
+    0.04875
+   ],
+   "d_bss_B0_vs_B2": [
+    -0.03966,
+    0.04074
+   ],
+   "d_auc_vs_B2": [
+    -0.00195,
+    0.02891
+   ]
+  },
+  "rows": {
+   "passed_in": 10045,
+   "in_subset": 10045,
+   "in_subset_without_label": 197,
+   "scored": 9848,
+   "events": 1684,
+   "dams": 1434,
+   "dams_with_event": 791,
+   "region_years": 14
+  },
+  "refs": [
+   "RAIN",
+   "RAIN+",
+   "B2"
+  ],
+  "prereg_pass_bars": null
+ },
+ "fit_seconds": {
+  "L0": 307,
+  "L1": 314,
+  "L2": 529,
+  "L3": 347
+ }
+}

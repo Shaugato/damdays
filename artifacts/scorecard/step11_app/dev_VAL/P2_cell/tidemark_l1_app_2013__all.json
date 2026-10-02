@@ -1,0 +1,190 @@
+{
+ "model": "tidemark_l1_app_2013",
+ "task": "P2_cell",
+ "task_description": "P(every dam-like dam in the 2 km cell runs dry in the coming Oct-Mar)",
+ "block": "VAL",
+ "arena": "dev",
+ "subset": "all",
+ "subset_rules": {},
+ "rows": {
+  "passed_in": 767,
+  "in_subset": 767,
+  "in_subset_without_label": 1,
+  "scored": 766,
+  "events": 210,
+  "dams": 766,
+  "dams_with_event": 210,
+  "region_years": 1
+ },
+ "refs": [
+  "RAIN"
+ ],
+ "baselines": [
+  "B0",
+  "B2"
+ ],
+ "pred_hash": "c7ff34b5459ec1de",
+ "baseline_hash": "85ffaefaa5832986",
+ "test_ledger": null,
+ "row_set_checked": false,
+ "note": "step 11 (app export): season 2013-14, app cells only",
+ "point": {
+  "base_rate": 0.27415,
+  "mean_p": 0.1968,
+  "brier": 0.17101,
+  "bss_B0": 0.17287,
+  "bss_B2": 0.04045,
+  "auc": 0.78034,
+  "prec_at_50_recall": 0.54124,
+  "auc_within_season": 0.78034,
+  "auc_within_cell": null,
+  "cal_intercept": 0.36647,
+  "cal_slope": 0.84933,
+  "citl": 0.55104,
+  "bss_vs_RAIN": 0.1828,
+  "d_bss_B0_vs_RAIN": 0.18503,
+  "d_auc_vs_RAIN": 0.3344
+ },
+ "ci_dam": {
+  "base_rate": [
+   0.24282,
+   0.30548
+  ],
+  "mean_p": [
+   0.18497,
+   0.2085
+  ],
+  "brier": [
+   0.15495,
+   0.18928
+  ],
+  "bss_B0": [
+   0.12152,
+   0.21892
+  ],
+  "bss_B2": [
+   0.01554,
+   0.06352
+  ],
+  "auc": [
+   0.74325,
+   0.81102
+  ],
+  "prec_at_50_recall": [
+   0.47115,
+   0.60989
+  ],
+  "auc_within_season": [
+   0.74325,
+   0.81102
+  ],
+  "auc_within_cell": [
+   null,
+   null
+  ],
+  "cal_intercept": [
+   0.08986,
+   0.64068
+  ],
+  "cal_slope": [
+   0.69769,
+   1.01965
+  ],
+  "citl": [
+   0.35949,
+   0.73198
+  ],
+  "bss_vs_RAIN": [
+   0.13129,
+   0.22846
+  ],
+  "d_bss_B0_vs_RAIN": [
+   0.1326,
+   0.23144
+  ],
+  "d_auc_vs_RAIN": [
+   0.27284,
+   0.39121
+  ]
+ },
+ "ci_region_year": {
+  "base_rate": [
+   0.27415,
+   0.27415
+  ],
+  "mean_p": [
+   0.1968,
+   0.1968
+  ],
+  "brier": [
+   0.17101,
+   0.17101
+  ],
+  "bss_B0": [
+   0.17287,
+   0.17287
+  ],
+  "bss_B2": [
+   0.04045,
+   0.04045
+  ],
+  "auc": [
+   0.78034,
+   0.78034
+  ],
+  "prec_at_50_recall": [
+   0.54124,
+   0.54124
+  ],
+  "auc_within_season": [
+   0.78034,
+   0.78034
+  ],
+  "auc_within_cell": [
+   null,
+   null
+  ],
+  "cal_intercept": [
+   0.36647,
+   0.36647
+  ],
+  "cal_slope": [
+   0.84933,
+   0.84933
+  ],
+  "citl": [
+   0.55104,
+   0.55104
+  ],
+  "bss_vs_RAIN": [
+   0.1828,
+   0.1828
+  ],
+  "d_bss_B0_vs_RAIN": [
+   0.18503,
+   0.18503
+  ],
+  "d_auc_vs_RAIN": [
+   0.3344,
+   0.3344
+  ]
+ },
+ "bootstrap": {
+  "dam": {
+   "clusters": 766,
+   "seed": 2026,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "region_year": {
+   "clusters": 1,
+   "seed": 2027,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "n_boot": 500,
+  "ci_level": 0.95
+ },
+ "time": "2026-10-02 15:32:57",
+ "seconds": 0.7
+}

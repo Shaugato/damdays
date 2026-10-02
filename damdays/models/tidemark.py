@@ -8,6 +8,10 @@
     out["p2_dam"]   one row per dam-like dam and 1 July season
     out["p2_cell"]  one row per 2 km cell and 1 July season
 
+Every rung (L0 to L3, below) is fitted and forecast by these same two calls, and
+returns the same columns (p1_output_columns; a member the rung does not use is
+blank). scripts/12_ladder_val.py runs all four on VAL for the PREREG ladder table.
+
 docs/HOW_IT_WORKS.md explains every part in plain language, and PREREG.md
 ("Model") fixes the recipe. Nothing is tuned here: every setting lives in the
 component module named in brackets below.
@@ -16,8 +20,8 @@ The parts, in the order they are built
 --------------------------------------
 1. 90-day members, one model per event kind (R30, D0, D0g), listed in MEMBERS [fusion]
      T  LightGBM on the 29 G2c features (+ the 2 water-balance columns at rung L3)
-     S  sequence net (TCN + tabular MLP), 3 seeds    - not built yet (rung L2)
-     M  tabular MLP, 3 seeds                         - not built yet (rung L2)
+     S  sequence net (TCN + tabular MLP), 3 seeds    [nets]  (rung L2)
+     M  tabular MLP, 3 seeds                         [nets]  (rung L2)
 2. Fusion: the plain mean of the members' log-odds [fusion.fuse_members]
 3. Frailty: the dam's own correction b = R / (V + 100), learned from its past
    forecasts whose answer was final [frailty]
@@ -31,18 +35,20 @@ The parts, in the order they are built
 Rungs (PREREG "Fallback ladder"): which members a model fuses
 -------------------------------------------------------------
 L0  T alone, no frailty, no max rule (the benchmark G2)
-L1  T + frailty + max rule                                   <- built and checked on VAL
-L2  T + S + M + frailty + max rule                           needs the nets
-L3  L2 with the 2 water-balance columns in T and H           needs the physics module
+L1  T + frailty + max rule                                   <- scripts/08_tidemark_val.py
+L2  T + S + M + frailty + max rule                           <- nets [nets]; scripts/09_nets_val.py
+L3  L2 with the 2 water-balance columns in T and H           <- physics [physics]; scripts/10_physics_val.py
 Parts 5-8 are the same on every rung (at L3, H also gets the water-balance columns).
+All four are fitted through fit_tidemark; scripts/12_ladder_val.py builds the PREREG ladder table.
 
-Adding the nets and the physics later (nothing here needs restructuring)
-------------------------------------------------------------------------
-* Nets: give MEMBERS["S"] and MEMBERS["M"] a fit and a predict function (see
-  Member). Fusion averages whatever members a rung lists; a member's seeds are
-  averaged on the log-odds scale first.
-* Physics: add the columns in PHY_COLUMNS to the P1 table. Rung L3 passes them
-  to T and H as extra inputs.
+How the nets and the physics plug in
+------------------------------------
+* Nets: MEMBERS["S"] and MEMBERS["M"] have a fit and a predict function (see
+  Member; damdays.models.nets). Fusion averages whatever members a rung lists;
+  a member's seeds are averaged on the log-odds scale first.
+* Physics: load_inputs adds the columns in PHY_COLUMNS to the P1 table (built by
+  damdays.models.physics, a bucket water balance + Kalman filter + 20 analogue
+  rain years). Rung L3 passes them to T and H as extra inputs; S and M do not use them.
 
 The time rules (no peeking)
 ---------------------------
@@ -66,14 +72,14 @@ import pandas as pd
 
 from damdays import config
 from damdays.features import store
-from damdays.models import frailty, fusion, hazard, rows
+from damdays.models import frailty, fusion, hazard, nets, physics, rows
 from damdays.models import season_rating as sr
 from damdays.models import uncertainty as unc
 
 P1_KINDS = rows.P1_KINDS                     # ("R30", "D0", "D0g")
 CURVE_KINDS = hazard.CURVE_KINDS             # ("R30", "D0"): the runway curve
 HORIZONS = hazard.HORIZONS                   # (30, 60, 90, 180) days
-PHY_COLUMNS = ("ph_p_R30", "ph_p_D0")        # the two water-balance columns (physics module, rung L3)
+PHY_COLUMNS = physics.PHY_COLUMNS            # ("ph_p_R30", "ph_p_D0"): the two water-balance columns (rung L3)
 P_MIN, P_MAX = fusion.P_MIN, fusion.P_MAX
 
 
@@ -163,8 +169,11 @@ def predict_tree_member(model, inputs, row_positions, setup):
 MEMBERS = {
     "T": Member("T", "LightGBM on the 29 G2c features (+ PHY at L3), all waterbodies, G2's settings",
                 seeds=(0,), fit=fit_tree_member, predict=predict_tree_member),
-    "S": Member("S", "causal TCN on the 24 months before the issue + tabular MLP (not built yet)", seeds=(0, 1, 2)),
-    "M": Member("M", "MLP on 64 tabular inputs (not built yet)", seeds=(0, 1, 2)),
+    # The nets are multi-task: one net per seed serves all three kinds (trained on the first kind's call).
+    "S": Member("S", "causal TCN on the 24 complete months before the issue + tabular MLP, 3 seeds [nets]",
+                seeds=nets.SEEDS, fit=nets.fit_sequence_member, predict=nets.predict_net_member),
+    "M": Member("M", "MLP on the 64 tabular inputs, 3 seeds [nets]",
+                seeds=nets.SEEDS, fit=nets.fit_tabular_member, predict=nets.predict_net_member),
 }
 
 
@@ -211,12 +220,17 @@ def ready_rung(rung, registry=MEMBERS, table=None):
 def load_inputs():
     """Every table Tidemark reads, from data_cache/features (built by scripts/01 and 02).
 
-    p1       the P1 issue table (keys, dam history, neighbours): one row per at-risk satellite look
+    p1       the P1 issue table (keys, dam history, neighbours, rain): one row per at-risk satellite look
+             (the rain percentiles are read by the nets S and M only), plus the 2 water-balance
+             columns PHY_COLUMNS once scripts/10_physics_val.py has built them (damdays.models.physics)
     p2_dam   the P2 season table with the area index added (one row per waterbody and 1 July)
     p2_cell  the P2 2 km cell table
+    The nets also read each dam's monthly history (damdays.features.sequences); it
+    is built from data_cache on first use (nets.default_monthly_history).
     """
     attrs = pd.read_pickle(config.CACHE_DIR / "attributes.pkl")
-    return dict(p1=store.load_p1(groups=("keys", "dam", "nbr")),
+    p1 = physics.with_physics_columns(store.load_p1(groups=("keys", "dam", "nbr", "rain")))
+    return dict(p1=p1,
                 p2_dam=sr.add_area_index(store.load_p2("dam"), attrs),
                 p2_cell=store.load_p2("cell"))
 
@@ -506,7 +520,35 @@ def predict_tidemark(model, inputs=None):
     add_curves(p1, hazard.predict_curves(model.curves, table, block, model.rung.extra_features), table, block)
     add_floor(p1, model.floor, table, block)
     p2_dam, p2_cell = predict_season_rating(model.rating, inputs, block)
-    return dict(p1=p1, p2_dam=p2_dam, p2_cell=p2_cell)
+    return dict(p1=in_output_order(p1, model.registry), p2_dam=p2_dam, p2_cell=p2_cell)
+
+
+def p1_output_columns(registry=MEMBERS):
+    """The columns of predict_tidemark's p1 table, in order. They are the same on every rung (L0 to L3).
+
+    A member the rung does not use has a blank column (the nets at L0 and L1), and a rung
+    without the frailty has frailty 0 (L0), so the tables of different rungs line up column for
+    column (scripts/12_ladder_val.py compares them).
+    """
+    columns = ["row", "uid", "issue_date", "region", "at_risk_R30"]
+    for kind in P1_KINDS:
+        columns += [f"p90_{kind}"] + (["p90_R30_premax"] if kind == "R30" else []) + [f"anchor_{kind}"]
+        columns += [f"p_{name}_{kind}" for name in registry]
+        columns += [f"frailty_b_{kind}", f"frailty_n_{kind}", f"band_low_{kind}", f"band_high_{kind}"]
+    columns += ["frailty_label"]
+    columns += [f"curve_{kind}_{h}" for kind in CURVE_KINDS for h in HORIZONS]
+    columns += ["floor_log_q10", "floor_days", "floor_shown"]
+    return columns
+
+
+def in_output_order(p1, registry):
+    """The p1 table with exactly the columns of p1_output_columns, in that order (checked)."""
+    expected = p1_output_columns(registry)
+    if sorted(p1.columns) != sorted(expected):
+        raise AssertionError(f"predict_tidemark's p1 columns differ from p1_output_columns: "
+                             f"extra {sorted(set(p1.columns) - set(expected))}, "
+                             f"missing {sorted(set(expected) - set(p1.columns))}")
+    return p1[expected]
 
 
 # ===========================================================================
@@ -539,7 +581,11 @@ def place(frame, row_positions, values):
 
 
 def add_p90(p1, history, model):
-    """The 90-day probabilities, their parts and their season band, for each kind (columns ..._<kind>)."""
+    """The 90-day probabilities, their parts and their season band, for each kind (columns ..._<kind>).
+
+    Every member of the registry gets a column p_<member>_<kind>, also on rungs that do not use it
+    (blank there: e.g. the nets S and M at L0 and L1), so every rung returns the same columns.
+    """
     block_rows = {kind: fusion.block_part(history[kind], model.setting) for kind in P1_KINDS}
     for kind in P1_KINDS:
         part = block_rows[kind]
@@ -548,8 +594,9 @@ def add_p90(p1, history, model):
         if kind == "R30":
             p1["p90_R30_premax"] = place(p1, positions, part["p_premax"])
         p1[f"anchor_{kind}"] = place(p1, positions, part["p_anchor"])
-        for name in model.rung.members:
-            p1[f"p_{name}_{kind}"] = place(p1, positions, part[f"p_{name}"])
+        for name in model.registry:
+            used = name in model.rung.members
+            p1[f"p_{name}_{kind}"] = place(p1, positions, part[f"p_{name}"]) if used else np.nan
         for column in ("frailty_b", "frailty_n"):
             p1[f"{column}_{kind}"] = place(p1, positions, part[column])
         low, high = unc.band_probabilities(part["p"].to_numpy(), model.band[kind])
