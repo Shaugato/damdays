@@ -1,0 +1,395 @@
+[18:34:12 + 0.0 min] scripts/20_open_sealed_region.py --prepare --dry-run (run 'dryrun')
+[18:34:12 + 0.0 min] PREPARE (dryrun): TEST-setting models, rung L3, fitted on ['nsw_cw']
+[18:34:12 + 0.0 min] === models ===
+[18:34:12 + 0.0 min] physics: fitting the water balance on the look pairs of ['nsw_cw'] only
+[18:37:04 + 2.9 min] fit tables: 1,683,650 P1 rows, 117,458 P2 dam-seasons, regions ['nsw_cw']
+[18:37:04 + 2.9 min] tidemark: fit_tidemark('2016-07-01', 'L3') on ['nsw_cw']
+[18:37:32 + 3.3 min]     nets: monthly history built for the sequences: 6475 dams x 489 months
+[18:37:33 + 3.4 min]     nets: net inputs prepared for a P1 table of 1683650 rows
+[18:37:37 + 3.4 min]     nets: S seed 0 (cutoff 2016-07-01): training on 949163 rows (R30 710,089, D0 949,163, D0g 892,989)
+[18:37:56 + 3.7 min]     nets: S seed 0 (cutoff 2016-07-01) epoch 1: 20% of batches, mean loss 0.4318, 15 s
+[18:38:10 + 4.0 min]     nets: S seed 0 (cutoff 2016-07-01) epoch 1: 40% of batches, mean loss 0.3839, 28 s
+[18:38:24 + 4.2 min]     nets: S seed 0 (cutoff 2016-07-01) epoch 1: 60% of batches, mean loss 0.3655, 42 s
+[18:38:38 + 4.4 min]     nets: S seed 0 (cutoff 2016-07-01) epoch 1: 80% of batches, mean loss 0.3550, 56 s
+[18:38:51 + 4.7 min]     nets: S seed 0 (cutoff 2016-07-01) epoch 1: 100% of batches, mean loss 0.3485, 70 s
+[18:38:52 + 4.7 min]     nets: S seed 0 (cutoff 2016-07-01): trained in 70 s (loss [0.34846]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2016-07-01\S_seed0.pt
+[18:38:53 + 4.7 min]     nets: S seed 1 (cutoff 2016-07-01): training on 949163 rows (R30 710,089, D0 949,163, D0g 892,989)
+[18:39:09 + 5.0 min]     nets: S seed 1 (cutoff 2016-07-01) epoch 1: 20% of batches, mean loss 0.4427, 15 s
+[18:39:25 + 5.2 min]     nets: S seed 1 (cutoff 2016-07-01) epoch 1: 40% of batches, mean loss 0.3897, 30 s
+[18:39:42 + 5.5 min]     nets: S seed 1 (cutoff 2016-07-01) epoch 1: 60% of batches, mean loss 0.3689, 47 s
+[18:39:58 + 5.8 min]     nets: S seed 1 (cutoff 2016-07-01) epoch 1: 80% of batches, mean loss 0.3572, 63 s
+[18:40:14 + 6.0 min]     nets: S seed 1 (cutoff 2016-07-01) epoch 1: 100% of batches, mean loss 0.3502, 80 s
+[18:40:14 + 6.0 min]     nets: S seed 1 (cutoff 2016-07-01): trained in 80 s (loss [0.35013]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2016-07-01\S_seed1.pt
+[18:40:16 + 6.1 min]     nets: S seed 2 (cutoff 2016-07-01): training on 949163 rows (R30 710,089, D0 949,163, D0g 892,989)
+[18:40:34 + 6.4 min]     nets: S seed 2 (cutoff 2016-07-01) epoch 1: 20% of batches, mean loss 0.4303, 16 s
+[18:40:51 + 6.7 min]     nets: S seed 2 (cutoff 2016-07-01) epoch 1: 40% of batches, mean loss 0.3833, 33 s
+[18:41:09 + 7.0 min]     nets: S seed 2 (cutoff 2016-07-01) epoch 1: 60% of batches, mean loss 0.3648, 51 s
+[18:41:24 + 7.2 min]     nets: S seed 2 (cutoff 2016-07-01) epoch 1: 80% of batches, mean loss 0.3545, 66 s
+[18:41:39 + 7.5 min]     nets: S seed 2 (cutoff 2016-07-01) epoch 1: 100% of batches, mean loss 0.3473, 81 s
+[18:41:39 + 7.5 min]     nets: S seed 2 (cutoff 2016-07-01): trained in 81 s (loss [0.34721]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2016-07-01\S_seed2.pt
+[18:41:40 + 7.5 min]     nets: M seed 0 (cutoff 2016-07-01): training on 949163 rows (R30 710,089, D0 949,163, D0g 892,989)
+[18:41:44 + 7.5 min]     nets: M seed 0 (cutoff 2016-07-01) epoch 1: 20% of batches, mean loss 0.4517, 2 s
+[18:41:46 + 7.6 min]     nets: M seed 0 (cutoff 2016-07-01) epoch 1: 40% of batches, mean loss 0.3975, 3 s
+[18:41:47 + 7.6 min]     nets: M seed 0 (cutoff 2016-07-01) epoch 1: 60% of batches, mean loss 0.3778, 5 s
+[18:41:49 + 7.6 min]     nets: M seed 0 (cutoff 2016-07-01) epoch 1: 80% of batches, mean loss 0.3674, 7 s
+[18:41:50 + 7.6 min]     nets: M seed 0 (cutoff 2016-07-01) epoch 1: 100% of batches, mean loss 0.3610, 8 s
+[18:41:51 + 7.7 min]     nets: M seed 0 (cutoff 2016-07-01): trained in 8 s (loss [0.36095]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2016-07-01\M_seed0.pt
+[18:41:52 + 7.7 min]     nets: M seed 1 (cutoff 2016-07-01): training on 949163 rows (R30 710,089, D0 949,163, D0g 892,989)
+[18:41:55 + 7.7 min]     nets: M seed 1 (cutoff 2016-07-01) epoch 1: 20% of batches, mean loss 0.4698, 2 s
+[18:41:57 + 7.8 min]     nets: M seed 1 (cutoff 2016-07-01) epoch 1: 40% of batches, mean loss 0.4075, 3 s
+[18:41:58 + 7.8 min]     nets: M seed 1 (cutoff 2016-07-01) epoch 1: 60% of batches, mean loss 0.3844, 5 s
+[18:42:00 + 7.8 min]     nets: M seed 1 (cutoff 2016-07-01) epoch 1: 80% of batches, mean loss 0.3723, 7 s
+[18:42:02 + 7.8 min]     nets: M seed 1 (cutoff 2016-07-01) epoch 1: 100% of batches, mean loss 0.3649, 8 s
+[18:42:02 + 7.8 min]     nets: M seed 1 (cutoff 2016-07-01): trained in 8 s (loss [0.36488]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2016-07-01\M_seed1.pt
+[18:42:03 + 7.9 min]     nets: M seed 2 (cutoff 2016-07-01): training on 949163 rows (R30 710,089, D0 949,163, D0g 892,989)
+[18:42:08 + 7.9 min]     nets: M seed 2 (cutoff 2016-07-01) epoch 1: 20% of batches, mean loss 0.4738, 2 s
+[18:42:09 + 8.0 min]     nets: M seed 2 (cutoff 2016-07-01) epoch 1: 40% of batches, mean loss 0.4091, 4 s
+[18:42:11 + 8.0 min]     nets: M seed 2 (cutoff 2016-07-01) epoch 1: 60% of batches, mean loss 0.3854, 5 s
+[18:42:13 + 8.0 min]     nets: M seed 2 (cutoff 2016-07-01) epoch 1: 80% of batches, mean loss 0.3731, 7 s
+[18:42:15 + 8.1 min]     nets: M seed 2 (cutoff 2016-07-01) epoch 1: 100% of batches, mean loss 0.3651, 9 s
+[18:42:15 + 8.1 min]     nets: M seed 2 (cutoff 2016-07-01): trained in 9 s (loss [0.36505]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2016-07-01\M_seed2.pt
+[18:43:23 + 9.2 min]   90-day members ['T', 'S', 'M'] fitted for ['R30', 'D0', 'D0g'] (379 s)
+[18:44:44 +10.5 min]   runway curve H fitted for ['R30', 'D0'] (82 s)
+[18:45:01 +10.8 min]   floor model fitted on 463,152 forecasts; shift +0.0000
+[18:45:19 +11.1 min]     nets: S seed 0 (cutoff 2002-01-01): training on 390384 rows (R30 307,229, D0 390,384, D0g 366,100)
+[18:45:27 +11.3 min]     nets: S seed 0 (cutoff 2002-01-01) epoch 1: 20% of batches, mean loss 0.4708, 7 s
+[18:45:33 +11.4 min]     nets: S seed 0 (cutoff 2002-01-01) epoch 1: 40% of batches, mean loss 0.4043, 13 s
+[18:45:39 +11.5 min]     nets: S seed 0 (cutoff 2002-01-01) epoch 1: 60% of batches, mean loss 0.3783, 19 s
+[18:45:46 +11.6 min]     nets: S seed 0 (cutoff 2002-01-01) epoch 1: 80% of batches, mean loss 0.3641, 26 s
+[18:45:52 +11.7 min]     nets: S seed 0 (cutoff 2002-01-01) epoch 1: 99% of batches, mean loss 0.3552, 32 s
+[18:45:52 +11.7 min]     nets: S seed 0 (cutoff 2002-01-01): trained in 32 s (loss [0.3551]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2002-01-01\S_seed0.pt
+[18:45:53 +11.7 min]     nets: S seed 1 (cutoff 2002-01-01): training on 390384 rows (R30 307,229, D0 390,384, D0g 366,100)
+[18:46:00 +11.8 min]     nets: S seed 1 (cutoff 2002-01-01) epoch 1: 20% of batches, mean loss 0.4885, 6 s
+[18:46:07 +11.9 min]     nets: S seed 1 (cutoff 2002-01-01) epoch 1: 40% of batches, mean loss 0.4134, 13 s
+[18:46:13 +12.0 min]     nets: S seed 1 (cutoff 2002-01-01) epoch 1: 60% of batches, mean loss 0.3842, 19 s
+[18:46:20 +12.1 min]     nets: S seed 1 (cutoff 2002-01-01) epoch 1: 80% of batches, mean loss 0.3674, 26 s
+[18:46:26 +12.2 min]     nets: S seed 1 (cutoff 2002-01-01) epoch 1: 99% of batches, mean loss 0.3574, 32 s
+[18:46:26 +12.2 min]     nets: S seed 1 (cutoff 2002-01-01): trained in 32 s (loss [0.35715]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2002-01-01\S_seed1.pt
+[18:46:27 +12.3 min]     nets: S seed 2 (cutoff 2002-01-01): training on 390384 rows (R30 307,229, D0 390,384, D0g 366,100)
+[18:46:34 +12.4 min]     nets: S seed 2 (cutoff 2002-01-01) epoch 1: 20% of batches, mean loss 0.4677, 6 s
+[18:46:41 +12.5 min]     nets: S seed 2 (cutoff 2002-01-01) epoch 1: 40% of batches, mean loss 0.4040, 13 s
+[18:46:48 +12.6 min]     nets: S seed 2 (cutoff 2002-01-01) epoch 1: 60% of batches, mean loss 0.3780, 20 s
+[18:46:55 +12.7 min]     nets: S seed 2 (cutoff 2002-01-01) epoch 1: 80% of batches, mean loss 0.3637, 27 s
+[18:47:01 +12.8 min]     nets: S seed 2 (cutoff 2002-01-01) epoch 1: 99% of batches, mean loss 0.3548, 33 s
+[18:47:01 +12.8 min]     nets: S seed 2 (cutoff 2002-01-01): trained in 33 s (loss [0.35472]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2002-01-01\S_seed2.pt
+[18:47:01 +12.8 min]     nets: M seed 0 (cutoff 2002-01-01): training on 390384 rows (R30 307,229, D0 390,384, D0g 366,100)
+[18:47:03 +12.9 min]     nets: M seed 0 (cutoff 2002-01-01) epoch 1: 20% of batches, mean loss 0.4962, 1 s
+[18:47:03 +12.9 min]     nets: M seed 0 (cutoff 2002-01-01) epoch 1: 40% of batches, mean loss 0.4208, 1 s
+[18:47:04 +12.9 min]     nets: M seed 0 (cutoff 2002-01-01) epoch 1: 60% of batches, mean loss 0.3914, 2 s
+[18:47:04 +12.9 min]     nets: M seed 0 (cutoff 2002-01-01) epoch 1: 80% of batches, mean loss 0.3755, 2 s
+[18:47:05 +12.9 min]     nets: M seed 0 (cutoff 2002-01-01) epoch 1: 99% of batches, mean loss 0.3659, 3 s
+[18:47:05 +12.9 min]     nets: M seed 0 (cutoff 2002-01-01): trained in 3 s (loss [0.36563]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2002-01-01\M_seed0.pt
+[18:47:05 +12.9 min]     nets: M seed 1 (cutoff 2002-01-01): training on 390384 rows (R30 307,229, D0 390,384, D0g 366,100)
+[18:47:07 +12.9 min]     nets: M seed 1 (cutoff 2002-01-01) epoch 1: 20% of batches, mean loss 0.5242, 1 s
+[18:47:08 +12.9 min]     nets: M seed 1 (cutoff 2002-01-01) epoch 1: 40% of batches, mean loss 0.4363, 1 s
+[18:47:08 +12.9 min]     nets: M seed 1 (cutoff 2002-01-01) epoch 1: 60% of batches, mean loss 0.4028, 2 s
+[18:47:09 +13.0 min]     nets: M seed 1 (cutoff 2002-01-01) epoch 1: 80% of batches, mean loss 0.3844, 2 s
+[18:47:09 +13.0 min]     nets: M seed 1 (cutoff 2002-01-01) epoch 1: 99% of batches, mean loss 0.3735, 3 s
+[18:47:09 +13.0 min]     nets: M seed 1 (cutoff 2002-01-01): trained in 3 s (loss [0.37325]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2002-01-01\M_seed1.pt
+[18:47:10 +13.0 min]     nets: M seed 2 (cutoff 2002-01-01): training on 390384 rows (R30 307,229, D0 390,384, D0g 366,100)
+[18:47:11 +13.0 min]     nets: M seed 2 (cutoff 2002-01-01) epoch 1: 20% of batches, mean loss 0.5272, 1 s
+[18:47:12 +13.0 min]     nets: M seed 2 (cutoff 2002-01-01) epoch 1: 40% of batches, mean loss 0.4384, 1 s
+[18:47:13 +13.0 min]     nets: M seed 2 (cutoff 2002-01-01) epoch 1: 60% of batches, mean loss 0.4036, 2 s
+[18:47:13 +13.0 min]     nets: M seed 2 (cutoff 2002-01-01) epoch 1: 80% of batches, mean loss 0.3849, 2 s
+[18:47:14 +13.0 min]     nets: M seed 2 (cutoff 2002-01-01) epoch 1: 99% of batches, mean loss 0.3737, 3 s
+[18:47:14 +13.0 min]     nets: M seed 2 (cutoff 2002-01-01): trained in 3 s (loss [0.37349]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2002-01-01\M_seed2.pt
+[18:48:12 +14.0 min]     nets: S seed 0 (cutoff 2002-01-01): predicted 555463 rows in 17 s
+[18:48:32 +14.3 min]     nets: S seed 1 (cutoff 2002-01-01): predicted 555463 rows in 19 s
+[18:48:51 +14.7 min]     nets: S seed 2 (cutoff 2002-01-01): predicted 555463 rows in 19 s
+[18:48:53 +14.7 min]     nets: M seed 0 (cutoff 2002-01-01): predicted 555463 rows in 1 s
+[18:48:54 +14.7 min]     nets: M seed 1 (cutoff 2002-01-01): predicted 555463 rows in 1 s
+[18:48:56 +14.7 min]     nets: M seed 2 (cutoff 2002-01-01): predicted 555463 rows in 1 s
+[18:49:15 +15.1 min]     nets: S seed 0 (cutoff 2002-01-01): predicted 189163 rows in 5 s
+[18:49:21 +15.2 min]     nets: S seed 1 (cutoff 2002-01-01): predicted 189163 rows in 5 s
+[18:49:26 +15.2 min]     nets: S seed 2 (cutoff 2002-01-01): predicted 189163 rows in 5 s
+[18:49:26 +15.2 min]     nets: M seed 0 (cutoff 2002-01-01): predicted 189163 rows in 0 s
+[18:49:27 +15.3 min]     nets: M seed 1 (cutoff 2002-01-01): predicted 189163 rows in 0 s
+[18:49:27 +15.3 min]     nets: M seed 2 (cutoff 2002-01-01): predicted 189163 rows in 0 s
+[18:49:45 +15.6 min]   band: inner block 2002-2009 fitted and scored (284 s)
+[18:50:02 +15.8 min]     nets: S seed 0 (cutoff 2009-01-01): training on 651634 rows (R30 484,078, D0 651,634, D0g 612,694)
+[18:50:12 +16.0 min]     nets: S seed 0 (cutoff 2009-01-01) epoch 1: 20% of batches, mean loss 0.4537, 9 s
+[18:50:21 +16.2 min]     nets: S seed 0 (cutoff 2009-01-01) epoch 1: 40% of batches, mean loss 0.3999, 18 s
+[18:50:30 +16.3 min]     nets: S seed 0 (cutoff 2009-01-01) epoch 1: 60% of batches, mean loss 0.3791, 27 s
+[18:50:39 +16.5 min]     nets: S seed 0 (cutoff 2009-01-01) epoch 1: 80% of batches, mean loss 0.3672, 36 s
+[18:50:48 +16.6 min]     nets: S seed 0 (cutoff 2009-01-01) epoch 1: 100% of batches, mean loss 0.3592, 45 s
+[18:50:48 +16.6 min]     nets: S seed 0 (cutoff 2009-01-01): trained in 45 s (loss [0.35912]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2009-01-01\S_seed0.pt
+[18:50:49 +16.6 min]     nets: S seed 1 (cutoff 2009-01-01): training on 651634 rows (R30 484,078, D0 651,634, D0g 612,694)
+[18:51:00 +16.8 min]     nets: S seed 1 (cutoff 2009-01-01) epoch 1: 20% of batches, mean loss 0.4635, 10 s
+[18:51:09 +17.0 min]     nets: S seed 1 (cutoff 2009-01-01) epoch 1: 40% of batches, mean loss 0.4050, 19 s
+[18:51:18 +17.1 min]     nets: S seed 1 (cutoff 2009-01-01) epoch 1: 60% of batches, mean loss 0.3826, 28 s
+[18:51:27 +17.3 min]     nets: S seed 1 (cutoff 2009-01-01) epoch 1: 80% of batches, mean loss 0.3695, 37 s
+[18:51:36 +17.4 min]     nets: S seed 1 (cutoff 2009-01-01) epoch 1: 100% of batches, mean loss 0.3610, 46 s
+[18:51:36 +17.4 min]     nets: S seed 1 (cutoff 2009-01-01): trained in 46 s (loss [0.36091]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2009-01-01\S_seed1.pt
+[18:51:37 +17.4 min]     nets: S seed 2 (cutoff 2009-01-01): training on 651634 rows (R30 484,078, D0 651,634, D0g 612,694)
+[18:51:47 +17.6 min]     nets: S seed 2 (cutoff 2009-01-01) epoch 1: 20% of batches, mean loss 0.4509, 9 s
+[18:51:56 +17.7 min]     nets: S seed 2 (cutoff 2009-01-01) epoch 1: 40% of batches, mean loss 0.3985, 18 s
+[18:52:05 +17.9 min]     nets: S seed 2 (cutoff 2009-01-01) epoch 1: 60% of batches, mean loss 0.3779, 27 s
+[18:52:14 +18.0 min]     nets: S seed 2 (cutoff 2009-01-01) epoch 1: 80% of batches, mean loss 0.3661, 35 s
+[18:52:22 +18.2 min]     nets: S seed 2 (cutoff 2009-01-01) epoch 1: 100% of batches, mean loss 0.3584, 44 s
+[18:52:22 +18.2 min]     nets: S seed 2 (cutoff 2009-01-01): trained in 44 s (loss [0.35836]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2009-01-01\S_seed2.pt
+[18:52:23 +18.2 min]     nets: M seed 0 (cutoff 2009-01-01): training on 651634 rows (R30 484,078, D0 651,634, D0g 612,694)
+[18:52:25 +18.2 min]     nets: M seed 0 (cutoff 2009-01-01) epoch 1: 20% of batches, mean loss 0.4748, 1 s
+[18:52:26 +18.2 min]     nets: M seed 0 (cutoff 2009-01-01) epoch 1: 40% of batches, mean loss 0.4134, 2 s
+[18:52:27 +18.3 min]     nets: M seed 0 (cutoff 2009-01-01) epoch 1: 60% of batches, mean loss 0.3910, 3 s
+[18:52:28 +18.3 min]     nets: M seed 0 (cutoff 2009-01-01) epoch 1: 80% of batches, mean loss 0.3787, 4 s
+[18:52:29 +18.3 min]     nets: M seed 0 (cutoff 2009-01-01) epoch 1: 100% of batches, mean loss 0.3708, 5 s
+[18:52:29 +18.3 min]     nets: M seed 0 (cutoff 2009-01-01): trained in 5 s (loss [0.37073]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2009-01-01\M_seed0.pt
+[18:52:30 +18.3 min]     nets: M seed 1 (cutoff 2009-01-01): training on 651634 rows (R30 484,078, D0 651,634, D0g 612,694)
+[18:52:32 +18.3 min]     nets: M seed 1 (cutoff 2009-01-01) epoch 1: 20% of batches, mean loss 0.4925, 1 s
+[18:52:34 +18.4 min]     nets: M seed 1 (cutoff 2009-01-01) epoch 1: 40% of batches, mean loss 0.4236, 2 s
+[18:52:35 +18.4 min]     nets: M seed 1 (cutoff 2009-01-01) epoch 1: 60% of batches, mean loss 0.3983, 3 s
+[18:52:36 +18.4 min]     nets: M seed 1 (cutoff 2009-01-01) epoch 1: 80% of batches, mean loss 0.3844, 4 s
+[18:52:37 +18.4 min]     nets: M seed 1 (cutoff 2009-01-01) epoch 1: 100% of batches, mean loss 0.3756, 5 s
+[18:52:37 +18.4 min]     nets: M seed 1 (cutoff 2009-01-01): trained in 5 s (loss [0.37548]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2009-01-01\M_seed1.pt
+[18:52:37 +18.4 min]     nets: M seed 2 (cutoff 2009-01-01): training on 651634 rows (R30 484,078, D0 651,634, D0g 612,694)
+[18:52:40 +18.5 min]     nets: M seed 2 (cutoff 2009-01-01) epoch 1: 20% of batches, mean loss 0.4986, 1 s
+[18:52:41 +18.5 min]     nets: M seed 2 (cutoff 2009-01-01) epoch 1: 40% of batches, mean loss 0.4259, 2 s
+[18:52:42 +18.5 min]     nets: M seed 2 (cutoff 2009-01-01) epoch 1: 60% of batches, mean loss 0.3994, 3 s
+[18:52:43 +18.5 min]     nets: M seed 2 (cutoff 2009-01-01) epoch 1: 80% of batches, mean loss 0.3852, 4 s
+[18:52:44 +18.5 min]     nets: M seed 2 (cutoff 2009-01-01) epoch 1: 100% of batches, mean loss 0.3763, 5 s
+[18:52:44 +18.5 min]     nets: M seed 2 (cutoff 2009-01-01): trained in 5 s (loss [0.37617]); saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\nets\2009-01-01\M_seed2.pt
+[18:54:09 +20.0 min]     nets: S seed 0 (cutoff 2009-01-01): predicted 805697 rows in 21 s
+[18:54:32 +20.3 min]     nets: S seed 1 (cutoff 2009-01-01): predicted 805697 rows in 22 s
+[18:54:55 +20.7 min]     nets: S seed 2 (cutoff 2009-01-01): predicted 805697 rows in 22 s
+[18:54:56 +20.7 min]     nets: M seed 0 (cutoff 2009-01-01): predicted 805697 rows in 1 s
+[18:54:58 +20.8 min]     nets: M seed 1 (cutoff 2009-01-01): predicted 805697 rows in 1 s
+[18:55:00 +20.8 min]     nets: M seed 2 (cutoff 2009-01-01): predicted 805697 rows in 1 s
+[18:55:26 +21.2 min]     nets: S seed 0 (cutoff 2009-01-01): predicted 267265 rows in 6 s
+[18:55:32 +21.3 min]     nets: S seed 1 (cutoff 2009-01-01): predicted 267265 rows in 6 s
+[18:55:38 +21.4 min]     nets: S seed 2 (cutoff 2009-01-01): predicted 267265 rows in 6 s
+[18:55:39 +21.5 min]     nets: M seed 0 (cutoff 2009-01-01): predicted 267265 rows in 0 s
+[18:55:40 +21.5 min]     nets: M seed 1 (cutoff 2009-01-01): predicted 267265 rows in 0 s
+[18:55:40 +21.5 min]     nets: M seed 2 (cutoff 2009-01-01): predicted 267265 rows in 0 s
+[18:56:02 +21.8 min]   band: inner block 2009-2016 fitted and scored (378 s)
+[18:56:03 +21.9 min]   season band: R30 [-1.905, +0.835], D0 [-1.828, +0.602], D0g [-2.142, +0.789]
+[18:56:04 +21.9 min]   season rating fitted on 24,008 seasons (2 s)
+[18:56:22 +22.2 min] G2 R30: 710,089 fit rows (210,149 events), 18 s
+[18:56:44 +22.5 min] G2 D0: 949,163 fit rows (156,258 events), 23 s
+[18:57:05 +22.9 min] G2 D0g: 892,989 fit rows (100,084 events), 21 s
+[18:57:05 +22.9 min] === models: done in 22.9 min ===
+[18:57:05 +22.9 min]   tidemark: data_cache/sealed_dryrun/models/tidemark_L3.pkl (5.2 MB) SHA-256 b708a44f916062593322aeba57be6cc8104551b9153b0ea52805424ac2d7d551
+[18:57:05 +22.9 min]   g2: data_cache/sealed_dryrun/models/g2.pkl (2.1 MB) SHA-256 e3ba48ab2a90f4483b36a32ca588b92dea0b00c6cb68b7d9bdf510e861db47b3
+[18:57:05 +22.9 min]   physics: data_cache/sealed_dryrun/models/physics_params.pkl (0.0 MB) SHA-256 afa7286fb1721ab23d5a53334b9c71ecdc9061e7d5a02ea5b25ec9d8558e0552
+[18:57:05 +22.9 min] manifest written: D:\Climate Hack-tion 2026\damdays\artifacts\sealed_dryrun\models_manifest.json
+[18:57:29 + 0.0 min] scripts/20_open_sealed_region.py --dry-run (run 'dryrun')
+[18:57:29 + 0.0 min] DRY RUN (REHEARSAL): wvic_sesa treated as an unseen region, models fitted on nsw_cw only, scored on a separate dry-run ledger. NOT the development TEST result.
+[18:57:29 + 0.0 min] === 1. checks before touching the region ===
+[18:57:29 + 0.0 min] check 1: the unlock switch must be OFF for a dry run (nothing sealed may be touched)
+[18:57:29 + 0.0 min]   off: every sealed path and the sealed SILO key are refused
+[18:57:29 + 0.0 min] check 2 (reported only, not enforced in a dry run): git clean and pushed
+[18:57:29 + 0.0 min]   clean: False (21 changed paths); pushed: True (live: git ls-remote origin main)
+[18:57:29 + 0.0 min] check 3: the committed SEALED_HASHES.csv (read from git, not from the sealed folder)
+[18:57:30 + 0.0 min]   4,711 files listed; committed once, in e0e9b0b0a450 at 2026-10-02 09:12:19 +1000; unchanged since
+[18:57:30 + 0.0 min] check 4 (rehearsed on the wvic_sesa files): SHA-256 of every file
+[18:57:33 + 0.1 min]   first dry run: hash list of 3,409 files written to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\DRYRUN_HASHES.csv
+[18:57:34 + 0.1 min]   hashed 1,000 of 3,409 files
+[18:57:35 + 0.1 min]   hashed 2,000 of 3,409 files
+[18:57:36 + 0.1 min]   hashed 3,000 of 3,409 files
+[18:57:36 + 0.1 min]   100% match: 3,409 of 3,409 files (3.2 s)
+[18:57:36 + 0.1 min] === 1. checks before touching the region: done in 0.1 min ===
+[18:57:36 + 0.1 min] === 2. the frozen TEST-setting models ===
+[18:57:36 + 0.1 min]   tidemark: data_cache/sealed_dryrun/models/tidemark_L3.pkl SHA-256 b708a44f91606259... matches the manifest
+[18:57:36 + 0.1 min]   g2: data_cache/sealed_dryrun/models/g2.pkl SHA-256 e3ba48ab2a90f448... matches the manifest
+[18:57:36 + 0.1 min]   physics: data_cache/sealed_dryrun/models/physics_params.pkl SHA-256 afa7286fb1721ab2... matches the manifest
+[18:57:36 + 0.1 min]   rung L3, fitted on ['nsw_cw'] at 2016-07-01; evaporation shape wvic_sesa:8.4,7.9,5.7,3.5,1.9,1.2,1.3,1.8,2.8,4.2,5.9,7.6 (SHA-256 fd2a2b32f2bf3be1...)
+[18:57:36 + 0.1 min] === 2. the frozen TEST-setting models: done in 0.0 min ===
+[18:57:36 + 0.1 min] === 3. build wvic_sesa from raw files ===
+[18:57:36 + 0.1 min] building wvic_sesa from its raw files (data layer, then features, physics, months)
+[18:57:37 + 0.1 min]   manifest: 3,409 waterbodies, every time-series file present
+[18:57:49 + 0.3 min]   panel: 2,090,473 valid looks, 1986-08-18 to 2026-09-11 (13 s)
+[18:57:53 + 0.4 min]   attributes: 3,384 with history, 789 dam-like, 345 persistent (flags from the region's own pre-2016 looks)
+[18:57:56 + 0.5 min]   events: 104,008; SILO cells: 1,165 (20 s)
+[19:00:33 + 3.1 min]   features: 901,976 P1 issues, 128,592 P2 dam-seasons, 25,384 P2 cell-seasons (156 s)
+[19:01:48 + 4.3 min]   physics: 799,898 issues simulated with the given balance and the wvic_sesa evaporation shape (232 s)
+[19:01:49 + 4.3 min]   P2 area index and the nets' monthly history (233 s)
+[19:01:51 + 4.4 min] tables saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\region
+[19:01:51 + 4.4 min]   3,409 waterbodies; 3,384 with history; 789 dam-like; 345 persistent; TEST issues 356,644; last look 2026-09-11
+[19:01:51 + 4.4 min] === 3. build wvic_sesa from raw files: done in 4.2 min ===
+[19:01:51 + 4.4 min] === 3b. same-code check: the rebuilt region vs the development feature store ===
+[19:02:03 + 4.6 min]   region build vs the development feature store: IDENTICAL (fold numbers aside); p1: 901,251 rows, 86 columns compared; p2_dam: 128,592 rows, 82 columns compared; p2_cell: 25,384 rows, 54 columns compared
+[19:02:03 + 4.6 min]   725 P1 rows near the data end differ only in ['fold5', 'label_ok', 'sfold5', 'window_closed'] (issues whose 90-day window ends after this region's last look (2026-09-11) but by the development build's (2026-09-14): reported, not required equal)
+[19:02:03 + 4.6 min] === 3b. same-code check: the rebuilt region vs the development feature store: done in 0.2 min ===
+[19:02:03 + 4.6 min] === 4. forecasts with the frozen models ===
+[19:02:03 + 4.6 min] Tidemark rung L3: predict_tidemark on 901,976 issues (every member predicts each dam's earlier issues too: the frailty needs them)
+[19:02:14 + 4.8 min]     nets: net inputs prepared for a P1 table of 901976 rows
+[19:02:29 + 5.0 min]     nets: S seed 0 (cutoff 2016-07-01): predicted 719017 rows in 14 s
+[19:02:43 + 5.2 min]     nets: S seed 1 (cutoff 2016-07-01): predicted 719017 rows in 14 s
+[19:02:57 + 5.5 min]     nets: S seed 2 (cutoff 2016-07-01): predicted 719017 rows in 14 s
+[19:02:58 + 5.5 min]     nets: M seed 0 (cutoff 2016-07-01): predicted 719017 rows in 1 s
+[19:02:59 + 5.5 min]     nets: M seed 1 (cutoff 2016-07-01): predicted 719017 rows in 1 s
+[19:03:00 + 5.5 min]     nets: M seed 2 (cutoff 2016-07-01): predicted 719017 rows in 1 s
+[19:03:19 + 5.8 min]     nets: S seed 0 (cutoff 2016-07-01): predicted 171743 rows in 3 s
+[19:03:22 + 5.9 min]     nets: S seed 1 (cutoff 2016-07-01): predicted 171743 rows in 3 s
+[19:03:25 + 5.9 min]     nets: S seed 2 (cutoff 2016-07-01): predicted 171743 rows in 3 s
+[19:03:26 + 6.0 min]     nets: M seed 0 (cutoff 2016-07-01): predicted 171743 rows in 0 s
+[19:03:26 + 6.0 min]     nets: M seed 1 (cutoff 2016-07-01): predicted 171743 rows in 0 s
+[19:03:26 + 6.0 min]     nets: M seed 2 (cutoff 2016-07-01): predicted 171743 rows in 0 s
+[19:04:25 + 6.9 min] G2: R30, D0, D0g
+[19:04:41 + 7.2 min] forecasts saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\forecasts\forecasts.pkl
+[19:04:41 + 7.2 min] === 4. forecasts with the frozen models: done in 2.6 min ===
+[19:04:41 + 7.2 min] === 5. score once (shared scorecard, ledger dryrun_ledger.csv) ===
+[19:04:41 + 7.2 min] P1 (G2, then Tidemark with G2 as reference)
+[19:05:58 + 8.5 min]   P1_R30 primary: Tidemark BSS vs B0 +0.2013, G2 +0.1906
+[19:07:26 +10.0 min]   P1_D0 primary: Tidemark BSS vs B0 +0.2243, G2 +0.2005
+[19:08:55 +11.4 min]   P1_D0g primary: Tidemark BSS vs B0 +0.2181, G2 +0.1955
+[19:08:55 +11.4 min] runway curve
+[19:10:47 +13.3 min]   R30 curve primary, BSS vs B0_h: 30 d +0.084, 60 d +0.157, 90 d +0.195, 180 d +0.201
+[19:12:56 +15.4 min]   D0 curve primary, BSS vs B0_h: 30 d +0.093, 60 d +0.160, 90 d +0.199, 180 d +0.229
+[19:12:56 +15.4 min] P2 season rating (RAIN, RAIN+, B2, then Tidemark)
+[19:13:03 +15.6 min]   P2_cell: Tidemark AUC 0.8169; AUC gain over RAIN +0.2967, RAIN+ +0.2117, B2 +0.0054
+[19:13:12 +15.7 min]   P2_dam: Tidemark AUC 0.8130; AUC gain over RAIN +0.2860, RAIN+ +0.1874, B2 +0.0106
+[19:13:20 +15.9 min]   P2_dam_g: Tidemark AUC 0.7997; AUC gain over RAIN +0.2491, RAIN+ +0.1820, B2 +0.0180
+[19:13:20 +15.9 min] season band and DamDays floor
+[19:13:21 +15.9 min]   season band (pooled), region-years covered: R30 10/10, D0 10/10, D0g 10/10; single-block: R30 6/10, D0 7/10, D0g 7/10
+[19:13:24 +15.9 min]   DamDays floor held: 0.894 (all), 0.903 (primary set); target 0.90
+[19:13:24 +15.9 min] === 5. score once (shared scorecard, ledger dryrun_ledger.csv): done in 8.7 min ===
+[19:13:24 +15.9 min] === 6. results page ===
+[19:13:24 +15.9 min] === 6. results page: done in 0.0 min ===
+[19:13:24 +15.9 min] results: D:\Climate Hack-tion 2026\damdays\artifacts\sealed_dryrun\DRY_RUN_RESULTS.md
+[19:13:24 +15.9 min] P1 pass bars (R30 primary): Tidemark PASS, G2 PASS
+[19:13:24 +15.9 min] P2 pass bar (cell): PASS; kill rule not triggered
+[19:13:24 +15.9 min] expectation R30 BSS vs B0: got +0.201 (declared +0.15 to +0.23): inside
+[19:13:24 +15.9 min] expectation R30 BSS vs B2: got +0.127 (declared +0.08 to +0.15): inside
+[19:13:24 +15.9 min] expectation R30 calibration slope: got +1.129 (declared +0.90 to +1.25): inside
+[19:13:24 +15.9 min] expectation R30 CITL: got -0.023 (declared -0.30 to +0.30): inside
+[19:13:24 +15.9 min] expectation R30 Tidemark minus G2 (BSS vs B0 units): got +0.011 (declared +0.01 to +0.03): inside
+[19:13:24 +15.9 min] expectation P2 cell AUC gain over RAIN: got +0.297 (declared +0.15 to +0.30): inside
+[19:13:24 +15.9 min] time: 1. checks before touching the region: 0.1 min
+[19:13:24 +15.9 min] time: 2. the frozen TEST-setting models: 0.0 min
+[19:13:24 +15.9 min] time: 3. build wvic_sesa from raw files: 4.2 min
+[19:13:24 +15.9 min] time: 3b. same-code check: the rebuilt region vs the development feature store: 0.2 min
+[19:13:24 +15.9 min] time: 4. forecasts with the frozen models: 2.6 min
+[19:13:24 +15.9 min] time: 5. score once (shared scorecard, ledger dryrun_ledger.csv): 8.7 min
+[19:13:24 +15.9 min] time: total 15.9 min
+[19:14:55 + 0.0 min] scripts/20_open_sealed_region.py --dry-run (run 'dryrun')
+[19:14:55 + 0.0 min] DRY RUN (REHEARSAL): wvic_sesa treated as an unseen region, models fitted on nsw_cw only, scored on a separate dry-run ledger. NOT the development TEST result.
+[19:14:55 + 0.0 min] === 1. checks before touching the region ===
+[19:14:55 + 0.0 min] check 1: the unlock switch must be OFF for a dry run (nothing sealed may be touched)
+[19:14:55 + 0.0 min]   off: every sealed path and the sealed SILO key are refused
+[19:14:55 + 0.0 min] check 2 (reported only, not enforced in a dry run): git clean and pushed
+[19:14:56 + 0.0 min]   clean: False (23 changed paths); pushed: True (live: git ls-remote origin main)
+[19:14:56 + 0.0 min] check 3: the committed SEALED_HASHES.csv (read from git, not from the sealed folder)
+[19:14:56 + 0.0 min]   4,711 files listed; committed once, in e0e9b0b0a450 at 2026-10-02 09:12:19 +1000; unchanged since
+[19:14:56 + 0.0 min] check 4 (rehearsed on the wvic_sesa files): SHA-256 of every file
+[19:14:57 + 0.0 min]   hashed 1,000 of 3,409 files
+[19:14:58 + 0.1 min]   hashed 2,000 of 3,409 files
+[19:14:59 + 0.1 min]   hashed 3,000 of 3,409 files
+[19:14:59 + 0.1 min]   100% match: 3,409 of 3,409 files (3.3 s)
+[19:14:59 + 0.1 min] === 1. checks before touching the region: done in 0.1 min ===
+[19:14:59 + 0.1 min] === 2. the frozen TEST-setting models ===
+[19:14:59 + 0.1 min]   tidemark: data_cache/sealed_dryrun/models/tidemark_L3.pkl SHA-256 b708a44f91606259... matches the manifest
+[19:14:59 + 0.1 min]   g2: data_cache/sealed_dryrun/models/g2.pkl SHA-256 e3ba48ab2a90f448... matches the manifest
+[19:14:59 + 0.1 min]   physics: data_cache/sealed_dryrun/models/physics_params.pkl SHA-256 afa7286fb1721ab2... matches the manifest
+[19:15:00 + 0.1 min]   rung L3, fitted on ['nsw_cw'] at 2016-07-01; evaporation shape wvic_sesa:8.4,7.9,5.7,3.5,1.9,1.2,1.3,1.8,2.8,4.2,5.9,7.6 (SHA-256 fd2a2b32f2bf3be1...)
+[19:15:00 + 0.1 min] === 2. the frozen TEST-setting models: done in 0.0 min ===
+[19:15:00 + 0.1 min] === 3. build wvic_sesa from raw files ===
+[19:15:00 + 0.1 min] reusing the region's tables saved by an earlier run (D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\region)
+[19:15:00 + 0.1 min]   3,409 waterbodies; 3,384 with history; 789 dam-like; 345 persistent; TEST issues 356,644; last look 2026-09-11
+[19:15:00 + 0.1 min] === 3. build wvic_sesa from raw files: done in 0.0 min ===
+[19:15:00 + 0.1 min] === 3b. same-code check: the rebuilt region vs the development feature store ===
+[19:15:12 + 0.3 min]   region build vs the development feature store: IDENTICAL (fold numbers aside); p1: 901,251 rows, 86 columns compared; p2_dam: 128,592 rows, 82 columns compared; p2_cell: 25,384 rows, 54 columns compared
+[19:15:12 + 0.3 min]   725 P1 rows near the data end differ only in ['fold5', 'label_ok', 'sfold5', 'window_closed'] (issues whose 90-day window ends after this region's last look (2026-09-11) but by the development build's (2026-09-14): reported, not required equal)
+[19:15:12 + 0.3 min] === 3b. same-code check: the rebuilt region vs the development feature store: done in 0.2 min ===
+[19:15:12 + 0.3 min] === 4. forecasts with the frozen models ===
+[19:15:13 + 0.3 min] reusing the forecasts saved by an earlier run (D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\forecasts\forecasts.pkl): the same forecasts are scored
+[19:15:13 + 0.3 min] === 4. forecasts with the frozen models: done in 0.0 min ===
+[19:15:13 + 0.3 min] === 5. score once (shared scorecard, ledger dryrun_ledger.csv) ===
+[19:15:13 + 0.3 min] P1 (G2, then Tidemark with G2 as reference)
+[19:16:26 + 1.5 min]   P1_R30 primary: Tidemark BSS vs B0 +0.2013, G2 +0.1906
+[19:17:51 + 2.9 min]   P1_D0 primary: Tidemark BSS vs B0 +0.2243, G2 +0.2005
+[19:19:15 + 4.3 min]   P1_D0g primary: Tidemark BSS vs B0 +0.2181, G2 +0.1955
+[19:19:15 + 4.3 min] runway curve
+[19:21:00 + 6.1 min]   R30 curve primary, BSS vs B0_h: 30 d +0.084, 60 d +0.157, 90 d +0.195, 180 d +0.201
+[19:23:13 + 8.3 min]   D0 curve primary, BSS vs B0_h: 30 d +0.093, 60 d +0.160, 90 d +0.199, 180 d +0.229
+[19:23:13 + 8.3 min] P2 season rating (RAIN, RAIN+, B2, then Tidemark)
+[19:23:21 + 8.4 min]   P2_cell: Tidemark AUC 0.8169; AUC gain over RAIN +0.2967, RAIN+ +0.2117, B2 +0.0054
+[19:23:29 + 8.6 min]   P2_dam: Tidemark AUC 0.8130; AUC gain over RAIN +0.2860, RAIN+ +0.1874, B2 +0.0106
+[19:23:37 + 8.7 min]   P2_dam_g: Tidemark AUC 0.7997; AUC gain over RAIN +0.2491, RAIN+ +0.1820, B2 +0.0180
+[19:23:37 + 8.7 min] season band and DamDays floor
+[19:23:38 + 8.7 min]   season band (pooled), region-years covered: R30 10/10, D0 10/10, D0g 10/10; single-block: R30 6/10, D0 7/10, D0g 7/10
+[19:23:41 + 8.8 min]   DamDays floor held: 0.894 (all), 0.903 (primary set); target 0.90
+[19:23:41 + 8.8 min] === 5. score once (shared scorecard, ledger dryrun_ledger.csv): done in 8.5 min ===
+[19:23:41 + 8.8 min] === 6. results page ===
+[19:23:41 + 8.8 min] === 6. results page: done in 0.0 min ===
+[19:23:41 + 8.8 min] results: D:\Climate Hack-tion 2026\damdays\artifacts\sealed_dryrun\DRY_RUN_RESULTS.md
+[19:23:41 + 8.8 min] P1 pass bars (R30 primary): Tidemark PASS, G2 PASS
+[19:23:41 + 8.8 min] P2 pass bar (cell): PASS; kill rule not triggered
+[19:23:41 + 8.8 min] expectation R30 BSS vs B0: got +0.201 (declared +0.15 to +0.23): inside
+[19:23:41 + 8.8 min] expectation R30 BSS vs B2: got +0.127 (declared +0.08 to +0.15): inside
+[19:23:41 + 8.8 min] expectation R30 calibration slope: got +1.129 (declared +0.90 to +1.25): inside
+[19:23:41 + 8.8 min] expectation R30 CITL: got -0.023 (declared -0.30 to +0.30): inside
+[19:23:41 + 8.8 min] expectation R30 Tidemark minus G2 (BSS vs B0 units): got +0.011 (declared +0.01 to +0.03): inside
+[19:23:41 + 8.8 min] expectation P2 cell AUC gain over RAIN: got +0.297 (declared +0.15 to +0.30): inside
+[19:23:41 + 8.8 min] time: 1. checks before touching the region: 0.1 min
+[19:23:41 + 8.8 min] time: 2. the frozen TEST-setting models: 0.0 min
+[19:23:41 + 8.8 min] time: 3. build wvic_sesa from raw files: 0.0 min
+[19:23:41 + 8.8 min] time: 3b. same-code check: the rebuilt region vs the development feature store: 0.2 min
+[19:23:41 + 8.8 min] time: 4. forecasts with the frozen models: 0.0 min
+[19:23:41 + 8.8 min] time: 5. score once (shared scorecard, ledger dryrun_ledger.csv): 8.5 min
+[19:23:41 + 8.8 min] time: total 8.8 min
+[19:35:59 + 0.0 min] scripts/20_open_sealed_region.py --dry-run (run 'dryrun')
+[19:35:59 + 0.0 min] DRY RUN (REHEARSAL): wvic_sesa treated as an unseen region, models fitted on nsw_cw only, scored on a separate dry-run ledger. NOT the development TEST result.
+[19:35:59 + 0.0 min] === 1. checks before touching the region ===
+[19:35:59 + 0.0 min] check 1: the unlock switch must be OFF for a dry run (nothing sealed may be touched)
+[19:35:59 + 0.0 min]   off: every sealed path and the sealed SILO key are refused
+[19:35:59 + 0.0 min] check 2 (reported only, not enforced in a dry run): git clean and pushed
+[19:36:00 + 0.0 min]   clean: False (23 changed paths); pushed: True (live: git ls-remote origin main)
+[19:36:00 + 0.0 min] check 3: the committed SEALED_HASHES.csv (read from git, not from the sealed folder)
+[19:36:00 + 0.0 min]   4,711 files listed; committed once, in e0e9b0b0a450 at 2026-10-02 09:12:19 +1000; unchanged since
+[19:36:00 + 0.0 min] check 4 (rehearsed on the wvic_sesa files): SHA-256 of every file
+[19:36:01 + 0.0 min]   hashed 1,000 of 3,409 files
+[19:36:02 + 0.1 min]   hashed 2,000 of 3,409 files
+[19:36:03 + 0.1 min]   hashed 3,000 of 3,409 files
+[19:36:03 + 0.1 min]   100% match: 3,409 of 3,409 files (3.6 s)
+[19:36:03 + 0.1 min] === 1. checks before touching the region: done in 0.1 min ===
+[19:36:03 + 0.1 min] === 2. the frozen TEST-setting models ===
+[19:36:03 + 0.1 min]   tidemark: data_cache/sealed_dryrun/models/tidemark_L3.pkl SHA-256 b708a44f91606259... matches the manifest
+[19:36:03 + 0.1 min]   g2: data_cache/sealed_dryrun/models/g2.pkl SHA-256 e3ba48ab2a90f448... matches the manifest
+[19:36:03 + 0.1 min]   physics: data_cache/sealed_dryrun/models/physics_params.pkl SHA-256 afa7286fb1721ab2... matches the manifest
+[19:36:04 + 0.1 min]   rung L3, fitted on ['nsw_cw'] at 2016-07-01; evaporation shape wvic_sesa:8.4,7.9,5.7,3.5,1.9,1.2,1.3,1.8,2.8,4.2,5.9,7.6 (SHA-256 fd2a2b32f2bf3be1...)
+[19:36:04 + 0.1 min] === 2. the frozen TEST-setting models: done in 0.0 min ===
+[19:36:04 + 0.1 min] === 3. build wvic_sesa from raw files ===
+[19:36:04 + 0.1 min] reusing the region's tables saved by an earlier run (D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\region)
+[19:36:04 + 0.1 min]   3,409 waterbodies; 3,384 with history; 789 dam-like; 345 persistent; TEST issues 356,644; last look 2026-09-11
+[19:36:04 + 0.1 min] === 3. build wvic_sesa from raw files: done in 0.0 min ===
+[19:36:04 + 0.1 min] === 3b. same-code check: the rebuilt region vs the development feature store ===
+[19:36:17 + 0.3 min]   region build vs the development feature store: IDENTICAL (fold numbers aside); p1: 901,251 rows, 86 columns compared; p2_dam: 128,592 rows, 82 columns compared; p2_cell: 25,384 rows, 54 columns compared
+[19:36:17 + 0.3 min]   725 P1 rows near the data end differ only in ['fold5', 'label_ok', 'sfold5', 'window_closed'] (issues whose 90-day window ends after this region's last look (2026-09-11) but by the development build's (2026-09-14): reported, not required equal)
+[19:36:17 + 0.3 min] === 3b. same-code check: the rebuilt region vs the development feature store: done in 0.2 min ===
+[19:36:17 + 0.3 min] === 4. forecasts with the frozen models ===
+[19:36:17 + 0.3 min] reusing the forecasts saved by an earlier run (D:\Climate Hack-tion 2026\damdays\data_cache\sealed_dryrun\forecasts\forecasts.pkl): the same forecasts are scored
+[19:36:17 + 0.3 min] === 4. forecasts with the frozen models: done in 0.0 min ===
+[19:36:17 + 0.3 min] === 5. score once (shared scorecard, ledger dryrun_ledger.csv) ===
+[19:36:17 + 0.3 min] P1 (G2, then Tidemark with G2 as reference)
+[19:37:31 + 1.5 min]   P1_R30 primary: Tidemark BSS vs B0 +0.2013, G2 +0.1906
+[19:38:56 + 3.0 min]   P1_D0 primary: Tidemark BSS vs B0 +0.2243, G2 +0.2005
+[19:40:21 + 4.4 min]   P1_D0g primary: Tidemark BSS vs B0 +0.2181, G2 +0.1955
+[19:40:21 + 4.4 min] runway curve
+[19:42:07 + 6.1 min]   R30 curve primary, BSS vs B0_h: 30 d +0.084, 60 d +0.157, 90 d +0.195, 180 d +0.201
+[19:44:09 + 8.2 min]   D0 curve primary, BSS vs B0_h: 30 d +0.093, 60 d +0.160, 90 d +0.199, 180 d +0.229
+[19:44:09 + 8.2 min] P2 season rating (RAIN, RAIN+, B2, then Tidemark)
+[19:44:16 + 8.3 min]   P2_cell: Tidemark AUC 0.8169; AUC gain over RAIN +0.2967, RAIN+ +0.2117, B2 +0.0054
+[19:44:24 + 8.4 min]   P2_dam: Tidemark AUC 0.8130; AUC gain over RAIN +0.2860, RAIN+ +0.1874, B2 +0.0106
+[19:44:31 + 8.5 min]   P2_dam_g: Tidemark AUC 0.7997; AUC gain over RAIN +0.2491, RAIN+ +0.1820, B2 +0.0180
+[19:44:31 + 8.5 min] season band and DamDays floor
+[19:44:32 + 8.6 min]   season band (pooled), region-years covered: R30 10/10, D0 10/10, D0g 10/10; single-block: R30 6/10, D0 7/10, D0g 7/10
+[19:44:35 + 8.6 min]   DamDays floor held: 0.894 (all), 0.903 (primary set); target 0.90
+[19:44:35 + 8.6 min] === 5. score once (shared scorecard, ledger dryrun_ledger.csv): done in 8.3 min ===
+[19:44:35 + 8.6 min] === 6. results page ===
+[19:44:35 + 8.6 min] === 6. results page: done in 0.0 min ===
+[19:44:35 + 8.6 min] results: D:\Climate Hack-tion 2026\damdays\artifacts\sealed_dryrun\DRY_RUN_RESULTS.md
+[19:44:35 + 8.6 min] P1 pass bars (R30 primary): Tidemark PASS, G2 PASS
+[19:44:35 + 8.6 min] P2 pass bar (cell): PASS; kill rule not triggered
+[19:44:35 + 8.6 min] expectation R30 BSS vs B0: got +0.201 (declared +0.15 to +0.23): inside
+[19:44:35 + 8.6 min] expectation R30 BSS vs B2: got +0.127 (declared +0.08 to +0.15): inside
+[19:44:35 + 8.6 min] expectation R30 calibration slope: got +1.129 (declared +0.90 to +1.25): inside
+[19:44:35 + 8.6 min] expectation R30 CITL: got -0.023 (declared -0.30 to +0.30): inside
+[19:44:35 + 8.6 min] expectation R30 Tidemark minus G2 (BSS vs B0 units): got +0.011 (declared +0.01 to +0.03): inside
+[19:44:35 + 8.6 min] expectation P2 cell AUC gain over RAIN: got +0.297 (declared +0.15 to +0.30): inside
+[19:44:35 + 8.6 min] time: 1. checks before touching the region: 0.1 min
+[19:44:35 + 8.6 min] time: 2. the frozen TEST-setting models: 0.0 min
+[19:44:35 + 8.6 min] time: 3. build wvic_sesa from raw files: 0.0 min
+[19:44:35 + 8.6 min] time: 3b. same-code check: the rebuilt region vs the development feature store: 0.2 min
+[19:44:35 + 8.6 min] time: 4. forecasts with the frozen models: 0.0 min
+[19:44:35 + 8.6 min] time: 5. score once (shared scorecard, ledger dryrun_ledger.csv): 8.3 min
+[19:44:35 + 8.6 min] time: total 8.6 min

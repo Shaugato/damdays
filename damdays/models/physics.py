@@ -598,10 +598,17 @@ def p1_issue_mask(looks, full_static, first_issue_day):
     return (risk["at_risk_D0"] | risk["at_risk_R30"]) & (looks.day >= first_issue_day)
 
 
-def build_physics(panel, attrs, rain_by_cell, verbose=False):
+def build_physics(panel, attrs, rain_by_cell, verbose=False, params=None):
     """The physics columns for every P1 issue, from the data layer only (pure: reads no file).
 
     Inputs are those of damdays.features.build.build_all (the events are not needed).
+    params  optional: an already fitted balance (the "physics_params" table of an earlier
+            build_physics run). Then nothing is fitted here: the dams are filtered and simulated
+            with that balance. This is how a new region (the sealed region, or the dry run's
+            region treated as unseen) gets its columns: with the balance fitted on the
+            development regions' look pairs, never refitted on the new region's own looks.
+            Same result as building the new region together with the development regions
+            (tests/test_physics.py checks this), without rerunning the development regions.
     Returns a dict:
       p1_physics      uid, issue_date, ph_p_R30, ph_p_D0: one row per P1 issue, in P1 order
                       (sorted by uid, then date); blank before 1993
@@ -625,10 +632,13 @@ def build_physics(panel, attrs, rain_by_cell, verbose=False):
     calendar = build_calendar_tables(regions, n_months + 12)     # the futures run up to 90 days past the last look
     say(f"{len(looks.day):,} looks of {len(dams):,} dams; rain for {len(cells):,} cells")
 
-    in_fit_region = np.isin(np.asarray(regions)[looks.region], FIT_REGIONS)
-    params = fit_checkpoint_parameters(looks, rain_tables, calendar, in_fit_region)
-    say(f"balance fitted for checkpoints {params['year'].min()}-{params['year'].max()} "
-        f"on the look pairs of {list(FIT_REGIONS)}")
+    if params is None:
+        in_fit_region = np.isin(np.asarray(regions)[looks.region], FIT_REGIONS)
+        params = fit_checkpoint_parameters(looks, rain_tables, calendar, in_fit_region)
+        say(f"balance fitted for checkpoints {params['year'].min()}-{params['year'].max()} "
+            f"on the look pairs of {sorted(set(regions) & set(FIT_REGIONS))}")
+    else:
+        say(f"balance given (checkpoints {params['year'].min()}-{params['year'].max()}): not refitted")
     mean, var = run_filter(looks, params, rain_tables, calendar)
     say(f"Kalman filter run on {int(np.isfinite(mean).sum()):,} looks")
 

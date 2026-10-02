@@ -212,3 +212,19 @@ def test_attaching_refuses_a_table_out_of_p1_order(tmp_path):
     with pytest.raises(AssertionError):
         physics.with_physics_columns(p1.iloc[::-1].reset_index(drop=True), path)
     assert physics.with_physics_columns(p1, tmp_path / "missing.pkl") is p1
+
+
+def test_a_new_region_built_alone_with_the_given_balance_equals_building_it_with_the_development_regions():
+    """build_physics(params=...) is how the sealed opening (and its dry run) simulates a region on its own."""
+    dev = list(physics.FIT_REGIONS)
+    panel, attrs, rain = made_up_inputs(dev + ["sealed_sdowns_newengland"])
+    together = physics.build_physics(panel, attrs, rain)
+    is_new = (attrs["region"] == "sealed_sdowns_newengland").to_numpy()
+    new_rain = {"rain": rain["rain"][is_new], "months": rain["months"], "cells": rain["cells"][is_new]}
+    alone = physics.build_physics(panel[panel["region"] == "sealed_sdowns_newengland"], attrs[is_new], new_rain,
+                                  params=together["physics_params"])
+    assert alone["physics_params"].equals(together["physics_params"])        # given, not refitted
+    rows = together["p1_physics"]["uid"].isin(attrs.loc[is_new, "uid"])
+    for column in physics.PHY_COLUMNS:
+        assert np.array_equal(alone["p1_physics"][column].to_numpy(),
+                              together["p1_physics"].loc[rows, column].to_numpy(), equal_nan=True)

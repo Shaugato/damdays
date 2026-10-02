@@ -1,0 +1,195 @@
+{
+ "model": "dryrun_tidemark",
+ "task": "P1_R30",
+ "task_description": "P(the dam falls below a third of full within 90 days)",
+ "block": "TEST",
+ "arena": "dev",
+ "subset": "dam_like+octmar+at_risk",
+ "subset_rules": {
+  "dam_like": "dams that behave like farm dams (pre-2016 shape and wetness rules)",
+  "octmar": "forecasts issued in October to March",
+  "at_risk": "the dam was not already in the low state when the forecast was issued"
+ },
+ "rows": {
+  "passed_in": 296073,
+  "in_subset": 57614,
+  "in_subset_without_label": 3551,
+  "scored": 54063,
+  "events": 11840,
+  "dams": 762,
+  "dams_with_event": 669,
+  "region_years": 10
+ },
+ "refs": [
+  "dryrun_G2"
+ ],
+ "baselines": [
+  "B0",
+  "B2"
+ ],
+ "pred_hash": "89554e323aa45917",
+ "baseline_hash": "ec7d501bee16d54e",
+ "test_ledger": "same_predictions",
+ "row_set_checked": true,
+ "note": "DRY RUN (rehearsal): models fitted on nsw_cw only, judged on wvic_sesa; NOT the development TEST result",
+ "point": {
+  "base_rate": 0.219,
+  "mean_p": 0.22222,
+  "brier": 0.13356,
+  "bss_B0": 0.20127,
+  "bss_B2": 0.1274,
+  "auc": 0.80538,
+  "prec_at_50_recall": 0.53901,
+  "cal_intercept": 0.09775,
+  "cal_slope": 1.12853,
+  "citl": -0.02298,
+  "bss_vs_dryrun_G2": 0.01323,
+  "d_bss_B0_vs_dryrun_G2": 0.01071,
+  "d_auc_vs_dryrun_G2": 0.00607
+ },
+ "ci_dam": {
+  "base_rate": [
+   0.20494,
+   0.23209
+  ],
+  "mean_p": [
+   0.21164,
+   0.23214
+  ],
+  "brier": [
+   0.12686,
+   0.14038
+  ],
+  "bss_B0": [
+   0.18155,
+   0.21964
+  ],
+  "bss_B2": [
+   0.116,
+   0.1395
+  ],
+  "auc": [
+   0.79236,
+   0.81836
+  ],
+  "prec_at_50_recall": [
+   0.51121,
+   0.56745
+  ],
+  "cal_intercept": [
+   0.02053,
+   0.18693
+  ],
+  "cal_slope": [
+   1.07675,
+   1.18632
+  ],
+  "citl": [
+   -0.07801,
+   0.03485
+  ],
+  "bss_vs_dryrun_G2": [
+   0.00738,
+   0.01885
+  ],
+  "d_bss_B0_vs_dryrun_G2": [
+   0.00602,
+   0.01513
+  ],
+  "d_auc_vs_dryrun_G2": [
+   0.0033,
+   0.00901
+  ]
+ },
+ "ci_region_year": {
+  "base_rate": [
+   0.18658,
+   0.2576
+  ],
+  "mean_p": [
+   0.19647,
+   0.24232
+  ],
+  "brier": [
+   0.12217,
+   0.14615
+  ],
+  "bss_B0": [
+   0.15911,
+   0.23762
+  ],
+  "bss_B2": [
+   0.09507,
+   0.15631
+  ],
+  "auc": [
+   0.7812,
+   0.82884
+  ],
+  "prec_at_50_recall": [
+   0.46419,
+   0.61723
+  ],
+  "cal_intercept": [
+   -0.24321,
+   0.41835
+  ],
+  "cal_slope": [
+   0.98962,
+   1.28049
+  ],
+  "citl": [
+   -0.27341,
+   0.19812
+  ],
+  "bss_vs_dryrun_G2": [
+   -0.00342,
+   0.02898
+  ],
+  "d_bss_B0_vs_dryrun_G2": [
+   -0.00285,
+   0.02334
+  ],
+  "d_auc_vs_dryrun_G2": [
+   -0.00069,
+   0.01375
+  ]
+ },
+ "bootstrap": {
+  "dam": {
+   "clusters": 762,
+   "seed": 2026,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "region_year": {
+   "clusters": 10,
+   "seed": 2027,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "n_boot": 500,
+  "ci_level": 0.95
+ },
+ "time": "2026-10-02 19:36:48",
+ "seconds": 15.2,
+ "prereg_pass_bars": {
+  "bss_B0": {
+   "value": 0.20127,
+   "ci_low": 0.18155,
+   "bar": ">= +0.10 and dam CI above 0",
+   "passed": true
+  },
+  "bss_B2": {
+   "value": 0.1274,
+   "bar": ">= +0.05",
+   "passed": true
+  },
+  "cal_slope": {
+   "value": 1.12853,
+   "bar": "0.8 to 1.2",
+   "passed": true
+  },
+  "all_passed": true
+ }
+}

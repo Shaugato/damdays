@@ -1,4 +1,4 @@
-"""Load the satellite water history of every development waterbody into one table.
+"""Load the satellite water history of every waterbody of a region into one table.
 
 DEA Waterbodies gives one CSV per waterbody. Each row is one Landsat look:
     date    UTC timestamp of the satellite pass, e.g. 1987-09-05T23:48:37Z
@@ -24,19 +24,24 @@ from damdays import config
 from damdays.data.guard import check_path
 
 
-def load_manifest():
-    """The list of development waterbodies: uid, region, area_m2, lat, lon."""
-    path = check_path(config.DEV_MANIFEST)
+def load_manifest(path=None):
+    """The list of waterbodies: uid, region, area_m2, lat, lon.
+
+    path  the manifest CSV; the development manifest by default. The sealed
+          region's manifest is refused by the guard until the opening.
+    """
+    path = check_path(config.DEV_MANIFEST if path is None else path)
     manifest = pd.read_csv(path)
     return manifest[["uid", "region", "area_m2", "lat", "lon"]]
 
 
-def check_downloads(manifest):
+def check_downloads(manifest, folder=None):
     """Confirm every waterbody in the manifest has a non-empty time-series file.
 
+    folder  where the time-series CSVs are (the development folder by default)
     Returns a small dict: n_manifest, n_present, missing (list of uids).
     """
-    folder = check_path(config.DEV_TS_DIR)
+    folder = check_path(config.DEV_TS_DIR if folder is None else folder)
     missing = []
     for uid in manifest["uid"]:
         path = check_path(folder / f"{uid}.csv")  # even a file-size check stays out of the sealed folder
@@ -49,9 +54,10 @@ def check_downloads(manifest):
     }
 
 
-def read_raw_series(uid):
-    """One waterbody's raw DEA time series, exactly as downloaded."""
-    path = check_path(config.DEV_TS_DIR / f"{uid}.csv")
+def read_raw_series(uid, folder=None):
+    """One waterbody's raw DEA time series, exactly as downloaded (from the development folder by default)."""
+    folder = config.DEV_TS_DIR if folder is None else folder
+    path = check_path(folder / f"{uid}.csv")
     return pd.read_csv(path, usecols=["date", "pc_wet", "px_wet"])
 
 
@@ -89,11 +95,11 @@ def merge_same_day(obs):
     return merged
 
 
-def read_all_raw(manifest, progress_every=1000):
-    """Read every waterbody's raw CSV into one long table with a uid column."""
+def read_all_raw(manifest, progress_every=1000, folder=None):
+    """Read every waterbody's raw CSV (from `folder`, the development folder by default) into one long table."""
     pieces = []
     for count, uid in enumerate(manifest["uid"], start=1):
-        raw = read_raw_series(uid)
+        raw = read_raw_series(uid, folder)
         raw["uid"] = uid
         pieces.append(raw)
         if progress_every and count % progress_every == 0:
@@ -101,9 +107,11 @@ def read_all_raw(manifest, progress_every=1000):
     return pd.concat(pieces, ignore_index=True)
 
 
-def build_panel(manifest=None):
+def build_panel(manifest=None, folder=None):
     """Build the clean panel and a per-waterbody quality table.
 
+    manifest  the waterbodies to read (the development manifest by default)
+    folder    where their time-series CSVs are (the development folder by default)
     Returns (panel, qc):
       panel: uid, region, date, pc_wet, px_wet, n_scenes; sorted by uid then date.
       qc:    per waterbody: n_raw, n_invalid, n_out_of_range, n_kept,
@@ -112,7 +120,7 @@ def build_panel(manifest=None):
     if manifest is None:
         manifest = load_manifest()
 
-    raw = read_all_raw(manifest)
+    raw = read_all_raw(manifest, folder=folder)
     kept, invalid, out_of_range = keep_valid_rows(raw)
 
     kept = kept.assign(date=utc_to_local_date(kept["date"]))

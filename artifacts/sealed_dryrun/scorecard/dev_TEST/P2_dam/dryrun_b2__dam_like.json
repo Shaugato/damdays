@@ -1,0 +1,163 @@
+{
+ "model": "dryrun_b2",
+ "task": "P2_dam",
+ "task_description": "P(the dam runs fully dry in the coming Oct-Mar), issued 1 Jul",
+ "block": "TEST",
+ "arena": "dev",
+ "subset": "dam_like",
+ "subset_rules": {
+  "dam_like": "dams that behave like farm dams (pre-2016 shape and wetness rules)"
+ },
+ "rows": {
+  "passed_in": 7890,
+  "in_subset": 7890,
+  "in_subset_without_label": 8,
+  "scored": 7882,
+  "events": 1559,
+  "dams": 789,
+  "dams_with_event": 476,
+  "region_years": 10
+ },
+ "refs": [],
+ "baselines": [
+  "B0",
+  "B2"
+ ],
+ "pred_hash": "f25dcdee8f364c6e",
+ "baseline_hash": "6017bb76e91742fc",
+ "test_ledger": "same_predictions",
+ "row_set_checked": true,
+ "note": "DRY RUN (rehearsal): models fitted on nsw_cw only, judged on wvic_sesa; NOT the development TEST result",
+ "point": {
+  "base_rate": 0.19779,
+  "mean_p": 0.1742,
+  "brier": 0.12694,
+  "bss_B0": 0.20365,
+  "bss_B2": 0.0,
+  "auc": 0.80234,
+  "prec_at_50_recall": 0.50712,
+  "auc_within_season": 0.81079,
+  "auc_within_dam": 0.19671,
+  "cal_intercept": 0.40118,
+  "cal_slope": 1.16966,
+  "citl": 0.18525
+ },
+ "ci_dam": {
+  "base_rate": [
+   0.18129,
+   0.21472
+  ],
+  "mean_p": [
+   0.16441,
+   0.18468
+  ],
+  "brier": [
+   0.11874,
+   0.13493
+  ],
+  "bss_B0": [
+   0.17476,
+   0.23101
+  ],
+  "bss_B2": [
+   0.0,
+   0.0
+  ],
+  "auc": [
+   0.78298,
+   0.81917
+  ],
+  "prec_at_50_recall": [
+   0.44767,
+   0.56259
+  ],
+  "auc_within_season": [
+   0.7915,
+   0.82809
+  ],
+  "auc_within_dam": [
+   0.17349,
+   0.2212
+  ],
+  "cal_intercept": [
+   0.26946,
+   0.51895
+  ],
+  "cal_slope": [
+   1.0864,
+   1.25108
+  ],
+  "citl": [
+   0.10881,
+   0.25907
+  ]
+ },
+ "ci_region_year": {
+  "base_rate": [
+   0.16139,
+   0.23368
+  ],
+  "mean_p": [
+   0.17268,
+   0.17574
+  ],
+  "brier": [
+   0.11098,
+   0.14468
+  ],
+  "bss_B0": [
+   0.16035,
+   0.22968
+  ],
+  "bss_B2": [
+   0.0,
+   0.0
+  ],
+  "auc": [
+   0.7789,
+   0.82109
+  ],
+  "prec_at_50_recall": [
+   0.40326,
+   0.59358
+  ],
+  "auc_within_season": [
+   0.7773,
+   0.82872
+  ],
+  "auc_within_dam": [
+   0.12839,
+   0.26539
+  ],
+  "cal_intercept": [
+   -0.01238,
+   0.79542
+  ],
+  "cal_slope": [
+   1.03197,
+   1.2963
+  ],
+  "citl": [
+   -0.11164,
+   0.44929
+  ]
+ },
+ "bootstrap": {
+  "dam": {
+   "clusters": 789,
+   "seed": 2026,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "region_year": {
+   "clusters": 10,
+   "seed": 2027,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "n_boot": 500,
+  "ci_level": 0.95
+ },
+ "time": "2026-10-02 19:44:22",
+ "seconds": 1.6
+}

@@ -46,8 +46,8 @@ P_MIN, P_MAX = 1e-6, 1 - 1e-6          # keep probabilities strictly inside (0, 
 MIN_ROWS_PER_MONTH = 30                # B0: a month x region needs this many fit rows, else the region rate
 RAIN_PLUS_PARAMS = dict(               # the season-rating research's RAIN+ GBM, as found before the event
     n_estimators=200, learning_rate=0.03, num_leaves=7, min_child_samples=100, subsample=0.8,
-    subsample_freq=1, colsample_bytree=0.8, reg_lambda=1.0, random_state=0, n_jobs=4, verbose=-1,
-    deterministic=True, force_row_wise=True)
+    subsample_freq=1, colsample_bytree=0.8, reg_lambda=1.0, random_state=0, n_jobs=3, verbose=-1,
+    deterministic=True, force_row_wise=True)   # 3 threads (was 4): VAL forecasts checked bit-identical
 
 
 # ---------------------------------------------------------------------------

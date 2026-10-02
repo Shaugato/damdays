@@ -1,0 +1,248 @@
+{
+ "model": "dryrun_tidemark",
+ "task": "P2_dam_g",
+ "task_description": "P(a gradual dry-out in the coming Oct-Mar), issued 1 Jul",
+ "block": "TEST",
+ "arena": "dev",
+ "subset": "dam_like",
+ "subset_rules": {
+  "dam_like": "dams that behave like farm dams (pre-2016 shape and wetness rules)"
+ },
+ "rows": {
+  "passed_in": 7890,
+  "in_subset": 7890,
+  "in_subset_without_label": 623,
+  "scored": 7267,
+  "events": 944,
+  "dams": 789,
+  "dams_with_event": 411,
+  "region_years": 10
+ },
+ "refs": [
+  "dryrun_RAIN",
+  "dryrun_RAIN+",
+  "dryrun_B2"
+ ],
+ "baselines": [
+  "B0",
+  "B2"
+ ],
+ "pred_hash": "c4c616bba27fbc20",
+ "baseline_hash": "5a39f281d9b02b0c",
+ "test_ledger": "same_predictions",
+ "row_set_checked": true,
+ "note": "DRY RUN (rehearsal): models fitted on nsw_cw only, judged on wvic_sesa; NOT the development TEST result",
+ "point": {
+  "base_rate": 0.1299,
+  "mean_p": 0.11696,
+  "brier": 0.09649,
+  "bss_B0": 0.14682,
+  "bss_B2": 0.01889,
+  "auc": 0.7997,
+  "prec_at_50_recall": 0.35145,
+  "auc_within_season": 0.80738,
+  "auc_within_dam": 0.50475,
+  "cal_intercept": 0.24926,
+  "cal_slope": 1.06942,
+  "citl": 0.13752,
+  "bss_vs_dryrun_RAIN": 0.14737,
+  "d_bss_B0_vs_dryrun_RAIN": 0.14746,
+  "d_auc_vs_dryrun_RAIN": 0.24906,
+  "bss_vs_dryrun_RAIN+": 0.12887,
+  "d_bss_B0_vs_dryrun_RAIN+": 0.12621,
+  "d_auc_vs_dryrun_RAIN+": 0.18203,
+  "bss_vs_dryrun_B2": 0.01889,
+  "d_bss_B0_vs_dryrun_B2": 0.01643,
+  "d_auc_vs_dryrun_B2": 0.01799
+ },
+ "ci_dam": {
+  "base_rate": [
+   0.11741,
+   0.14165
+  ],
+  "mean_p": [
+   0.11044,
+   0.12508
+  ],
+  "brier": [
+   0.08943,
+   0.10385
+  ],
+  "bss_B0": [
+   0.12367,
+   0.16994
+  ],
+  "bss_B2": [
+   0.01101,
+   0.02675
+  ],
+  "auc": [
+   0.77907,
+   0.81802
+  ],
+  "prec_at_50_recall": [
+   0.30734,
+   0.40898
+  ],
+  "auc_within_season": [
+   0.78698,
+   0.82678
+  ],
+  "auc_within_dam": [
+   0.46319,
+   0.54399
+  ],
+  "cal_intercept": [
+   0.07504,
+   0.4422
+  ],
+  "cal_slope": [
+   0.98137,
+   1.16264
+  ],
+  "citl": [
+   0.04911,
+   0.22358
+  ],
+  "bss_vs_dryrun_RAIN": [
+   0.12334,
+   0.17057
+  ],
+  "d_bss_B0_vs_dryrun_RAIN": [
+   0.12299,
+   0.17094
+  ],
+  "d_auc_vs_dryrun_RAIN": [
+   0.21752,
+   0.2753
+  ],
+  "bss_vs_dryrun_RAIN+": [
+   0.10481,
+   0.15396
+  ],
+  "d_bss_B0_vs_dryrun_RAIN+": [
+   0.10226,
+   0.15102
+  ],
+  "d_auc_vs_dryrun_RAIN+": [
+   0.15268,
+   0.21109
+  ],
+  "bss_vs_dryrun_B2": [
+   0.01101,
+   0.02675
+  ],
+  "d_bss_B0_vs_dryrun_B2": [
+   0.00956,
+   0.02322
+  ],
+  "d_auc_vs_dryrun_B2": [
+   0.01162,
+   0.02559
+  ]
+ },
+ "ci_region_year": {
+  "base_rate": [
+   0.09801,
+   0.16548
+  ],
+  "mean_p": [
+   0.11269,
+   0.12079
+  ],
+  "brier": [
+   0.07871,
+   0.1171
+  ],
+  "bss_B0": [
+   0.1107,
+   0.16984
+  ],
+  "bss_B2": [
+   -0.00199,
+   0.03525
+  ],
+  "auc": [
+   0.78119,
+   0.81586
+  ],
+  "prec_at_50_recall": [
+   0.26479,
+   0.4363
+  ],
+  "auc_within_season": [
+   0.77737,
+   0.82405
+  ],
+  "auc_within_dam": [
+   0.40971,
+   0.56843
+  ],
+  "cal_intercept": [
+   -0.20324,
+   0.70622
+  ],
+  "cal_slope": [
+   0.96184,
+   1.18026
+  ],
+  "citl": [
+   -0.21823,
+   0.46766
+  ],
+  "bss_vs_dryrun_RAIN": [
+   0.1211,
+   0.16473
+  ],
+  "d_bss_B0_vs_dryrun_RAIN": [
+   0.12162,
+   0.16483
+  ],
+  "d_auc_vs_dryrun_RAIN": [
+   0.20982,
+   0.30103
+  ],
+  "bss_vs_dryrun_RAIN+": [
+   0.09599,
+   0.15712
+  ],
+  "d_bss_B0_vs_dryrun_RAIN+": [
+   0.09402,
+   0.15501
+  ],
+  "d_auc_vs_dryrun_RAIN+": [
+   0.14148,
+   0.24566
+  ],
+  "bss_vs_dryrun_B2": [
+   -0.00199,
+   0.03525
+  ],
+  "d_bss_B0_vs_dryrun_B2": [
+   -0.00173,
+   0.03107
+  ],
+  "d_auc_vs_dryrun_B2": [
+   0.00485,
+   0.0271
+  ]
+ },
+ "bootstrap": {
+  "dam": {
+   "clusters": 789,
+   "seed": 2026,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "region_year": {
+   "clusters": 10,
+   "seed": 2027,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "n_boot": 500,
+  "ci_level": 0.95
+ },
+ "time": "2026-10-02 19:44:31",
+ "seconds": 2.0
+}

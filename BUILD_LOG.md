@@ -15,3 +15,5 @@ A plain, timestamped record of what was built and when (AEST). Commit history ha
 | Fri 14:30 | Step 4 started: neural-net members (L2), physics water-balance features (L3), app data exporter (real forecasts). |
 | Fri 18:10 | Step 4 done: neural nets (L2) and physics (L3); app shows real forecasts. Ladder table: all rungs reproduce pre-event validation within +-0.006; highest passing rung L3 (below-a-third +0.180, dry-out +0.194). 312 tests. |
 | Fri 18:20 | Step 5a started: test-setting fits (no scoring), sealed-opening runner with a dry run on a dev region, freeze addendum draft. |
+| Fri 20:25 | Step 5a done: test-setting fits (nothing scored; ledger empty), one-shot sealed-opening runner (dry run on a dev region treated as unseen: below-a-third +0.201, G2 +0.191), hostile review passed. |
+| Fri 20:21 | **FREEZE**: PREREG_ADDENDUM_1.md committed. Frozen rung L3 by the pre-registered rule; event build config hash 7d466291008d. |

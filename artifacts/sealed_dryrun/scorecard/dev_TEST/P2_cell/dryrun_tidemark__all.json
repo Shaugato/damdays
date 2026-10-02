@@ -1,0 +1,246 @@
+{
+ "model": "dryrun_tidemark",
+ "task": "P2_cell",
+ "task_description": "P(every dam-like dam in the 2 km cell runs dry in the coming Oct-Mar)",
+ "block": "TEST",
+ "arena": "dev",
+ "subset": "all",
+ "subset_rules": {},
+ "rows": {
+  "passed_in": 6680,
+  "in_subset": 6680,
+  "in_subset_without_label": 8,
+  "scored": 6672,
+  "events": 1184,
+  "dams": 668,
+  "dams_with_event": 377,
+  "region_years": 10
+ },
+ "refs": [
+  "dryrun_RAIN",
+  "dryrun_RAIN+",
+  "dryrun_B2"
+ ],
+ "baselines": [
+  "B0",
+  "B2"
+ ],
+ "pred_hash": "6d39131ce6ebc9ba",
+ "baseline_hash": "3d8c7c38cfea325e",
+ "test_ledger": "same_predictions",
+ "row_set_checked": true,
+ "note": "DRY RUN (rehearsal): models fitted on nsw_cw only, judged on wvic_sesa; NOT the development TEST result",
+ "point": {
+  "base_rate": 0.17746,
+  "mean_p": 0.1531,
+  "brier": 0.11583,
+  "bss_B0": 0.2097,
+  "bss_B2": 0.00928,
+  "auc": 0.81691,
+  "prec_at_50_recall": 0.49416,
+  "auc_within_season": 0.82175,
+  "auc_within_cell": 0.49385,
+  "cal_intercept": 0.26495,
+  "cal_slope": 1.0366,
+  "citl": 0.21673,
+  "bss_vs_dryrun_RAIN": 0.21298,
+  "d_bss_B0_vs_dryrun_RAIN": 0.21387,
+  "d_auc_vs_dryrun_RAIN": 0.2967,
+  "bss_vs_dryrun_RAIN+": 0.19548,
+  "d_bss_B0_vs_dryrun_RAIN+": 0.19203,
+  "d_auc_vs_dryrun_RAIN+": 0.21166,
+  "bss_vs_dryrun_B2": 0.00928,
+  "d_bss_B0_vs_dryrun_B2": 0.0074,
+  "d_auc_vs_dryrun_B2": 0.00539
+ },
+ "ci_dam": {
+  "base_rate": [
+   0.16193,
+   0.19705
+  ],
+  "mean_p": [
+   0.14311,
+   0.16589
+  ],
+  "brier": [
+   0.10767,
+   0.12565
+  ],
+  "bss_B0": [
+   0.17741,
+   0.24235
+  ],
+  "bss_B2": [
+   -0.00578,
+   0.02392
+  ],
+  "auc": [
+   0.79622,
+   0.83582
+  ],
+  "prec_at_50_recall": [
+   0.43892,
+   0.5513
+  ],
+  "auc_within_season": [
+   0.80132,
+   0.84067
+  ],
+  "auc_within_cell": [
+   0.45944,
+   0.52803
+  ],
+  "cal_intercept": [
+   0.1013,
+   0.43099
+  ],
+  "cal_slope": [
+   0.9359,
+   1.13827
+  ],
+  "citl": [
+   0.12843,
+   0.31597
+  ],
+  "bss_vs_dryrun_RAIN": [
+   0.18269,
+   0.24549
+  ],
+  "d_bss_B0_vs_dryrun_RAIN": [
+   0.18329,
+   0.24678
+  ],
+  "d_auc_vs_dryrun_RAIN": [
+   0.27024,
+   0.32398
+  ],
+  "bss_vs_dryrun_RAIN+": [
+   0.16383,
+   0.22929
+  ],
+  "d_bss_B0_vs_dryrun_RAIN+": [
+   0.16036,
+   0.22709
+  ],
+  "d_auc_vs_dryrun_RAIN+": [
+   0.18232,
+   0.24256
+  ],
+  "bss_vs_dryrun_B2": [
+   -0.00578,
+   0.02392
+  ],
+  "d_bss_B0_vs_dryrun_B2": [
+   -0.00454,
+   0.01922
+  ],
+  "d_auc_vs_dryrun_B2": [
+   -0.00392,
+   0.01502
+  ]
+ },
+ "ci_region_year": {
+  "base_rate": [
+   0.14622,
+   0.21083
+  ],
+  "mean_p": [
+   0.14873,
+   0.15702
+  ],
+  "brier": [
+   0.10061,
+   0.13144
+  ],
+  "bss_B0": [
+   0.17531,
+   0.23259
+  ],
+  "bss_B2": [
+   -0.00729,
+   0.0261
+  ],
+  "auc": [
+   0.80082,
+   0.83106
+  ],
+  "prec_at_50_recall": [
+   0.42219,
+   0.56317
+  ],
+  "auc_within_season": [
+   0.79846,
+   0.83807
+  ],
+  "auc_within_cell": [
+   0.41636,
+   0.55304
+  ],
+  "cal_intercept": [
+   -0.06059,
+   0.58017
+  ],
+  "cal_slope": [
+   0.9348,
+   1.13741
+  ],
+  "citl": [
+   -0.04892,
+   0.48303
+  ],
+  "bss_vs_dryrun_RAIN": [
+   0.18272,
+   0.23238
+  ],
+  "d_bss_B0_vs_dryrun_RAIN": [
+   0.18486,
+   0.23266
+  ],
+  "d_auc_vs_dryrun_RAIN": [
+   0.26708,
+   0.32898
+  ],
+  "bss_vs_dryrun_RAIN+": [
+   0.16646,
+   0.21827
+  ],
+  "d_bss_B0_vs_dryrun_RAIN+": [
+   0.16488,
+   0.21648
+  ],
+  "d_auc_vs_dryrun_RAIN+": [
+   0.18563,
+   0.26217
+  ],
+  "bss_vs_dryrun_B2": [
+   -0.00729,
+   0.0261
+  ],
+  "d_bss_B0_vs_dryrun_B2": [
+   -0.00577,
+   0.0211
+  ],
+  "d_auc_vs_dryrun_B2": [
+   -0.00258,
+   0.01352
+  ]
+ },
+ "bootstrap": {
+  "dam": {
+   "clusters": 668,
+   "seed": 2026,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "region_year": {
+   "clusters": 10,
+   "seed": 2027,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "n_boot": 500,
+  "ci_level": 0.95
+ },
+ "time": "2026-10-02 19:44:16",
+ "seconds": 1.9
+}

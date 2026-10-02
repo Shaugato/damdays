@@ -1,0 +1,20 @@
+[19:07:52 + 0.0 min] scripts/20_open_sealed_region.py --prepare (run 'sealed')
+[19:07:52 + 0.0 min] PREPARE (sealed): TEST-setting models, rung L3, fitted on ['nsw_cw', 'wvic_sesa']
+[19:07:52 + 0.0 min] === models ===
+[19:07:52 + 0.0 min] packaging the development TEST-setting models of step 13 (rung L3)
+[19:07:52 + 0.0 min] === models: done in 0.0 min ===
+[19:07:52 + 0.0 min]   tidemark: data_cache/models/TEST/tidemark_L3.pkl (5.2 MB) SHA-256 cc86a5753dde2e38e4bce8eb8e251fe6aa2ce9d452bfcdc43743f66f6344cc41
+[19:07:52 + 0.0 min]   g2: data_cache/models/TEST/g2.pkl (2.1 MB) SHA-256 e6a64fca6d0292fa0d1cd9a201b2bc20360c1009c297333fba41bec9c2598285
+[19:07:52 + 0.0 min]   physics: data_cache/features/physics_params.pkl (0.0 MB) SHA-256 62a5d21dec91c3e6132662ef561eb95e14586f040a26eb0f99780d5e09600263
+[19:07:52 + 0.0 min] manifest written: D:\Climate Hack-tion 2026\damdays\artifacts\sealed_models_manifest.json
+[19:07:52 + 0.0 min] NEXT: commit and push this manifest with the freeze addendum, before 17:30.
+[19:08:11 + 0.0 min] scripts/20_open_sealed_region.py --prepare (run 'sealed')
+[19:08:11 + 0.0 min] PREPARE (sealed): TEST-setting models, rung L3, fitted on ['nsw_cw', 'wvic_sesa']
+[19:08:11 + 0.0 min] === models ===
+[19:08:11 + 0.0 min] packaging the development TEST-setting models of step 13 (rung L3)
+[19:08:11 + 0.0 min] === models: done in 0.0 min ===
+[19:08:11 + 0.0 min]   tidemark: data_cache/models/TEST/tidemark_L3.pkl (5.2 MB) SHA-256 cc86a5753dde2e38e4bce8eb8e251fe6aa2ce9d452bfcdc43743f66f6344cc41
+[19:08:11 + 0.0 min]   g2: data_cache/models/TEST/g2.pkl (2.1 MB) SHA-256 e6a64fca6d0292fa0d1cd9a201b2bc20360c1009c297333fba41bec9c2598285
+[19:08:11 + 0.0 min]   physics: data_cache/features/physics_params.pkl (0.0 MB) SHA-256 62a5d21dec91c3e6132662ef561eb95e14586f040a26eb0f99780d5e09600263
+[19:08:11 + 0.0 min] manifest written: D:\Climate Hack-tion 2026\damdays\artifacts\sealed_models_manifest.json
+[19:08:11 + 0.0 min] NEXT: commit and push this manifest with the freeze addendum, before 17:30.

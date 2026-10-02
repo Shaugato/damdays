@@ -64,6 +64,9 @@ A trained net is saved to data_cache/nets/<cutoff>/<S|M>_seed<k>.pt together
 with a fingerprint of everything it learned from (fit rows, labels, inputs,
 settings). A later run with the same fingerprint loads it instead of training
 again; any change to the data or settings makes it train afresh.
+inputs["net_checkpoint_dir"] (optional) puts the checkpoints in another folder,
+so a model fitted on other rows (the sealed-opening dry run learns from one
+development region only) never overwrites the development checkpoints.
 """
 import hashlib
 import json
@@ -425,9 +428,9 @@ def history_fingerprint(history):
     return history._fingerprint
 
 
-def checkpoint_path(model, cutoff, seed):
-    """data_cache/nets/<cutoff>/<model>_seed<seed>.pt"""
-    return CHECKPOINT_DIR / str(cutoff) / f"{model}_seed{seed}.pt"
+def checkpoint_path(model, cutoff, seed, folder=None):
+    """<folder>/<cutoff>/<model>_seed<seed>.pt; folder is data_cache/nets unless another one is given."""
+    return (CHECKPOINT_DIR if folder is None else folder) / str(cutoff) / f"{model}_seed{seed}.pt"
 
 
 # ===========================================================================
@@ -518,7 +521,7 @@ def trained_net(inputs, model, cutoff, seed):
     if key in _TRAINED:
         return _TRAINED[key]
 
-    path = checkpoint_path(model, cutoff, seed)
+    path = checkpoint_path(model, cutoff, seed, inputs.get("net_checkpoint_dir"))
     trained = load_checkpoint(path, signature)
     if trained is None:
         label = f"{model} seed {seed} (cutoff {cutoff})"

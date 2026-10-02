@@ -1,0 +1,2325 @@
+{
+ "step": "13: test-setting fits (scripts/13_fit_test_setting.py)",
+ "generated": "2026-10-02T18:57:40+10:00",
+ "what": "Every model fitted at the TEST cutoff on the development regions, and its forecasts for every TEST issue (2016-07-01 to 2026-06-30). NOT SCORED: no scorecard call, no ledger entry, no TEST answer scored or saved. TEST-period answers enter only as causal per-dam inputs (the frailty, B2 and B2_h track records count a past forecast once its answer was final), as on VAL.",
+ "cutoff": "2016-07-01",
+ "block": "TEST",
+ "rung": "L3",
+ "git": {
+  "commit": "4bce0bb2bdcdc056e7c63efc3cbe14106feaf8d3",
+  "uncommitted_changes": true
+ },
+ "no_scoring_evidence": {
+  "ledger_before": {
+   "ledger": "artifacts/test_ledger.csv",
+   "fingerprint": "73483ff389596ea2",
+   "rows": 0,
+   "test_scorecard_outputs": []
+  },
+  "ledger_after": {
+   "ledger": "artifacts/test_ledger.csv",
+   "fingerprint": "73483ff389596ea2",
+   "rows": 0,
+   "test_scorecard_outputs": []
+  },
+  "ledger_unchanged": true,
+  "test_scorecard_outputs": [],
+  "forecast_tables_hold_answers": false,
+  "regions_read": [
+   "nsw_cw",
+   "wvic_sesa"
+  ],
+  "sealed_region_read": false
+ },
+ "run_times_minutes": {
+  "tidemark_fit": 16.8,
+  "tidemark_forecasts": 9.0,
+  "g2": 2.7,
+  "p1_baselines": 0.5,
+  "curve_baselines": 0.9,
+  "p2_baselines": 0.1
+ },
+ "total_fit_minutes": 30.0,
+ "summary_run_minutes": 0.1,
+ "inputs": {
+  "files": {
+   "data_cache/features/p1_keys.pkl": "5698106395049aa9",
+   "data_cache/features/p1_dam.pkl": "933552eec3c8d532",
+   "data_cache/features/p1_nbr.pkl": "48c4aa8e125055fa",
+   "data_cache/features/p1_rain.pkl": "3d10a34f7dbb31cf",
+   "data_cache/features/physics_p1.pkl": "12fb552ef856c7b7",
+   "data_cache/features/physics_params.pkl": "62a5d21dec91c3e6",
+   "data_cache/features/p2_dam.pkl": "147632aa161d818d",
+   "data_cache/features/p2_cell.pkl": "d9e02f2498677830",
+   "data_cache/features/dam_rate_prior.pkl": "afb029d4b0d635d4",
+   "data_cache/attributes.pkl": "9bd13485986405c3",
+   "data_cache/panel.pkl": "0679c1fdc8ea0533",
+   "data_cache/silo_rain.pkl": "5545633109c02fb7"
+  },
+  "fingerprint": "f8ad1d918bfc1ad1",
+  "physics_parameters_for_test_looks": {
+   "year": 2016,
+   "n_pairs": 875652,
+   "threshold_index": 1,
+   "threshold_mm": 15.0,
+   "c": 0.00153,
+   "e": 0.00116,
+   "x": 0.00278,
+   "loss": 25331.45864
+  }
+ },
+ "tidemark": {
+  "call": "tidemark.fit_tidemark(\"2016-07-01\", \"L3\") then tidemark.predict_tidemark(model)",
+  "model_file": "data_cache/models/TEST/tidemark_L3.pkl",
+  "model_fingerprint": "99efd543fb1c20bc",
+  "fingerprints": {
+   "T_R30": "8580817ee3c26553",
+   "S_seed0": "938021fbce9739a8",
+   "S_seed1": "6a057229ba79d236",
+   "S_seed2": "04f7bee3304e04dc",
+   "M_seed0": "84ee139fa08f097d",
+   "M_seed1": "a35f78b97f92f9ec",
+   "M_seed2": "7142ae672f9c0923",
+   "T_D0": "1e8a325e9de8f2d7",
+   "T_D0g": "aa7df98a1b562327",
+   "H_R30": "253816a8b6b6ffe4",
+   "H_D0": "b71634f4fea29b32",
+   "floor_q10": "61d58716056b6096",
+   "P2_seed0": "58ab5f1884571299",
+   "P2_seed1": "5866ccae6f41b4b2",
+   "P2_seed2": "f63c40a37caae9f7",
+   "band_and_floor_shift": "d20a635d23072fd8",
+   "whole": "99efd543fb1c20bc"
+  },
+  "fit_minutes": 16.8,
+  "members": {
+   "R30": {
+    "cutoff": "2016-07-01",
+    "fit_rows": 979484,
+    "fit_events": 284988,
+    "members": [
+     "T",
+     "S",
+     "M"
+    ],
+    "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+   },
+   "D0": {
+    "cutoff": "2016-07-01",
+    "fit_rows": 1291406,
+    "fit_events": 219667,
+    "members": [
+     "T",
+     "S",
+     "M"
+    ],
+    "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+   },
+   "D0g": {
+    "cutoff": "2016-07-01",
+    "fit_rows": 1204006,
+    "fit_events": 132267,
+    "members": [
+     "T",
+     "S",
+     "M"
+    ],
+    "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+   }
+  },
+  "fit_rows_time_check": {
+   "R30": {
+    "last_fit_issue": "2015-12-31",
+    "its_answer_final": "2016-04-29",
+    "before_cutoff": true
+   },
+   "D0": {
+    "last_fit_issue": "2015-12-31",
+    "its_answer_final": "2016-04-29",
+    "before_cutoff": true
+   },
+   "D0g": {
+    "last_fit_issue": "2015-12-31",
+    "its_answer_final": "2016-04-29",
+    "before_cutoff": true
+   }
+  },
+  "nets": [
+   {
+    "net": "S",
+    "seed": 0,
+    "cutoff": "2002-01-01",
+    "role": "band inner block 2002-2009",
+    "file": "data_cache/nets/2002-01-01/S_seed0.pt",
+    "trained_in_this_fit": false,
+    "signature": "cedc0b4e7fcea08e",
+    "fit_rows": 512562,
+    "head_rows": {
+     "R30": 406964,
+     "D0": 512562,
+     "D0g": 476553
+    },
+    "head_events": {
+     "R30": 111039,
+     "D0": 83655,
+     "D0g": 47646
+    },
+    "n_inputs": 64,
+    "train_seconds": 63.6
+   },
+   {
+    "net": "S",
+    "seed": 1,
+    "cutoff": "2002-01-01",
+    "role": "band inner block 2002-2009",
+    "file": "data_cache/nets/2002-01-01/S_seed1.pt",
+    "trained_in_this_fit": false,
+    "signature": "4cffad8408a8fd74",
+    "fit_rows": 512562,
+    "head_rows": {
+     "R30": 406964,
+     "D0": 512562,
+     "D0g": 476553
+    },
+    "head_events": {
+     "R30": 111039,
+     "D0": 83655,
+     "D0g": 47646
+    },
+    "n_inputs": 64,
+    "train_seconds": 52.7
+   },
+   {
+    "net": "S",
+    "seed": 2,
+    "cutoff": "2002-01-01",
+    "role": "band inner block 2002-2009",
+    "file": "data_cache/nets/2002-01-01/S_seed2.pt",
+    "trained_in_this_fit": false,
+    "signature": "df60f2ff4f0464d3",
+    "fit_rows": 512562,
+    "head_rows": {
+     "R30": 406964,
+     "D0": 512562,
+     "D0g": 476553
+    },
+    "head_events": {
+     "R30": 111039,
+     "D0": 83655,
+     "D0g": 47646
+    },
+    "n_inputs": 64,
+    "train_seconds": 54.6
+   },
+   {
+    "net": "M",
+    "seed": 0,
+    "cutoff": "2002-01-01",
+    "role": "band inner block 2002-2009",
+    "file": "data_cache/nets/2002-01-01/M_seed0.pt",
+    "trained_in_this_fit": false,
+    "signature": "771e78421261b490",
+    "fit_rows": 512562,
+    "head_rows": {
+     "R30": 406964,
+     "D0": 512562,
+     "D0g": 476553
+    },
+    "head_events": {
+     "R30": 111039,
+     "D0": 83655,
+     "D0g": 47646
+    },
+    "n_inputs": 64,
+    "train_seconds": 6.9
+   },
+   {
+    "net": "M",
+    "seed": 1,
+    "cutoff": "2002-01-01",
+    "role": "band inner block 2002-2009",
+    "file": "data_cache/nets/2002-01-01/M_seed1.pt",
+    "trained_in_this_fit": false,
+    "signature": "9ed9dc912c318742",
+    "fit_rows": 512562,
+    "head_rows": {
+     "R30": 406964,
+     "D0": 512562,
+     "D0g": 476553
+    },
+    "head_events": {
+     "R30": 111039,
+     "D0": 83655,
+     "D0g": 47646
+    },
+    "n_inputs": 64,
+    "train_seconds": 6.4
+   },
+   {
+    "net": "M",
+    "seed": 2,
+    "cutoff": "2002-01-01",
+    "role": "band inner block 2002-2009",
+    "file": "data_cache/nets/2002-01-01/M_seed2.pt",
+    "trained_in_this_fit": false,
+    "signature": "4ceacdc6bf16a8b4",
+    "fit_rows": 512562,
+    "head_rows": {
+     "R30": 406964,
+     "D0": 512562,
+     "D0g": 476553
+    },
+    "head_events": {
+     "R30": 111039,
+     "D0": 83655,
+     "D0g": 47646
+    },
+    "n_inputs": 64,
+    "train_seconds": 6.2
+   },
+   {
+    "net": "S",
+    "seed": 0,
+    "cutoff": "2009-01-01",
+    "role": "band inner block 2009-2016 (the VAL fit)",
+    "file": "data_cache/nets/2009-01-01/S_seed0.pt",
+    "trained_in_this_fit": false,
+    "signature": "7bbc137df875df8c",
+    "fit_rows": 875286,
+    "head_rows": {
+     "R30": 659554,
+     "D0": 875286,
+     "D0g": 815946
+    },
+    "head_events": {
+     "R30": 192700,
+     "D0": 148942,
+     "D0g": 89602
+    },
+    "n_inputs": 64,
+    "train_seconds": 47.1
+   },
+   {
+    "net": "S",
+    "seed": 1,
+    "cutoff": "2009-01-01",
+    "role": "band inner block 2009-2016 (the VAL fit)",
+    "file": "data_cache/nets/2009-01-01/S_seed1.pt",
+    "trained_in_this_fit": false,
+    "signature": "f5dd186e5e8cc72b",
+    "fit_rows": 875286,
+    "head_rows": {
+     "R30": 659554,
+     "D0": 875286,
+     "D0g": 815946
+    },
+    "head_events": {
+     "R30": 192700,
+     "D0": 148942,
+     "D0g": 89602
+    },
+    "n_inputs": 64,
+    "train_seconds": 91.7
+   },
+   {
+    "net": "S",
+    "seed": 2,
+    "cutoff": "2009-01-01",
+    "role": "band inner block 2009-2016 (the VAL fit)",
+    "file": "data_cache/nets/2009-01-01/S_seed2.pt",
+    "trained_in_this_fit": false,
+    "signature": "e560ce358b2596f6",
+    "fit_rows": 875286,
+    "head_rows": {
+     "R30": 659554,
+     "D0": 875286,
+     "D0g": 815946
+    },
+    "head_events": {
+     "R30": 192700,
+     "D0": 148942,
+     "D0g": 89602
+    },
+    "n_inputs": 64,
+    "train_seconds": 98.7
+   },
+   {
+    "net": "M",
+    "seed": 0,
+    "cutoff": "2009-01-01",
+    "role": "band inner block 2009-2016 (the VAL fit)",
+    "file": "data_cache/nets/2009-01-01/M_seed0.pt",
+    "trained_in_this_fit": false,
+    "signature": "cb912f7ce209332f",
+    "fit_rows": 875286,
+    "head_rows": {
+     "R30": 659554,
+     "D0": 875286,
+     "D0g": 815946
+    },
+    "head_events": {
+     "R30": 192700,
+     "D0": 148942,
+     "D0g": 89602
+    },
+    "n_inputs": 64,
+    "train_seconds": 5.1
+   },
+   {
+    "net": "M",
+    "seed": 1,
+    "cutoff": "2009-01-01",
+    "role": "band inner block 2009-2016 (the VAL fit)",
+    "file": "data_cache/nets/2009-01-01/M_seed1.pt",
+    "trained_in_this_fit": false,
+    "signature": "182a6007e4619d5f",
+    "fit_rows": 875286,
+    "head_rows": {
+     "R30": 659554,
+     "D0": 875286,
+     "D0g": 815946
+    },
+    "head_events": {
+     "R30": 192700,
+     "D0": 148942,
+     "D0g": 89602
+    },
+    "n_inputs": 64,
+    "train_seconds": 9.4
+   },
+   {
+    "net": "M",
+    "seed": 2,
+    "cutoff": "2009-01-01",
+    "role": "band inner block 2009-2016 (the VAL fit)",
+    "file": "data_cache/nets/2009-01-01/M_seed2.pt",
+    "trained_in_this_fit": false,
+    "signature": "ed9b0f4f8a29287d",
+    "fit_rows": 875286,
+    "head_rows": {
+     "R30": 659554,
+     "D0": 875286,
+     "D0g": 815946
+    },
+    "head_events": {
+     "R30": 192700,
+     "D0": 148942,
+     "D0g": 89602
+    },
+    "n_inputs": 64,
+    "train_seconds": 9.4
+   },
+   {
+    "net": "S",
+    "seed": 0,
+    "cutoff": "2016-07-01",
+    "role": "TEST member: forecasts TEST and the sealed region",
+    "file": "data_cache/nets/2016-07-01/S_seed0.pt",
+    "trained_in_this_fit": true,
+    "signature": "b03a7b5810b96e8a",
+    "fit_rows": 1291406,
+    "head_rows": {
+     "R30": 979484,
+     "D0": 1291406,
+     "D0g": 1204006
+    },
+    "head_events": {
+     "R30": 284988,
+     "D0": 219667,
+     "D0g": 132267
+    },
+    "n_inputs": 64,
+    "train_seconds": 62.0
+   },
+   {
+    "net": "S",
+    "seed": 1,
+    "cutoff": "2016-07-01",
+    "role": "TEST member: forecasts TEST and the sealed region",
+    "file": "data_cache/nets/2016-07-01/S_seed1.pt",
+    "trained_in_this_fit": true,
+    "signature": "73fb690dfcd32f29",
+    "fit_rows": 1291406,
+    "head_rows": {
+     "R30": 979484,
+     "D0": 1291406,
+     "D0g": 1204006
+    },
+    "head_events": {
+     "R30": 284988,
+     "D0": 219667,
+     "D0g": 132267
+    },
+    "n_inputs": 64,
+    "train_seconds": 63.2
+   },
+   {
+    "net": "S",
+    "seed": 2,
+    "cutoff": "2016-07-01",
+    "role": "TEST member: forecasts TEST and the sealed region",
+    "file": "data_cache/nets/2016-07-01/S_seed2.pt",
+    "trained_in_this_fit": true,
+    "signature": "ecafaa84b1ac9d36",
+    "fit_rows": 1291406,
+    "head_rows": {
+     "R30": 979484,
+     "D0": 1291406,
+     "D0g": 1204006
+    },
+    "head_events": {
+     "R30": 284988,
+     "D0": 219667,
+     "D0g": 132267
+    },
+    "n_inputs": 64,
+    "train_seconds": 64.3
+   },
+   {
+    "net": "M",
+    "seed": 0,
+    "cutoff": "2016-07-01",
+    "role": "TEST member: forecasts TEST and the sealed region",
+    "file": "data_cache/nets/2016-07-01/M_seed0.pt",
+    "trained_in_this_fit": true,
+    "signature": "3829053b557c94c8",
+    "fit_rows": 1291406,
+    "head_rows": {
+     "R30": 979484,
+     "D0": 1291406,
+     "D0g": 1204006
+    },
+    "head_events": {
+     "R30": 284988,
+     "D0": 219667,
+     "D0g": 132267
+    },
+    "n_inputs": 64,
+    "train_seconds": 7.4
+   },
+   {
+    "net": "M",
+    "seed": 1,
+    "cutoff": "2016-07-01",
+    "role": "TEST member: forecasts TEST and the sealed region",
+    "file": "data_cache/nets/2016-07-01/M_seed1.pt",
+    "trained_in_this_fit": true,
+    "signature": "be651e1f7fa3fc9a",
+    "fit_rows": 1291406,
+    "head_rows": {
+     "R30": 979484,
+     "D0": 1291406,
+     "D0g": 1204006
+    },
+    "head_events": {
+     "R30": 284988,
+     "D0": 219667,
+     "D0g": 132267
+    },
+    "n_inputs": 64,
+    "train_seconds": 7.3
+   },
+   {
+    "net": "M",
+    "seed": 2,
+    "cutoff": "2016-07-01",
+    "role": "TEST member: forecasts TEST and the sealed region",
+    "file": "data_cache/nets/2016-07-01/M_seed2.pt",
+    "trained_in_this_fit": true,
+    "signature": "89fe3115bfd67449",
+    "fit_rows": 1291406,
+    "head_rows": {
+     "R30": 979484,
+     "D0": 1291406,
+     "D0g": 1204006
+    },
+    "head_events": {
+     "R30": 284988,
+     "D0": 219667,
+     "D0g": 132267
+    },
+    "n_inputs": 64,
+    "train_seconds": 7.6
+   }
+  ],
+  "runway_curve": {
+   "R30": {
+    "kind": "R30",
+    "block": "TEST",
+    "cutoff": "2016-07-01",
+    "population": "dam_like",
+    "issues": 411039,
+    "issues_used": 411039,
+    "person_period_rows": 1478333,
+    "person_period_events": 139247,
+    "rows_per_interval": {
+     "(0,30]": 411039,
+     "(30,60]": 385418,
+     "(60,90]": 355544,
+     "(90,180]": 326332
+    },
+    "events_per_interval": {
+     "(0,30]": 25621,
+     "(30,60]": 29874,
+     "(60,90]": 27620,
+     "(90,180]": 56132
+    },
+    "issues_selected_with_post_cutoff_looks": 0,
+    "top_features_by_gain": {
+     "iv_start": 0.1725,
+     "dam_rate_R30": 0.1449,
+     "low365_R30": 0.1174,
+     "month": 0.0661,
+     "dtt_fast_R30": 0.0629,
+     "sin_doy": 0.056,
+     "ph_p_R30": 0.0405,
+     "R_anom": 0.038
+    },
+    "seconds": 32
+   },
+   "D0": {
+    "kind": "D0",
+    "block": "TEST",
+    "cutoff": "2016-07-01",
+    "population": "dam_like",
+    "issues": 525638,
+    "issues_used": 525638,
+    "person_period_rows": 2003110,
+    "person_period_events": 88703,
+    "rows_per_interval": {
+     "(0,30]": 525638,
+     "(30,60]": 511184,
+     "(60,90]": 493293,
+     "(90,180]": 472995
+    },
+    "events_per_interval": {
+     "(0,30]": 14454,
+     "(30,60]": 17891,
+     "(60,90]": 17560,
+     "(90,180]": 38798
+    },
+    "issues_selected_with_post_cutoff_looks": 0,
+    "top_features_by_gain": {
+     "dam_rate_D0": 0.1971,
+     "iv_start": 0.1291,
+     "low365_D0": 0.0851,
+     "ph_p_D0": 0.0644,
+     "sin_doy": 0.0504,
+     "month": 0.0499,
+     "wet_share_c": 0.0451,
+     "ph_p_R30": 0.0415
+    },
+    "seconds": 44
+   }
+  },
+  "floor": {
+   "cutoff": "2009-01-01",
+   "fit_rows": 636411,
+   "fit_rows_available": 636411,
+   "share_no_event_within_365": 0.3728,
+   "first_issue": "1988-01-03",
+   "last_issue": "2007-12-01",
+   "shift": 0.0,
+   "calibration_rows": 267279,
+   "about": "split conformal on forecasts issued 2009-01-01 to 2016-07-01 and answered before 2016-07-01",
+   "seconds": 15,
+   "shift_exact": 0.0,
+   "note": "A shift of exactly 0 means the 90% conformal quantile of the calibration scores is 0: it falls on the tied scores of forecasts whose 10% quantile sits at the 365-day cap with no event within a year, so the raw 10% quantile already held for about 90% of the VAL calibration forecasts."
+  },
+  "season_band": {
+   "constants": {
+    "pooled": {
+     "R30": [
+      -1.9600336770207685,
+      0.7558027436270113
+     ],
+     "D0": [
+      -1.8492265708329862,
+      0.5375721229800186
+     ],
+     "D0g": [
+      -2.1466287004386064,
+      0.6366773578433538
+     ]
+    },
+    "2002-2009 alone": {
+     "R30": [
+      -1.038278199595067,
+      0.7558027436270113
+     ],
+     "D0": [
+      -1.124783036065431,
+      0.5375721229800186
+     ],
+     "D0g": [
+      -1.069832660194507,
+      0.6366773578433538
+     ]
+    },
+    "2009-2016 alone": {
+     "R30": [
+      -1.9600336770207685,
+      0.27377261853612633
+     ],
+     "D0": [
+      -1.8492265708329862,
+      0.25953351176433287
+     ],
+     "D0g": [
+      -2.1466287004386064,
+      0.313445601420959
+     ]
+    },
+    "note": "pooled = the PREREG band (TEST and sealed region). '2009-2016 alone' is the single-block band whose sealed coverage the PREREG reports alongside."
+   },
+   "inner_blocks": [
+    {
+     "block": "2002-2009",
+     "fit": {
+      "R30": {
+       "cutoff": "2002-01-01",
+       "fit_rows": 406964,
+       "fit_events": 111039,
+       "members": [
+        "T",
+        "S",
+        "M"
+       ],
+       "dam_rate": "as of the cutoff"
+      },
+      "D0": {
+       "cutoff": "2002-01-01",
+       "fit_rows": 512562,
+       "fit_events": 83655,
+       "members": [
+        "T",
+        "S",
+        "M"
+       ],
+       "dam_rate": "as of the cutoff"
+      },
+      "D0g": {
+       "cutoff": "2002-01-01",
+       "fit_rows": 476553,
+       "fit_events": 47646,
+       "members": [
+        "T",
+        "S",
+        "M"
+       ],
+       "dam_rate": "as of the cutoff"
+      }
+     },
+     "seconds": 207
+    },
+    {
+     "block": "2009-2016",
+     "fit": {
+      "R30": {
+       "cutoff": "2009-01-01",
+       "fit_rows": 659554,
+       "fit_events": 192700,
+       "members": [
+        "T",
+        "S",
+        "M"
+       ],
+       "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+      },
+      "D0": {
+       "cutoff": "2009-01-01",
+       "fit_rows": 875286,
+       "fit_events": 148942,
+       "members": [
+        "T",
+        "S",
+        "M"
+       ],
+       "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+      },
+      "D0g": {
+       "cutoff": "2009-01-01",
+       "fit_rows": 815946,
+       "fit_events": 89602,
+       "members": [
+        "T",
+        "S",
+        "M"
+       ],
+       "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+      }
+     },
+     "seconds": 370
+    }
+   ],
+   "offsets": {
+    "R30": [
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2001",
+      "region": "nsw_cw",
+      "hydro_year": 2001,
+      "rows": 2143,
+      "events": 293,
+      "base_rate": 0.13672,
+      "mean_p": 0.19524,
+      "offset": -0.5282,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2002",
+      "region": "nsw_cw",
+      "hydro_year": 2002,
+      "rows": 2935,
+      "events": 946,
+      "base_rate": 0.32232,
+      "mean_p": 0.24545,
+      "offset": 0.45195,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2003",
+      "region": "nsw_cw",
+      "hydro_year": 2003,
+      "rows": 7889,
+      "events": 3181,
+      "base_rate": 0.40322,
+      "mean_p": 0.26786,
+      "offset": 0.7558,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2004",
+      "region": "nsw_cw",
+      "hydro_year": 2004,
+      "rows": 8991,
+      "events": 3167,
+      "base_rate": 0.35224,
+      "mean_p": 0.26924,
+      "offset": 0.48945,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2005",
+      "region": "nsw_cw",
+      "hydro_year": 2005,
+      "rows": 6385,
+      "events": 2037,
+      "base_rate": 0.31903,
+      "mean_p": 0.28357,
+      "offset": 0.21797,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2006",
+      "region": "nsw_cw",
+      "hydro_year": 2006,
+      "rows": 4141,
+      "events": 1615,
+      "base_rate": 0.39,
+      "mean_p": 0.29112,
+      "offset": 0.52049,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2007",
+      "region": "nsw_cw",
+      "hydro_year": 2007,
+      "rows": 7427,
+      "events": 1169,
+      "base_rate": 0.1574,
+      "mean_p": 0.30575,
+      "offset": -1.03828,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2001",
+      "region": "wvic_sesa",
+      "hydro_year": 2001,
+      "rows": 1558,
+      "events": 226,
+      "base_rate": 0.14506,
+      "mean_p": 0.20356,
+      "offset": -0.49452,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2002",
+      "region": "wvic_sesa",
+      "hydro_year": 2002,
+      "rows": 1849,
+      "events": 373,
+      "base_rate": 0.20173,
+      "mean_p": 0.22497,
+      "offset": -0.1591,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2003",
+      "region": "wvic_sesa",
+      "hydro_year": 2003,
+      "rows": 3070,
+      "events": 765,
+      "base_rate": 0.24919,
+      "mean_p": 0.21363,
+      "offset": 0.24135,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2004",
+      "region": "wvic_sesa",
+      "hydro_year": 2004,
+      "rows": 4469,
+      "events": 1251,
+      "base_rate": 0.27993,
+      "mean_p": 0.2278,
+      "offset": 0.33834,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2005",
+      "region": "wvic_sesa",
+      "hydro_year": 2005,
+      "rows": 2821,
+      "events": 629,
+      "base_rate": 0.22297,
+      "mean_p": 0.23126,
+      "offset": -0.05551,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2006",
+      "region": "wvic_sesa",
+      "hydro_year": 2006,
+      "rows": 2710,
+      "events": 750,
+      "base_rate": 0.27675,
+      "mean_p": 0.24154,
+      "offset": 0.20994,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2007",
+      "region": "wvic_sesa",
+      "hydro_year": 2007,
+      "rows": 1573,
+      "events": 487,
+      "base_rate": 0.3096,
+      "mean_p": 0.29451,
+      "offset": 0.08781,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2008",
+      "region": "nsw_cw",
+      "hydro_year": 2008,
+      "rows": 4184,
+      "events": 1124,
+      "base_rate": 0.26864,
+      "mean_p": 0.28004,
+      "offset": -0.07169,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2009",
+      "region": "nsw_cw",
+      "hydro_year": 2009,
+      "rows": 6289,
+      "events": 1216,
+      "base_rate": 0.19335,
+      "mean_p": 0.31324,
+      "offset": -0.78353,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2010",
+      "region": "nsw_cw",
+      "hydro_year": 2010,
+      "rows": 9720,
+      "events": 2062,
+      "base_rate": 0.21214,
+      "mean_p": 0.22555,
+      "offset": -0.09802,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2011",
+      "region": "nsw_cw",
+      "hydro_year": 2011,
+      "rows": 1667,
+      "events": 108,
+      "base_rate": 0.06479,
+      "mean_p": 0.26942,
+      "offset": -1.96003,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2012",
+      "region": "nsw_cw",
+      "hydro_year": 2012,
+      "rows": 3055,
+      "events": 645,
+      "base_rate": 0.21113,
+      "mean_p": 0.25065,
+      "offset": -0.26939,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2013",
+      "region": "nsw_cw",
+      "hydro_year": 2013,
+      "rows": 8149,
+      "events": 2596,
+      "base_rate": 0.31857,
+      "mean_p": 0.30341,
+      "offset": 0.0879,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2014",
+      "region": "nsw_cw",
+      "hydro_year": 2014,
+      "rows": 5926,
+      "events": 1634,
+      "base_rate": 0.27573,
+      "mean_p": 0.31641,
+      "offset": -0.24484,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2015",
+      "region": "nsw_cw",
+      "hydro_year": 2015,
+      "rows": 7144,
+      "events": 1774,
+      "base_rate": 0.24832,
+      "mean_p": 0.3393,
+      "offset": -0.55676,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2008",
+      "region": "wvic_sesa",
+      "hydro_year": 2008,
+      "rows": 1370,
+      "events": 391,
+      "base_rate": 0.2854,
+      "mean_p": 0.24084,
+      "offset": 0.27377,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2009",
+      "region": "wvic_sesa",
+      "hydro_year": 2009,
+      "rows": 3034,
+      "events": 790,
+      "base_rate": 0.26038,
+      "mean_p": 0.32127,
+      "offset": -0.37435,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2010",
+      "region": "wvic_sesa",
+      "hydro_year": 2010,
+      "rows": 2550,
+      "events": 331,
+      "base_rate": 0.1298,
+      "mean_p": 0.22522,
+      "offset": -0.83148,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2011",
+      "region": "wvic_sesa",
+      "hydro_year": 2011,
+      "rows": 3323,
+      "events": 323,
+      "base_rate": 0.0972,
+      "mean_p": 0.19718,
+      "offset": -0.92701,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2012",
+      "region": "wvic_sesa",
+      "hydro_year": 2012,
+      "rows": 949,
+      "events": 207,
+      "base_rate": 0.21812,
+      "mean_p": 0.23653,
+      "offset": -0.12144,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2013",
+      "region": "wvic_sesa",
+      "hydro_year": 2013,
+      "rows": 5120,
+      "events": 1135,
+      "base_rate": 0.22168,
+      "mean_p": 0.26017,
+      "offset": -0.25508,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2014",
+      "region": "wvic_sesa",
+      "hydro_year": 2014,
+      "rows": 4415,
+      "events": 1170,
+      "base_rate": 0.26501,
+      "mean_p": 0.29875,
+      "offset": -0.19765,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2015",
+      "region": "wvic_sesa",
+      "hydro_year": 2015,
+      "rows": 2690,
+      "events": 1047,
+      "base_rate": 0.38922,
+      "mean_p": 0.36158,
+      "offset": 0.13838,
+      "used": true
+     }
+    ],
+    "D0": [
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2001",
+      "region": "nsw_cw",
+      "hydro_year": 2001,
+      "rows": 2799,
+      "events": 171,
+      "base_rate": 0.06109,
+      "mean_p": 0.10086,
+      "offset": -0.65282,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2002",
+      "region": "nsw_cw",
+      "hydro_year": 2002,
+      "rows": 4922,
+      "events": 713,
+      "base_rate": 0.14486,
+      "mean_p": 0.12269,
+      "offset": 0.22714,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2003",
+      "region": "nsw_cw",
+      "hydro_year": 2003,
+      "rows": 11214,
+      "events": 2193,
+      "base_rate": 0.19556,
+      "mean_p": 0.13672,
+      "offset": 0.53757,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2004",
+      "region": "nsw_cw",
+      "hydro_year": 2004,
+      "rows": 12731,
+      "events": 2199,
+      "base_rate": 0.17273,
+      "mean_p": 0.13182,
+      "offset": 0.40235,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2005",
+      "region": "nsw_cw",
+      "hydro_year": 2005,
+      "rows": 8109,
+      "events": 1267,
+      "base_rate": 0.15625,
+      "mean_p": 0.13898,
+      "offset": 0.17733,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2006",
+      "region": "nsw_cw",
+      "hydro_year": 2006,
+      "rows": 7572,
+      "events": 1479,
+      "base_rate": 0.19532,
+      "mean_p": 0.14319,
+      "offset": 0.43796,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2007",
+      "region": "nsw_cw",
+      "hydro_year": 2007,
+      "rows": 9369,
+      "events": 587,
+      "base_rate": 0.06265,
+      "mean_p": 0.14523,
+      "offset": -1.12478,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2001",
+      "region": "wvic_sesa",
+      "hydro_year": 2001,
+      "rows": 1895,
+      "events": 104,
+      "base_rate": 0.05488,
+      "mean_p": 0.09406,
+      "offset": -0.67503,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2002",
+      "region": "wvic_sesa",
+      "hydro_year": 2002,
+      "rows": 2508,
+      "events": 275,
+      "base_rate": 0.10965,
+      "mean_p": 0.11246,
+      "offset": -0.03278,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2003",
+      "region": "wvic_sesa",
+      "hydro_year": 2003,
+      "rows": 3916,
+      "events": 506,
+      "base_rate": 0.12921,
+      "mean_p": 0.10275,
+      "offset": 0.30817,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2004",
+      "region": "wvic_sesa",
+      "hydro_year": 2004,
+      "rows": 5404,
+      "events": 803,
+      "base_rate": 0.14859,
+      "mean_p": 0.11451,
+      "offset": 0.37128,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2005",
+      "region": "wvic_sesa",
+      "hydro_year": 2005,
+      "rows": 4018,
+      "events": 443,
+      "base_rate": 0.11025,
+      "mean_p": 0.1142,
+      "offset": -0.04609,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2006",
+      "region": "wvic_sesa",
+      "hydro_year": 2006,
+      "rows": 4436,
+      "events": 543,
+      "base_rate": 0.12241,
+      "mean_p": 0.11666,
+      "offset": 0.06263,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2007",
+      "region": "wvic_sesa",
+      "hydro_year": 2007,
+      "rows": 2230,
+      "events": 323,
+      "base_rate": 0.14484,
+      "mean_p": 0.15811,
+      "offset": -0.12941,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2008",
+      "region": "nsw_cw",
+      "hydro_year": 2008,
+      "rows": 5862,
+      "events": 705,
+      "base_rate": 0.12027,
+      "mean_p": 0.14371,
+      "offset": -0.2593,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2009",
+      "region": "nsw_cw",
+      "hydro_year": 2009,
+      "rows": 8686,
+      "events": 831,
+      "base_rate": 0.09567,
+      "mean_p": 0.15424,
+      "offset": -0.66997,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2010",
+      "region": "nsw_cw",
+      "hydro_year": 2010,
+      "rows": 10981,
+      "events": 965,
+      "base_rate": 0.08788,
+      "mean_p": 0.09606,
+      "offset": -0.11809,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2011",
+      "region": "nsw_cw",
+      "hydro_year": 2011,
+      "rows": 1926,
+      "events": 55,
+      "base_rate": 0.02856,
+      "mean_p": 0.12747,
+      "offset": -1.84923,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2012",
+      "region": "nsw_cw",
+      "hydro_year": 2012,
+      "rows": 3804,
+      "events": 376,
+      "base_rate": 0.09884,
+      "mean_p": 0.1287,
+      "offset": -0.35712,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2013",
+      "region": "nsw_cw",
+      "hydro_year": 2013,
+      "rows": 11179,
+      "events": 1798,
+      "base_rate": 0.16084,
+      "mean_p": 0.14967,
+      "offset": 0.10787,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2014",
+      "region": "nsw_cw",
+      "hydro_year": 2014,
+      "rows": 8789,
+      "events": 1122,
+      "base_rate": 0.12766,
+      "mean_p": 0.16161,
+      "offset": -0.35275,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2015",
+      "region": "nsw_cw",
+      "hydro_year": 2015,
+      "rows": 9516,
+      "events": 989,
+      "base_rate": 0.10393,
+      "mean_p": 0.16708,
+      "offset": -0.69522,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2008",
+      "region": "wvic_sesa",
+      "hydro_year": 2008,
+      "rows": 2317,
+      "events": 326,
+      "base_rate": 0.1407,
+      "mean_p": 0.1165,
+      "offset": 0.25953,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2009",
+      "region": "wvic_sesa",
+      "hydro_year": 2009,
+      "rows": 4265,
+      "events": 636,
+      "base_rate": 0.14912,
+      "mean_p": 0.17675,
+      "offset": -0.26473,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2010",
+      "region": "wvic_sesa",
+      "hydro_year": 2010,
+      "rows": 3049,
+      "events": 148,
+      "base_rate": 0.04854,
+      "mean_p": 0.11529,
+      "offset": -1.14849,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2011",
+      "region": "wvic_sesa",
+      "hydro_year": 2011,
+      "rows": 3651,
+      "events": 116,
+      "base_rate": 0.03177,
+      "mean_p": 0.09189,
+      "offset": -1.24206,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2012",
+      "region": "wvic_sesa",
+      "hydro_year": 2012,
+      "rows": 1247,
+      "events": 131,
+      "base_rate": 0.10505,
+      "mean_p": 0.11773,
+      "offset": -0.14803,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2013",
+      "region": "wvic_sesa",
+      "hydro_year": 2013,
+      "rows": 6035,
+      "events": 630,
+      "base_rate": 0.10439,
+      "mean_p": 0.1244,
+      "offset": -0.24162,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2014",
+      "region": "wvic_sesa",
+      "hydro_year": 2014,
+      "rows": 5804,
+      "events": 745,
+      "base_rate": 0.12836,
+      "mean_p": 0.14798,
+      "offset": -0.20109,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2015",
+      "region": "wvic_sesa",
+      "hydro_year": 2015,
+      "rows": 4053,
+      "events": 800,
+      "base_rate": 0.19738,
+      "mean_p": 0.182,
+      "offset": 0.12364,
+      "used": true
+     }
+    ],
+    "D0g": [
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2001",
+      "region": "nsw_cw",
+      "hydro_year": 2001,
+      "rows": 2745,
+      "events": 117,
+      "base_rate": 0.04262,
+      "mean_p": 0.07104,
+      "offset": -0.62722,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2002",
+      "region": "nsw_cw",
+      "hydro_year": 2002,
+      "rows": 4780,
+      "events": 571,
+      "base_rate": 0.11946,
+      "mean_p": 0.08588,
+      "offset": 0.42642,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2003",
+      "region": "nsw_cw",
+      "hydro_year": 2003,
+      "rows": 10639,
+      "events": 1618,
+      "base_rate": 0.15208,
+      "mean_p": 0.09869,
+      "offset": 0.61281,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2004",
+      "region": "nsw_cw",
+      "hydro_year": 2004,
+      "rows": 12135,
+      "events": 1603,
+      "base_rate": 0.1321,
+      "mean_p": 0.09252,
+      "offset": 0.49464,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2005",
+      "region": "nsw_cw",
+      "hydro_year": 2005,
+      "rows": 7726,
+      "events": 884,
+      "base_rate": 0.11442,
+      "mean_p": 0.09459,
+      "offset": 0.26651,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2006",
+      "region": "nsw_cw",
+      "hydro_year": 2006,
+      "rows": 7298,
+      "events": 1205,
+      "base_rate": 0.16511,
+      "mean_p": 0.10203,
+      "offset": 0.63668,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "nsw_cw:2007",
+      "region": "nsw_cw",
+      "hydro_year": 2007,
+      "rows": 9186,
+      "events": 404,
+      "base_rate": 0.04398,
+      "mean_p": 0.10275,
+      "offset": -1.06983,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2001",
+      "region": "wvic_sesa",
+      "hydro_year": 2001,
+      "rows": 1845,
+      "events": 54,
+      "base_rate": 0.02927,
+      "mean_p": 0.06019,
+      "offset": -0.84522,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2002",
+      "region": "wvic_sesa",
+      "hydro_year": 2002,
+      "rows": 2426,
+      "events": 193,
+      "base_rate": 0.07955,
+      "mean_p": 0.07629,
+      "offset": 0.05213,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2003",
+      "region": "wvic_sesa",
+      "hydro_year": 2003,
+      "rows": 3716,
+      "events": 306,
+      "base_rate": 0.08235,
+      "mean_p": 0.06371,
+      "offset": 0.31965,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2004",
+      "region": "wvic_sesa",
+      "hydro_year": 2004,
+      "rows": 5008,
+      "events": 407,
+      "base_rate": 0.08127,
+      "mean_p": 0.0706,
+      "offset": 0.18207,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2005",
+      "region": "wvic_sesa",
+      "hydro_year": 2005,
+      "rows": 3881,
+      "events": 306,
+      "base_rate": 0.07885,
+      "mean_p": 0.07774,
+      "offset": 0.01743,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2006",
+      "region": "wvic_sesa",
+      "hydro_year": 2006,
+      "rows": 4300,
+      "events": 407,
+      "base_rate": 0.09465,
+      "mean_p": 0.07998,
+      "offset": 0.20848,
+      "used": true
+     },
+     {
+      "block": "2002-2009",
+      "region_year": "wvic_sesa:2007",
+      "region": "wvic_sesa",
+      "hydro_year": 2007,
+      "rows": 2131,
+      "events": 224,
+      "base_rate": 0.10511,
+      "mean_p": 0.10786,
+      "offset": -0.03488,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2008",
+      "region": "nsw_cw",
+      "hydro_year": 2008,
+      "rows": 5688,
+      "events": 531,
+      "base_rate": 0.09335,
+      "mean_p": 0.11071,
+      "offset": -0.23647,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2009",
+      "region": "nsw_cw",
+      "hydro_year": 2009,
+      "rows": 8431,
+      "events": 576,
+      "base_rate": 0.06832,
+      "mean_p": 0.11736,
+      "offset": -0.71203,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2010",
+      "region": "nsw_cw",
+      "hydro_year": 2010,
+      "rows": 10520,
+      "events": 504,
+      "base_rate": 0.04791,
+      "mean_p": 0.0626,
+      "offset": -0.32938,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2011",
+      "region": "nsw_cw",
+      "hydro_year": 2011,
+      "rows": 1898,
+      "events": 27,
+      "base_rate": 0.01423,
+      "mean_p": 0.08908,
+      "offset": -2.14663,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2012",
+      "region": "nsw_cw",
+      "hydro_year": 2012,
+      "rows": 3692,
+      "events": 264,
+      "base_rate": 0.07151,
+      "mean_p": 0.09416,
+      "offset": -0.35349,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2013",
+      "region": "nsw_cw",
+      "hydro_year": 2013,
+      "rows": 10830,
+      "events": 1449,
+      "base_rate": 0.1338,
+      "mean_p": 0.11675,
+      "offset": 0.19386,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2014",
+      "region": "nsw_cw",
+      "hydro_year": 2014,
+      "rows": 8482,
+      "events": 815,
+      "base_rate": 0.09609,
+      "mean_p": 0.1266,
+      "offset": -0.38529,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "nsw_cw:2015",
+      "region": "nsw_cw",
+      "hydro_year": 2015,
+      "rows": 9287,
+      "events": 760,
+      "base_rate": 0.08183,
+      "mean_p": 0.1315,
+      "offset": -0.65893,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2008",
+      "region": "wvic_sesa",
+      "hydro_year": 2008,
+      "rows": 2231,
+      "events": 240,
+      "base_rate": 0.10758,
+      "mean_p": 0.08448,
+      "offset": 0.31345,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2009",
+      "region": "wvic_sesa",
+      "hydro_year": 2009,
+      "rows": 4035,
+      "events": 406,
+      "base_rate": 0.10062,
+      "mean_p": 0.12311,
+      "offset": -0.2815,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2010",
+      "region": "wvic_sesa",
+      "hydro_year": 2010,
+      "rows": 2982,
+      "events": 81,
+      "base_rate": 0.02716,
+      "mean_p": 0.0773,
+      "offset": -1.29279,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2011",
+      "region": "wvic_sesa",
+      "hydro_year": 2011,
+      "rows": 3601,
+      "events": 66,
+      "base_rate": 0.01833,
+      "mean_p": 0.05591,
+      "offset": -1.26225,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2012",
+      "region": "wvic_sesa",
+      "hydro_year": 2012,
+      "rows": 1201,
+      "events": 85,
+      "base_rate": 0.07077,
+      "mean_p": 0.08407,
+      "offset": -0.21172,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2013",
+      "region": "wvic_sesa",
+      "hydro_year": 2013,
+      "rows": 5801,
+      "events": 396,
+      "base_rate": 0.06826,
+      "mean_p": 0.0833,
+      "offset": -0.25718,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2014",
+      "region": "wvic_sesa",
+      "hydro_year": 2014,
+      "rows": 5616,
+      "events": 557,
+      "base_rate": 0.09918,
+      "mean_p": 0.11016,
+      "offset": -0.14123,
+      "used": true
+     },
+     {
+      "block": "2009-2016",
+      "region_year": "wvic_sesa:2015",
+      "region": "wvic_sesa",
+      "hydro_year": 2015,
+      "rows": 3876,
+      "events": 623,
+      "base_rate": 0.16073,
+      "mean_p": 0.14181,
+      "offset": 0.17983,
+      "used": true
+     }
+    ]
+   },
+   "reuse_checks": {
+    "R30": {
+     "2002-2009 vs step 12's inner block": {
+      "region_years": 14,
+      "max_abs_difference": 0.0
+     },
+     "2009-2016 (years 2008-2014) vs step 12's VAL forecasts": {
+      "region_years": 14,
+      "max_abs_difference": 0.0
+     }
+    },
+    "D0": {
+     "2002-2009 vs step 12's inner block": {
+      "region_years": 14,
+      "max_abs_difference": 0.0
+     },
+     "2009-2016 (years 2008-2014) vs step 12's VAL forecasts": {
+      "region_years": 14,
+      "max_abs_difference": 0.0
+     }
+    },
+    "D0g": {
+     "2002-2009 vs step 12's inner block": {
+      "region_years": 14,
+      "max_abs_difference": 0.0
+     },
+     "2009-2016 (years 2008-2014) vs step 12's VAL forecasts": {
+      "region_years": 14,
+      "max_abs_difference": 0.0
+     }
+    },
+    "verdict": "reproduces the VAL run"
+   }
+  },
+  "season_rating": {
+   "variant": "main",
+   "about": "PREREG P2: LightGBM boosted from logit(B2), HSN inputs, dam-like seasons, 3 seeds",
+   "block": "TEST",
+   "population": "dam_like",
+   "fit_seasons": 43912,
+   "fit_dry": 7857,
+   "n_features": 45,
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "top_features_by_gain": {
+    "b2N": 0.1392,
+    "R_anom": 0.1222,
+    "wet_share_c": 0.0815,
+    "since_low_R30": 0.0753,
+    "low365_D0": 0.0652,
+    "since_arm": 0.0543,
+    "R_zero": 0.0507,
+    "dam_rate_P2": 0.0487,
+    "R_chg3": 0.0412,
+    "log_n_pixels": 0.0389
+   },
+   "seconds": 3
+  },
+  "forecasts": {
+   "rows": {
+    "p1": 953065,
+    "p2_dam": 16830,
+    "p2_cell": 14350
+   },
+   "rows_R30": 774438,
+   "issues": [
+    "2016-07-02",
+    "2026-06-28"
+   ],
+   "p2_seasons": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "checks": {
+    "p1 has one row per at-risk D0 TEST issue": true,
+    "R30 rows = at-risk R30 TEST issues": true,
+    "only TEST issues": true,
+    "p90_R30 set and inside (0, 1)": true,
+    "member T forecasts every R30 row": true,
+    "member S forecasts every R30 row": true,
+    "member M forecasts every R30 row": true,
+    "band_low <= p90 <= band_high (R30)": true,
+    "p90_D0 set and inside (0, 1)": true,
+    "member T forecasts every D0 row": true,
+    "member S forecasts every D0 row": true,
+    "member M forecasts every D0 row": true,
+    "band_low <= p90 <= band_high (D0)": true,
+    "p90_D0g set and inside (0, 1)": true,
+    "member T forecasts every D0g row": true,
+    "member S forecasts every D0g row": true,
+    "member M forecasts every D0g row": true,
+    "band_low <= p90 <= band_high (D0g)": true,
+    "R30 headline >= D0 (max rule)": true,
+    "R30 curve set and never falls": true,
+    "D0 curve set and never falls": true,
+    "R30 curve >= D0 curve": true,
+    "floor set, 0 to 365 days": true,
+    "p2_dam: p and p_g inside (0, 1), TEST seasons only": true,
+    "p2_cell: p and p_g inside (0, 1), TEST seasons only": true
+   }
+  }
+ },
+ "g2": {
+  "model_file": "data_cache/models/TEST/g2.pkl",
+  "models": {
+   "R30": {
+    "fit_rows": 979484,
+    "fit_events": 284988,
+    "predicted_rows": 774438,
+    "n_features": 29,
+    "fingerprint": "895bdfcccc3457e3",
+    "top_features_by_gain": {
+     "dam_rate_R30": 0.3609,
+     "low365_R30": 0.1074,
+     "dtt_fast_R30": 0.073,
+     "sin_doy": 0.0482,
+     "wet_share_c": 0.0481,
+     "last3": 0.0461,
+     "R_anom": 0.0417,
+     "cos_doy": 0.0399
+    },
+    "seconds": 46
+   },
+   "D0": {
+    "fit_rows": 1291406,
+    "fit_events": 219667,
+    "predicted_rows": 953065,
+    "n_features": 29,
+    "fingerprint": "5b27b39e57547641",
+    "top_features_by_gain": {
+     "dam_rate_D0": 0.4563,
+     "low365_D0": 0.1143,
+     "wet_share_c": 0.0523,
+     "last3": 0.0462,
+     "rec": 0.0359,
+     "dtt_fast_D0": 0.0357,
+     "sin_doy": 0.0322,
+     "R_anom": 0.0289
+    },
+    "seconds": 56
+   },
+   "D0g": {
+    "fit_rows": 1204006,
+    "fit_events": 132267,
+    "predicted_rows": 953065,
+    "n_features": 29,
+    "fingerprint": "1180bc85e3a745e5",
+    "top_features_by_gain": {
+     "dam_rate_D0g": 0.3202,
+     "low365_D0": 0.1028,
+     "rec": 0.0881,
+     "wet_share_c": 0.0678,
+     "last3": 0.0525,
+     "dtt_fast_D0": 0.0513,
+     "rel": 0.0477,
+     "R_anom": 0.0355
+    },
+    "seconds": 59
+   }
+  }
+ },
+ "baselines": {
+  "p1": {
+   "R30 dam_like": {
+    "fit_rows": 411039,
+    "fit_events": 83115,
+    "population": "dam_like",
+    "purged": true,
+    "predicted_rows": 774438
+   },
+   "R30 persistent": {
+    "fit_rows": 290258,
+    "fit_events": 48112,
+    "population": "persistent",
+    "purged": true,
+    "predicted_rows": 774438
+   },
+   "D0 dam_like": {
+    "fit_rows": 525638,
+    "fit_events": 49905,
+    "population": "dam_like",
+    "purged": true,
+    "predicted_rows": 953065
+   },
+   "D0 persistent": {
+    "fit_rows": 369005,
+    "fit_events": 15298,
+    "population": "persistent",
+    "purged": true,
+    "predicted_rows": 953065
+   },
+   "D0g dam_like": {
+    "fit_rows": 509009,
+    "fit_events": 33276,
+    "population": "dam_like",
+    "purged": true,
+    "predicted_rows": 953065
+   },
+   "D0g persistent": {
+    "fit_rows": 363991,
+    "fit_events": 10284,
+    "population": "persistent",
+    "purged": true,
+    "predicted_rows": 953065
+   }
+  },
+  "runway_curve": {
+   "R30 dam_like": {
+    "fit_counts": {
+     "30": {
+      "fit_rows": 411039,
+      "fit_events": 25621
+     },
+     "60": {
+      "fit_rows": 411039,
+      "fit_events": 55495
+     },
+     "90": {
+      "fit_rows": 411039,
+      "fit_events": 83115
+     },
+     "180": {
+      "fit_rows": 408813,
+      "fit_events": 138613
+     }
+    },
+    "population": "dam_like",
+    "purged": true,
+    "predicted_rows": 774438
+   },
+   "R30 persistent": {
+    "fit_counts": {
+     "30": {
+      "fit_rows": 290258,
+      "fit_events": 14092
+     },
+     "60": {
+      "fit_rows": 290258,
+      "fit_events": 31457
+     },
+     "90": {
+      "fit_rows": 290258,
+      "fit_events": 48112
+     },
+     "180": {
+      "fit_rows": 288399,
+      "fit_events": 82188
+     }
+    },
+    "population": "persistent",
+    "purged": true,
+    "predicted_rows": 774438
+   },
+   "D0 dam_like": {
+    "fit_counts": {
+     "30": {
+      "fit_rows": 525638,
+      "fit_events": 14454
+     },
+     "60": {
+      "fit_rows": 525638,
+      "fit_events": 32345
+     },
+     "90": {
+      "fit_rows": 525638,
+      "fit_events": 49905
+     },
+     "180": {
+      "fit_rows": 522470,
+      "fit_events": 88273
+     }
+    },
+    "population": "dam_like",
+    "purged": true,
+    "predicted_rows": 953065
+   },
+   "D0 persistent": {
+    "fit_counts": {
+     "30": {
+      "fit_rows": 369005,
+      "fit_events": 4264
+     },
+     "60": {
+      "fit_rows": 369005,
+      "fit_events": 9766
+     },
+     "90": {
+      "fit_rows": 369005,
+      "fit_events": 15298
+     },
+     "180": {
+      "fit_rows": 366507,
+      "fit_events": 28585
+     }
+    },
+    "population": "persistent",
+    "purged": true,
+    "predicted_rows": 953065
+   }
+  },
+  "p2": {
+   "P2_dam": {
+    "fit_rows": 43912,
+    "fit_events": 7857,
+    "population": "dam_like",
+    "predicted_rows": 64750
+   },
+   "P2_dam_g": {
+    "fit_rows": 41505,
+    "fit_events": 5450,
+    "population": "dam_like",
+    "predicted_rows": 64750
+   },
+   "P2_cell": {
+    "fit_rows": 37409,
+    "fit_events": 6352,
+    "population": "all",
+    "predicted_rows": 14350
+   }
+  },
+  "note": "Fitted on the purged fit rows of the population each is judged with. On the sealed region every baseline is refitted on that region's own pre-2016-07 history (PREREG)."
+ },
+ "files": [
+  {
+   "path": "data_cache/models/TEST/tidemark_L3.pkl",
+   "bytes": 5436827
+  },
+  {
+   "path": "data_cache/preds/TEST/tidemark/L3_p1.pkl",
+   "rows": 953065,
+   "columns": 45,
+   "bytes": 164982136,
+   "fingerprint": "e167b410c951ff80"
+  },
+  {
+   "path": "data_cache/preds/TEST/tidemark/L3_p2_dam.pkl",
+   "rows": 16830,
+   "columns": 9,
+   "bytes": 670162,
+   "fingerprint": "2bc95e3bdcfc1b57"
+  },
+  {
+   "path": "data_cache/preds/TEST/tidemark/L3_p2_cell.pkl",
+   "rows": 14350,
+   "columns": 7,
+   "bytes": 524089,
+   "fingerprint": "985fdaee13eaf828"
+  },
+  {
+   "path": "data_cache/models/TEST/g2.pkl",
+   "bytes": 2215357
+  },
+  {
+   "path": "data_cache/preds/TEST/P1_R30/g2.pkl",
+   "rows": 774438,
+   "columns": 4,
+   "bytes": 14037120,
+   "fingerprint": "15cd795a4273949b"
+  },
+  {
+   "path": "data_cache/preds/TEST/P1_D0/g2.pkl",
+   "rows": 953065,
+   "columns": 4,
+   "bytes": 17253156,
+   "fingerprint": "136228071bdcda11"
+  },
+  {
+   "path": "data_cache/preds/TEST/P1_D0g/g2.pkl",
+   "rows": 953065,
+   "columns": 4,
+   "bytes": 17253156,
+   "fingerprint": "a733546c072937a1"
+  },
+  {
+   "path": "data_cache/preds/TEST/P1_R30/baselines_dam_like.pkl",
+   "rows": 774438,
+   "columns": 5,
+   "bytes": 17135025,
+   "fingerprint": "69150718ae821b81"
+  },
+  {
+   "path": "data_cache/preds/TEST/P1_R30/baselines_persistent.pkl",
+   "rows": 774438,
+   "columns": 5,
+   "bytes": 17135025,
+   "fingerprint": "f9572bf86b4460a5"
+  },
+  {
+   "path": "data_cache/preds/TEST/P1_D0/baselines_dam_like.pkl",
+   "rows": 953065,
+   "columns": 5,
+   "bytes": 21065567,
+   "fingerprint": "cee191750e472be3"
+  },
+  {
+   "path": "data_cache/preds/TEST/P1_D0/baselines_persistent.pkl",
+   "rows": 953065,
+   "columns": 5,
+   "bytes": 21065569,
+   "fingerprint": "4e261e083d582286"
+  },
+  {
+   "path": "data_cache/preds/TEST/P1_D0g/baselines_dam_like.pkl",
+   "rows": 953065,
+   "columns": 5,
+   "bytes": 21065567,
+   "fingerprint": "877228ce96a95cdb"
+  },
+  {
+   "path": "data_cache/preds/TEST/P1_D0g/baselines_persistent.pkl",
+   "rows": 953065,
+   "columns": 5,
+   "bytes": 21065569,
+   "fingerprint": "98a5fabaac9207ba"
+  },
+  {
+   "path": "data_cache/preds/TEST/R30_curve/baselines_dam_like.pkl",
+   "rows": 774438,
+   "columns": 10,
+   "bytes": 32624296,
+   "fingerprint": "4fd9ebb8d5c451d8"
+  },
+  {
+   "path": "data_cache/preds/TEST/R30_curve/baselines_persistent.pkl",
+   "rows": 774438,
+   "columns": 10,
+   "bytes": 32624296,
+   "fingerprint": "40386848913d869f"
+  },
+  {
+   "path": "data_cache/preds/TEST/D0_curve/baselines_dam_like.pkl",
+   "rows": 953065,
+   "columns": 10,
+   "bytes": 40127378,
+   "fingerprint": "9e3f95f5d7c84c33"
+  },
+  {
+   "path": "data_cache/preds/TEST/D0_curve/baselines_persistent.pkl",
+   "rows": 953065,
+   "columns": 10,
+   "bytes": 40127378,
+   "fingerprint": "639cb7a2ea579c5d"
+  },
+  {
+   "path": "data_cache/preds/TEST/P2_dam/baselines.pkl",
+   "rows": 64750,
+   "columns": 7,
+   "bytes": 2041355,
+   "fingerprint": "2fef5b2da9e94566"
+  },
+  {
+   "path": "data_cache/preds/TEST/P2_dam_g/baselines.pkl",
+   "rows": 64750,
+   "columns": 7,
+   "bytes": 2041355,
+   "fingerprint": "c6c51a647c617c68"
+  },
+  {
+   "path": "data_cache/preds/TEST/P2_cell/baselines.pkl",
+   "rows": 14350,
+   "columns": 7,
+   "bytes": 452260,
+   "fingerprint": "ba8678f974e99c88"
+  }
+ ],
+ "storage": "forecasts float32, uid/region as categories; file fingerprints are of the stored values",
+ "how_to_load": {
+  "tidemark": "model = pd.read_pickle(\"data_cache/models/TEST/tidemark_L3.pkl\"); out = tidemark.predict_tidemark(model, inputs)",
+  "g2": "g = pd.read_pickle(\"data_cache/models/TEST/g2.pkl\"); p = fusion.predict_tree(g[\"models\"][kind], table, positions, g[\"features\"][kind])",
+  "forecasts": "pd.read_pickle(\"data_cache/preds/TEST/<task>/<name>.pkl\") (see \"files\")"
+ }
+}
