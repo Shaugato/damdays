@@ -1,0 +1,134 @@
+{
+  "source": "mock",
+  "source_label": "MOCK numbers computed from made-up data",
+  "rating": {
+    "all_seasons": {
+      "n_cells": 1889,
+      "n_ran_dry": 90,
+      "rain_only_auc": {
+        "value": 0.547,
+        "ci_low": 0.497,
+        "ci_high": 0.597
+      },
+      "rating_auc": {
+        "value": 0.955,
+        "ci_low": 0.939,
+        "ci_high": 0.97
+      },
+      "label": "All past seasons 2016-2025"
+    },
+    "by_season": [
+      {
+        "season": "2016-17",
+        "n_cells": 189,
+        "n_ran_dry": 0,
+        "rain_only_auc": null,
+        "rating_auc": null
+      },
+      {
+        "season": "2017-18",
+        "n_cells": 189,
+        "n_ran_dry": 41,
+        "rain_only_auc": {
+          "value": 0.566,
+          "ci_low": 0.475,
+          "ci_high": 0.659
+        },
+        "rating_auc": {
+          "value": 0.891,
+          "ci_low": 0.824,
+          "ci_high": 0.939
+        }
+      },
+      {
+        "season": "2018-19",
+        "n_cells": 189,
+        "n_ran_dry": 29,
+        "rain_only_auc": {
+          "value": 0.267,
+          "ci_low": 0.165,
+          "ci_high": 0.378
+        },
+        "rating_auc": {
+          "value": 0.985,
+          "ci_low": 0.967,
+          "ci_high": 0.995
+        }
+      },
+      {
+        "season": "2019-20",
+        "n_cells": 189,
+        "n_ran_dry": 0,
+        "rain_only_auc": null,
+        "rating_auc": null
+      },
+      {
+        "season": "2020-21",
+        "n_cells": 189,
+        "n_ran_dry": 0,
+        "rain_only_auc": null,
+        "rating_auc": null
+      },
+      {
+        "season": "2021-22",
+        "n_cells": 189,
+        "n_ran_dry": 0,
+        "rain_only_auc": null,
+        "rating_auc": null
+      },
+      {
+        "season": "2022-23",
+        "n_cells": 189,
+        "n_ran_dry": 0,
+        "rain_only_auc": null,
+        "rating_auc": null
+      },
+      {
+        "season": "2023-24",
+        "n_cells": 189,
+        "n_ran_dry": 19,
+        "rain_only_auc": {
+          "value": 0.558,
+          "ci_low": 0.399,
+          "ci_high": 0.705
+        },
+        "rating_auc": {
+          "value": 0.925,
+          "ci_low": 0.867,
+          "ci_high": 0.968
+        }
+      },
+      {
+        "season": "2024-25",
+        "n_cells": 189,
+        "n_ran_dry": 1,
+        "rain_only_auc": {
+          "value": 0.011,
+          "ci_low": 0.0,
+          "ci_high": 0.027
+        },
+        "rating_auc": {
+          "value": 0.989,
+          "ci_low": 0.973,
+          "ci_high": 1.0
+        }
+      },
+      {
+        "season": "2025-26",
+        "n_cells": 188,
+        "n_ran_dry": 0,
+        "rain_only_auc": null,
+        "rating_auc": null
+      }
+    ]
+  },
+  "runway": {
+    "label": "MOCK: all rewind dates pooled",
+    "skill_vs_usual_rate": {
+      "value": 0.456,
+      "ci_low": 0.35,
+      "ci_high": 0.544
+    },
+    "n_forecasts": 814
+  }
+}

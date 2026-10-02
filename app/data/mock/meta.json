@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "is_mock": true,
+  "generated_at": "2026-10-01T23:52:27Z",
+  "region": {
+    "key": "nsw_cw",
+    "name": "NSW Central West",
+    "bbox": [
+      -33.5,
+      -30.5,
+      147.0,
+      150.0
+    ]
+  },
+  "data_through": "2026-09-14",
+  "horizon_days": 90,
+  "threshold_pct": 30,
+  "arm_level_pct": 60,
+  "min_dam_area_ha": 0.54,
+  "model": {
+    "name": "None (mock data)",
+    "version": null,
+    "config_hash": null
+  },
+  "note": "Made-up data for building and testing the app. These are not forecasts."
+}
