@@ -1,10 +1,28 @@
 # DamDays
 
-**How many days of water does this farm dam have left?** DamDays answers that for farm dams big enough for the satellites to see (about 0.5 ha and up), using 38 years of satellite water history, and says how sure it is.
+**How many days of water does this farm dam have left?** DamDays answers that for farm dams big enough for the satellites to see (about 0.5 ha and up), using 38 years of satellite water history, says how sure it is, and writes the answer for the farmer as one text a week.
 
 Climate Hack-tion 2026 · Build for 2035 · COP31 track: **Awareness Across All Areas** (helping farmers and land managers adapt, and making climate information easy to use).
 
 > Work in progress during the event (2-4 Oct 2026). This page is updated as the build progresses. Results below: Fri 2 Oct 2026, 21:07 AEST. The sealed region's results are added after it is opened (Sat 3 Oct 17:30 AEST).
+
+## What farmers get
+
+**One text a week, per farm.** A mentor who grew up on farms told us farmers rarely open apps or emails, but a weekly text is what they would use. So the text is the product. This is the real text made on Fri 2 Oct 2026 for a demo farm near Dubbo (7 farm dams within 3 km of the homestead; the dams and forecasts are real, the homestead point is not):
+
+```
+Fri 2 Oct (satellite 13 Sep)
+Dam 2 ~67% full: at least 29 days before it drops below 1/3
+Dam 1 looks dry
+Other 5 dams: at least 52 days
+Reply MAP
+```
+
+- **"%" means only how full a dam is**, at its latest clear satellite look. The text gives no chances; its longer app/email version writes a chance as "3 in 10", never as a percent.
+- **The headline is days**: the cautious DamDays number, counted from the day of the text (Dam 2 had at least 48 days from its 13 Sep look, so 29 from 2 Oct). On the ten test years it held 9 times in 10. From 180 days on, the text says "6 months+".
+- **Dam 1 is the dam closest to the homestead.** A farm is a homestead point plus every farm dam the satellites can see within 3 km (there are no property boundaries in the data).
+- **Every text fits one SMS** (160 places). This week's texts for 10 demo farms in both regions: [outbox/2026-10-02.json](outbox/2026-10-02.json). The rules, line by line, with 10 worked examples: [notify/MESSAGE_SPEC.md](notify/MESSAGE_SPEC.md). Nothing is sent unless you run the sender with your own SMS account's keys.
+- **In the app** ([app/index.html](app/index.html)), the **My farm** view opens first and shows the same farm: the homestead, its dams on the map, this week's text on a drawn phone, and each dam's card. Click the map to set your own homestead and the text is made again in the browser, by a JavaScript copy of the Python that is checked to write the same texts character for character ([app/README.md](app/README.md#the-weekly-text-in-the-browser-one-text-two-languages)). Its data, the demo farms with their dams and texts, is [app/data/real/farms.json](app/data/real/farms.json) ([format](app/DATA_CONTRACT.md#farmsjson-optional-demo-farms-and-their-weekly-texts)).
 
 ## Results
 
@@ -61,7 +79,7 @@ Rated each 1 July, before the season. "Ran dry" means every farm dam in the patc
 ## Start here (2-minute tour for judges and mentors)
 
 1. **The problem.** In a drought, graziers must decide when to cart water, move stock or sell, before the dam runs dry. Banks and valuers judging farm drought risk see rainfall, but not how much water a farm has stored.
-2. **What we built.** A forecast for each dam ("at least 60 days of water above a third, 9 times in 10; about a 6 in 10 chance it falls below a third by 1 February"), plus a season-ahead water-security rating for lenders.
+2. **What we built.** A weekly text for each farm with each dam's days of water left ([above](#what-farmers-get)); an app to look closer, where each dam's card adds the chance it drops below a third (Dam 2 above: 3 in 10 by 12 Dec) and a six-month runway; and a season-ahead water-security rating for lenders.
 3. **How we know it works.** Every claim is tested on years and dams the model never saw. The test rules were written down and committed *before* any code ([PREREG.md](PREREG.md)). One whole region was downloaded but kept sealed (its file fingerprints are in [SEALED_HASHES.csv](SEALED_HASHES.csv)) and is opened once, on camera, on Saturday 17:30 AEST. The results so far are [above](#results).
 4. **How it works, in plain language:** [docs/HOW_IT_WORKS.md](docs/HOW_IT_WORKS.md) (one diagram, what each part adds, and the final numbers).
 5. **Where the key logic lives** (see the next section).
@@ -86,10 +104,11 @@ Read in this order. Each file starts with a plain-English explanation.
 | [`scripts/15_score_test.py`](scripts/15_score_test.py) | The test years' one look: reads step 13's saved forecasts (fingerprints checked) and scores them once through the ledger. Writes [artifacts/test_results.md](artifacts/test_results.md). |
 | [`scripts/20_open_sealed_region.py`](scripts/20_open_sealed_region.py) | The sealed-region opening, run once on Sat 3 Oct 17:30 AEST ([docs/SEALED_OPENING.md](docs/SEALED_OPENING.md) is the runbook). It refuses to start unless the unlock switch is on, git is clean and pushed, every sealed file's SHA-256 matches the committed [SEALED_HASHES.csv](SEALED_HASHES.csv), the models match their committed fingerprints and the freeze addendum ([PREREG_ADDENDUM_1.md](PREREG_ADDENDUM_1.md)) is committed; then it builds the region from raw files with the development code ([`damdays/sealed/`](damdays/sealed/)), forecasts it with the frozen TEST-setting models and scores it once. `--dry-run` rehearses the whole pipeline on a development region treated as unseen, on a separate ledger (not the development TEST result). |
 | [`damdays/export/`](damdays/export/) | Turns forecasts into the app's data files: [`live_model.py`](damdays/export/live_model.py) refits Tidemark on every answer known by the last satellite look for today's forecasts (shown, never scored), and [`app_data.py`](damdays/export/app_data.py) writes the six JSON files the app reads, copying every score from the evaluation outputs. Run with [`scripts/11_export_app.py`](scripts/11_export_app.py). |
+| [`notify/`](notify/) | The weekly text ([notify/MESSAGE_SPEC.md](notify/MESSAGE_SPEC.md)): finds a farm's dams (every dam within 3 km of a homestead point, Dam 1 the closest), writes the SMS and its longer app/email version from the live forecasts, and keeps each text to one SMS. It only reads the forecasts; it does not import or change the frozen model. Run with [`scripts/16_weekly_texts.py`](scripts/16_weekly_texts.py); checked by [`tests/test_weekly_text.py`](tests/test_weekly_text.py). |
 
 ## Reproduce
 
-Everything runs on a laptop CPU (built on Windows 11 with Python 3.12, 8 cores and 32 GB RAM). Steps 01 to 15 rebuild every number on this page from the raw public data, in about 5 to 7 hours, most of it model fitting.
+Everything runs on a laptop CPU (built on Windows 11 with Python 3.12, 8 cores and 32 GB RAM). Steps 01 to 16 rebuild every number on this page from the raw public data, in about 5 to 7 hours, most of it model fitting.
 
 **1. Set up** (once, from the repo folder):
 
@@ -120,6 +139,7 @@ python -m venv .venv
 | 13 | `.venv/Scripts/python.exe scripts/13_fit_test_setting.py` | fits the frozen models on answers known before 1 July 2016 and saves the test forecasts; scores nothing | 45-75 min |
 | 14 | `.venv/Scripts/python.exe scripts/14_config_hash.py` | the code fingerprint; for the frozen code it prints `7d466291008d` | seconds |
 | 15 | `.venv/Scripts/python.exe scripts/15_score_test.py --check`, then `.venv/Scripts/python.exe scripts/15_score_test.py` | `--check` builds and checks every table and scores nothing; the second command is the test years' one look | 15-30 min |
+| 16 | `.venv/Scripts/python.exe scripts/16_weekly_texts.py --date 2026-10-02` | the weekly texts for 10 demo farms, as shown on this page ([What farmers get](#what-farmers-get)). Without `--date` they are dated today, so the days change. Needs step 11's live fit; `--regions nsw_cw` needs only the app's published file | seconds |
 
 Then the tests: `.venv/Scripts/python.exe -m pytest tests`.
 
