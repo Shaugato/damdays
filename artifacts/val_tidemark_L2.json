@@ -1,0 +1,5910 @@
+{
+ "generated": "2026-10-02 16:18:59",
+ "block": "VAL",
+ "rung": "L2",
+ "torch": "2.14.1+cpu",
+ "n_boot_main": 500,
+ "n_boot_side": 200,
+ "ladder": [
+  {
+   "check": "R30 L2 BSS vs B0 (ladder check)",
+   "expected": 0.1809,
+   "got": 0.18,
+   "difference": -0.0009,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "derived: hybrid tables/val_final_scorecard.csv (frozen v1 = L3) minus hybrid tables/val_stageB.csv '-PHY' removal cost",
+   "ladder": true
+  },
+  {
+   "check": "D0 L2 BSS vs B0 (ladder check)",
+   "expected": 0.1923,
+   "got": 0.19177,
+   "difference": -0.00053,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "derived: hybrid tables/val_final_scorecard.csv (frozen v1 = L3) minus hybrid tables/val_stageB.csv '-PHY' removal cost",
+   "ladder": true
+  }
+ ],
+ "checks": [
+  {
+   "check": "R30 L2 BSS vs B0 (ladder check)",
+   "expected": 0.1809,
+   "got": 0.18,
+   "difference": -0.0009,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "derived: hybrid tables/val_final_scorecard.csv (frozen v1 = L3) minus hybrid tables/val_stageB.csv '-PHY' removal cost",
+   "ladder": true
+  },
+  {
+   "check": "R30 L2 BSS vs B0, persistent",
+   "expected": 0.1531,
+   "got": 0.15116,
+   "difference": -0.00194,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "derived, as above",
+   "ladder": false
+  },
+  {
+   "check": "R30 L2 auc",
+   "expected": 0.7908,
+   "got": 0.79003,
+   "difference": -0.00077,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "R30 L2 bss_B2",
+   "expected": 0.1113,
+   "got": 0.10962,
+   "difference": -0.00168,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "R30 L2 cal_slope",
+   "expected": 1.0718,
+   "got": 1.0668,
+   "difference": -0.005,
+   "tolerance": 0.05,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "R30 L2 citl",
+   "expected": -0.2763,
+   "got": -0.28097,
+   "difference": -0.00467,
+   "tolerance": 0.05,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "R30 S alone, seed 0",
+   "expected": 0.163,
+   "got": 0.16014,
+   "difference": -0.00286,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "neural-sequence logs/VAL_components.log (seed 0, 1 epoch; 3 decimals)",
+   "ladder": false
+  },
+  {
+   "check": "R30 M alone, seed 0",
+   "expected": 0.158,
+   "got": 0.15865,
+   "difference": 0.00065,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "neural-sequence logs/VAL_components.log (seed 0, 1 epoch; 3 decimals)",
+   "ladder": false
+  },
+  {
+   "check": "R30 S+M alone, seed 0",
+   "expected": 0.169,
+   "got": 0.16656,
+   "difference": -0.00244,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "neural-sequence logs/VAL_components.log (seed 0, 1 epoch; 3 decimals)",
+   "ladder": false
+  },
+  {
+   "check": "R30 S+M pair, seed 0",
+   "expected": 0.1691,
+   "got": 0.16656,
+   "difference": -0.00254,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_stage0_seeds.csv 'nets_pair'",
+   "ladder": false
+  },
+  {
+   "check": "R30 S+M pair, seed 1",
+   "expected": 0.169,
+   "got": 0.16645,
+   "difference": -0.00255,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_stage0_seeds.csv 'nets_pair'",
+   "ladder": false
+  },
+  {
+   "check": "R30 S+M pair, seed 2",
+   "expected": 0.1607,
+   "got": 0.1588,
+   "difference": -0.0019,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_stage0_seeds.csv 'nets_pair'",
+   "ladder": false
+  },
+  {
+   "check": "D0 L2 BSS vs B0 (ladder check)",
+   "expected": 0.1923,
+   "got": 0.19177,
+   "difference": -0.00053,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "derived: hybrid tables/val_final_scorecard.csv (frozen v1 = L3) minus hybrid tables/val_stageB.csv '-PHY' removal cost",
+   "ladder": true
+  },
+  {
+   "check": "D0 L2 BSS vs B0, persistent",
+   "expected": 0.102,
+   "got": 0.10168,
+   "difference": -0.00032,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "derived, as above",
+   "ladder": false
+  },
+  {
+   "check": "D0 L2 auc",
+   "expected": 0.8431,
+   "got": 0.84135,
+   "difference": -0.00175,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "D0 L2 bss_B2",
+   "expected": 0.1135,
+   "got": 0.1106,
+   "difference": -0.0029,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "D0 L2 cal_slope",
+   "expected": 1.0697,
+   "got": 1.06579,
+   "difference": -0.00391,
+   "tolerance": 0.05,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "D0 L2 citl",
+   "expected": -0.2951,
+   "got": -0.30061,
+   "difference": -0.00551,
+   "tolerance": 0.05,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "D0 S alone, seed 0",
+   "expected": 0.184,
+   "got": 0.17835,
+   "difference": -0.00565,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "neural-sequence logs/VAL_components.log (seed 0, 1 epoch; 3 decimals)",
+   "ladder": false
+  },
+  {
+   "check": "D0 M alone, seed 0",
+   "expected": 0.177,
+   "got": 0.17629,
+   "difference": -0.00071,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "neural-sequence logs/VAL_components.log (seed 0, 1 epoch; 3 decimals)",
+   "ladder": false
+  },
+  {
+   "check": "D0 S+M alone, seed 0",
+   "expected": 0.189,
+   "got": 0.18419,
+   "difference": -0.00481,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "neural-sequence logs/VAL_components.log (seed 0, 1 epoch; 3 decimals)",
+   "ladder": false
+  },
+  {
+   "check": "D0 S+M pair, seed 0",
+   "expected": 0.1888,
+   "got": 0.18419,
+   "difference": -0.00461,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_stage0_seeds.csv 'nets_pair'",
+   "ladder": false
+  },
+  {
+   "check": "D0 S+M pair, seed 1",
+   "expected": 0.1861,
+   "got": 0.18551,
+   "difference": -0.00059,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_stage0_seeds.csv 'nets_pair'",
+   "ladder": false
+  },
+  {
+   "check": "D0 S+M pair, seed 2",
+   "expected": 0.1763,
+   "got": 0.17923,
+   "difference": 0.00293,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_stage0_seeds.csv 'nets_pair'",
+   "ladder": false
+  },
+  {
+   "check": "D0g L2 BSS vs B0 (ladder check)",
+   "expected": 0.1916,
+   "got": 0.1921,
+   "difference": 0.0005,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "derived: hybrid tables/val_final_scorecard.csv (frozen v1 = L3) minus hybrid tables/val_stageB.csv '-PHY' removal cost",
+   "ladder": false
+  },
+  {
+   "check": "D0g L2 BSS vs B0, persistent",
+   "expected": 0.1199,
+   "got": 0.12057,
+   "difference": 0.00067,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "derived, as above",
+   "ladder": false
+  },
+  {
+   "check": "D0g L2 auc",
+   "expected": 0.8694,
+   "got": 0.86771,
+   "difference": -0.00169,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "D0g L2 bss_B2",
+   "expected": 0.1457,
+   "got": 0.1431,
+   "difference": -0.0026,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "D0g L2 cal_slope",
+   "expected": 1.1439,
+   "got": 1.14219,
+   "difference": -0.00171,
+   "tolerance": 0.05,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "D0g L2 citl",
+   "expected": -0.2917,
+   "got": -0.29605,
+   "difference": -0.00435,
+   "tolerance": 0.05,
+   "within": true,
+   "source": "hybrid tables/val_final_scorecard.csv (frozen v1 = L3) (L3; physics moves these by < 0.003)",
+   "ladder": false
+  },
+  {
+   "check": "D0g S alone, seed 0",
+   "expected": 0.178,
+   "got": 0.17304,
+   "difference": -0.00496,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "neural-sequence logs/VAL_components.log (seed 0, 1 epoch; 3 decimals)",
+   "ladder": false
+  },
+  {
+   "check": "D0g M alone, seed 0",
+   "expected": 0.17,
+   "got": 0.16963,
+   "difference": -0.00037,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "neural-sequence logs/VAL_components.log (seed 0, 1 epoch; 3 decimals)",
+   "ladder": false
+  },
+  {
+   "check": "D0g S+M alone, seed 0",
+   "expected": 0.183,
+   "got": 0.17964,
+   "difference": -0.00336,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "neural-sequence logs/VAL_components.log (seed 0, 1 epoch; 3 decimals)",
+   "ladder": false
+  },
+  {
+   "check": "D0g S+M pair, seed 0",
+   "expected": 0.1832,
+   "got": 0.17964,
+   "difference": -0.00356,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_stage0_seeds.csv 'nets_pair'",
+   "ladder": false
+  },
+  {
+   "check": "D0g S+M pair, seed 1",
+   "expected": 0.1808,
+   "got": 0.18028,
+   "difference": -0.00052,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_stage0_seeds.csv 'nets_pair'",
+   "ladder": false
+  },
+  {
+   "check": "D0g S+M pair, seed 2",
+   "expected": 0.1749,
+   "got": 0.17879,
+   "difference": 0.00389,
+   "tolerance": 0.006,
+   "within": true,
+   "source": "hybrid tables/val_stage0_seeds.csv 'nets_pair'",
+   "ladder": false
+  }
+ ],
+ "gains": [
+  {
+   "check": "R30 L2 gain over G2",
+   "expected": 0.0102,
+   "bench_ci": [
+    0.0066,
+    0.0138
+   ],
+   "got": 0.01001,
+   "got_ci": [
+    0.00649,
+    0.01387
+   ],
+   "inside_bench_ci": true,
+   "source": "derived: L3 vs G2c (hybrid tables/val_final_scorecard.csv (frozen v1 = L3)) minus hybrid tables/val_stageB.csv '-PHY' removal cost"
+  },
+  {
+   "check": "R30 L2 gain over L1 (the nets)",
+   "expected": 0.0074,
+   "bench_ci": [
+    0.0036,
+    0.0112
+   ],
+   "got": 0.0086,
+   "got_ci": [
+    0.00514,
+    0.01193
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_stageB.csv '-nets' removal cost (seed-0 nets; T dam-like + PHY)"
+  },
+  {
+   "check": "R30 L2 gain over L1, persistent",
+   "expected": 0.0335,
+   "bench_ci": [
+    0.026,
+    0.0408
+   ],
+   "got": 0.0127,
+   "got_ci": [
+    0.00922,
+    0.01667
+   ],
+   "inside_bench_ci": false,
+   "source": "as above, persistent subset"
+  },
+  {
+   "check": "D0 L2 gain over G2",
+   "expected": 0.0168,
+   "bench_ci": [
+    0.0126,
+    0.0212
+   ],
+   "got": 0.01641,
+   "got_ci": [
+    0.01246,
+    0.02029
+   ],
+   "inside_bench_ci": true,
+   "source": "derived: L3 vs G2c (hybrid tables/val_final_scorecard.csv (frozen v1 = L3)) minus hybrid tables/val_stageB.csv '-PHY' removal cost"
+  },
+  {
+   "check": "D0 L2 gain over L1 (the nets)",
+   "expected": 0.0099,
+   "bench_ci": [
+    0.0054,
+    0.0151
+   ],
+   "got": 0.01476,
+   "got_ci": [
+    0.01127,
+    0.01859
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_stageB.csv '-nets' removal cost (seed-0 nets; T dam-like + PHY)"
+  },
+  {
+   "check": "D0 L2 gain over L1, persistent",
+   "expected": 0.0234,
+   "bench_ci": [
+    0.0145,
+    0.0328
+   ],
+   "got": 0.01995,
+   "got_ci": [
+    0.01517,
+    0.02678
+   ],
+   "inside_bench_ci": true,
+   "source": "as above, persistent subset"
+  },
+  {
+   "check": "D0g L2 gain over G2",
+   "expected": 0.0189,
+   "bench_ci": [
+    0.0138,
+    0.0246
+   ],
+   "got": 0.01996,
+   "got_ci": [
+    0.01444,
+    0.02546
+   ],
+   "inside_bench_ci": true,
+   "source": "derived: L3 vs G2c (hybrid tables/val_final_scorecard.csv (frozen v1 = L3)) minus hybrid tables/val_stageB.csv '-PHY' removal cost"
+  },
+  {
+   "check": "D0g L2 gain over L1 (the nets)",
+   "expected": 0.0135,
+   "bench_ci": [
+    0.0073,
+    0.0204
+   ],
+   "got": 0.01877,
+   "got_ci": [
+    0.01388,
+    0.02385
+   ],
+   "inside_bench_ci": true,
+   "source": "hybrid val_stageB.csv '-nets' removal cost (seed-0 nets; T dam-like + PHY)"
+  },
+  {
+   "check": "D0g L2 gain over L1, persistent",
+   "expected": 0.0306,
+   "bench_ci": [
+    0.0201,
+    0.0421
+   ],
+   "got": 0.02397,
+   "got_ci": [
+    0.01839,
+    0.03241
+   ],
+   "inside_bench_ci": true,
+   "source": "as above, persistent subset"
+  }
+ ],
+ "training": [
+  {
+   "net": "M seed 0",
+   "cutoff": "2009-01-01",
+   "rows": 875286,
+   "rows_expected": 875286,
+   "rows_match": true,
+   "heads": {
+    "R30": 659554,
+    "D0": 875286,
+    "D0g": 815946
+   },
+   "head_events": {
+    "R30": 192700,
+    "D0": 148942,
+    "D0g": 89602
+   },
+   "heads_match": true,
+   "n_inputs": 64,
+   "parameters": 12675,
+   "parameters_bench": "12.7k",
+   "loss": 0.36442,
+   "loss_bench": 0.3644,
+   "seconds": 5.1,
+   "from_checkpoint": true
+  },
+  {
+   "net": "M seed 1",
+   "cutoff": "2009-01-01",
+   "rows": 875286,
+   "rows_expected": 875286,
+   "rows_match": true,
+   "heads": {
+    "R30": 659554,
+    "D0": 875286,
+    "D0g": 815946
+   },
+   "head_events": {
+    "R30": 192700,
+    "D0": 148942,
+    "D0g": 89602
+   },
+   "heads_match": true,
+   "n_inputs": 64,
+   "parameters": 12675,
+   "parameters_bench": "12.7k",
+   "loss": 0.36808,
+   "loss_bench": 0.368,
+   "seconds": 9.4,
+   "from_checkpoint": true
+  },
+  {
+   "net": "M seed 2",
+   "cutoff": "2009-01-01",
+   "rows": 875286,
+   "rows_expected": 875286,
+   "rows_match": true,
+   "heads": {
+    "R30": 659554,
+    "D0": 875286,
+    "D0g": 815946
+   },
+   "head_events": {
+    "R30": 192700,
+    "D0": 148942,
+    "D0g": 89602
+   },
+   "heads_match": true,
+   "n_inputs": 64,
+   "parameters": 12675,
+   "parameters_bench": "12.7k",
+   "loss": 0.36916,
+   "loss_bench": 0.3692,
+   "seconds": 9.4,
+   "from_checkpoint": true
+  },
+  {
+   "net": "S seed 0",
+   "cutoff": "2009-01-01",
+   "rows": 875286,
+   "rows_expected": 875286,
+   "rows_match": true,
+   "heads": {
+    "R30": 659554,
+    "D0": 875286,
+    "D0g": 815946
+   },
+   "head_events": {
+    "R30": 192700,
+    "D0": 148942,
+    "D0g": 89602
+   },
+   "heads_match": true,
+   "n_inputs": 64,
+   "parameters": 27459,
+   "parameters_bench": "27.5k",
+   "loss": 0.35249,
+   "loss_bench": 0.3515,
+   "seconds": 47.1,
+   "from_checkpoint": true
+  },
+  {
+   "net": "S seed 1",
+   "cutoff": "2009-01-01",
+   "rows": 875286,
+   "rows_expected": 875286,
+   "rows_match": true,
+   "heads": {
+    "R30": 659554,
+    "D0": 875286,
+    "D0g": 815946
+   },
+   "head_events": {
+    "R30": 192700,
+    "D0": 148942,
+    "D0g": 89602
+   },
+   "heads_match": true,
+   "n_inputs": 64,
+   "parameters": 27459,
+   "parameters_bench": "27.5k",
+   "loss": 0.35487,
+   "loss_bench": 0.3553,
+   "seconds": 91.7,
+   "from_checkpoint": true
+  },
+  {
+   "net": "S seed 2",
+   "cutoff": "2009-01-01",
+   "rows": 875286,
+   "rows_expected": 875286,
+   "rows_match": true,
+   "heads": {
+    "R30": 659554,
+    "D0": 875286,
+    "D0g": 815946
+   },
+   "head_events": {
+    "R30": 192700,
+    "D0": 148942,
+    "D0g": 89602
+   },
+   "heads_match": true,
+   "n_inputs": 64,
+   "parameters": 27459,
+   "parameters_bench": "27.5k",
+   "loss": 0.35161,
+   "loss_bench": 0.3512,
+   "seconds": 98.7,
+   "from_checkpoint": true
+  },
+  {
+   "net": "M seed 0",
+   "cutoff": "2002-01-01",
+   "rows": 512562,
+   "rows_expected": 512562,
+   "rows_match": true,
+   "heads": {
+    "R30": 406964,
+    "D0": 512562,
+    "D0g": 476553
+   },
+   "head_events": {
+    "R30": 111039,
+    "D0": 83655,
+    "D0g": 47646
+   },
+   "heads_match": null,
+   "n_inputs": 64,
+   "parameters": 12675,
+   "parameters_bench": "12.7k",
+   "loss": 0.36195,
+   "loss_bench": 0.3618,
+   "seconds": 6.9,
+   "from_checkpoint": true
+  },
+  {
+   "net": "M seed 1",
+   "cutoff": "2002-01-01",
+   "rows": 512562,
+   "rows_expected": 512562,
+   "rows_match": true,
+   "heads": {
+    "R30": 406964,
+    "D0": 512562,
+    "D0g": 476553
+   },
+   "head_events": {
+    "R30": 111039,
+    "D0": 83655,
+    "D0g": 47646
+   },
+   "heads_match": null,
+   "n_inputs": 64,
+   "parameters": 12675,
+   "parameters_bench": "12.7k",
+   "loss": 0.36792,
+   "loss_bench": null,
+   "seconds": 6.4,
+   "from_checkpoint": true
+  },
+  {
+   "net": "M seed 2",
+   "cutoff": "2002-01-01",
+   "rows": 512562,
+   "rows_expected": 512562,
+   "rows_match": true,
+   "heads": {
+    "R30": 406964,
+    "D0": 512562,
+    "D0g": 476553
+   },
+   "head_events": {
+    "R30": 111039,
+    "D0": 83655,
+    "D0g": 47646
+   },
+   "heads_match": null,
+   "n_inputs": 64,
+   "parameters": 12675,
+   "parameters_bench": "12.7k",
+   "loss": 0.36797,
+   "loss_bench": null,
+   "seconds": 6.2,
+   "from_checkpoint": true
+  },
+  {
+   "net": "S seed 0",
+   "cutoff": "2002-01-01",
+   "rows": 512562,
+   "rows_expected": 512562,
+   "rows_match": true,
+   "heads": {
+    "R30": 406964,
+    "D0": 512562,
+    "D0g": 476553
+   },
+   "head_events": {
+    "R30": 111039,
+    "D0": 83655,
+    "D0g": 47646
+   },
+   "heads_match": null,
+   "n_inputs": 64,
+   "parameters": 27459,
+   "parameters_bench": "27.5k",
+   "loss": 0.35143,
+   "loss_bench": 0.3499,
+   "seconds": 63.6,
+   "from_checkpoint": true
+  },
+  {
+   "net": "S seed 1",
+   "cutoff": "2002-01-01",
+   "rows": 512562,
+   "rows_expected": 512562,
+   "rows_match": true,
+   "heads": {
+    "R30": 406964,
+    "D0": 512562,
+    "D0g": 476553
+   },
+   "head_events": {
+    "R30": 111039,
+    "D0": 83655,
+    "D0g": 47646
+   },
+   "heads_match": null,
+   "n_inputs": 64,
+   "parameters": 27459,
+   "parameters_bench": "27.5k",
+   "loss": 0.35319,
+   "loss_bench": null,
+   "seconds": 52.7,
+   "from_checkpoint": true
+  },
+  {
+   "net": "S seed 2",
+   "cutoff": "2002-01-01",
+   "rows": 512562,
+   "rows_expected": 512562,
+   "rows_match": true,
+   "heads": {
+    "R30": 406964,
+    "D0": 512562,
+    "D0g": 476553
+   },
+   "head_events": {
+    "R30": 111039,
+    "D0": 83655,
+    "D0g": 47646
+   },
+   "heads_match": null,
+   "n_inputs": 64,
+   "parameters": 27459,
+   "parameters_bench": "27.5k",
+   "loss": 0.34975,
+   "loss_bench": null,
+   "seconds": 54.6,
+   "from_checkpoint": true
+  }
+ ],
+ "seed_spread": {
+  "R30": 0.00445,
+  "D0": 0.00331,
+  "D0g": 0.00075
+ },
+ "band": {
+  "R30": {
+   "band": [
+    -1.04287,
+    0.74216
+   ],
+   "coverage": {
+    "band": [
+     -1.04287,
+     0.74216
+    ],
+    "region_years": 16,
+    "covered": 15,
+    "coverage": 0.9375,
+    "drier_than_band": {},
+    "wetter_than_band": {
+     "nsw_cw:2011": -1.96718
+    },
+    "not_used": 0
+   }
+  },
+  "D0": {
+   "band": [
+    -1.12695,
+    0.53021
+   ],
+   "coverage": {
+    "band": [
+     -1.12695,
+     0.53021
+    ],
+    "region_years": 16,
+    "covered": 13,
+    "coverage": 0.8125,
+    "drier_than_band": {},
+    "wetter_than_band": {
+     "nsw_cw:2011": -1.85713,
+     "wvic_sesa:2010": -1.13786,
+     "wvic_sesa:2011": -1.22998
+    },
+    "not_used": 0
+   }
+  },
+  "D0g": {
+   "band": [
+    -1.07237,
+    0.66482
+   ],
+   "coverage": {
+    "band": [
+     -1.07237,
+     0.66482
+    ],
+    "region_years": 16,
+    "covered": 13,
+    "coverage": 0.8125,
+    "drier_than_band": {},
+    "wetter_than_band": {
+     "nsw_cw:2011": -2.15626,
+     "wvic_sesa:2010": -1.28321,
+     "wvic_sesa:2011": -1.24673
+    },
+    "not_used": 0
+   }
+  }
+ },
+ "same_as_l1": [
+  {
+   "output": "p1 curve_R30_30",
+   "identical": true
+  },
+  {
+   "output": "p1 curve_R30_60",
+   "identical": true
+  },
+  {
+   "output": "p1 curve_R30_90",
+   "identical": true
+  },
+  {
+   "output": "p1 curve_R30_180",
+   "identical": true
+  },
+  {
+   "output": "p1 curve_D0_30",
+   "identical": true
+  },
+  {
+   "output": "p1 curve_D0_60",
+   "identical": true
+  },
+  {
+   "output": "p1 curve_D0_90",
+   "identical": true
+  },
+  {
+   "output": "p1 curve_D0_180",
+   "identical": true
+  },
+  {
+   "output": "p1 floor_log_q10",
+   "identical": true
+  },
+  {
+   "output": "p1 floor_days",
+   "identical": true
+  },
+  {
+   "output": "p1 floor_shown",
+   "identical": true
+  },
+  {
+   "output": "p1 p_T_R30",
+   "identical": true
+  },
+  {
+   "output": "p1 p_T_D0",
+   "identical": true
+  },
+  {
+   "output": "p1 p_T_D0g",
+   "identical": true
+  },
+  {
+   "output": "p2_dam p",
+   "identical": true
+  },
+  {
+   "output": "p2_dam p_g",
+   "identical": true
+  },
+  {
+   "output": "p2_cell p",
+   "identical": true
+  }
+ ],
+ "p1": {
+  "P1_R30|primary|L2": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.28231,
+    "brier": 0.14716,
+    "bss_B0": 0.18,
+    "bss_B2": 0.10962,
+    "auc": 0.79003,
+    "prec_at_50_recall": 0.53343,
+    "cal_intercept": -0.24029,
+    "cal_slope": 1.0668,
+    "citl": -0.28097,
+    "bss_vs_G2": 0.01206,
+    "d_bss_B0_vs_G2": 0.01001,
+    "d_auc_vs_G2": 0.00912,
+    "bss_vs_L1": 0.01038,
+    "d_bss_B0_vs_L1": 0.0086,
+    "d_auc_vs_L1": 0.0083
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.22911,
+     0.24998
+    ],
+    "mean_p": [
+     0.27363,
+     0.29145
+    ],
+    "brier": [
+     0.14273,
+     0.15174
+    ],
+    "bss_B0": [
+     0.16495,
+     0.19698
+    ],
+    "bss_B2": [
+     0.09844,
+     0.12194
+    ],
+    "auc": [
+     0.78005,
+     0.79979
+    ],
+    "prec_at_50_recall": [
+     0.51236,
+     0.55976
+    ],
+    "cal_intercept": [
+     -0.28549,
+     -0.1874
+    ],
+    "cal_slope": [
+     1.02378,
+     1.1138
+    ],
+    "citl": [
+     -0.31936,
+     -0.23789
+    ],
+    "bss_vs_G2": [
+     0.00782,
+     0.01671
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00649,
+     0.01387
+    ],
+    "d_auc_vs_G2": [
+     0.0071,
+     0.01127
+    ],
+    "bss_vs_L1": [
+     0.0062,
+     0.01432
+    ],
+    "d_bss_B0_vs_L1": [
+     0.00514,
+     0.01193
+    ],
+    "d_auc_vs_L1": [
+     0.00641,
+     0.01016
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.20468,
+     0.27118
+    ],
+    "mean_p": [
+     0.2594,
+     0.31016
+    ],
+    "brier": [
+     0.13637,
+     0.15652
+    ],
+    "bss_B0": [
+     0.14282,
+     0.20858
+    ],
+    "bss_B2": [
+     0.0846,
+     0.13465
+    ],
+    "auc": [
+     0.77816,
+     0.8014
+    ],
+    "prec_at_50_recall": [
+     0.48125,
+     0.58138
+    ],
+    "cal_intercept": [
+     -0.4548,
+     -0.05563
+    ],
+    "cal_slope": [
+     0.99867,
+     1.14554
+    ],
+    "citl": [
+     -0.49043,
+     -0.1185
+    ],
+    "bss_vs_G2": [
+     0.00017,
+     0.02011
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00014,
+     0.01647
+    ],
+    "d_auc_vs_G2": [
+     0.00431,
+     0.01283
+    ],
+    "bss_vs_L1": [
+     0.00046,
+     0.01775
+    ],
+    "d_bss_B0_vs_L1": [
+     0.00037,
+     0.01471
+    ],
+    "d_auc_vs_L1": [
+     0.00403,
+     0.01181
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  },
+  "P1_R30|primary|L2_premax": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.2823,
+    "brier": 0.14716,
+    "bss_B0": 0.18001,
+    "bss_B2": 0.10963,
+    "auc": 0.79003,
+    "prec_at_50_recall": 0.53339,
+    "cal_intercept": -0.24011,
+    "cal_slope": 1.06689,
+    "citl": -0.28086,
+    "bss_vs_G2": 0.01208,
+    "d_bss_B0_vs_G2": 0.01002,
+    "d_auc_vs_G2": 0.00913,
+    "bss_vs_L1_premax": 0.00973,
+    "d_bss_B0_vs_L1_premax": 0.00805,
+    "d_auc_vs_L1_premax": 0.00818
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.22892,
+     0.25006
+    ],
+    "mean_p": [
+     0.27354,
+     0.29241
+    ],
+    "brier": [
+     0.14266,
+     0.15265
+    ],
+    "bss_B0": [
+     0.16381,
+     0.19805
+    ],
+    "bss_B2": [
+     0.09853,
+     0.1234
+    ],
+    "auc": [
+     0.7799,
+     0.80064
+    ],
+    "prec_at_50_recall": [
+     0.5123,
+     0.56093
+    ],
+    "cal_intercept": [
+     -0.29304,
+     -0.18702
+    ],
+    "cal_slope": [
+     1.02744,
+     1.11645
+    ],
+    "citl": [
+     -0.31856,
+     -0.23835
+    ],
+    "bss_vs_G2": [
+     0.00782,
+     0.01646
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00656,
+     0.01382
+    ],
+    "d_auc_vs_G2": [
+     0.00727,
+     0.01115
+    ],
+    "bss_vs_L1_premax": [
+     0.00557,
+     0.01372
+    ],
+    "d_bss_B0_vs_L1_premax": [
+     0.0046,
+     0.01133
+    ],
+    "d_auc_vs_L1_premax": [
+     0.0066,
+     0.00998
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.20561,
+     0.27158
+    ],
+    "mean_p": [
+     0.2594,
+     0.31008
+    ],
+    "brier": [
+     0.13627,
+     0.15663
+    ],
+    "bss_B0": [
+     0.14725,
+     0.20677
+    ],
+    "bss_B2": [
+     0.08574,
+     0.13276
+    ],
+    "auc": [
+     0.77887,
+     0.80145
+    ],
+    "prec_at_50_recall": [
+     0.48195,
+     0.57639
+    ],
+    "cal_intercept": [
+     -0.46495,
+     -0.0682
+    ],
+    "cal_slope": [
+     1.00019,
+     1.1374
+    ],
+    "citl": [
+     -0.49977,
+     -0.14119
+    ],
+    "bss_vs_G2": [
+     0.00027,
+     0.01964
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00022,
+     0.01622
+    ],
+    "d_auc_vs_G2": [
+     0.00399,
+     0.0126
+    ],
+    "bss_vs_L1_premax": [
+     -0.00099,
+     0.01675
+    ],
+    "d_bss_B0_vs_L1_premax": [
+     -0.00084,
+     0.01396
+    ],
+    "d_auc_vs_L1_premax": [
+     0.00349,
+     0.0115
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1_premax"
+   ]
+  },
+  "P1_R30|primary|T": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.27386,
+    "brier": 0.14896,
+    "bss_B0": 0.16999,
+    "bss_B2": 0.09875,
+    "auc": 0.7809,
+    "prec_at_50_recall": 0.51915,
+    "cal_intercept": -0.22967,
+    "cal_slope": 1.00044,
+    "citl": -0.22996,
+    "bss_vs_G2": 0.0,
+    "d_bss_B0_vs_G2": 0.0,
+    "d_auc_vs_G2": 0.0
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|S": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.2944,
+    "brier": 0.15042,
+    "bss_B0": 0.16185,
+    "bss_B2": 0.08992,
+    "auc": 0.78423,
+    "prec_at_50_recall": 0.51962,
+    "cal_intercept": -0.34247,
+    "cal_slope": 1.02327,
+    "citl": -0.35525,
+    "bss_vs_G2": -0.0098,
+    "d_bss_B0_vs_G2": -0.00813,
+    "d_auc_vs_G2": 0.00332
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|M": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.29179,
+    "brier": 0.15087,
+    "bss_B0": 0.15935,
+    "bss_B2": 0.0872,
+    "auc": 0.7819,
+    "prec_at_50_recall": 0.51517,
+    "cal_intercept": -0.28786,
+    "cal_slope": 1.07725,
+    "citl": -0.33223,
+    "bss_vs_G2": -0.01282,
+    "d_bss_B0_vs_G2": -0.01064,
+    "d_auc_vs_G2": 0.00099
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|S+M": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.29255,
+    "brier": 0.14952,
+    "bss_B0": 0.16683,
+    "bss_B2": 0.09532,
+    "auc": 0.78633,
+    "prec_at_50_recall": 0.5275,
+    "cal_intercept": -0.2916,
+    "cal_slope": 1.08402,
+    "citl": -0.33889,
+    "bss_vs_G2": -0.00381,
+    "d_bss_B0_vs_G2": -0.00316,
+    "d_auc_vs_G2": 0.00542
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.22892,
+     0.25006
+    ],
+    "mean_p": [
+     0.28424,
+     0.30237
+    ],
+    "brier": [
+     0.14496,
+     0.15466
+    ],
+    "bss_B0": [
+     0.14975,
+     0.18503
+    ],
+    "bss_B2": [
+     0.0823,
+     0.11108
+    ],
+    "auc": [
+     0.77685,
+     0.79612
+    ],
+    "prec_at_50_recall": [
+     0.50579,
+     0.55396
+    ],
+    "cal_intercept": [
+     -0.34866,
+     -0.23594
+    ],
+    "cal_slope": [
+     1.04062,
+     1.13633
+    ],
+    "citl": [
+     -0.37748,
+     -0.29236
+    ],
+    "bss_vs_G2": [
+     -0.01098,
+     0.00253
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00926,
+     0.00209
+    ],
+    "d_auc_vs_G2": [
+     0.00259,
+     0.00847
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.20561,
+     0.27158
+    ],
+    "mean_p": [
+     0.26673,
+     0.32243
+    ],
+    "brier": [
+     0.13924,
+     0.15857
+    ],
+    "bss_B0": [
+     0.13062,
+     0.19203
+    ],
+    "bss_B2": [
+     0.06807,
+     0.11967
+    ],
+    "auc": [
+     0.77666,
+     0.79584
+    ],
+    "prec_at_50_recall": [
+     0.47146,
+     0.56987
+    ],
+    "cal_intercept": [
+     -0.50806,
+     -0.12632
+    ],
+    "cal_slope": [
+     1.00671,
+     1.17043
+    ],
+    "citl": [
+     -0.5492,
+     -0.19674
+    ],
+    "bss_vs_G2": [
+     -0.02134,
+     0.00801
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.01803,
+     0.00668
+    ],
+    "d_auc_vs_G2": [
+     -0.00236,
+     0.01077
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|anchor": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.28518,
+    "brier": 0.14777,
+    "bss_B0": 0.17658,
+    "bss_B2": 0.10591,
+    "auc": 0.78889,
+    "prec_at_50_recall": 0.53526,
+    "cal_intercept": -0.23524,
+    "cal_slope": 1.09946,
+    "citl": -0.29495,
+    "bss_vs_G2": 0.00795,
+    "d_bss_B0_vs_G2": 0.00659,
+    "d_auc_vs_G2": 0.00799
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|S0": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.29592,
+    "brier": 0.15072,
+    "bss_B0": 0.16014,
+    "bss_B2": 0.08805,
+    "auc": 0.7845,
+    "prec_at_50_recall": 0.51823,
+    "cal_intercept": -0.35772,
+    "cal_slope": 1.01471,
+    "citl": -0.36554,
+    "bss_vs_G2": -0.01187,
+    "d_bss_B0_vs_G2": -0.00985,
+    "d_auc_vs_G2": 0.00359
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|M0": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.29061,
+    "brier": 0.15099,
+    "bss_B0": 0.15865,
+    "bss_B2": 0.08644,
+    "auc": 0.78117,
+    "prec_at_50_recall": 0.51503,
+    "cal_intercept": -0.28909,
+    "cal_slope": 1.06394,
+    "citl": -0.32605,
+    "bss_vs_G2": -0.01366,
+    "d_bss_B0_vs_G2": -0.01134,
+    "d_auc_vs_G2": 0.00027
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|S+M0": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.29267,
+    "brier": 0.14957,
+    "bss_B0": 0.16656,
+    "bss_B2": 0.09502,
+    "auc": 0.78661,
+    "prec_at_50_recall": 0.52481,
+    "cal_intercept": -0.29735,
+    "cal_slope": 1.07727,
+    "citl": -0.34031,
+    "bss_vs_G2": -0.00414,
+    "d_bss_B0_vs_G2": -0.00343,
+    "d_auc_vs_G2": 0.0057
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|S1": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.29256,
+    "brier": 0.15151,
+    "bss_B0": 0.15575,
+    "bss_B2": 0.08329,
+    "auc": 0.77996,
+    "prec_at_50_recall": 0.51023,
+    "cal_intercept": -0.33577,
+    "cal_slope": 1.01202,
+    "citl": -0.34263,
+    "bss_vs_G2": -0.01715,
+    "d_bss_B0_vs_G2": -0.01424,
+    "d_auc_vs_G2": -0.00095
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|M1": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.28714,
+    "brier": 0.1505,
+    "bss_B0": 0.16138,
+    "bss_B2": 0.0894,
+    "auc": 0.78142,
+    "prec_at_50_recall": 0.51227,
+    "cal_intercept": -0.24554,
+    "cal_slope": 1.09299,
+    "citl": -0.30274,
+    "bss_vs_G2": -0.01038,
+    "d_bss_B0_vs_G2": -0.00861,
+    "d_auc_vs_G2": 0.00052
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|S+M1": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.28911,
+    "brier": 0.14959,
+    "bss_B0": 0.16645,
+    "bss_B2": 0.09491,
+    "auc": 0.7848,
+    "prec_at_50_recall": 0.52147,
+    "cal_intercept": -0.25929,
+    "cal_slope": 1.09589,
+    "citl": -0.31628,
+    "bss_vs_G2": -0.00426,
+    "d_bss_B0_vs_G2": -0.00354,
+    "d_auc_vs_G2": 0.0039
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|S2": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.29619,
+    "brier": 0.15228,
+    "bss_B0": 0.15147,
+    "bss_B2": 0.07865,
+    "auc": 0.77935,
+    "prec_at_50_recall": 0.51267,
+    "cal_intercept": -0.39572,
+    "cal_slope": 0.95518,
+    "citl": -0.37145,
+    "bss_vs_G2": -0.02231,
+    "d_bss_B0_vs_G2": -0.01851,
+    "d_auc_vs_G2": -0.00155
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|M2": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.29844,
+    "brier": 0.15278,
+    "bss_B0": 0.14869,
+    "bss_B2": 0.07562,
+    "auc": 0.77861,
+    "prec_at_50_recall": 0.50726,
+    "cal_intercept": -0.36045,
+    "cal_slope": 1.02768,
+    "citl": -0.37507,
+    "bss_vs_G2": -0.02566,
+    "d_bss_B0_vs_G2": -0.0213,
+    "d_auc_vs_G2": -0.00229
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|primary|S+M2": {
+   "point": {
+    "base_rate": 0.23868,
+    "mean_p": 0.29662,
+    "brier": 0.15096,
+    "bss_B0": 0.1588,
+    "bss_B2": 0.0866,
+    "auc": 0.78319,
+    "prec_at_50_recall": 0.52068,
+    "cal_intercept": -0.34884,
+    "cal_slope": 1.03353,
+    "citl": -0.36682,
+    "bss_vs_G2": -0.01348,
+    "d_bss_B0_vs_G2": -0.01119,
+    "d_auc_vs_G2": 0.00228
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 8707,
+    "scored": 66453,
+    "events": 15861,
+    "dams": 1669,
+    "dams_with_event": 1437,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_R30|persistent+octmar+at_risk|L2": {
+   "point": {
+    "base_rate": 0.2027,
+    "mean_p": 0.23704,
+    "brier": 0.13591,
+    "bss_B0": 0.15116,
+    "bss_B2": 0.08766,
+    "auc": 0.7791,
+    "prec_at_50_recall": 0.45398,
+    "cal_intercept": -0.20981,
+    "cal_slope": 1.03717,
+    "citl": -0.2405,
+    "bss_vs_G2": 0.01847,
+    "d_bss_B0_vs_G2": 0.01597,
+    "d_auc_vs_G2": 0.0116,
+    "bss_vs_L1": 0.01474,
+    "d_bss_B0_vs_L1": 0.0127,
+    "d_auc_vs_L1": 0.00921
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.19212,
+     0.2151
+    ],
+    "mean_p": [
+     0.22782,
+     0.24659
+    ],
+    "brier": [
+     0.13133,
+     0.14235
+    ],
+    "bss_B0": [
+     0.13536,
+     0.1657
+    ],
+    "bss_B2": [
+     0.07603,
+     0.10005
+    ],
+    "auc": [
+     0.76756,
+     0.78894
+    ],
+    "prec_at_50_recall": [
+     0.43382,
+     0.4763
+    ],
+    "cal_intercept": [
+     -0.27143,
+     -0.14687
+    ],
+    "cal_slope": [
+     0.98701,
+     1.0927
+    ],
+    "citl": [
+     -0.29203,
+     -0.18796
+    ],
+    "bss_vs_G2": [
+     0.01344,
+     0.02389
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01173,
+     0.02047
+    ],
+    "d_auc_vs_G2": [
+     0.00929,
+     0.01466
+    ],
+    "bss_vs_L1": [
+     0.01066,
+     0.01922
+    ],
+    "d_bss_B0_vs_L1": [
+     0.00922,
+     0.01667
+    ],
+    "d_auc_vs_L1": [
+     0.00749,
+     0.01167
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.17063,
+     0.22635
+    ],
+    "mean_p": [
+     0.20198,
+     0.27225
+    ],
+    "brier": [
+     0.11884,
+     0.14746
+    ],
+    "bss_B0": [
+     0.11669,
+     0.18528
+    ],
+    "bss_B2": [
+     0.06099,
+     0.12486
+    ],
+    "auc": [
+     0.76413,
+     0.80527
+    ],
+    "prec_at_50_recall": [
+     0.40425,
+     0.49554
+    ],
+    "cal_intercept": [
+     -0.36742,
+     0.01122
+    ],
+    "cal_slope": [
+     0.95954,
+     1.17056
+    ],
+    "citl": [
+     -0.4488,
+     -0.02314
+    ],
+    "bss_vs_G2": [
+     0.00493,
+     0.02655
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00419,
+     0.02317
+    ],
+    "d_auc_vs_G2": [
+     0.006,
+     0.01472
+    ],
+    "bss_vs_L1": [
+     0.00161,
+     0.02313
+    ],
+    "d_bss_B0_vs_L1": [
+     0.00137,
+     0.01997
+    ],
+    "d_auc_vs_L1": [
+     0.00453,
+     0.01229
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 51840,
+    "in_subset_without_label": 6340,
+    "scored": 45500,
+    "events": 9223,
+    "dams": 967,
+    "dams_with_event": 776,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  },
+  "P1_R30|persistent+octmar+at_risk|L2_premax": {
+   "point": {
+    "base_rate": 0.2027,
+    "mean_p": 0.23703,
+    "brier": 0.1359,
+    "bss_B0": 0.1512,
+    "bss_B2": 0.08771,
+    "auc": 0.77912,
+    "prec_at_50_recall": 0.45403,
+    "cal_intercept": -0.20963,
+    "cal_slope": 1.03732,
+    "citl": -0.24044,
+    "bss_vs_G2": 0.01851,
+    "d_bss_B0_vs_G2": 0.01601,
+    "d_auc_vs_G2": 0.01161,
+    "bss_vs_L1_premax": 0.01471,
+    "d_bss_B0_vs_L1_premax": 0.01267,
+    "d_auc_vs_L1_premax": 0.0092
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.19212,
+     0.2151
+    ],
+    "mean_p": [
+     0.22782,
+     0.24658
+    ],
+    "brier": [
+     0.13132,
+     0.14235
+    ],
+    "bss_B0": [
+     0.13547,
+     0.16574
+    ],
+    "bss_B2": [
+     0.07606,
+     0.10012
+    ],
+    "auc": [
+     0.7676,
+     0.78894
+    ],
+    "prec_at_50_recall": [
+     0.43382,
+     0.47636
+    ],
+    "cal_intercept": [
+     -0.2714,
+     -0.14667
+    ],
+    "cal_slope": [
+     0.98713,
+     1.09286
+    ],
+    "citl": [
+     -0.29197,
+     -0.1879
+    ],
+    "bss_vs_G2": [
+     0.01349,
+     0.02397
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01174,
+     0.02054
+    ],
+    "d_auc_vs_G2": [
+     0.00931,
+     0.01468
+    ],
+    "bss_vs_L1_premax": [
+     0.01067,
+     0.01917
+    ],
+    "d_bss_B0_vs_L1_premax": [
+     0.00919,
+     0.01663
+    ],
+    "d_auc_vs_L1_premax": [
+     0.00747,
+     0.01165
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.17063,
+     0.22635
+    ],
+    "mean_p": [
+     0.20197,
+     0.27225
+    ],
+    "brier": [
+     0.11883,
+     0.14746
+    ],
+    "bss_B0": [
+     0.11672,
+     0.18532
+    ],
+    "bss_B2": [
+     0.06098,
+     0.12492
+    ],
+    "auc": [
+     0.76413,
+     0.80531
+    ],
+    "prec_at_50_recall": [
+     0.40425,
+     0.49563
+    ],
+    "cal_intercept": [
+     -0.36727,
+     0.01143
+    ],
+    "cal_slope": [
+     0.95958,
+     1.1709
+    ],
+    "citl": [
+     -0.44874,
+     -0.02308
+    ],
+    "bss_vs_G2": [
+     0.00501,
+     0.02659
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00426,
+     0.02316
+    ],
+    "d_auc_vs_G2": [
+     0.00603,
+     0.01473
+    ],
+    "bss_vs_L1_premax": [
+     0.00157,
+     0.02312
+    ],
+    "d_bss_B0_vs_L1_premax": [
+     0.00134,
+     0.01994
+    ],
+    "d_auc_vs_L1_premax": [
+     0.00454,
+     0.0123
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 51840,
+    "in_subset_without_label": 6340,
+    "scored": 45500,
+    "events": 9223,
+    "dams": 967,
+    "dams_with_event": 776,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1_premax"
+   ]
+  },
+  "P1_R30|dam_like+at_risk|L2": {
+   "point": {
+    "base_rate": 0.19684,
+    "mean_p": 0.21465,
+    "brier": 0.12422,
+    "bss_B0": 0.18673,
+    "bss_B2": 0.13476,
+    "auc": 0.8126,
+    "prec_at_50_recall": 0.51269,
+    "cal_intercept": -0.10232,
+    "cal_slope": 1.0398,
+    "citl": -0.13827,
+    "bss_vs_G2": 0.01655,
+    "d_bss_B0_vs_G2": 0.01369,
+    "d_auc_vs_G2": 0.0087,
+    "bss_vs_L1": 0.01447,
+    "d_bss_B0_vs_L1": 0.01194,
+    "d_auc_vs_L1": 0.00734
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.1882,
+     0.20551
+    ],
+    "mean_p": [
+     0.20735,
+     0.2212
+    ],
+    "brier": [
+     0.12017,
+     0.12827
+    ],
+    "bss_B0": [
+     0.17653,
+     0.19989
+    ],
+    "bss_B2": [
+     0.12632,
+     0.14399
+    ],
+    "auc": [
+     0.80556,
+     0.81933
+    ],
+    "prec_at_50_recall": [
+     0.49457,
+     0.5349
+    ],
+    "cal_intercept": [
+     -0.14809,
+     -0.05415
+    ],
+    "cal_slope": [
+     1.00929,
+     1.07473
+    ],
+    "citl": [
+     -0.17753,
+     -0.10561
+    ],
+    "bss_vs_G2": [
+     0.01292,
+     0.02055
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01068,
+     0.0168
+    ],
+    "d_auc_vs_G2": [
+     0.00716,
+     0.01025
+    ],
+    "bss_vs_L1": [
+     0.01114,
+     0.01756
+    ],
+    "d_bss_B0_vs_L1": [
+     0.00917,
+     0.01459
+    ],
+    "d_auc_vs_L1": [
+     0.00606,
+     0.00863
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.16671,
+     0.21989
+    ],
+    "mean_p": [
+     0.19497,
+     0.23352
+    ],
+    "brier": [
+     0.11241,
+     0.13278
+    ],
+    "bss_B0": [
+     0.16222,
+     0.20705
+    ],
+    "bss_B2": [
+     0.11232,
+     0.15301
+    ],
+    "auc": [
+     0.80108,
+     0.8219
+    ],
+    "prec_at_50_recall": [
+     0.46537,
+     0.54776
+    ],
+    "cal_intercept": [
+     -0.27897,
+     0.04694
+    ],
+    "cal_slope": [
+     0.98933,
+     1.08769
+    ],
+    "citl": [
+     -0.30394,
+     0.00286
+    ],
+    "bss_vs_G2": [
+     0.00671,
+     0.02397
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00559,
+     0.01967
+    ],
+    "d_auc_vs_G2": [
+     0.00322,
+     0.0123
+    ],
+    "bss_vs_L1": [
+     0.00518,
+     0.02109
+    ],
+    "d_bss_B0_vs_L1": [
+     0.00425,
+     0.01748
+    ],
+    "d_auc_vs_L1": [
+     0.00219,
+     0.01116
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 147780,
+    "in_subset_without_label": 20577,
+    "scored": 127203,
+    "events": 25039,
+    "dams": 1672,
+    "dams_with_event": 1480,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  },
+  "P1_R30_sens|primary|L2": {
+   "point": {
+    "base_rate": 0.2157,
+    "mean_p": 0.27609,
+    "brier": 0.14076,
+    "bss_B0": 0.16262,
+    "bss_B2": 0.09557,
+    "auc": 0.79104,
+    "prec_at_50_recall": 0.50282,
+    "cal_intercept": -0.36303,
+    "cal_slope": 1.06667,
+    "citl": -0.40271,
+    "bss_vs_G2": 0.00655,
+    "d_bss_B0_vs_G2": 0.00552,
+    "d_auc_vs_G2": 0.00814,
+    "bss_vs_L1": 0.00486,
+    "d_bss_B0_vs_L1": 0.00409,
+    "d_auc_vs_L1": 0.00754
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.20578,
+     0.22514
+    ],
+    "mean_p": [
+     0.26828,
+     0.28496
+    ],
+    "brier": [
+     0.13638,
+     0.14511
+    ],
+    "bss_B0": [
+     0.1486,
+     0.17666
+    ],
+    "bss_B2": [
+     0.08498,
+     0.10781
+    ],
+    "auc": [
+     0.78196,
+     0.79856
+    ],
+    "prec_at_50_recall": [
+     0.48333,
+     0.5248
+    ],
+    "cal_intercept": [
+     -0.40569,
+     -0.31489
+    ],
+    "cal_slope": [
+     1.02507,
+     1.10543
+    ],
+    "citl": [
+     -0.43728,
+     -0.36497
+    ],
+    "bss_vs_G2": [
+     0.00232,
+     0.01113
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00195,
+     0.00929
+    ],
+    "d_auc_vs_G2": [
+     0.00615,
+     0.01046
+    ],
+    "bss_vs_L1": [
+     0.00036,
+     0.0089
+    ],
+    "d_bss_B0_vs_L1": [
+     0.00031,
+     0.00745
+    ],
+    "d_auc_vs_L1": [
+     0.00567,
+     0.00947
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.17447,
+     0.25217
+    ],
+    "mean_p": [
+     0.25345,
+     0.30288
+    ],
+    "brier": [
+     0.12752,
+     0.15186
+    ],
+    "bss_B0": [
+     0.11935,
+     0.19624
+    ],
+    "bss_B2": [
+     0.0694,
+     0.12028
+    ],
+    "auc": [
+     0.77916,
+     0.80357
+    ],
+    "prec_at_50_recall": [
+     0.43154,
+     0.55836
+    ],
+    "cal_intercept": [
+     -0.61872,
+     -0.16456
+    ],
+    "cal_slope": [
+     0.98332,
+     1.14598
+    ],
+    "citl": [
+     -0.64949,
+     -0.22633
+    ],
+    "bss_vs_G2": [
+     -0.01206,
+     0.01699
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.01037,
+     0.01438
+    ],
+    "d_auc_vs_G2": [
+     0.00194,
+     0.01208
+    ],
+    "bss_vs_L1": [
+     -0.01202,
+     0.01485
+    ],
+    "d_bss_B0_vs_L1": [
+     -0.01033,
+     0.01232
+    ],
+    "d_auc_vs_L1": [
+     0.00181,
+     0.01146
+    ]
+   },
+   "rows": {
+    "passed_in": 358525,
+    "in_subset": 75160,
+    "in_subset_without_label": 0,
+    "scored": 75160,
+    "events": 16212,
+    "dams": 1671,
+    "dams_with_event": 1449,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  },
+  "P1_D0|primary|L2": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.14094,
+    "brier": 0.08148,
+    "bss_B0": 0.19177,
+    "bss_B2": 0.1106,
+    "auc": 0.84135,
+    "prec_at_50_recall": 0.41856,
+    "cal_intercept": -0.22256,
+    "cal_slope": 1.06579,
+    "citl": -0.30061,
+    "bss_vs_G2": 0.0199,
+    "d_bss_B0_vs_G2": 0.01641,
+    "d_auc_vs_G2": 0.00908,
+    "bss_vs_L1": 0.01793,
+    "d_bss_B0_vs_L1": 0.01476,
+    "d_auc_vs_L1": 0.00813
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.10701,
+     0.12261
+    ],
+    "mean_p": [
+     0.13428,
+     0.14814
+    ],
+    "brier": [
+     0.0774,
+     0.08602
+    ],
+    "bss_B0": [
+     0.17377,
+     0.20872
+    ],
+    "bss_B2": [
+     0.09924,
+     0.1224
+    ],
+    "auc": [
+     0.83178,
+     0.8509
+    ],
+    "prec_at_50_recall": [
+     0.39339,
+     0.44407
+    ],
+    "cal_intercept": [
+     -0.29052,
+     -0.15051
+    ],
+    "cal_slope": [
+     1.02321,
+     1.11478
+    ],
+    "citl": [
+     -0.34845,
+     -0.24754
+    ],
+    "bss_vs_G2": [
+     0.01509,
+     0.02463
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01246,
+     0.02029
+    ],
+    "d_auc_vs_G2": [
+     0.00725,
+     0.01084
+    ],
+    "bss_vs_L1": [
+     0.01381,
+     0.02251
+    ],
+    "d_bss_B0_vs_L1": [
+     0.01127,
+     0.01859
+    ],
+    "d_auc_vs_L1": [
+     0.00637,
+     0.00996
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.09475,
+     0.13369
+    ],
+    "mean_p": [
+     0.12586,
+     0.15649
+    ],
+    "brier": [
+     0.07291,
+     0.089
+    ],
+    "bss_B0": [
+     0.1432,
+     0.22812
+    ],
+    "bss_B2": [
+     0.06759,
+     0.1454
+    ],
+    "auc": [
+     0.82962,
+     0.85251
+    ],
+    "prec_at_50_recall": [
+     0.35446,
+     0.48618
+    ],
+    "cal_intercept": [
+     -0.51082,
+     0.04954
+    ],
+    "cal_slope": [
+     0.98455,
+     1.16138
+    ],
+    "citl": [
+     -0.53159,
+     -0.12389
+    ],
+    "bss_vs_G2": [
+     0.00694,
+     0.02789
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00589,
+     0.0229
+    ],
+    "d_auc_vs_G2": [
+     0.00415,
+     0.01312
+    ],
+    "bss_vs_L1": [
+     0.00528,
+     0.02679
+    ],
+    "d_bss_B0_vs_L1": [
+     0.00434,
+     0.02169
+    ],
+    "d_auc_vs_L1": [
+     0.00316,
+     0.01247
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  },
+  "P1_D0|primary|T": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.13888,
+    "brier": 0.08313,
+    "bss_B0": 0.17536,
+    "bss_B2": 0.09254,
+    "auc": 0.83227,
+    "prec_at_50_recall": 0.40174,
+    "cal_intercept": -0.23229,
+    "cal_slope": 1.03611,
+    "citl": -0.27693,
+    "bss_vs_G2": 0.0,
+    "d_bss_B0_vs_G2": 0.0,
+    "d_auc_vs_G2": 0.0
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|S": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.14783,
+    "brier": 0.08247,
+    "bss_B0": 0.18189,
+    "bss_B2": 0.09972,
+    "auc": 0.83903,
+    "prec_at_50_recall": 0.41387,
+    "cal_intercept": -0.33953,
+    "cal_slope": 1.03131,
+    "citl": -0.37445,
+    "bss_vs_G2": 0.00791,
+    "d_bss_B0_vs_G2": 0.00653,
+    "d_auc_vs_G2": 0.00676
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|M": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.14608,
+    "brier": 0.08297,
+    "bss_B0": 0.17696,
+    "bss_B2": 0.0943,
+    "auc": 0.83607,
+    "prec_at_50_recall": 0.39869,
+    "cal_intercept": -0.28077,
+    "cal_slope": 1.05989,
+    "citl": -0.34973,
+    "bss_vs_G2": 0.00194,
+    "d_bss_B0_vs_G2": 0.0016,
+    "d_auc_vs_G2": 0.0038
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|S+M": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.14627,
+    "brier": 0.08207,
+    "bss_B0": 0.1859,
+    "bss_B2": 0.10414,
+    "auc": 0.83984,
+    "prec_at_50_recall": 0.41246,
+    "cal_intercept": -0.27279,
+    "cal_slope": 1.07113,
+    "citl": -0.35365,
+    "bss_vs_G2": 0.01278,
+    "d_bss_B0_vs_G2": 0.01054,
+    "d_auc_vs_G2": 0.00757
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.10726,
+     0.12294
+    ],
+    "mean_p": [
+     0.14021,
+     0.15386
+    ],
+    "brier": [
+     0.07816,
+     0.08681
+    ],
+    "bss_B0": [
+     0.16791,
+     0.20471
+    ],
+    "bss_B2": [
+     0.09208,
+     0.11543
+    ],
+    "auc": [
+     0.83042,
+     0.8501
+    ],
+    "prec_at_50_recall": [
+     0.3918,
+     0.44056
+    ],
+    "cal_intercept": [
+     -0.3383,
+     -0.2012
+    ],
+    "cal_slope": [
+     1.01996,
+     1.12922
+    ],
+    "citl": [
+     -0.40317,
+     -0.29515
+    ],
+    "bss_vs_G2": [
+     0.0066,
+     0.01971
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00548,
+     0.01648
+    ],
+    "d_auc_vs_G2": [
+     0.00477,
+     0.01026
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.09479,
+     0.13178
+    ],
+    "mean_p": [
+     0.12923,
+     0.16259
+    ],
+    "brier": [
+     0.07403,
+     0.08861
+    ],
+    "bss_B0": [
+     0.13135,
+     0.22617
+    ],
+    "bss_B2": [
+     0.05616,
+     0.14291
+    ],
+    "auc": [
+     0.82519,
+     0.85131
+    ],
+    "prec_at_50_recall": [
+     0.34243,
+     0.47566
+    ],
+    "cal_intercept": [
+     -0.57388,
+     -0.02692
+    ],
+    "cal_slope": [
+     0.96575,
+     1.16974
+    ],
+    "citl": [
+     -0.58497,
+     -0.19499
+    ],
+    "bss_vs_G2": [
+     -0.00919,
+     0.02756
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00779,
+     0.02223
+    ],
+    "d_auc_vs_G2": [
+     -0.00061,
+     0.01314
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|anchor": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.1425,
+    "brier": 0.08155,
+    "bss_B0": 0.19105,
+    "bss_B2": 0.10981,
+    "auc": 0.84085,
+    "prec_at_50_recall": 0.41942,
+    "cal_intercept": -0.20452,
+    "cal_slope": 1.0926,
+    "citl": -0.31373,
+    "bss_vs_G2": 0.01902,
+    "d_bss_B0_vs_G2": 0.01569,
+    "d_auc_vs_G2": 0.00858
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|S0": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.14795,
+    "brier": 0.08283,
+    "bss_B0": 0.17835,
+    "bss_B2": 0.09583,
+    "auc": 0.83806,
+    "prec_at_50_recall": 0.41085,
+    "cal_intercept": -0.362,
+    "cal_slope": 1.01326,
+    "citl": -0.37667,
+    "bss_vs_G2": 0.00363,
+    "d_bss_B0_vs_G2": 0.00299,
+    "d_auc_vs_G2": 0.00579
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|M0": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.14414,
+    "brier": 0.08304,
+    "bss_B0": 0.17629,
+    "bss_B2": 0.09356,
+    "auc": 0.83496,
+    "prec_at_50_recall": 0.39879,
+    "cal_intercept": -0.29125,
+    "cal_slope": 1.03515,
+    "citl": -0.33224,
+    "bss_vs_G2": 0.00112,
+    "d_bss_B0_vs_G2": 0.00092,
+    "d_auc_vs_G2": 0.00269
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|S+M0": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.14529,
+    "brier": 0.08224,
+    "bss_B0": 0.18419,
+    "bss_B2": 0.10226,
+    "auc": 0.83897,
+    "prec_at_50_recall": 0.41088,
+    "cal_intercept": -0.28751,
+    "cal_slope": 1.05057,
+    "citl": -0.34523,
+    "bss_vs_G2": 0.01071,
+    "d_bss_B0_vs_G2": 0.00883,
+    "d_auc_vs_G2": 0.0067
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|S1": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.14648,
+    "brier": 0.08295,
+    "bss_B0": 0.17716,
+    "bss_B2": 0.09453,
+    "auc": 0.83611,
+    "prec_at_50_recall": 0.40496,
+    "cal_intercept": -0.3287,
+    "cal_slope": 1.02672,
+    "citl": -0.35922,
+    "bss_vs_G2": 0.00219,
+    "d_bss_B0_vs_G2": 0.0018,
+    "d_auc_vs_G2": 0.00384
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|M1": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.1445,
+    "brier": 0.083,
+    "bss_B0": 0.17666,
+    "bss_B2": 0.09397,
+    "auc": 0.83608,
+    "prec_at_50_recall": 0.39834,
+    "cal_intercept": -0.29141,
+    "cal_slope": 1.03833,
+    "citl": -0.33634,
+    "bss_vs_G2": 0.00158,
+    "d_bss_B0_vs_G2": 0.0013,
+    "d_auc_vs_G2": 0.00381
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|S+M1": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.14449,
+    "brier": 0.08211,
+    "bss_B0": 0.18551,
+    "bss_B2": 0.10371,
+    "auc": 0.83924,
+    "prec_at_50_recall": 0.41167,
+    "cal_intercept": -0.25825,
+    "cal_slope": 1.06668,
+    "citl": -0.33579,
+    "bss_vs_G2": 0.0123,
+    "d_bss_B0_vs_G2": 0.01015,
+    "d_auc_vs_G2": 0.00697
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|S2": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.1512,
+    "brier": 0.08355,
+    "bss_B0": 0.17122,
+    "bss_B2": 0.08799,
+    "auc": 0.83639,
+    "prec_at_50_recall": 0.40952,
+    "cal_intercept": -0.42547,
+    "cal_slope": 0.98895,
+    "citl": -0.41352,
+    "bss_vs_G2": -0.00502,
+    "d_bss_B0_vs_G2": -0.00414,
+    "d_auc_vs_G2": 0.00412
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|M2": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.15066,
+    "brier": 0.08385,
+    "bss_B0": 0.1682,
+    "bss_B2": 0.08466,
+    "auc": 0.83415,
+    "prec_at_50_recall": 0.39754,
+    "cal_intercept": -0.31528,
+    "cal_slope": 1.06895,
+    "citl": -0.39206,
+    "bss_vs_G2": -0.00868,
+    "d_bss_B0_vs_G2": -0.00716,
+    "d_auc_vs_G2": 0.00188
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|primary|S+M2": {
+   "point": {
+    "base_rate": 0.11417,
+    "mean_p": 0.15006,
+    "brier": 0.08274,
+    "bss_B0": 0.17923,
+    "bss_B2": 0.09681,
+    "auc": 0.83825,
+    "prec_at_50_recall": 0.41091,
+    "cal_intercept": -0.32316,
+    "cal_slope": 1.06214,
+    "citl": -0.39157,
+    "bss_vs_G2": 0.0047,
+    "d_bss_B0_vs_G2": 0.00387,
+    "d_auc_vs_G2": 0.00598
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 10541,
+    "scored": 86651,
+    "events": 9893,
+    "dams": 1673,
+    "dams_with_event": 1008,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0|persistent+octmar+at_risk|L2": {
+   "point": {
+    "base_rate": 0.05063,
+    "mean_p": 0.06623,
+    "brier": 0.04315,
+    "bss_B0": 0.10168,
+    "bss_B2": 0.0701,
+    "auc": 0.82802,
+    "prec_at_50_recall": 0.20958,
+    "cal_intercept": -0.08992,
+    "cal_slope": 1.11324,
+    "citl": -0.31587,
+    "bss_vs_G2": 0.02496,
+    "d_bss_B0_vs_G2": 0.023,
+    "d_auc_vs_G2": 0.01288,
+    "bss_vs_L1": 0.02173,
+    "d_bss_B0_vs_L1": 0.01995,
+    "d_auc_vs_L1": 0.0118
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.04493,
+     0.05625
+    ],
+    "mean_p": [
+     0.06197,
+     0.0701
+    ],
+    "brier": [
+     0.039,
+     0.04715
+    ],
+    "bss_B0": [
+     0.07819,
+     0.12492
+    ],
+    "bss_B2": [
+     0.05005,
+     0.08879
+    ],
+    "auc": [
+     0.81185,
+     0.84558
+    ],
+    "prec_at_50_recall": [
+     0.18425,
+     0.23331
+    ],
+    "cal_intercept": [
+     -0.27263,
+     0.09827
+    ],
+    "cal_slope": [
+     1.0346,
+     1.21147
+    ],
+    "citl": [
+     -0.40878,
+     -0.22812
+    ],
+    "bss_vs_G2": [
+     0.01851,
+     0.0324
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01698,
+     0.02969
+    ],
+    "d_auc_vs_G2": [
+     0.0083,
+     0.01751
+    ],
+    "bss_vs_L1": [
+     0.01644,
+     0.02907
+    ],
+    "d_bss_B0_vs_L1": [
+     0.01517,
+     0.02678
+    ],
+    "d_auc_vs_L1": [
+     0.00777,
+     0.01632
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.04062,
+     0.05995
+    ],
+    "mean_p": [
+     0.05349,
+     0.07629
+    ],
+    "brier": [
+     0.03665,
+     0.04959
+    ],
+    "bss_B0": [
+     0.06121,
+     0.12935
+    ],
+    "bss_B2": [
+     0.03987,
+     0.09725
+    ],
+    "auc": [
+     0.80999,
+     0.83994
+    ],
+    "prec_at_50_recall": [
+     0.16599,
+     0.25148
+    ],
+    "cal_intercept": [
+     -0.36402,
+     0.17544
+    ],
+    "cal_slope": [
+     0.99923,
+     1.22119
+    ],
+    "citl": [
+     -0.50199,
+     -0.14938
+    ],
+    "bss_vs_G2": [
+     0.01687,
+     0.0321
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01584,
+     0.03026
+    ],
+    "d_auc_vs_G2": [
+     0.00793,
+     0.01829
+    ],
+    "bss_vs_L1": [
+     0.01486,
+     0.02784
+    ],
+    "d_bss_B0_vs_L1": [
+     0.0137,
+     0.02591
+    ],
+    "d_auc_vs_L1": [
+     0.00784,
+     0.01629
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 65705,
+    "in_subset_without_label": 7456,
+    "scored": 58249,
+    "events": 2949,
+    "dams": 967,
+    "dams_with_event": 383,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  },
+  "P1_D0|dam_like+at_risk|L2": {
+   "point": {
+    "base_rate": 0.09106,
+    "mean_p": 0.10388,
+    "brier": 0.0661,
+    "bss_B0": 0.18882,
+    "bss_B2": 0.11825,
+    "auc": 0.85628,
+    "prec_at_50_recall": 0.39896,
+    "cal_intercept": -0.13098,
+    "cal_slope": 1.03602,
+    "citl": -0.18284,
+    "bss_vs_G2": 0.02265,
+    "d_bss_B0_vs_G2": 0.0188,
+    "d_auc_vs_G2": 0.00882,
+    "bss_vs_L1": 0.02082,
+    "d_bss_B0_vs_L1": 0.01724,
+    "d_auc_vs_L1": 0.00784
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.08585,
+     0.09795
+    ],
+    "mean_p": [
+     0.09967,
+     0.11046
+    ],
+    "brier": [
+     0.0631,
+     0.07003
+    ],
+    "bss_B0": [
+     0.17406,
+     0.2029
+    ],
+    "bss_B2": [
+     0.1075,
+     0.12818
+    ],
+    "auc": [
+     0.84824,
+     0.864
+    ],
+    "prec_at_50_recall": [
+     0.37504,
+     0.42266
+    ],
+    "cal_intercept": [
+     -0.19749,
+     -0.07794
+    ],
+    "cal_slope": [
+     1.00427,
+     1.06916
+    ],
+    "citl": [
+     -0.22918,
+     -0.14437
+    ],
+    "bss_vs_G2": [
+     0.01859,
+     0.02699
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01538,
+     0.02251
+    ],
+    "d_auc_vs_G2": [
+     0.00704,
+     0.01087
+    ],
+    "bss_vs_L1": [
+     0.01661,
+     0.02557
+    ],
+    "d_bss_B0_vs_L1": [
+     0.01379,
+     0.02118
+    ],
+    "d_auc_vs_L1": [
+     0.00632,
+     0.00976
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.0739,
+     0.1036
+    ],
+    "mean_p": [
+     0.09278,
+     0.11428
+    ],
+    "brier": [
+     0.05711,
+     0.07237
+    ],
+    "bss_B0": [
+     0.15894,
+     0.21018
+    ],
+    "bss_B2": [
+     0.08711,
+     0.14309
+    ],
+    "auc": [
+     0.84631,
+     0.86472
+    ],
+    "prec_at_50_recall": [
+     0.33875,
+     0.43983
+    ],
+    "cal_intercept": [
+     -0.37051,
+     0.06717
+    ],
+    "cal_slope": [
+     0.98039,
+     1.09849
+    ],
+    "citl": [
+     -0.36559,
+     -0.03128
+    ],
+    "bss_vs_G2": [
+     0.01212,
+     0.02884
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01012,
+     0.02368
+    ],
+    "d_auc_vs_G2": [
+     0.00464,
+     0.01168
+    ],
+    "bss_vs_L1": [
+     0.01018,
+     0.02739
+    ],
+    "d_bss_B0_vs_L1": [
+     0.0086,
+     0.02253
+    ],
+    "d_auc_vs_L1": [
+     0.00376,
+     0.01069
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 185300,
+    "in_subset_without_label": 24771,
+    "scored": 160529,
+    "events": 14617,
+    "dams": 1675,
+    "dams_with_event": 1063,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  },
+  "P1_D0_sens|primary|L2": {
+   "point": {
+    "base_rate": 0.10374,
+    "mean_p": 0.13814,
+    "brier": 0.07687,
+    "bss_B0": 0.1731,
+    "bss_B2": 0.09779,
+    "auc": 0.84187,
+    "prec_at_50_recall": 0.39348,
+    "cal_intercept": -0.32978,
+    "cal_slope": 1.0622,
+    "citl": -0.40272,
+    "bss_vs_G2": 0.01432,
+    "d_bss_B0_vs_G2": 0.01202,
+    "d_auc_vs_G2": 0.00804,
+    "bss_vs_L1": 0.01243,
+    "d_bss_B0_vs_L1": 0.01041,
+    "d_auc_vs_L1": 0.00725
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.09774,
+     0.11129
+    ],
+    "mean_p": [
+     0.13319,
+     0.14452
+    ],
+    "brier": [
+     0.07337,
+     0.08144
+    ],
+    "bss_B0": [
+     0.15494,
+     0.19138
+    ],
+    "bss_B2": [
+     0.08467,
+     0.10974
+    ],
+    "auc": [
+     0.8325,
+     0.85236
+    ],
+    "prec_at_50_recall": [
+     0.37131,
+     0.41792
+    ],
+    "cal_intercept": [
+     -0.40302,
+     -0.26254
+    ],
+    "cal_slope": [
+     1.01504,
+     1.1061
+    ],
+    "citl": [
+     -0.44955,
+     -0.35025
+    ],
+    "bss_vs_G2": [
+     0.01025,
+     0.01919
+    ],
+    "d_bss_B0_vs_G2": [
+     0.0085,
+     0.01596
+    ],
+    "d_auc_vs_G2": [
+     0.00592,
+     0.00983
+    ],
+    "bss_vs_L1": [
+     0.00818,
+     0.01722
+    ],
+    "d_bss_B0_vs_L1": [
+     0.00687,
+     0.01454
+    ],
+    "d_auc_vs_L1": [
+     0.00538,
+     0.00889
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.08172,
+     0.12388
+    ],
+    "mean_p": [
+     0.12379,
+     0.15312
+    ],
+    "brier": [
+     0.06742,
+     0.08515
+    ],
+    "bss_B0": [
+     0.11156,
+     0.21639
+    ],
+    "bss_B2": [
+     0.05514,
+     0.12847
+    ],
+    "auc": [
+     0.82849,
+     0.85269
+    ],
+    "prec_at_50_recall": [
+     0.32684,
+     0.46185
+    ],
+    "cal_intercept": [
+     -0.66251,
+     -0.08802
+    ],
+    "cal_slope": [
+     0.97584,
+     1.15322
+    ],
+    "citl": [
+     -0.67173,
+     -0.23016
+    ],
+    "bss_vs_G2": [
+     -0.00411,
+     0.02537
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00353,
+     0.02103
+    ],
+    "d_auc_vs_G2": [
+     0.00244,
+     0.01203
+    ],
+    "bss_vs_L1": [
+     -0.00649,
+     0.02404
+    ],
+    "d_bss_B0_vs_L1": [
+     -0.00549,
+     0.01955
+    ],
+    "d_auc_vs_L1": [
+     0.0015,
+     0.01121
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 0,
+    "scored": 97192,
+    "events": 10083,
+    "dams": 1675,
+    "dams_with_event": 1020,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  },
+  "P1_D0g|primary|L2": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10401,
+    "brier": 0.06164,
+    "bss_B0": 0.1921,
+    "bss_B2": 0.1431,
+    "auc": 0.86771,
+    "prec_at_50_recall": 0.37841,
+    "cal_intercept": -0.10066,
+    "cal_slope": 1.14219,
+    "citl": -0.29605,
+    "bss_vs_G2": 0.02412,
+    "d_bss_B0_vs_G2": 0.01996,
+    "d_auc_vs_G2": 0.01086,
+    "bss_vs_L1": 0.0227,
+    "d_bss_B0_vs_L1": 0.01877,
+    "d_auc_vs_L1": 0.00972
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.07772,
+     0.08999
+    ],
+    "mean_p": [
+     0.09891,
+     0.10911
+    ],
+    "brier": [
+     0.05822,
+     0.06555
+    ],
+    "bss_B0": [
+     0.17306,
+     0.20988
+    ],
+    "bss_B2": [
+     0.12862,
+     0.15763
+    ],
+    "auc": [
+     0.85791,
+     0.87691
+    ],
+    "prec_at_50_recall": [
+     0.34995,
+     0.40756
+    ],
+    "cal_intercept": [
+     -0.19041,
+     -0.01138
+    ],
+    "cal_slope": [
+     1.09239,
+     1.19499
+    ],
+    "citl": [
+     -0.35289,
+     -0.2327
+    ],
+    "bss_vs_G2": [
+     0.01754,
+     0.03078
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01444,
+     0.02546
+    ],
+    "d_auc_vs_G2": [
+     0.00845,
+     0.01333
+    ],
+    "bss_vs_L1": [
+     0.01693,
+     0.0289
+    ],
+    "d_bss_B0_vs_L1": [
+     0.01388,
+     0.02385
+    ],
+    "d_auc_vs_L1": [
+     0.00728,
+     0.01201
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.06384,
+     0.10157
+    ],
+    "mean_p": [
+     0.0893,
+     0.11829
+    ],
+    "brier": [
+     0.05195,
+     0.07076
+    ],
+    "bss_B0": [
+     0.13346,
+     0.23392
+    ],
+    "bss_B2": [
+     0.09785,
+     0.17615
+    ],
+    "auc": [
+     0.85832,
+     0.87526
+    ],
+    "prec_at_50_recall": [
+     0.30491,
+     0.45576
+    ],
+    "cal_intercept": [
+     -0.44788,
+     0.22097
+    ],
+    "cal_slope": [
+     1.05748,
+     1.23286
+    ],
+    "citl": [
+     -0.56172,
+     -0.08411
+    ],
+    "bss_vs_G2": [
+     0.0125,
+     0.03185
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01022,
+     0.02696
+    ],
+    "d_auc_vs_G2": [
+     0.00634,
+     0.01419
+    ],
+    "bss_vs_L1": [
+     0.01172,
+     0.02995
+    ],
+    "d_bss_B0_vs_L1": [
+     0.00973,
+     0.02487
+    ],
+    "d_auc_vs_L1": [
+     0.0047,
+     0.01327
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  },
+  "P1_D0g|primary|T": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10255,
+    "brier": 0.06316,
+    "bss_B0": 0.17213,
+    "bss_B2": 0.12193,
+    "auc": 0.85685,
+    "prec_at_50_recall": 0.35076,
+    "cal_intercept": -0.18567,
+    "cal_slope": 1.06455,
+    "citl": -0.27775,
+    "bss_vs_G2": 0.0,
+    "d_bss_B0_vs_G2": 0.0,
+    "d_auc_vs_G2": 0.0
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|S": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10949,
+    "brier": 0.06275,
+    "bss_B0": 0.17747,
+    "bss_B2": 0.12759,
+    "auc": 0.86351,
+    "prec_at_50_recall": 0.36628,
+    "cal_intercept": -0.27554,
+    "cal_slope": 1.07449,
+    "citl": -0.37219,
+    "bss_vs_G2": 0.00645,
+    "d_bss_B0_vs_G2": 0.00534,
+    "d_auc_vs_G2": 0.00667
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|M": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10827,
+    "brier": 0.0631,
+    "bss_B0": 0.17288,
+    "bss_B2": 0.12272,
+    "auc": 0.86096,
+    "prec_at_50_recall": 0.35842,
+    "cal_intercept": -0.17526,
+    "cal_slope": 1.12826,
+    "citl": -0.34744,
+    "bss_vs_G2": 0.0009,
+    "d_bss_B0_vs_G2": 0.00075,
+    "d_auc_vs_G2": 0.00411
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|S+M": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10809,
+    "brier": 0.06235,
+    "bss_B0": 0.18269,
+    "bss_B2": 0.13312,
+    "auc": 0.86477,
+    "prec_at_50_recall": 0.3713,
+    "cal_intercept": -0.17191,
+    "cal_slope": 1.13272,
+    "citl": -0.34793,
+    "bss_vs_G2": 0.01275,
+    "d_bss_B0_vs_G2": 0.01056,
+    "d_auc_vs_G2": 0.00792
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.07841,
+     0.09037
+    ],
+    "mean_p": [
+     0.10357,
+     0.11328
+    ],
+    "brier": [
+     0.05881,
+     0.06659
+    ],
+    "bss_B0": [
+     0.16459,
+     0.20125
+    ],
+    "bss_B2": [
+     0.11803,
+     0.14785
+    ],
+    "auc": [
+     0.85544,
+     0.87492
+    ],
+    "prec_at_50_recall": [
+     0.34606,
+     0.39882
+    ],
+    "cal_intercept": [
+     -0.25753,
+     -0.08313
+    ],
+    "cal_slope": [
+     1.08338,
+     1.18593
+    ],
+    "citl": [
+     -0.4104,
+     -0.28936
+    ],
+    "bss_vs_G2": [
+     0.00291,
+     0.02226
+    ],
+    "d_bss_B0_vs_G2": [
+     0.00243,
+     0.01868
+    ],
+    "d_auc_vs_G2": [
+     0.00434,
+     0.01154
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.06353,
+     0.1008
+    ],
+    "mean_p": [
+     0.0925,
+     0.12278
+    ],
+    "brier": [
+     0.05348,
+     0.07067
+    ],
+    "bss_B0": [
+     0.11918,
+     0.22449
+    ],
+    "bss_B2": [
+     0.07902,
+     0.16869
+    ],
+    "auc": [
+     0.85467,
+     0.8723
+    ],
+    "prec_at_50_recall": [
+     0.2912,
+     0.44307
+    ],
+    "cal_intercept": [
+     -0.52188,
+     0.12241
+    ],
+    "cal_slope": [
+     1.01018,
+     1.21929
+    ],
+    "citl": [
+     -0.62857,
+     -0.14476
+    ],
+    "bss_vs_G2": [
+     -0.00676,
+     0.02481
+    ],
+    "d_bss_B0_vs_G2": [
+     -0.00564,
+     0.02058
+    ],
+    "d_auc_vs_G2": [
+     0.00118,
+     0.01243
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|anchor": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10455,
+    "brier": 0.0617,
+    "bss_B0": 0.19127,
+    "bss_B2": 0.14223,
+    "auc": 0.86681,
+    "prec_at_50_recall": 0.37849,
+    "cal_intercept": -0.08093,
+    "cal_slope": 1.16009,
+    "citl": -0.30106,
+    "bss_vs_G2": 0.02312,
+    "d_bss_B0_vs_G2": 0.01914,
+    "d_auc_vs_G2": 0.00996
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|S0": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10991,
+    "brier": 0.06309,
+    "bss_B0": 0.17304,
+    "bss_B2": 0.1229,
+    "auc": 0.8616,
+    "prec_at_50_recall": 0.36612,
+    "cal_intercept": -0.31729,
+    "cal_slope": 1.04808,
+    "citl": -0.37911,
+    "bss_vs_G2": 0.0011,
+    "d_bss_B0_vs_G2": 0.00091,
+    "d_auc_vs_G2": 0.00475
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|M0": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.1083,
+    "brier": 0.06335,
+    "bss_B0": 0.16963,
+    "bss_B2": 0.11927,
+    "auc": 0.85924,
+    "prec_at_50_recall": 0.35605,
+    "cal_intercept": -0.23591,
+    "cal_slope": 1.08636,
+    "citl": -0.35126,
+    "bss_vs_G2": -0.00302,
+    "d_bss_B0_vs_G2": -0.0025,
+    "d_auc_vs_G2": 0.00239
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|S+M0": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10818,
+    "brier": 0.06259,
+    "bss_B0": 0.17964,
+    "bss_B2": 0.1299,
+    "auc": 0.86326,
+    "prec_at_50_recall": 0.37047,
+    "cal_intercept": -0.21916,
+    "cal_slope": 1.10036,
+    "citl": -0.35152,
+    "bss_vs_G2": 0.00908,
+    "d_bss_B0_vs_G2": 0.00751,
+    "d_auc_vs_G2": 0.00641
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|S1": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10936,
+    "brier": 0.06319,
+    "bss_B0": 0.17174,
+    "bss_B2": 0.12151,
+    "auc": 0.86147,
+    "prec_at_50_recall": 0.3582,
+    "cal_intercept": -0.27339,
+    "cal_slope": 1.07274,
+    "citl": -0.3689,
+    "bss_vs_G2": -0.00048,
+    "d_bss_B0_vs_G2": -0.00039,
+    "d_auc_vs_G2": 0.00463
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|M1": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10792,
+    "brier": 0.06324,
+    "bss_B0": 0.171,
+    "bss_B2": 0.12073,
+    "auc": 0.86079,
+    "prec_at_50_recall": 0.35758,
+    "cal_intercept": -0.2005,
+    "cal_slope": 1.10714,
+    "citl": -0.34479,
+    "bss_vs_G2": -0.00137,
+    "d_bss_B0_vs_G2": -0.00113,
+    "d_auc_vs_G2": 0.00394
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|S+M1": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10766,
+    "brier": 0.06254,
+    "bss_B0": 0.18028,
+    "bss_B2": 0.13057,
+    "auc": 0.8642,
+    "prec_at_50_recall": 0.36735,
+    "cal_intercept": -0.17092,
+    "cal_slope": 1.12814,
+    "citl": -0.34229,
+    "bss_vs_G2": 0.00984,
+    "d_bss_B0_vs_G2": 0.00815,
+    "d_auc_vs_G2": 0.00735
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|S2": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.11144,
+    "brier": 0.06354,
+    "bss_B0": 0.1672,
+    "bss_B2": 0.11669,
+    "auc": 0.86085,
+    "prec_at_50_recall": 0.35986,
+    "cal_intercept": -0.36635,
+    "cal_slope": 1.02798,
+    "citl": -0.40194,
+    "bss_vs_G2": -0.00596,
+    "d_bss_B0_vs_G2": -0.00494,
+    "d_auc_vs_G2": 0.004
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|M2": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10964,
+    "brier": 0.06345,
+    "bss_B0": 0.16829,
+    "bss_B2": 0.11785,
+    "auc": 0.8597,
+    "prec_at_50_recall": 0.35292,
+    "cal_intercept": -0.16101,
+    "cal_slope": 1.14973,
+    "citl": -0.36146,
+    "bss_vs_G2": -0.00464,
+    "d_bss_B0_vs_G2": -0.00384,
+    "d_auc_vs_G2": 0.00285
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|primary|S+M2": {
+   "point": {
+    "base_rate": 0.08345,
+    "mean_p": 0.10948,
+    "brier": 0.06265,
+    "bss_B0": 0.17879,
+    "bss_B2": 0.12899,
+    "auc": 0.86359,
+    "prec_at_50_recall": 0.36933,
+    "cal_intercept": -0.19693,
+    "cal_slope": 1.12818,
+    "citl": -0.36537,
+    "bss_vs_G2": 0.00805,
+    "d_bss_B0_vs_G2": 0.00666,
+    "d_auc_vs_G2": 0.00675
+   },
+   "ci_dam": {},
+   "ci_region_year": {},
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 13445,
+    "scored": 83747,
+    "events": 6989,
+    "dams": 1673,
+    "dams_with_event": 845,
+    "region_years": 16
+   },
+   "refs": [
+    "G2"
+   ]
+  },
+  "P1_D0g|persistent+octmar+at_risk|L2": {
+   "point": {
+    "base_rate": 0.03628,
+    "mean_p": 0.04979,
+    "brier": 0.03073,
+    "bss_B0": 0.12057,
+    "bss_B2": 0.09237,
+    "auc": 0.87379,
+    "prec_at_50_recall": 0.21504,
+    "cal_intercept": 0.11735,
+    "cal_slope": 1.23389,
+    "citl": -0.3663,
+    "bss_vs_G2": 0.03198,
+    "d_bss_B0_vs_G2": 0.02906,
+    "d_auc_vs_G2": 0.01435,
+    "bss_vs_L1": 0.02654,
+    "d_bss_B0_vs_L1": 0.02397,
+    "d_auc_vs_L1": 0.0124
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.0314,
+     0.04103
+    ],
+    "mean_p": [
+     0.04632,
+     0.05305
+    ],
+    "brier": [
+     0.02722,
+     0.03409
+    ],
+    "bss_B0": [
+     0.09129,
+     0.14537
+    ],
+    "bss_B2": [
+     0.06746,
+     0.11134
+    ],
+    "auc": [
+     0.85984,
+     0.88731
+    ],
+    "prec_at_50_recall": [
+     0.18184,
+     0.25074
+    ],
+    "cal_intercept": [
+     -0.08661,
+     0.31274
+    ],
+    "cal_slope": [
+     1.15919,
+     1.31622
+    ],
+    "citl": [
+     -0.48703,
+     -0.25755
+    ],
+    "bss_vs_G2": [
+     0.02483,
+     0.04112
+    ],
+    "d_bss_B0_vs_G2": [
+     0.02271,
+     0.03685
+    ],
+    "d_auc_vs_G2": [
+     0.00974,
+     0.01945
+    ],
+    "bss_vs_L1": [
+     0.0204,
+     0.03544
+    ],
+    "d_bss_B0_vs_L1": [
+     0.01839,
+     0.03241
+    ],
+    "d_auc_vs_L1": [
+     0.00799,
+     0.01727
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.02933,
+     0.04376
+    ],
+    "mean_p": [
+     0.03855,
+     0.05881
+    ],
+    "brier": [
+     0.02518,
+     0.03601
+    ],
+    "bss_B0": [
+     0.07748,
+     0.1515
+    ],
+    "bss_B2": [
+     0.05162,
+     0.12165
+    ],
+    "auc": [
+     0.85728,
+     0.88512
+    ],
+    "prec_at_50_recall": [
+     0.16356,
+     0.26681
+    ],
+    "cal_intercept": [
+     -0.23404,
+     0.44455
+    ],
+    "cal_slope": [
+     1.09015,
+     1.36702
+    ],
+    "citl": [
+     -0.57369,
+     -0.18232
+    ],
+    "bss_vs_G2": [
+     0.01947,
+     0.04353
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01736,
+     0.04155
+    ],
+    "d_auc_vs_G2": [
+     0.00884,
+     0.02103
+    ],
+    "bss_vs_L1": [
+     0.01713,
+     0.03538
+    ],
+    "d_bss_B0_vs_L1": [
+     0.01534,
+     0.03318
+    ],
+    "d_auc_vs_L1": [
+     0.00778,
+     0.01787
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 65705,
+    "in_subset_without_label": 8323,
+    "scored": 57382,
+    "events": 2082,
+    "dams": 967,
+    "dams_with_event": 285,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  },
+  "P1_D0g|dam_like+at_risk|L2": {
+   "point": {
+    "base_rate": 0.06392,
+    "mean_p": 0.07371,
+    "brier": 0.04791,
+    "bss_B0": 0.18784,
+    "bss_B2": 0.14678,
+    "auc": 0.88353,
+    "prec_at_50_recall": 0.36149,
+    "cal_intercept": -0.02876,
+    "cal_slope": 1.09807,
+    "citl": -0.1873,
+    "bss_vs_G2": 0.0271,
+    "d_bss_B0_vs_G2": 0.02262,
+    "d_auc_vs_G2": 0.01119,
+    "bss_vs_L1": 0.0251,
+    "d_bss_B0_vs_L1": 0.02091,
+    "d_auc_vs_L1": 0.00978
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.05997,
+     0.0689
+    ],
+    "mean_p": [
+     0.07099,
+     0.07804
+    ],
+    "brier": [
+     0.0455,
+     0.05087
+    ],
+    "bss_B0": [
+     0.17351,
+     0.20163
+    ],
+    "bss_B2": [
+     0.13548,
+     0.15986
+    ],
+    "auc": [
+     0.87519,
+     0.88992
+    ],
+    "prec_at_50_recall": [
+     0.3392,
+     0.38722
+    ],
+    "cal_intercept": [
+     -0.11713,
+     0.04455
+    ],
+    "cal_slope": [
+     1.0597,
+     1.14031
+    ],
+    "citl": [
+     -0.2509,
+     -0.13767
+    ],
+    "bss_vs_G2": [
+     0.02157,
+     0.03209
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01809,
+     0.02706
+    ],
+    "d_auc_vs_G2": [
+     0.0092,
+     0.01347
+    ],
+    "bss_vs_L1": [
+     0.02012,
+     0.03108
+    ],
+    "d_bss_B0_vs_L1": [
+     0.01688,
+     0.02581
+    ],
+    "d_auc_vs_L1": [
+     0.00803,
+     0.01181
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.04928,
+     0.07479
+    ],
+    "mean_p": [
+     0.064,
+     0.0818
+    ],
+    "brier": [
+     0.03924,
+     0.05417
+    ],
+    "bss_B0": [
+     0.14936,
+     0.21088
+    ],
+    "bss_B2": [
+     0.11293,
+     0.17217
+    ],
+    "auc": [
+     0.87762,
+     0.89024
+    ],
+    "prec_at_50_recall": [
+     0.29711,
+     0.4158
+    ],
+    "cal_intercept": [
+     -0.30812,
+     0.19031
+    ],
+    "cal_slope": [
+     1.03668,
+     1.16612
+    ],
+    "citl": [
+     -0.38886,
+     -0.01575
+    ],
+    "bss_vs_G2": [
+     0.01708,
+     0.0348
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01463,
+     0.02934
+    ],
+    "d_auc_vs_G2": [
+     0.00692,
+     0.01389
+    ],
+    "bss_vs_L1": [
+     0.01636,
+     0.03248
+    ],
+    "d_bss_B0_vs_L1": [
+     0.01376,
+     0.02714
+    ],
+    "d_auc_vs_L1": [
+     0.00551,
+     0.01264
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 185300,
+    "in_subset_without_label": 29424,
+    "scored": 155876,
+    "events": 9964,
+    "dams": 1675,
+    "dams_with_event": 886,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  },
+  "P1_D0g_sens|primary|L2": {
+   "point": {
+    "base_rate": 0.07574,
+    "mean_p": 0.1015,
+    "brier": 0.05773,
+    "bss_B0": 0.17427,
+    "bss_B2": 0.12948,
+    "auc": 0.86822,
+    "prec_at_50_recall": 0.35491,
+    "cal_intercept": -0.20263,
+    "cal_slope": 1.13627,
+    "citl": -0.38889,
+    "bss_vs_G2": 0.01971,
+    "d_bss_B0_vs_G2": 0.0166,
+    "d_auc_vs_G2": 0.01027,
+    "bss_vs_L1": 0.01832,
+    "d_bss_B0_vs_L1": 0.01541,
+    "d_auc_vs_L1": 0.00923
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.07077,
+     0.08218
+    ],
+    "mean_p": [
+     0.09781,
+     0.10607
+    ],
+    "brier": [
+     0.05476,
+     0.06189
+    ],
+    "bss_B0": [
+     0.15653,
+     0.19275
+    ],
+    "bss_B2": [
+     0.11315,
+     0.14344
+    ],
+    "auc": [
+     0.85864,
+     0.87752
+    ],
+    "prec_at_50_recall": [
+     0.32936,
+     0.38309
+    ],
+    "cal_intercept": [
+     -0.28932,
+     -0.11961
+    ],
+    "cal_slope": [
+     1.08529,
+     1.18436
+    ],
+    "citl": [
+     -0.44116,
+     -0.32642
+    ],
+    "bss_vs_G2": [
+     0.01433,
+     0.02598
+    ],
+    "d_bss_B0_vs_G2": [
+     0.01209,
+     0.02177
+    ],
+    "d_auc_vs_G2": [
+     0.00795,
+     0.01243
+    ],
+    "bss_vs_L1": [
+     0.01302,
+     0.02452
+    ],
+    "d_bss_B0_vs_L1": [
+     0.01105,
+     0.02046
+    ],
+    "d_auc_vs_L1": [
+     0.0071,
+     0.01124
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.05642,
+     0.09372
+    ],
+    "mean_p": [
+     0.08801,
+     0.1154
+    ],
+    "brier": [
+     0.04753,
+     0.06695
+    ],
+    "bss_B0": [
+     0.10759,
+     0.22132
+    ],
+    "bss_B2": [
+     0.07712,
+     0.16087
+    ],
+    "auc": [
+     0.85765,
+     0.87602
+    ],
+    "prec_at_50_recall": [
+     0.27704,
+     0.42973
+    ],
+    "cal_intercept": [
+     -0.57426,
+     0.09296
+    ],
+    "cal_slope": [
+     1.03898,
+     1.2171
+    ],
+    "citl": [
+     -0.67313,
+     -0.18561
+    ],
+    "bss_vs_G2": [
+     0.00354,
+     0.03118
+    ],
+    "d_bss_B0_vs_G2": [
+     0.0031,
+     0.02693
+    ],
+    "d_auc_vs_G2": [
+     0.00585,
+     0.01352
+    ],
+    "bss_vs_L1": [
+     0.00297,
+     0.02889
+    ],
+    "d_bss_B0_vs_L1": [
+     0.0026,
+     0.0243
+    ],
+    "d_auc_vs_L1": [
+     0.00461,
+     0.01254
+    ]
+   },
+   "rows": {
+    "passed_in": 461839,
+    "in_subset": 97192,
+    "in_subset_without_label": 2945,
+    "scored": 94247,
+    "events": 7138,
+    "dams": 1675,
+    "dams_with_event": 868,
+    "region_years": 16
+   },
+   "refs": [
+    "G2",
+    "L1"
+   ]
+  }
+ },
+ "p2": {
+  "P2_cell|all|L2": {
+   "point": {
+    "base_rate": 0.171,
+    "mean_p": 0.19452,
+    "brier": 0.12079,
+    "bss_B0": 0.14878,
+    "bss_B2": 0.0059,
+    "auc": 0.78715,
+    "prec_at_50_recall": 0.40696,
+    "auc_within_season": 0.7893,
+    "auc_within_cell": 0.51731,
+    "cal_intercept": -0.2706,
+    "cal_slope": 0.9236,
+    "citl": -0.19342,
+    "bss_vs_RAIN": 0.14757,
+    "d_bss_B0_vs_RAIN": 0.14736,
+    "d_auc_vs_RAIN": 0.2493,
+    "bss_vs_RAIN+": 0.12237,
+    "d_bss_B0_vs_RAIN+": 0.11869,
+    "d_auc_vs_RAIN+": 0.15632,
+    "bss_vs_B2": 0.0059,
+    "d_bss_B0_vs_B2": 0.00505,
+    "d_auc_vs_B2": 0.01407
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.15985,
+     0.18092
+    ],
+    "mean_p": [
+     0.18572,
+     0.2031
+    ],
+    "brier": [
+     0.11516,
+     0.12623
+    ],
+    "bss_B0": [
+     0.12634,
+     0.1689
+    ],
+    "bss_B2": [
+     -0.00454,
+     0.01763
+    ],
+    "auc": [
+     0.77382,
+     0.8002
+    ],
+    "prec_at_50_recall": [
+     0.37501,
+     0.43799
+    ],
+    "auc_within_season": [
+     0.7755,
+     0.8029
+    ],
+    "auc_within_cell": [
+     0.48744,
+     0.54797
+    ],
+    "cal_intercept": [
+     -0.3565,
+     -0.19503
+    ],
+    "cal_slope": [
+     0.86773,
+     0.97529
+    ],
+    "citl": [
+     -0.25566,
+     -0.13158
+    ],
+    "bss_vs_RAIN": [
+     0.12538,
+     0.16711
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.12515,
+     0.16664
+    ],
+    "d_auc_vs_RAIN": [
+     0.22838,
+     0.27317
+    ],
+    "bss_vs_RAIN+": [
+     0.09944,
+     0.14281
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.0963,
+     0.13861
+    ],
+    "d_auc_vs_RAIN+": [
+     0.13758,
+     0.17288
+    ],
+    "bss_vs_B2": [
+     -0.00454,
+     0.01763
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.00388,
+     0.01526
+    ],
+    "d_auc_vs_B2": [
+     0.00874,
+     0.02055
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.13418,
+     0.2051
+    ],
+    "mean_p": [
+     0.17644,
+     0.20776
+    ],
+    "brier": [
+     0.10744,
+     0.13319
+    ],
+    "bss_B0": [
+     0.06172,
+     0.20895
+    ],
+    "bss_B2": [
+     -0.04486,
+     0.04875
+    ],
+    "auc": [
+     0.76414,
+     0.80743
+    ],
+    "prec_at_50_recall": [
+     0.31633,
+     0.49512
+    ],
+    "auc_within_season": [
+     0.76256,
+     0.81142
+    ],
+    "auc_within_cell": [
+     0.44024,
+     0.59963
+    ],
+    "cal_intercept": [
+     -0.65059,
+     0.1006
+    ],
+    "cal_slope": [
+     0.81198,
+     1.04067
+    ],
+    "citl": [
+     -0.53347,
+     0.0833
+    ],
+    "bss_vs_RAIN": [
+     0.06681,
+     0.20486
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.06753,
+     0.20388
+    ],
+    "d_auc_vs_RAIN": [
+     0.17551,
+     0.31753
+    ],
+    "bss_vs_RAIN+": [
+     0.03571,
+     0.17973
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.03469,
+     0.17385
+    ],
+    "d_auc_vs_RAIN+": [
+     0.11676,
+     0.19892
+    ],
+    "bss_vs_B2": [
+     -0.04486,
+     0.04875
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.03966,
+     0.04074
+    ],
+    "d_auc_vs_B2": [
+     -0.00195,
+     0.02891
+    ]
+   },
+   "rows": {
+    "passed_in": 10045,
+    "in_subset": 10045,
+    "in_subset_without_label": 197,
+    "scored": 9848,
+    "events": 1684,
+    "dams": 1434,
+    "dams_with_event": 791,
+    "region_years": 14
+   },
+   "refs": [
+    "RAIN",
+    "RAIN+",
+    "B2"
+   ]
+  },
+  "P2_dam|dam_like|L2": {
+   "point": {
+    "base_rate": 0.17903,
+    "mean_p": 0.20876,
+    "brier": 0.12555,
+    "bss_B0": 0.14686,
+    "bss_B2": 0.01059,
+    "auc": 0.77935,
+    "prec_at_50_recall": 0.41483,
+    "auc_within_season": 0.78084,
+    "auc_within_dam": 0.52145,
+    "cal_intercept": -0.262,
+    "cal_slope": 0.96732,
+    "citl": -0.23014,
+    "bss_vs_RAIN": 0.14536,
+    "d_bss_B0_vs_RAIN": 0.1451,
+    "d_auc_vs_RAIN": 0.23061,
+    "bss_vs_RAIN+": 0.11494,
+    "d_bss_B0_vs_RAIN+": 0.11079,
+    "d_auc_vs_RAIN+": 0.13883,
+    "bss_vs_B2": 0.01059,
+    "d_bss_B0_vs_B2": 0.00913,
+    "d_auc_vs_B2": 0.01713
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.16936,
+     0.1892
+    ],
+    "mean_p": [
+     0.20088,
+     0.21616
+    ],
+    "brier": [
+     0.1209,
+     0.13067
+    ],
+    "bss_B0": [
+     0.12777,
+     0.16613
+    ],
+    "bss_B2": [
+     0.00073,
+     0.01913
+    ],
+    "auc": [
+     0.76672,
+     0.79105
+    ],
+    "prec_at_50_recall": [
+     0.38861,
+     0.44783
+    ],
+    "auc_within_season": [
+     0.7678,
+     0.79335
+    ],
+    "auc_within_dam": [
+     0.49093,
+     0.54706
+    ],
+    "cal_intercept": [
+     -0.33419,
+     -0.1822
+    ],
+    "cal_slope": [
+     0.91841,
+     1.01916
+    ],
+    "citl": [
+     -0.28104,
+     -0.17724
+    ],
+    "bss_vs_RAIN": [
+     0.12629,
+     0.16436
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.12656,
+     0.16445
+    ],
+    "d_auc_vs_RAIN": [
+     0.21127,
+     0.25016
+    ],
+    "bss_vs_RAIN+": [
+     0.09354,
+     0.13405
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.09027,
+     0.12902
+    ],
+    "d_auc_vs_RAIN+": [
+     0.12109,
+     0.15549
+    ],
+    "bss_vs_B2": [
+     0.00073,
+     0.01913
+    ],
+    "d_bss_B0_vs_B2": [
+     0.00063,
+     0.01649
+    ],
+    "d_auc_vs_B2": [
+     0.01255,
+     0.02183
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.13966,
+     0.21491
+    ],
+    "mean_p": [
+     0.19104,
+     0.22206
+    ],
+    "brier": [
+     0.11125,
+     0.13865
+    ],
+    "bss_B0": [
+     0.06261,
+     0.20462
+    ],
+    "bss_B2": [
+     -0.04655,
+     0.05924
+    ],
+    "auc": [
+     0.75416,
+     0.80187
+    ],
+    "prec_at_50_recall": [
+     0.31922,
+     0.50801
+    ],
+    "auc_within_season": [
+     0.75294,
+     0.8043
+    ],
+    "auc_within_dam": [
+     0.44866,
+     0.61052
+    ],
+    "cal_intercept": [
+     -0.6677,
+     0.09994
+    ],
+    "cal_slope": [
+     0.84381,
+     1.09537
+    ],
+    "citl": [
+     -0.56806,
+     0.04376
+    ],
+    "bss_vs_RAIN": [
+     0.06197,
+     0.20046
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.06207,
+     0.2004
+    ],
+    "d_auc_vs_RAIN": [
+     0.1648,
+     0.29923
+    ],
+    "bss_vs_RAIN+": [
+     0.03264,
+     0.1696
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.03163,
+     0.16225
+    ],
+    "d_auc_vs_RAIN+": [
+     0.10893,
+     0.17221
+    ],
+    "bss_vs_B2": [
+     -0.04655,
+     0.05924
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.04204,
+     0.05008
+    ],
+    "d_auc_vs_B2": [
+     0.00115,
+     0.03395
+    ]
+   },
+   "rows": {
+    "passed_in": 11781,
+    "in_subset": 11781,
+    "in_subset_without_label": 224,
+    "scored": 11557,
+    "events": 2069,
+    "dams": 1682,
+    "dams_with_event": 971,
+    "region_years": 14
+   },
+   "refs": [
+    "RAIN",
+    "RAIN+",
+    "B2"
+   ]
+  },
+  "P2_dam_g|dam_like|L2": {
+   "point": {
+    "base_rate": 0.13344,
+    "mean_p": 0.15323,
+    "brier": 0.10373,
+    "bss_B0": 0.10344,
+    "bss_B2": 0.00211,
+    "auc": 0.76679,
+    "prec_at_50_recall": 0.30714,
+    "auc_within_season": 0.7696,
+    "auc_within_dam": 0.50034,
+    "cal_intercept": -0.31853,
+    "cal_slope": 0.90187,
+    "citl": -0.18835,
+    "bss_vs_RAIN": 0.10167,
+    "d_bss_B0_vs_RAIN": 0.10147,
+    "d_auc_vs_RAIN": 0.21692,
+    "bss_vs_RAIN+": 0.07897,
+    "d_bss_B0_vs_RAIN+": 0.07687,
+    "d_auc_vs_RAIN+": 0.12703,
+    "bss_vs_B2": 0.00211,
+    "d_bss_B0_vs_B2": 0.0019,
+    "d_auc_vs_B2": 0.01603
+   },
+   "ci_dam": {
+    "base_rate": [
+     0.12553,
+     0.14202
+    ],
+    "mean_p": [
+     0.14721,
+     0.15925
+    ],
+    "brier": [
+     0.09865,
+     0.10882
+    ],
+    "bss_B0": [
+     0.08291,
+     0.1229
+    ],
+    "bss_B2": [
+     -0.00776,
+     0.0118
+    ],
+    "auc": [
+     0.75208,
+     0.77924
+    ],
+    "prec_at_50_recall": [
+     0.28423,
+     0.3392
+    ],
+    "auc_within_season": [
+     0.75431,
+     0.78254
+    ],
+    "auc_within_dam": [
+     0.46753,
+     0.5291
+    ],
+    "cal_intercept": [
+     -0.42254,
+     -0.21483
+    ],
+    "cal_slope": [
+     0.84188,
+     0.95714
+    ],
+    "citl": [
+     -0.24791,
+     -0.12153
+    ],
+    "bss_vs_RAIN": [
+     0.08089,
+     0.12051
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.08044,
+     0.12056
+    ],
+    "d_auc_vs_RAIN": [
+     0.19381,
+     0.23901
+    ],
+    "bss_vs_RAIN+": [
+     0.05792,
+     0.09763
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     0.05627,
+     0.09503
+    ],
+    "d_auc_vs_RAIN+": [
+     0.10849,
+     0.14563
+    ],
+    "bss_vs_B2": [
+     -0.00776,
+     0.0118
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.00701,
+     0.01057
+    ],
+    "d_auc_vs_B2": [
+     0.01014,
+     0.02223
+    ]
+   },
+   "ci_region_year": {
+    "base_rate": [
+     0.0982,
+     0.16667
+    ],
+    "mean_p": [
+     0.13891,
+     0.16462
+    ],
+    "brier": [
+     0.08705,
+     0.11974
+    ],
+    "bss_B0": [
+     0.02022,
+     0.15907
+    ],
+    "bss_B2": [
+     -0.0542,
+     0.04729
+    ],
+    "auc": [
+     0.74114,
+     0.79131
+    ],
+    "prec_at_50_recall": [
+     0.22613,
+     0.38945
+    ],
+    "auc_within_season": [
+     0.74078,
+     0.79902
+    ],
+    "auc_within_dam": [
+     0.42231,
+     0.59254
+    ],
+    "cal_intercept": [
+     -0.82241,
+     0.13044
+    ],
+    "cal_slope": [
+     0.77948,
+     1.04215
+    ],
+    "citl": [
+     -0.58007,
+     0.12798
+    ],
+    "bss_vs_RAIN": [
+     0.01101,
+     0.15587
+    ],
+    "d_bss_B0_vs_RAIN": [
+     0.01101,
+     0.15531
+    ],
+    "d_auc_vs_RAIN": [
+     0.13679,
+     0.3031
+    ],
+    "bss_vs_RAIN+": [
+     -0.01091,
+     0.13351
+    ],
+    "d_bss_B0_vs_RAIN+": [
+     -0.01055,
+     0.13055
+    ],
+    "d_auc_vs_RAIN+": [
+     0.08853,
+     0.16859
+    ],
+    "bss_vs_B2": [
+     -0.0542,
+     0.04729
+    ],
+    "d_bss_B0_vs_B2": [
+     -0.05072,
+     0.04181
+    ],
+    "d_auc_vs_B2": [
+     -0.00404,
+     0.03585
+    ]
+   },
+   "rows": {
+    "passed_in": 11781,
+    "in_subset": 11781,
+    "in_subset_without_label": 832,
+    "scored": 10949,
+    "events": 1461,
+    "dams": 1682,
+    "dams_with_event": 822,
+    "region_years": 14
+   },
+   "refs": [
+    "RAIN",
+    "RAIN+",
+    "B2"
+   ]
+  }
+ },
+ "fit_summary": {
+  "rung": "L2",
+  "rung_about": "L1 + the nets S and M (no water-balance columns)",
+  "setting": "VAL",
+  "cutoff": "2009-01-01",
+  "members": {
+   "R30": {
+    "cutoff": "2009-01-01",
+    "fit_rows": 659554,
+    "fit_events": 192700,
+    "members": [
+     "T",
+     "S",
+     "M"
+    ],
+    "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+   },
+   "D0": {
+    "cutoff": "2009-01-01",
+    "fit_rows": 875286,
+    "fit_events": 148942,
+    "members": [
+     "T",
+     "S",
+     "M"
+    ],
+    "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+   },
+   "D0g": {
+    "cutoff": "2009-01-01",
+    "fit_rows": 815946,
+    "fit_events": 89602,
+    "members": [
+     "T",
+     "S",
+     "M"
+    ],
+    "dam_rate": "stored (regional prior from answers final before 2009-01-01)"
+   }
+  },
+  "members_seconds": 72,
+  "curves": {
+   "R30": {
+    "kind": "R30",
+    "block": "VAL",
+    "cutoff": "2009-01-01",
+    "population": "dam_like",
+    "features": [
+     "rel",
+     "last3",
+     "s60",
+     "s120",
+     "max365",
+     "min365",
+     "low365_R30",
+     "log_n_pixels",
+     "month",
+     "dtt_trend_R30",
+     "dam_rate_R30",
+     "clim_dd",
+     "clim_fast",
+     "dtt_clim_R30",
+     "dtt_fast_R30",
+     "rec",
+     "since_full",
+     "since_low_R30",
+     "anom_own",
+     "sin_doy",
+     "cos_doy",
+     "gap_prev",
+     "full_c",
+     "wet_share_c",
+     "fill_share_c",
+     "pixel_compactness",
+     "R_anom",
+     "R_chg3",
+     "R_zero",
+     "iv_start",
+     "iv_len"
+    ],
+    "issues": 283836,
+    "issues_used": 280494,
+    "person_period_rows": 1000128,
+    "person_period_events": 94623,
+    "rows_per_interval": {
+     "(0,30]": 280494,
+     "(30,60]": 261009,
+     "(60,90]": 239316,
+     "(90,180]": 219309
+    },
+    "events_per_interval": {
+     "(0,30]": 17552,
+     "(30,60]": 20035,
+     "(60,90]": 18630,
+     "(90,180]": 38406
+    },
+    "issues_selected_with_post_cutoff_looks": 2163,
+    "top_features_by_gain": {
+     "iv_start": 0.1822,
+     "dam_rate_R30": 0.1411,
+     "low365_R30": 0.108,
+     "dtt_fast_R30": 0.0697,
+     "month": 0.0658,
+     "sin_doy": 0.0563,
+     "R_anom": 0.0478,
+     "cos_doy": 0.0434
+    },
+    "seconds": 25
+   },
+   "D0": {
+    "kind": "D0",
+    "block": "VAL",
+    "cutoff": "2009-01-01",
+    "population": "dam_like",
+    "features": [
+     "rel",
+     "last3",
+     "s60",
+     "s120",
+     "max365",
+     "min365",
+     "low365_D0",
+     "log_n_pixels",
+     "month",
+     "dtt_trend_D0",
+     "dam_rate_D0",
+     "clim_dd",
+     "clim_fast",
+     "dtt_clim_D0",
+     "dtt_fast_D0",
+     "rec",
+     "since_full",
+     "since_low_D0",
+     "anom_own",
+     "sin_doy",
+     "cos_doy",
+     "gap_prev",
+     "full_c",
+     "wet_share_c",
+     "fill_share_c",
+     "pixel_compactness",
+     "R_anom",
+     "R_chg3",
+     "R_zero",
+     "iv_start",
+     "iv_len"
+    ],
+    "issues": 365109,
+    "issues_used": 360679,
+    "person_period_rows": 1362265,
+    "person_period_events": 60783,
+    "rows_per_interval": {
+     "(0,30]": 360679,
+     "(30,60]": 348091,
+     "(60,90]": 333675,
+     "(90,180]": 319820
+    },
+    "events_per_interval": {
+     "(0,30]": 9975,
+     "(30,60]": 12138,
+     "(60,90]": 11909,
+     "(90,180]": 26761
+    },
+    "issues_selected_with_post_cutoff_looks": 2740,
+    "top_features_by_gain": {
+     "dam_rate_D0": 0.1727,
+     "iv_start": 0.1392,
+     "low365_D0": 0.0892,
+     "wet_share_c": 0.0578,
+     "month": 0.0513,
+     "dtt_fast_D0": 0.0491,
+     "log_n_pixels": 0.0473,
+     "sin_doy": 0.0452
+    },
+    "seconds": 33
+   }
+  },
+  "floor": {
+   "cutoff": "2009-01-01",
+   "fit_rows": 636411,
+   "fit_rows_available": 636411,
+   "share_no_event_within_365": 0.3728,
+   "first_issue": "1988-01-03",
+   "last_issue": "2007-12-01",
+   "shift": 0.0,
+   "calibration_rows": 0,
+   "about": "no calibration block before this cutoff, so the raw 10% quantile",
+   "seconds": 13
+  },
+  "rating": {
+   "variant": "main",
+   "about": "PREREG P2: LightGBM boosted from logit(B2), HSN inputs, dam-like seasons, 3 seeds",
+   "block": "VAL",
+   "population": "dam_like",
+   "fit_seasons": 32355,
+   "fit_dry": 5788,
+   "features": [
+    "dam_rate_P2",
+    "b2N",
+    "dam_rate_D0",
+    "dam_rate_R30",
+    "lag1",
+    "lag2",
+    "rate5",
+    "rate_R30",
+    "lag1_R30",
+    "full_c",
+    "wet_share_c",
+    "fill_share_c",
+    "n_hist_c",
+    "log_n_pixels",
+    "pixel_compactness",
+    "elongation",
+    "rel",
+    "pc",
+    "last3",
+    "s60",
+    "s120",
+    "rec",
+    "max365",
+    "min365",
+    "since_full",
+    "anom_own",
+    "armed",
+    "since_arm",
+    "low365_D0",
+    "since_low_D0",
+    "dtt_trend_D0",
+    "dtt_clim_D0",
+    "dtt_fast_D0",
+    "low365_R30",
+    "since_low_R30",
+    "age",
+    "R_anom",
+    "R_chg3",
+    "R_zero",
+    "area10_dry_last",
+    "area10_dry_longrun",
+    "area25_dry_last",
+    "area25_dry_longrun",
+    "area25_damlike_dry_last",
+    "area25_damlike_dry_longrun"
+   ],
+   "n_features": 45,
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "params": {
+    "n_estimators": 150,
+    "learning_rate": 0.03,
+    "num_leaves": 7,
+    "min_child_samples": 200,
+    "subsample": 0.8,
+    "subsample_freq": 1,
+    "colsample_bytree": 0.8,
+    "reg_lambda": 1.0,
+    "verbose": -1,
+    "n_jobs": 3,
+    "deterministic": true,
+    "force_row_wise": true
+   },
+   "top_features_by_gain": {
+    "b2N": 0.148,
+    "R_anom": 0.1184,
+    "wet_share_c": 0.0945,
+    "since_low_R30": 0.0618,
+    "low365_D0": 0.0597,
+    "R_chg3": 0.052,
+    "R_zero": 0.0517,
+    "age": 0.0479,
+    "dam_rate_P2": 0.0465,
+    "log_n_pixels": 0.0418
+   },
+   "seconds": 2
+  },
+  "band_constants": {
+   "R30": [
+    -1.04287,
+    0.74216
+   ],
+   "D0": [
+    -1.12695,
+    0.53021
+   ],
+   "D0g": [
+    -1.07237,
+    0.66482
+   ]
+  },
+  "floor_shift": 0.0,
+  "members_about": {
+   "T": "LightGBM on the 29 G2c features (+ PHY at L3), all waterbodies, G2's settings",
+   "S": "causal TCN on the 24 complete months before the issue + tabular MLP, 3 seeds [nets]",
+   "M": "MLP on the 64 tabular inputs, 3 seeds [nets]"
+  }
+ },
+ "band_constants": {
+  "R30": [
+   -1.04287,
+   0.74216
+  ],
+  "D0": [
+   -1.12695,
+   0.53021
+  ],
+  "D0g": [
+   -1.07237,
+   0.66482
+  ]
+ }
+}
