@@ -1,0 +1,147 @@
+{
+ "model": "g2_rescue",
+ "task": "P1_D0g",
+ "task_description": "P(a gradual dry-out, i.e. a D0 that is not abrupt, within 90 days)",
+ "block": "VAL",
+ "arena": "dev",
+ "subset": "dam_like+octmar+at_risk",
+ "subset_rules": {
+  "dam_like": "dams that behave like farm dams (pre-2016 shape and wetness rules)",
+  "octmar": "forecasts issued in October to March",
+  "at_risk": "the dam was not already in the low state when the forecast was issued"
+ },
+ "rows": {
+  "passed_in": 461839,
+  "in_subset": 97192,
+  "in_subset_without_label": 13445,
+  "scored": 83747,
+  "events": 6989,
+  "dams": 1673,
+  "dams_with_event": 845,
+  "region_years": 16
+ },
+ "refs": [],
+ "baselines": [
+  "B0",
+  "B2"
+ ],
+ "pred_hash": "ab1d8e68405e0790",
+ "baseline_hash": "8a174e617b04e144",
+ "test_ledger": null,
+ "row_set_checked": true,
+ "note": "step 3 (scripts/03_baselines_and_g2.py)",
+ "point": {
+  "base_rate": 0.08345,
+  "mean_p": 0.1013,
+  "brier": 0.06346,
+  "bss_B0": 0.16812,
+  "bss_B2": 0.11768,
+  "auc": 0.85388,
+  "prec_at_50_recall": 0.35136,
+  "cal_intercept": -0.21394,
+  "cal_slope": 1.03348,
+  "citl": -0.26225
+ },
+ "ci_dam": {
+  "base_rate": [
+   0.07772,
+   0.08999
+  ],
+  "mean_p": [
+   0.09621,
+   0.10638
+  ],
+  "brier": [
+   0.05993,
+   0.06767
+  ],
+  "bss_B0": [
+   0.14948,
+   0.18651
+  ],
+  "bss_B2": [
+   0.10354,
+   0.13132
+  ],
+  "auc": [
+   0.84341,
+   0.8641
+  ],
+  "prec_at_50_recall": [
+   0.32448,
+   0.38001
+  ],
+  "cal_intercept": [
+   -0.30632,
+   -0.12576
+  ],
+  "cal_slope": [
+   0.9879,
+   1.08396
+  ],
+  "citl": [
+   -0.32908,
+   -0.19277
+  ]
+ },
+ "ci_region_year": {
+  "base_rate": [
+   0.06384,
+   0.10157
+  ],
+  "mean_p": [
+   0.08651,
+   0.1167
+  ],
+  "brier": [
+   0.05303,
+   0.07291
+  ],
+  "bss_B0": [
+   0.11214,
+   0.21159
+  ],
+  "bss_B2": [
+   0.07163,
+   0.15611
+  ],
+  "auc": [
+   0.84401,
+   0.86495
+  ],
+  "prec_at_50_recall": [
+   0.28228,
+   0.42128
+  ],
+  "cal_intercept": [
+   -0.5277,
+   0.09482
+  ],
+  "cal_slope": [
+   0.97553,
+   1.10514
+  ],
+  "citl": [
+   -0.51254,
+   -0.04765
+  ]
+ },
+ "bootstrap": {
+  "dam": {
+   "clusters": 1673,
+   "seed": 2026,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "region_year": {
+   "clusters": 16,
+   "seed": 2027,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "n_boot": 500,
+  "ci_level": 0.95
+ },
+ "time": "2026-10-02 12:14:18",
+ "seconds": 16.6
+}

@@ -1,0 +1,166 @@
+{
+ "model": "b2",
+ "task": "P1_R30",
+ "task_description": "P(the dam falls below a third of full within 90 days)",
+ "block": "VAL",
+ "arena": "dev",
+ "subset": "dam_like+octmar+at_risk",
+ "subset_rules": {
+  "dam_like": "dams that behave like farm dams (pre-2016 shape and wetness rules)",
+  "octmar": "forecasts issued in October to March",
+  "at_risk": "the dam was not already in the low state when the forecast was issued"
+ },
+ "rows": {
+  "passed_in": 358525,
+  "in_subset": 75160,
+  "in_subset_without_label": 8707,
+  "scored": 66453,
+  "events": 15861,
+  "dams": 1669,
+  "dams_with_event": 1437,
+  "region_years": 16
+ },
+ "refs": [],
+ "baselines": [
+  "B0",
+  "B2"
+ ],
+ "pred_hash": "15c3cebb8c65a4d5",
+ "baseline_hash": "4bce4bd15c22c53c",
+ "test_ledger": null,
+ "row_set_checked": true,
+ "note": "step 3 (scripts/03_baselines_and_g2.py)",
+ "point": {
+  "base_rate": 0.23868,
+  "mean_p": 0.25013,
+  "brier": 0.16528,
+  "bss_B0": 0.07904,
+  "bss_B2": 0.0,
+  "auc": 0.69723,
+  "prec_at_50_recall": 0.38648,
+  "cal_intercept": -0.20647,
+  "cal_slope": 0.85608,
+  "citl": -0.07057
+ },
+ "ci_dam": {
+  "base_rate": [
+   0.22911,
+   0.24998
+  ],
+  "mean_p": [
+   0.24241,
+   0.25788
+  ],
+  "brier": [
+   0.16032,
+   0.17078
+  ],
+  "bss_B0": [
+   0.065,
+   0.09309
+  ],
+  "bss_B2": [
+   0.0,
+   0.0
+  ],
+  "auc": [
+   0.68254,
+   0.70917
+  ],
+  "prec_at_50_recall": [
+   0.36654,
+   0.41319
+  ],
+  "cal_intercept": [
+   -0.27287,
+   -0.14116
+  ],
+  "cal_slope": [
+   0.79661,
+   0.91035
+  ],
+  "citl": [
+   -0.11163,
+   -0.02522
+  ]
+ },
+ "ci_region_year": {
+  "base_rate": [
+   0.20468,
+   0.27118
+  ],
+  "mean_p": [
+   0.23587,
+   0.2622
+  ],
+  "brier": [
+   0.1523,
+   0.17815
+  ],
+  "bss_B0": [
+   0.04659,
+   0.10437
+  ],
+  "bss_B2": [
+   0.0,
+   0.0
+  ],
+  "auc": [
+   0.68063,
+   0.71431
+  ],
+  "prec_at_50_recall": [
+   0.33424,
+   0.43726
+  ],
+  "cal_intercept": [
+   -0.43793,
+   0.03343
+  ],
+  "cal_slope": [
+   0.77049,
+   0.95136
+  ],
+  "citl": [
+   -0.31148,
+   0.17513
+  ]
+ },
+ "bootstrap": {
+  "dam": {
+   "clusters": 1669,
+   "seed": 2026,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "region_year": {
+   "clusters": 16,
+   "seed": 2027,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "n_boot": 500,
+  "ci_level": 0.95
+ },
+ "time": "2026-10-02 12:03:24",
+ "seconds": 13.9,
+ "prereg_pass_bars": {
+  "bss_B0": {
+   "value": 0.07904,
+   "ci_low": 0.065,
+   "bar": ">= +0.10 and dam CI above 0",
+   "passed": false
+  },
+  "bss_B2": {
+   "value": 0.0,
+   "bar": ">= +0.05",
+   "passed": false
+  },
+  "cal_slope": {
+   "value": 0.85608,
+   "bar": "0.8 to 1.2",
+   "passed": true
+  },
+  "all_passed": false
+ }
+}
