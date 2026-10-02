@@ -10,6 +10,7 @@ A static web page (no server, no build step) with five views:
 
 ## Open it
 
+- **Online** (once GitHub Pages is switched on; 3 steps in [DEPLOY.md](DEPLOY.md)): https://shaugato.github.io/damdays/app/
 - **Double-click `index.html`.** Everything works from your disk. The background map needs internet.
 - Or serve the folder: `python -m http.server 8000` inside `app/`, then open http://localhost:8000.
 - Add `#runway`, `#rewind`, `#rating` or `#about` to the address to open a view directly (no address: My farm). Add `?data=mock` to force the mock data.
@@ -67,7 +68,7 @@ It runs the port on the fixtures `scripts/16_weekly_texts.py` writes (the spec's
 
 ## Publishing on GitHub Pages
 
-All paths are relative and there is no build step, so the `app/` folder can be served as it is. In the repository settings, under Pages, choose "GitHub Actions" and use the standard static-site workflow with its upload path set to `app`. (`.nojekyll` stops GitHub from processing the files.)
+All paths are relative and there is no build step, so the app can be served as it is. Settings, Pages, "Deploy from a branch", branch `main`, folder `/ (root)`: the app is then at https://shaugato.github.io/damdays/app/. The steps and what was checked (paths, data from a subfolder, size, first-load time) are in [DEPLOY.md](DEPLOY.md). (`.nojekyll` matters only if `app/` itself is ever the published folder; with the setup above it is not needed.)
 
 ## Credits
 

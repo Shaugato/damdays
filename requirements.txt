@@ -1,14 +1,17 @@
 # DamDays: exact versions used during the event build (Python 3.12, Windows, CPU only).
 # Install:   python -m venv .venv
 #            .venv/Scripts/python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+# macOS/Linux: use .venv/bin/python. If pip finds no torch==2.14.1+cpu for your computer
+# (macOS has no "+cpu" build), change that line to torch==2.14.1.
 numpy==2.5.3
 pandas==3.0.6
 scipy==1.18.1
 scikit-learn==1.9.1
+joblib==1.6.0            # imported by two leakage tests (also installed with scikit-learn)
 lightgbm==4.7.0
 torch==2.14.1+cpu
 pyshp==3.1.6
-h5py==3.16.0
-requests==2.34.2
-matplotlib==3.11.2
+h5py==3.16.0             # not imported by the code; part of the build environment
+requests==2.34.2         # only for a real SMS send (notify/sms.py --send)
+matplotlib==3.11.2       # not imported by the code; part of the build environment
 pytest==9.1.1

@@ -214,7 +214,8 @@ def opening_preflight_on(folder, hash_list, monkeypatch):
     return checks.opening_preflight(runs.OPENING, folder, say=lambda m: None)
 
 
-@pytest.mark.skipif(not config.DEV_TS_DIR.exists(), reason="needs the development downloads")
+@pytest.mark.skipif(not config.DEV_TS_DIR.exists(),
+                    reason="needs the raw DEA development downloads (DAMDAYS_RAW/dea_dev/ts; not in git)")
 def test_the_hash_check_cannot_pass_on_a_tampered_copy_of_real_development_files(tmp_path, monkeypatch):
     names = [f"{uid}.csv" for uid in panel.load_manifest()["uid"].head(3)]
     folder = tmp_path / "ts"

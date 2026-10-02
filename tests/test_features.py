@@ -196,7 +196,7 @@ def test_every_spec_column_exists_in_the_built_tables():
     """FEATURE_SPEC must name real columns (skipped until scripts/02_build_features.py has run)."""
     from damdays.features import store
     if not (store.FEATURES_DIR / "p1_dam.pkl").exists():
-        pytest.skip("feature tables not built yet")
+        pytest.skip("needs data_cache/features/p1_dam.pkl (not in git; scripts/02_build_features.py builds it)")
     p1_columns = set(store.load_p1(groups=("dam", "nbr")).columns)
     for kind in ("R30", "D0", "D0g"):
         assert set(spec.p1_tree_features(kind)) <= p1_columns

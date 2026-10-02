@@ -47,8 +47,10 @@ def data():
     past_p1  the forecasts Rewind shows: those of the block of the Rewind season (VAL or TEST)
     """
     needed = [REAL / "forecasts.json", config.CACHE_DIR / "panel.pkl", config.CACHE_DIR / "events.pkl"]
-    if not all(path.exists() for path in needed):
-        pytest.skip("needs app/data/real (scripts/11) and data_cache (scripts/01)")
+    missing = [path.relative_to(config.REPO_DIR).as_posix() for path in needed if not path.exists()]
+    if missing:
+        pytest.skip(f"needs {', '.join(missing)} (data_cache/ is not in git: scripts/01 rebuilds it from the "
+                    "raw data; app/data/real/ is written by scripts/11)")
     docs = {name: json.loads((REAL / f"{name}.json").read_text(encoding="utf-8"))
             for name in ("meta", "forecasts", "scoreboard")}
     rung = docs["meta"]["model"]["version"]
