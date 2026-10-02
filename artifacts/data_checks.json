@@ -1,0 +1,153 @@
+{
+ "built_at": "2026-10-02 10:02:53",
+ "all_checks_match": true,
+ "checks": [
+  {
+   "check": "valid observations",
+   "expected": 5227589,
+   "got": 5227589,
+   "match": true
+  },
+  {
+   "check": "has_hist waterbodies",
+   "expected": 6475,
+   "got": 6475,
+   "match": true
+  },
+  {
+   "check": "dam-like waterbodies",
+   "expected": 1683,
+   "got": 1683,
+   "match": true
+  },
+  {
+   "check": "persistent waterbodies",
+   "expected": 969,
+   "got": 969,
+   "match": true
+  },
+  {
+   "check": "dam-like D0 events",
+   "expected": 15949,
+   "got": 15949,
+   "match": true
+  },
+  {
+   "check": "dam-like R30 events",
+   "expected": 31344,
+   "got": 31344,
+   "match": true
+  },
+  {
+   "check": "dam-like D0g events",
+   "expected": 10213,
+   "got": 10213,
+   "match": true
+  }
+ ],
+ "waterbodies_by_region": {
+  "nsw_cw": {
+   "has_hist": 3091,
+   "dam_like": 894,
+   "persistent": 624,
+   "dam_like_persistent": 322
+  },
+  "wvic_sesa": {
+   "has_hist": 3384,
+   "dam_like": 789,
+   "persistent": 345,
+   "dam_like_persistent": 223
+  },
+  "total": {
+   "has_hist": 6475,
+   "dam_like": 1683,
+   "persistent": 969,
+   "dam_like_persistent": 545
+  }
+ },
+ "events": [
+  {
+   "population": "all has_hist",
+   "kind": "D0",
+   "events": 95444,
+   "dams": 6112,
+   "TRAIN": 49685,
+   "VAL": 17676,
+   "TEST": 27197
+  },
+  {
+   "population": "all has_hist",
+   "kind": "D0g",
+   "events": 55731,
+   "dams": 5887,
+   "TRAIN": 29937,
+   "VAL": 10322,
+   "TEST": 14960
+  },
+  {
+   "population": "all has_hist",
+   "kind": "R30",
+   "events": 135482,
+   "dams": 6444,
+   "TRAIN": 70018,
+   "VAL": 25264,
+   "TEST": 38840
+  },
+  {
+   "population": "dam_like",
+   "kind": "D0",
+   "events": 15949,
+   "dams": 1506,
+   "TRAIN": 8413,
+   "VAL": 3071,
+   "TEST": 4255
+  },
+  {
+   "population": "dam_like",
+   "kind": "D0g",
+   "events": 10213,
+   "dams": 1396,
+   "TRAIN": 5457,
+   "VAL": 2020,
+   "TEST": 2583
+  },
+  {
+   "population": "dam_like",
+   "kind": "R30",
+   "events": 31344,
+   "dams": 1670,
+   "TRAIN": 16311,
+   "VAL": 6047,
+   "TEST": 8587
+  },
+  {
+   "population": "persistent",
+   "kind": "D0",
+   "events": 4092,
+   "dams": 745,
+   "TRAIN": 2217,
+   "VAL": 738,
+   "TEST": 1062
+  },
+  {
+   "population": "persistent",
+   "kind": "D0g",
+   "events": 2649,
+   "dams": 622,
+   "TRAIN": 1397,
+   "VAL": 489,
+   "TEST": 705
+  },
+  {
+   "population": "persistent",
+   "kind": "R30",
+   "events": 16045,
+   "dams": 952,
+   "TRAIN": 8710,
+   "VAL": 2990,
+   "TEST": 4065
+  }
+ ],
+ "hex_cells_with_dam_like": 1435,
+ "silo_cells": 2499
+}
