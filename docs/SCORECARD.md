@@ -105,7 +105,7 @@ If ten versions of a model are scored on the test years and only the best is rep
 
 - **Every TEST scoring call is written down:** the time, the model, the task, dev or sealed region, a fingerprint (hash) of the predictions, and what happened. Refused calls and dry runs are written down too.
 - **First call:** status `new`.
-- **Later calls are allowed only with byte-for-byte identical predictions** (`same_predictions`). This lets the same forecasts be scored on other subsets. Change a single probability in its 17th decimal place and the call is **refused**, before any TEST number is computed.
+- **Later calls are allowed only with byte-for-byte identical predictions** (`same_predictions`). This lets the same forecasts be scored on other subsets. A table holding only some of the first call's rows is also accepted, if every one of those rows is identical (the app export's one-season line, step 11, is scored this way; its ledger note says "row subset of the first call"). Change a single probability in its 17th decimal place and the call is **refused**, before any TEST number is computed.
 - **There is no override switch.** A fixed model must take a new name, and both rows stay on the ledger.
 - **The benchmark must be honest too.** A paired comparison against G2 is allowed only if the G2 predictions passed in are exactly the ones G2 was scored with.
 - The development regions and the sealed region are separate tests, each with one look.
