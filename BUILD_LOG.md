@@ -20,3 +20,5 @@ A plain, timestamped record of what was built and when (AEST). Commit history ha
 | Fri 20:21 | **FREEZE** committed (PREREG_ADDENDUM_1.md): rung L3, config hash 7d466291008d. |
 | Fri 20:36-21:00 | Development test years (2016-2026) scored ONCE: below-a-third +0.235 (G2 +0.221), dry-out +0.240, DamDays floor held 90.0%, lender rating AUC 0.81 (+0.29 over rainfall-only). All pre-registered bars pass. |
 | Fri 22:05 | App switched to the frozen model (live forecasts to 14 Sep 2026; Rewind 2018-19). Pitch and video script drafted. |
+| Fri 20:34-20:46 | Mentor (hackathon lead, grew up on farms): "super useful" in a drought; farmers don't open apps or emails, a weekly text is what they'd use; "%" reads as how full a dam is. |
+| Sat 00:15 | Step 6 done: weekly farmer text (notify/), "My farm" view with phone preview, chances written "N in 10" everywhere, story-led video script and pitch. 401 tests. Frozen model unchanged (7d466291008d). |
