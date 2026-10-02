@@ -1,0 +1,163 @@
+{
+ "model": "b2",
+ "task": "P2_dam_g",
+ "task_description": "P(a gradual dry-out in the coming Oct-Mar), issued 1 Jul",
+ "block": "TEST",
+ "arena": "dev",
+ "subset": "dam_like",
+ "subset_rules": {
+  "dam_like": "dams that behave like farm dams (pre-2016 shape and wetness rules)"
+ },
+ "rows": {
+  "passed_in": 16830,
+  "in_subset": 16830,
+  "in_subset_without_label": 1043,
+  "scored": 15787,
+  "events": 1900,
+  "dams": 1683,
+  "dams_with_event": 897,
+  "region_years": 20
+ },
+ "refs": [],
+ "baselines": [
+  "B0",
+  "B2"
+ ],
+ "pred_hash": "2652c5c934073bce",
+ "baseline_hash": "14dc9cdf30683ee7",
+ "test_ledger": "new",
+ "row_set_checked": true,
+ "note": "dev TEST one look, scripts/15_score_test.py; frozen L3 (config 7d466291008d); step 13 forecasts",
+ "point": {
+  "base_rate": 0.12035,
+  "mean_p": 0.12795,
+  "brier": 0.0957,
+  "bss_B0": 0.09902,
+  "bss_B2": 0.0,
+  "auc": 0.76244,
+  "prec_at_50_recall": 0.27752,
+  "auc_within_season": 0.76945,
+  "auc_within_dam": 0.16753,
+  "cal_intercept": -0.16792,
+  "cal_slope": 0.94311,
+  "citl": -0.07914
+ },
+ "ci_dam": {
+  "base_rate": [
+   0.11293,
+   0.12775
+  ],
+  "mean_p": [
+   0.12318,
+   0.13335
+  ],
+  "brier": [
+   0.09112,
+   0.10028
+  ],
+  "bss_B0": [
+   0.08367,
+   0.11402
+  ],
+  "bss_B2": [
+   0.0,
+   0.0
+  ],
+  "auc": [
+   0.74918,
+   0.77625
+  ],
+  "prec_at_50_recall": [
+   0.25509,
+   0.30249
+  ],
+  "auc_within_season": [
+   0.75629,
+   0.78398
+  ],
+  "auc_within_dam": [
+   0.1493,
+   0.18658
+  ],
+  "cal_intercept": [
+   -0.27281,
+   -0.05438
+  ],
+  "cal_slope": [
+   0.8921,
+   1.00496
+  ],
+  "citl": [
+   -0.14768,
+   -0.02579
+  ]
+ },
+ "ci_region_year": {
+  "base_rate": [
+   0.09573,
+   0.1446
+  ],
+  "mean_p": [
+   0.1235,
+   0.132
+  ],
+  "brier": [
+   0.08036,
+   0.11121
+  ],
+  "bss_B0": [
+   0.06371,
+   0.12795
+  ],
+  "bss_B2": [
+   0.0,
+   0.0
+  ],
+  "auc": [
+   0.73471,
+   0.78788
+  ],
+  "prec_at_50_recall": [
+   0.22634,
+   0.33609
+  ],
+  "auc_within_season": [
+   0.72374,
+   0.79896
+  ],
+  "auc_within_dam": [
+   0.12181,
+   0.21479
+  ],
+  "cal_intercept": [
+   -0.48263,
+   0.16764
+  ],
+  "cal_slope": [
+   0.80622,
+   1.0849
+  ],
+  "citl": [
+   -0.37706,
+   0.18869
+  ]
+ },
+ "bootstrap": {
+  "dam": {
+   "clusters": 1683,
+   "seed": 2026,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "region_year": {
+   "clusters": 20,
+   "seed": 2027,
+   "n_boot": 500,
+   "replicates_used": 500
+  },
+  "n_boot": 500,
+  "ci_level": 0.95
+ },
+ "time": "2026-10-02 21:00:07",
+ "seconds": 6.3
+}

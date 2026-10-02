@@ -1,0 +1,172 @@
+2026-10-02 20:34:25 [  0.0 min] step 15: score the development TEST block, CHECK (dry run on a scratch copy of the ledger; nothing is scored)
+2026-10-02 20:34:25 [  0.0 min] frozen model files match the committed manifest: tidemark cc86a5753dde2e38..., g2 e6a64fca6d0292fa...
+2026-10-02 20:34:28 [  0.0 min] forecasts: 19 files from step 13, every fingerprint matches artifacts/test_setting_fit_summary.json
+2026-10-02 20:34:30 [  0.1 min] answers: P1 table 2,585,626 rows (regions ['nsw_cw', 'wvic_sesa']), archive ends 2026-09-14; files identical to the ones step 13 forecast from
+2026-10-02 20:34:30 [  0.1 min] P1: G2, then Tidemark with G2 as its paired reference
+2026-10-02 20:35:58 [  1.5 min] runway curve
+2026-10-02 20:36:25 [  2.0 min] P2 season rating: RAIN, RAIN+, B2, then Tidemark
+2026-10-02 20:36:27 [  2.0 min] CHECK passed: 42 scoring calls built and checked; the real ledger would record:
+2026-10-02 20:36:27 [  2.0 min]     P1_R30       dam_like+octmar+at_risk     G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_R30       dam_like+octmar+at_risk     tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_R30       persistent+octmar+at_risk   G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_R30       persistent+octmar+at_risk   tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_R30       dam_like+at_risk            G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_R30       dam_like+at_risk            tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_R30_sens  dam_like+octmar+at_risk     G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_R30_sens  dam_like+octmar+at_risk     tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0        dam_like+octmar+at_risk     G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0        dam_like+octmar+at_risk     tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0        persistent+octmar+at_risk   G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0        persistent+octmar+at_risk   tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0        dam_like+at_risk            G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0        dam_like+at_risk            tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0_sens   dam_like+octmar+at_risk     G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0_sens   dam_like+octmar+at_risk     tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0g       dam_like+octmar+at_risk     G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0g       dam_like+octmar+at_risk     tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0g       persistent+octmar+at_risk   G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0g       persistent+octmar+at_risk   tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0g       dam_like+at_risk            G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0g       dam_like+at_risk            tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0g_sens  dam_like+octmar+at_risk     G2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P1_D0g_sens  dam_like+octmar+at_risk     tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     R30_curve    dam_like+octmar+at_risk     tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     R30_curve    dam_like+at_risk            tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     R30_curve    persistent+octmar+at_risk   tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     D0_curve     dam_like+octmar+at_risk     tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     D0_curve     dam_like+at_risk            tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     D0_curve     persistent+octmar+at_risk   tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_cell      all                         RAIN      would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_cell      all                         RAIN+     would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_cell      all                         B2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_cell      all                         tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_dam       dam_like                    RAIN      would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_dam       dam_like                    RAIN+     would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_dam       dam_like                    B2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_dam       dam_like                    tidemark  would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_dam_g     dam_like                    RAIN      would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_dam_g     dam_like                    RAIN+     would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_dam_g     dam_like                    B2        would be new
+2026-10-02 20:36:27 [  2.0 min]     P2_dam_g     dam_like                    tidemark  would be new
+2026-10-02 20:36:49 [  0.0 min] step 15: score the development TEST block, THE ONE LOOK
+2026-10-02 20:36:49 [  0.0 min] frozen model files match the committed manifest: tidemark cc86a5753dde2e38..., g2 e6a64fca6d0292fa...
+2026-10-02 20:36:51 [  0.0 min] forecasts: 19 files from step 13, every fingerprint matches artifacts/test_setting_fit_summary.json
+2026-10-02 20:36:54 [  0.1 min] answers: P1 table 2,585,626 rows (regions ['nsw_cw', 'wvic_sesa']), archive ends 2026-09-14; files identical to the ones step 13 forecast from
+2026-10-02 20:36:54 [  0.1 min] P1: G2, then Tidemark with G2 as its paired reference
+2026-10-02 20:40:19 [  3.5 min]   P1_R30 primary, BSS vs B0: tidemark +0.2350, G2 +0.2207
+2026-10-02 20:44:30 [  7.7 min]   P1_D0 primary, BSS vs B0: tidemark +0.2403, G2 +0.2150
+2026-10-02 20:48:35 [ 11.8 min]   P1_D0g primary, BSS vs B0: tidemark +0.2310, G2 +0.2054
+2026-10-02 20:48:35 [ 11.8 min] runway curve
+2026-10-02 20:50:41 [ 13.9 min]   R30_curve primary, BSS vs B0_h: 30 d +0.105, 60 d +0.178, 90 d +0.223, 180 d +0.253
+2026-10-02 20:55:48 [ 19.0 min]   D0_curve primary, BSS vs B0_h: 30 d +0.100, 60 d +0.174, 90 d +0.221, 180 d +0.269
+2026-10-02 20:58:53 [ 22.1 min] P2 season rating: RAIN, RAIN+, B2, then Tidemark
+2026-10-02 20:59:14 [ 22.4 min]   P2_cell: Tidemark AUC 0.8125; gain over RAIN +0.2853, RAIN+ +0.2133, B2 +0.0291
+2026-10-02 20:59:48 [ 23.0 min]   P2_dam: Tidemark AUC 0.8078; gain over RAIN +0.2766, RAIN+ +0.1932, B2 +0.0322
+2026-10-02 21:00:15 [ 23.4 min]   P2_dam_g: Tidemark AUC 0.8017; gain over RAIN +0.2621, RAIN+ +0.1760, B2 +0.0393
+2026-10-02 21:00:15 [ 23.4 min] season band and DamDays floor (on the same Tidemark forecasts)
+2026-10-02 21:00:19 [ 23.5 min]   season band, region-years covered: pooled R30 20/20, D0 20/20, D0g 20/20; single-block R30 17/20, D0 15/20, D0g 15/20
+2026-10-02 21:00:29 [ 23.7 min]   DamDays floor held: 0.9002 (all), 0.9106 (primary); median floor 59.9 days; target 0.90
+2026-10-02 21:00:29 [ 23.7 min] all results saved to data_cache/models/TEST/step15_results.pkl; ledger: 42 rows written ({'new': 26, 'same_predictions': 16})
+2026-10-02 21:00:29 [ 23.7 min] wrote artifacts/test_results.md and artifacts/test_results.json
+2026-10-02 21:00:46 [  0.0 min] wrote artifacts/test_results.md and artifacts/test_results.json
+2026-10-02 21:01:21 [  0.0 min] step 15: score the development TEST block, CHECK (dry run on a scratch copy of the ledger; nothing is scored)
+2026-10-02 21:01:22 [  0.0 min] frozen model files match the committed manifest: tidemark cc86a5753dde2e38..., g2 e6a64fca6d0292fa...
+2026-10-02 21:01:24 [  0.0 min] forecasts: 19 files from step 13, every fingerprint matches artifacts/test_setting_fit_summary.json
+2026-10-02 21:01:26 [  0.1 min] answers: P1 table 2,585,626 rows (regions ['nsw_cw', 'wvic_sesa']), archive ends 2026-09-14; files identical to the ones step 13 forecast from
+2026-10-02 21:01:26 [  0.1 min] P1: G2, then Tidemark with G2 as its paired reference
+2026-10-02 21:03:14 [  1.9 min] runway curve
+2026-10-02 21:03:44 [  2.4 min] P2 season rating: RAIN, RAIN+, B2, then Tidemark
+2026-10-02 21:03:47 [  2.4 min] CHECK passed: 42 scoring calls built and checked; the real ledger would record:
+2026-10-02 21:03:47 [  2.4 min]     P1_R30       dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_R30       dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_R30       persistent+octmar+at_risk   G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_R30       persistent+octmar+at_risk   tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_R30       dam_like+at_risk            G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_R30       dam_like+at_risk            tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_R30_sens  dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_R30_sens  dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0        dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0        dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0        persistent+octmar+at_risk   G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0        persistent+octmar+at_risk   tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0        dam_like+at_risk            G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0        dam_like+at_risk            tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0_sens   dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0_sens   dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0g       dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0g       dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0g       persistent+octmar+at_risk   G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0g       persistent+octmar+at_risk   tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0g       dam_like+at_risk            G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0g       dam_like+at_risk            tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0g_sens  dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P1_D0g_sens  dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     R30_curve    dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     R30_curve    dam_like+at_risk            tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     R30_curve    persistent+octmar+at_risk   tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     D0_curve     dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     D0_curve     dam_like+at_risk            tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     D0_curve     persistent+octmar+at_risk   tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_cell      all                         RAIN      would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_cell      all                         RAIN+     would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_cell      all                         B2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_cell      all                         tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_dam       dam_like                    RAIN      would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_dam       dam_like                    RAIN+     would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_dam       dam_like                    B2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_dam       dam_like                    tidemark  would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_dam_g     dam_like                    RAIN      would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_dam_g     dam_like                    RAIN+     would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_dam_g     dam_like                    B2        would be same_predictions
+2026-10-02 21:03:47 [  2.4 min]     P2_dam_g     dam_like                    tidemark  would be same_predictions
+2026-10-02 21:03:52 [  0.0 min] step 15: score the development TEST block, CHECK (dry run on a scratch copy of the ledger; nothing is scored)
+2026-10-02 21:03:52 [  0.0 min] frozen model files match the committed manifest: tidemark cc86a5753dde2e38..., g2 e6a64fca6d0292fa...
+2026-10-02 21:03:54 [  0.0 min] forecasts: 19 files from step 13, every fingerprint matches artifacts/test_setting_fit_summary.json
+2026-10-02 21:03:57 [  0.1 min] answers: P1 table 2,585,626 rows (regions ['nsw_cw', 'wvic_sesa']), archive ends 2026-09-14; files identical to the ones step 13 forecast from
+2026-10-02 21:03:57 [  0.1 min] P1: G2, then Tidemark with G2 as its paired reference
+2026-10-02 21:05:45 [  1.9 min] runway curve
+2026-10-02 21:06:18 [  2.4 min] P2 season rating: RAIN, RAIN+, B2, then Tidemark
+2026-10-02 21:06:20 [  2.5 min] CHECK passed: 42 scoring calls built and checked; the real ledger would record:
+2026-10-02 21:06:20 [  2.5 min]     P1_R30       dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_R30       dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_R30       persistent+octmar+at_risk   G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_R30       persistent+octmar+at_risk   tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_R30       dam_like+at_risk            G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_R30       dam_like+at_risk            tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_R30_sens  dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_R30_sens  dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0        dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0        dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0        persistent+octmar+at_risk   G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0        persistent+octmar+at_risk   tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0        dam_like+at_risk            G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0        dam_like+at_risk            tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0_sens   dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0_sens   dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0g       dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0g       dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0g       persistent+octmar+at_risk   G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0g       persistent+octmar+at_risk   tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0g       dam_like+at_risk            G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0g       dam_like+at_risk            tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0g_sens  dam_like+octmar+at_risk     G2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P1_D0g_sens  dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     R30_curve    dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     R30_curve    dam_like+at_risk            tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     R30_curve    persistent+octmar+at_risk   tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     D0_curve     dam_like+octmar+at_risk     tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     D0_curve     dam_like+at_risk            tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     D0_curve     persistent+octmar+at_risk   tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_cell      all                         RAIN      would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_cell      all                         RAIN+     would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_cell      all                         B2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_cell      all                         tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_dam       dam_like                    RAIN      would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_dam       dam_like                    RAIN+     would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_dam       dam_like                    B2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_dam       dam_like                    tidemark  would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_dam_g     dam_like                    RAIN      would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_dam_g     dam_like                    RAIN+     would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_dam_g     dam_like                    B2        would be same_predictions
+2026-10-02 21:06:20 [  2.5 min]     P2_dam_g     dam_like                    tidemark  would be same_predictions
+2026-10-02 21:07:28 [  0.0 min] wrote artifacts/test_results.md and artifacts/test_results.json
