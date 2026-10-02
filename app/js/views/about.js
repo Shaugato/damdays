@@ -20,6 +20,11 @@ DamDays.views.about = (function () {
     });
     document.getElementById("about-dataset").innerHTML = datasetFacts(data);
     document.getElementById("about-scores").innerHTML = scoresHtml(data.scoreboard);
+    // Which years the shown scores come from (validation or test). The scoreboard says it,
+    // so the sentence always matches the numbers below it.
+    if (data.scoreboard.note) {
+      document.getElementById("about-split").textContent = data.scoreboard.note;
+    }
   }
 
   /** Nothing to refresh: the page is static once filled. */

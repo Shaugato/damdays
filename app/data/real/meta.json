@@ -1,0 +1,103 @@
+{
+ "schema_version": "1.0",
+ "is_mock": false,
+ "generated_at": "2026-10-02T05:32:58Z",
+ "region": {
+  "key": "nsw_cw",
+  "name": "NSW Central West",
+  "bbox": [
+   -33.5,
+   -30.5,
+   147.0,
+   150.0
+  ]
+ },
+ "data_through": "2026-09-14",
+ "horizon_days": 90,
+ "threshold_pct": 30,
+ "arm_level_pct": 60,
+ "min_dam_area_ha": 0.54,
+ "model": {
+  "name": "Tidemark",
+  "version": "L1",
+  "config_hash": null
+ },
+ "note": "Real DamDays forecasts. Runway: Tidemark L1 refitted on all answers known by 2026-09-14. Rewind and Rating: the validation season 2013-14, from the model fitted only on answers known before 2009. Scores are validation-period numbers.",
+ "coverage": {
+  "dams": 894,
+  "dams_with_live_forecast": 576,
+  "live_status_counts": {
+   "forecast": 576,
+   "already_low": 272,
+   "not_refilled": 44,
+   "no_recent_look": 2
+  },
+  "cells": 767,
+  "text": "894 farm-like dams (DEA Waterbodies outlines of 0.54 to 4.95 ha that look and behave like farm dams) in NSW Central West. 576 of them have a forecast today; the others are already below a third, have not refilled lately, or have no clear look in the last 60 days. Smaller dams, tanks and bores are not visible."
+ },
+ "limits": [
+  "Only dams of at least about 0.54 ha (6 Landsat pixels) are visible; smaller dams, tanks and bores are not.",
+  "Water area, not depth: 'below a third' means below a third of the dam's usual full wet area.",
+  "Validation numbers: every score shown was measured on 2009-2015, years the model never learned from. The test years and the sealed region are scored once, separately.",
+  "It ranks farms better than it times droughts: the rating tells which cells run dry in a season (ranking accuracy 0.79 within a season), but not which seasons a given cell runs dry (0.52 within a cell's own history, close to a coin toss).",
+  "Very wet or very dry years: on 2009-2015 the runway forecasts were too high on average (average forecast 0.27, actual rate 0.24), mostly in the wet 2010-12 years. The likely range (season band) shows how far a wet or dry season can move a chance.",
+  "Live forecasts start from each dam's latest clear satellite look; some looks are weeks old.",
+  "This is rung L1 of the pre-registered plan (PREREG.md, fallback ladder)."
+ ],
+ "live": {
+  "cutoff": "2026-09-15",
+  "about": "production fit: every answer known by the last look",
+  "band_R30": [
+   -1.95323,
+   0.67332
+  ],
+  "floor_shift": 0.0,
+  "curves_moved_to_headline": 3
+ },
+ "rewind": {
+  "season": "2013-14",
+  "block": "VAL",
+  "model_cutoff": "2009-01-01",
+  "chosen": "most R30 starts among the app's dams",
+  "r30_starts_per_season": {
+   "2009-10": 544,
+   "2010-11": 487,
+   "2011-12": 233,
+   "2012-13": 429,
+   "2013-14": 623,
+   "2014-15": 598
+  },
+  "dates": [
+   "2013-11-01",
+   "2014-01-01",
+   "2014-03-01"
+  ],
+  "tallies": {
+   "2013-11-01": {
+    "forecasts": 599,
+    "judged": 597,
+    "fell_below_third": 280,
+    "expected": 153.8,
+    "curves_moved": 10
+   },
+   "2014-01-01": {
+    "forecasts": 374,
+    "judged": 371,
+    "fell_below_third": 115,
+    "expected": 117.0,
+    "curves_moved": 5
+   },
+   "2014-03-01": {
+    "forecasts": 326,
+    "judged": 323,
+    "fell_below_third": 34,
+    "expected": 76.0,
+    "curves_moved": 33
+   }
+  },
+  "band_R30": [
+   -1.0867518850920983,
+   0.6733199175472891
+  ]
+ }
+}

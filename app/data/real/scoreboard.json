@@ -1,0 +1,56 @@
+{
+ "source": "dev_val",
+ "is_validation": true,
+ "block": "VAL",
+ "source_label": "Validation years 2009-2015, development regions (not the one-time test)",
+ "note": "Validation-period numbers: the model learned only from answers known before 1 Jan 2009 and is scored on 2009-2015. Every design choice was made on these years. The test years (2016-2026) and the sealed region are scored once, separately.",
+ "rating": {
+  "all_seasons": {
+   "label": "All validation seasons 2009-10 to 2015-16 (both development regions)",
+   "n_cells": 9848,
+   "n_ran_dry": 1684,
+   "rain_only_auc": {
+    "value": 0.53786,
+    "ci_low": 0.51884,
+    "ci_high": 0.55558
+   },
+   "rating_auc": {
+    "value": 0.78715,
+    "ci_low": 0.77382,
+    "ci_high": 0.8002
+   }
+  },
+  "by_season": [
+   {
+    "season": "2013-14",
+    "n_cells": 766,
+    "n_ran_dry": 210,
+    "rain_only_auc": {
+     "value": 0.44594,
+     "ci_low": 0.40314,
+     "ci_high": 0.48934
+    },
+    "rating_auc": {
+     "value": 0.78034,
+     "ci_low": 0.74325,
+     "ci_high": 0.81102
+    }
+   }
+  ]
+ },
+ "runway": {
+  "label": "Validation years 2009-2015: below a third within 90 days, farm-like dams, October-March forecasts, both development regions",
+  "skill_vs_usual_rate": {
+   "value": 0.1714,
+   "ci_low": 0.15622,
+   "ci_high": 0.18767
+  },
+  "n_forecasts": 66453
+ },
+ "sources": {
+  "rating_all_seasons": "artifacts/val_tidemark_L1.json p2 'P2_cell|all|L1'",
+  "rain_all_seasons": "artifacts/scorecard/step03_val/dev_VAL/P2_cell/rain__all.json",
+  "by_season": "artifacts/scorecard/step11_app/dev_VAL/P2_cell/ (computed by the scorecard)",
+  "runway": "artifacts/val_tidemark_L1.json p1 'P1_R30|primary|L1'"
+ }
+}

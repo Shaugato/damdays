@@ -40,7 +40,7 @@ To look at the mock data even when real data exists, add `?data=mock` to the add
 
 **Honesty rules** (these matter more than the format):
 
-- Past forecasts (Rewind) and past seasons (Rating) must be **out of sample**: made by models fitted only on data from before the forecast date (the 2016-2026 TEST predictions). Never in-sample fits.
+- Past forecasts (Rewind) and past seasons (Rating) must be **out of sample**: made by models fitted only on data from before the forecast date (the 2016-2026 TEST predictions; until the one-time TEST scoring, the 2009-2015 predictions of the model fitted before 2009, labelled as validation). Never in-sample fits.
 - Outcomes use the PREREG event definitions: "below a third" (R30) for the farmer runway, "ran dry" (D0) for the season rating.
 - Scoreboard numbers are copied from the evaluation output, never retyped or rounded by hand.
 - `meta.is_mock` is `false` only for real exports. When it is `true`, the app shows a large MOCK banner.
@@ -65,6 +65,7 @@ To look at the mock data even when real data exists, add `?data=mock` to the add
 | `min_dam_area_ha` | number, hectares | `0.54` | the smallest dam DEA Waterbodies can see (6 Landsat pixels) |
 | `model` | object | `{"name": "Tidemark v1", "version": "L3", "config_hash": "abc123"}` | which model made the numbers; `version` and `config_hash` may be `null` |
 | `note` | string, optional | | a plain sentence about this dataset |
+| `coverage`, `limits`, `live`, `rewind` | optional | | written by the real exporter for people reading the file (which dams, plain-language limits, how the live and Rewind forecasts were made); the app does not read them |
 
 ---
 
@@ -228,8 +229,9 @@ The four `chance...` and `damdays_days` fields are `null` unless `status` is `"f
 
 | field | type | meaning |
 |---|---|---|
-| `source` | string | `"mock"`, `"dev_test"` (development regions, test block) or `"sealed"` (the sealed region, opened once) |
+| `source` | string | `"mock"`, `"dev_val"` (development regions, validation block 2009-2015), `"dev_test"` (development regions, test block) or `"sealed"` (the sealed region, opened once) |
 | `source_label` | string | shown next to the scoreboard, so nobody mistakes which test this is |
+| `note` | string, optional | which years the model learned from and was scored on; the About page shows it in place of its default sentence (which describes the one-time test) |
 | `rating.all_seasons` | Score line + `label` | all past seasons pooled |
 | `rating.by_season` | array of Score lines + `season` | one per past season in `cells.json` (same `season` text) |
 | `runway` | object, optional | the farmer forecast's headline score, shown on the About page |
