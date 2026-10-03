@@ -1,7 +1,10 @@
 """The weekly text: one SMS per farm, and a longer version for the app or an email.
 
     weekly_text(farm, forecasts, today)  ONE SMS: GSM-7 only, 160 places or fewer, no emoji
-    long_text(farm, forecasts, today)    2 to 4 lines for the app or an email
+    long_text(farm, forecasts, today)    2 to 4 lines for the app or an email; with the optional
+                                         track_record, one more line: how often our days-left
+                                         promise held on these dams in the 2016-2026 backtest
+                                         (never in the SMS)
 
 The words follow a mentor who grew up on farms (mentor feedback, Fri 2 Oct 2026):
 
@@ -33,6 +36,8 @@ NAME_IF_IN_TEN = 5        # a dam with at least a 5 in 10 chance of falling belo
 RECENT_LOOK_DAYS = 60     # a satellite look older than this (on the day the text is sent) is too old to use
 CLOSE = "Reply MAP"       # replying MAP would send a link to the farm's map in the app
 MAP_LINK = "[map link]"   # placeholder for the farm's link in the app (long text)
+TRACK_RECORD_MIN = 5      # a dam's track record is shown only with at least this many judged past forecasts
+TRACK_RECORD_YEARS = "2016-2026"   # the backtest the track record counts (scripts/18_track_record.py)
 
 WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -349,7 +354,51 @@ def other_clause(dam, today):
 LONG_OTHERS_MAX = 6        # the long text lists at most 6 other dams by name; the map shows them all
 
 
-def long_for_dams(dams, today, farm_label="Your farm", radius_km=DEFAULT_RADIUS_KM):
+def count_text(n):
+    """A count with thousands commas: 1234 -> "1,234" (the same in Python and JavaScript)."""
+    return f"{n:,}"
+
+
+def has_track_record(record):
+    """True when a dam's track record (a dict with "held" and "judged") has enough judged forecasts to show."""
+    return record is not None and record["judged"] >= TRACK_RECORD_MIN
+
+
+def track_record_line(dams, today, records):
+    """The long text's optional track-record line: how often our cautious days-left promise held on these dams.
+
+    records  {dam_id: {"held": int, "judged": int, ...}}: the "dams" of app/data/real/track_record.json
+             (scripts/18_track_record.py), counted on the forecasts the frozen model made for July 2016 to
+             June 2026, years it never saw. A dam with fewer than TRACK_RECORD_MIN judged forecasts, or none,
+             has "too few past forecasts to judge".
+    The farm's dams with a record are added up; with two or more dams, the headline dam's own record follows:
+    "Our track record on these 7 dams (2016-2026 backtest, forecasts the model made for years it never saw):
+    the cautious days-left promise held 1,234 of 1,370 times; on Dam 2, 180 of 200."
+    """
+    where = "this dam" if len(dams) == 1 else f"these {len(dams)} dams"
+    head = (f"Our track record on {where} ({TRACK_RECORD_YEARS} backtest, forecasts the model made for years "
+            "it never saw): ")
+    recorded = [d for d in dams if has_track_record(records.get(d.dam_id))]
+    if not recorded:
+        return head + "too few past forecasts to judge."
+    held = sum(records[d.dam_id]["held"] for d in recorded)
+    judged = sum(records[d.dam_id]["judged"] for d in recorded)
+    body = f"the cautious days-left promise held {count_text(held)} of {count_text(judged)} times"
+    if len(recorded) < len(dams):
+        verb = "has" if len(recorded) == 1 else "have"
+        body += f" ({len(recorded)} of the {len(dams)} {verb} enough history to judge)"
+    forecast = sorted_by_kind(dams, today)["forecast"]
+    if len(dams) > 1 and forecast:
+        dam = forecast[0]
+        record = records.get(dam.dam_id)
+        if has_track_record(record):
+            body += f"; on {dam.name}, {count_text(record['held'])} of {count_text(record['judged'])}"
+        else:
+            body += f"; {dam.name} has too few past forecasts to judge"
+    return head + body + "."
+
+
+def long_for_dams(dams, today, farm_label="Your farm", radius_km=DEFAULT_RADIUS_KM, track_record=None):
     """The long text for a farm's dams (see long_text)."""
     today = as_date(today)
     opening = f"{farm_label}, {date_text(today)} {today.year}: "
@@ -377,6 +426,8 @@ def long_for_dams(dams, today, farm_label="Your farm", radius_km=DEFAULT_RADIUS_
         if len(others) > LONG_OTHERS_MAX:
             clauses.append(f"and {len(others) - LONG_OTHERS_MAX} more on the map")
         lines.append(("Also: " if groups["forecast"] else "") + "; ".join(clauses) + ".")
+    if track_record is not None:
+        lines.append(track_record_line(dams, today, track_record))
     if groups["forecast"]:
         lines.append("Days are counted from today and are cautious: in ten test years a dam stayed above a "
                      f"third at least that long 9 times in 10. Map: {MAP_LINK}")
@@ -385,6 +436,13 @@ def long_for_dams(dams, today, farm_label="Your farm", radius_km=DEFAULT_RADIUS_
     return "\n".join(lines)
 
 
-def long_text(farm, forecasts, today):
-    """The weekly text's longer version for the app or an email: 2 to 4 lines, may give chances ("6 in 10")."""
-    return long_for_dams(dams_for_farm(farm, forecasts), today, farm.name or "Your farm", farm.radius_km)
+def long_text(farm, forecasts, today, track_record=None):
+    """The weekly text's longer version for the app or an email: 2 to 4 lines, may give chances ("6 in 10").
+
+    track_record  optional {dam_id: {"held": int, "judged": int, ...}}, the "dams" of
+                  app/data/real/track_record.json: adds one line before the last, how often our cautious
+                  days-left promise held on these dams in the 2016-2026 backtest (track_record_line).
+                  Without it (the default) the text is unchanged. The SMS never carries it.
+    """
+    return long_for_dams(dams_for_farm(farm, forecasts), today, farm.name or "Your farm", farm.radius_km,
+                         track_record)

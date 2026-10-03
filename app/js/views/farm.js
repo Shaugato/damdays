@@ -9,7 +9,10 @@
  *      is the closest;
  *   3. see the weekly text on a phone, exactly as it would arrive, and the list of
  *      dams: how full each one is, its days of water and its chance;
- *   4. tap a dam for its full card (days, chance, runway curve, water history).
+ *   4. tap a dam for its full card (days, chance, runway curve, water history);
+ *   5. judge our accuracy on their own dams: each dam's track record in the 2016-2026
+ *      backtest (how often the cautious days-left promise held on it), and the farm's
+ *      dams added up (track_record.json, scripts/18_track_record.py).
  *
  * The text is made in the browser by js/text.js, a line-for-line port of the
  * Python that writes the real texts (notify/message.py); app/tools/check_text_port.js
@@ -178,7 +181,7 @@ DamDays.views.farm = (function () {
     try {
       state.dams = txt.damsForFarm(farm, sourceForecasts());
       sms = txt.smsForDams(state.dams, textDate, farm.radius_km);
-      long = txt.longForDams(state.dams, textDate, farm.name, farm.radius_km);
+      long = txt.longForDams(state.dams, textDate, farm.name, farm.radius_km, records());
       if (!state.dams.some((d) => d.dam_id === state.selectedId)) state.selectedId = null;   // it left the radius
     } catch (error) {
       el.panel.innerHTML = '<p class="load-error">The text could not be made: ' + esc(error.message) + "</p>";
@@ -287,6 +290,11 @@ DamDays.views.farm = (function () {
     return L.latLngBounds([farm.lat - dLat, farm.lon - dLon], [farm.lat + dLat, farm.lon + dLon]);
   }
 
+  /** Each dam's track record ({dam_id: {held, judged, ...}}), or null without track_record.json. */
+  function records() {
+    return data.trackRecord ? data.trackRecord.dams : null;
+  }
+
   // ---- The list of dams -----------------------------------------------------
   /** "~67% full on 13 Sep", "dry on 13 Sep", or "no clear look lately". */
   function fullCell(dam) {
@@ -311,18 +319,57 @@ DamDays.views.farm = (function () {
     return fmt.chance(dam.chance) + " by " + txt.shortDate(dam.window_end);
   }
 
+  /** Our track record on the dam: "held 166 of 216 times", or "not enough history". */
+  function recordCell(dam) {
+    const record = records()[dam.dam_id];
+    if (!txt.hasTrackRecord(record)) return '<span class="muted">not enough history</span>';
+    return "held " + txt.countText(record.held) + " of " + txt.countText(record.judged) + " times";
+  }
+
+  /** The farm's dams added up, under the table, with the dam whose record is lowest. */
+  function farmRecordHtml() {
+    const all = records();
+    const label = '<span class="record-label">' + esc(data.trackRecord.label) + "</span>";
+    const withRecord = state.dams.filter((d) => txt.hasTrackRecord(all[d.dam_id]));
+    if (!withRecord.length) {
+      return '<p class="farm-record"><strong>Our track record on this farm</strong> (' + label + "): not enough " +
+             "history on these dams.</p>";
+    }
+    const held = withRecord.reduce((sum, d) => sum + all[d.dam_id].held, 0);
+    const judged = withRecord.reduce((sum, d) => sum + all[d.dam_id].judged, 0);
+    const which = withRecord.length === state.dams.length
+      ? (state.dams.length === 1 ? "on its one dam" : "across its " + state.dams.length + " dams")
+      : "across the " + withRecord.length + " of its " + state.dams.length + " dams with enough history";
+    let html = '<p class="farm-record"><strong>Our track record on this farm</strong> (' + label + "): " +
+               which + ", the cautious days-left promise held <strong>" + txt.countText(held) + " of " +
+               txt.countText(judged) + " times</strong>";
+    if (withRecord.length > 1) {
+      const share = (d) => all[d.dam_id].held / all[d.dam_id].judged;
+      const lowest = withRecord.reduce((low, d) => (share(d) < share(low) ? d : low));
+      html += "; lowest on " + esc(lowest.name) + ", " + txt.countText(all[lowest.dam_id].held) + " of " +
+              txt.countText(all[lowest.dam_id].judged);
+    }
+    return html + ". Forecasts on nearby dams often share one dry spell, so these are not all separate checks.</p>";
+  }
+
   function damTableHtml() {
     if (!state.dams.length) return "";
     const day = txt.dateText(textDate);
+    const track = data.trackRecord;
     const rows = state.dams.map((dam) =>
       '<tr class="' + (dam.dam_id === state.selectedId ? "is-selected" : "") + '">' +
       '<th scope="row"><button type="button" class="dam-link" data-dam="' + esc(dam.dam_id) + '">' + esc(dam.name) +
       '</button><span class="score-range">' + txt.oneDecimal(dam.distance_km) + " km away</span></th>" +
-      "<td>" + fullCell(dam) + "</td><td>" + daysCell(dam) + "</td><td>" + chanceCell(dam) + "</td></tr>").join("");
+      "<td>" + fullCell(dam) + "</td><td>" + daysCell(dam) + "</td><td>" + chanceCell(dam) + "</td>" +
+      (track ? "<td>" + recordCell(dam) + "</td>" : "") + "</tr>").join("");
+    const recordHead = track
+      ? '<th scope="col">Our track record (<span class="record-label">' + esc(track.label) + "</span>) " +
+        fmt.tip("What is the backtest?", track.tip) + "</th>" : "";
     return '<table class="farm-table"><caption>Your dams (Dam 1 is the closest to the homestead)</caption>' +
            '<thead><tr><th scope="col">Dam</th><th scope="col">How full at the last clear look</th>' +
            '<th scope="col">Days of water above a third, from ' + esc(day) + '</th>' +
-           '<th scope="col">Chance it drops below a third</th></tr></thead><tbody>' + rows + "</tbody></table>" +
+           '<th scope="col">Chance it drops below a third</th>' + recordHead + "</tr></thead><tbody>" + rows +
+           "</tbody></table>" + (track ? farmRecordHtml() : "") +
            '<p class="panel-small farm-footnote">"%" means how full a dam is: its wet area at the last clear ' +
            "satellite look, against its usual full area. Days are cautious: in ten test years a dam stayed above a " +
            "third at least that long 9 times in 10. A forecast starts from the dam's last clear look, so the days " +

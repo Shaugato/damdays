@@ -6,7 +6,8 @@
  *   (written by app/tools/build_bundle.py; "real" always comes before "mock").
  *   Each dataset is one file, app/data/<name>/bundle.js, holding the six JSON
  *   files described in app/DATA_CONTRACT.md, plus farms.json (the demo farms and
- *   their weekly texts) and proof.json (the Proof view's charts) when the dataset has them.
+ *   their weekly texts), proof.json (the Proof view's charts) and track_record.json (each
+ *   dam's 2016-2026 track record) when the dataset has them.
  *   Add ?data=mock to the address to force the mock data.
  *
  * Why <script> and not fetch(): it also works when index.html is opened by
@@ -74,6 +75,9 @@ DamDays.data = (function () {
       farms: farms,
       // Proof: what accuracy looks like on the test years (proof.json), or null.
       proof: bundle.proof || null,
+      // Each dam's track record in the 2016-2026 backtest (track_record.json), or null:
+      // how often the cautious days-left promise held on that dam (dam card, My farm).
+      trackRecord: bundle.track_record || null,
       // The day this week's text is sent: days of water are counted from it (My farm, and the
       // live dam card). It is farms.json's date; without one, the latest satellite look.
       textDate: farms ? farms.date

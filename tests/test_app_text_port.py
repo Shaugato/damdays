@@ -7,7 +7,10 @@ app/js/text.js, a line-for-line port of notify/message.py. These tests run the p
 * the fixtures scripts/16_weekly_texts.py writes (the spec's worked examples, this week's demo
   farms) and app/data/real/farms.json, run the way the app runs it;
 * 600 random farms (0 to 40 dams of every kind, random radii, chances on the rounding edges,
-  looks on the 60-day edge, dams at the same spot), made and written by Python here.
+  looks on the 60-day edge, dams at the same spot), made and written by Python here;
+* 400 random farms whose long text carries the optional track record (some dams with no record,
+  some with too few judged forecasts, counts with thousands commas), and the demo farms with the
+  published app/data/real/track_record.json, run the way the app's My farm view runs them.
 
 Skipped if Node.js is not installed.
 """
@@ -102,3 +105,65 @@ def test_port_matches_python_on_random_farms(tmp_path):
     code, out = run_check(fixture)
     assert code == 0, out
     assert "600 of 600 farms identical" in out
+
+
+# ---------------------------------------------------------------------------
+# The optional track-record line of the long text (app/data/real/track_record.json)
+# ---------------------------------------------------------------------------
+def random_records(rng, doc):
+    """A track record for most of the dams: none, too few judged forecasts, or counts up to the thousands."""
+    out = {}
+    for dam in doc["dams"]:
+        roll = rng.random()
+        if roll < 0.15:
+            continue                                          # no record at all
+        judged = rng.randint(0, 6) if roll < 0.35 else rng.randint(5, 3000)
+        out[dam["dam_id"]] = dict(held=rng.randint(0, judged), judged=judged)
+    return out
+
+
+def test_port_matches_python_with_the_track_record(tmp_path):
+    rng = random.Random(20261004)
+    today = date(2026, 10, 2)
+    cases = []
+    for i in range(400):
+        farm, doc = random_farm(rng, i, today)
+        records = random_records(rng, doc)
+        cases.append(dict(farm=dict(farm_id=farm.farm_id, name=farm.name, lat=farm.lat, lon=farm.lon,
+                                    radius_km=farm.radius_km),
+                          forecasts=doc, dam_ids=[d.dam_id for d in dams_for_farm(farm, doc)], track_record=records,
+                          sms=weekly_text(farm, doc, today), long=long_text(farm, doc, today, track_record=records)))
+    fixture = tmp_path / "random_farms_with_track_record.json"
+    fixture.write_text(json.dumps(dict(today=str(today), cases=cases)), encoding="utf-8")
+    code, out = run_check(fixture)
+    assert code == 0, out
+    assert "400 of 400 farms identical" in out
+
+
+def test_port_matches_python_on_the_demo_farms_with_the_published_track_record(tmp_path):
+    real = REPO / "app" / "data" / "real"
+    if not (real / "track_record.json").exists() or not (real / "farms.json").exists():
+        pytest.skip("run scripts/16_weekly_texts.py and scripts/18_track_record.py first")
+    farms = json.loads((real / "farms.json").read_text(encoding="utf-8"))
+    app_forecasts = json.loads((real / "forecasts.json").read_text(encoding="utf-8"))
+    records = json.loads((real / "track_record.json").read_text(encoding="utf-8"))["dams"]
+    cases = []
+    for f in farms["farms"]:
+        farm = Farm(farm_id=f["farm_id"], lat=f["lat"], lon=f["lon"], radius_km=f["radius_km"], name=f["name"])
+        # As My farm runs it: the app's forecasts in its region, otherwise the farm's own dams (text.docFromDams).
+        doc = app_forecasts if f["dams_in_app"] else dict(
+            dams=[dict(dam_id=d["dam_id"], name=d["dam_id"], lat=d["lat"], lon=d["lon"], area_ha=d["area_ha"],
+                       dea_uid=d["dea_uid"]) for d in f["dams"]],
+            issues=[dict(issue_date=None, kind="live", rows=[
+                {k: d[k] for k in ("dam_id", "status", "issued_on", "window_end", "level_pct", "chance",
+                                   "damdays_days")} for d in f["dams"]])])
+        long = long_text(farm, doc, farms["date"], track_record=records)
+        assert "Our track record on these" in long and long.count("\n") == f["long"].count("\n") + 1
+        cases.append(dict(farm=dict(farm_id=farm.farm_id, name=farm.name, lat=farm.lat, lon=farm.lon,
+                                    radius_km=farm.radius_km), forecasts=doc,
+                          dam_ids=[d["dam_id"] for d in f["dams"]], sms=f["sms"], long=long))
+    fixture = tmp_path / "demo_farms_with_track_record.json"
+    fixture.write_text(json.dumps(dict(today=farms["date"], track_record=records, cases=cases)), encoding="utf-8")
+    code, out = run_check(fixture)
+    assert code == 0, out
+    assert f"{len(cases)} of {len(cases)} farms identical" in out

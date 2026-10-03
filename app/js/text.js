@@ -15,8 +15,11 @@
  *   - The headline is DAYS: the cautious DamDays floor, counted from the day the text is sent.
  *
  * Python name -> JavaScript name: weekly_text -> weeklyText, sms_for_dams -> smsForDams,
- * long_for_dams -> longForDams, dams_for_farm -> damsForFarm, days_left -> daysLeft, and so on.
+ * long_for_dams -> longForDams, dams_for_farm -> damsForFarm, days_left -> daysLeft,
+ * track_record_line -> trackRecordLine, and so on.
  * Dates are "YYYY-MM-DD" strings (calendar days, no time zone), as in the data files.
+ * The long text's optional track-record line (how often our days-left promise held on these dams in the
+ * 2016-2026 backtest) takes the "dams" of app/data/real/track_record.json; the SMS never carries it.
  *
  * In the browser this file adds DamDays.text; in Node (the parity check) it is a module.
  */
@@ -149,6 +152,8 @@
   const CLOSE = "Reply MAP";      // replying MAP would send a link to the farm's map in the app
   const MAP_LINK = "[map link]";  // placeholder for the farm's link in the app (long text)
   const LONG_OTHERS_MAX = 6;      // the long text lists at most 6 other dams by name
+  const TRACK_RECORD_MIN = 5;     // a dam's track record is shown only with at least this many judged past forecasts
+  const TRACK_RECORD_YEARS = "2016-2026";   // the backtest the track record counts (scripts/18_track_record.py)
 
   const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -416,8 +421,51 @@
     return dam.name + " has had no clear satellite look in the last " + RECENT_LOOK_DAYS + " days";
   }
 
-  /** The long text for a farm's dams: 2 to 4 lines, may give chances ("6 in 10"). */
-  function longForDams(dams, today, farmLabel = "Your farm", radiusKm = DEFAULT_RADIUS_KM) {
+  /** A count with thousands commas: 1234 -> "1,234" (Python's f"{n:,}"; no locale involved). */
+  function countText(n) {
+    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  /** True when a dam's track record ({held, judged}) has enough judged forecasts to show. */
+  function hasTrackRecord(record) {
+    return record !== null && record !== undefined && record.judged >= TRACK_RECORD_MIN;
+  }
+
+  /**
+   * The long text's optional track-record line: how often our cautious days-left promise held on these dams
+   * in the 2016-2026 backtest. records: {dam_id: {held, judged, ...}}, the "dams" of track_record.json.
+   */
+  function trackRecordLine(dams, today, records) {
+    const where = dams.length === 1 ? "this dam" : "these " + dams.length + " dams";
+    const head = "Our track record on " + where + " (" + TRACK_RECORD_YEARS + " backtest, forecasts the model " +
+                 "made for years it never saw): ";
+    const recorded = dams.filter((d) => hasTrackRecord(records[d.dam_id]));
+    if (!recorded.length) return head + "too few past forecasts to judge.";
+    const held = recorded.reduce((sum, d) => sum + records[d.dam_id].held, 0);
+    const judged = recorded.reduce((sum, d) => sum + records[d.dam_id].judged, 0);
+    let body = "the cautious days-left promise held " + countText(held) + " of " + countText(judged) + " times";
+    if (recorded.length < dams.length) {
+      body += " (" + recorded.length + " of the " + dams.length + (recorded.length === 1 ? " has" : " have") +
+              " enough history to judge)";
+    }
+    const forecast = sortedByKind(dams, today).forecast;
+    if (dams.length > 1 && forecast.length) {
+      const dam = forecast[0];
+      const record = records[dam.dam_id];
+      if (hasTrackRecord(record)) {
+        body += "; on " + dam.name + ", " + countText(record.held) + " of " + countText(record.judged);
+      } else {
+        body += "; " + dam.name + " has too few past forecasts to judge";
+      }
+    }
+    return head + body + ".";
+  }
+
+  /**
+   * The long text for a farm's dams: 2 to 4 lines, may give chances ("6 in 10"). With the optional
+   * trackRecord ({dam_id: {held, judged}}), one more line before the last: the track record.
+   */
+  function longForDams(dams, today, farmLabel = "Your farm", radiusKm = DEFAULT_RADIUS_KM, trackRecord = null) {
     const opening = farmLabel + ", " + dateText(today) + " " + Number(today.slice(0, 4)) + ": ";
     if (!dams.length) {
       return [opening + "no farm dams the satellites can see within " + kmText(radiusKm) + " km of " +
@@ -444,6 +492,7 @@
       if (others.length > LONG_OTHERS_MAX) clauses.push("and " + (others.length - LONG_OTHERS_MAX) + " more on the map");
       lines.push((groups.forecast.length ? "Also: " : "") + clauses.join("; ") + ".");
     }
+    if (trackRecord !== null && trackRecord !== undefined) lines.push(trackRecordLine(dams, today, trackRecord));
     if (groups.forecast.length) {
       lines.push("Days are counted from today and are cautious: in ten test years a dam stayed above a " +
                  "third at least that long 9 times in 10. Map: " + MAP_LINK);
@@ -453,9 +502,9 @@
     return lines.join("\n");
   }
 
-  /** The weekly text's longer version for the app or an email. */
-  function longText(farm, forecasts, today) {
-    return longForDams(damsForFarm(farm, forecasts), today, farm.name || "Your farm", radiusOf(farm));
+  /** The weekly text's longer version for the app or an email (trackRecord optional, as in longForDams). */
+  function longText(farm, forecasts, today, trackRecord = null) {
+    return longForDams(damsForFarm(farm, forecasts), today, farm.name || "Your farm", radiusOf(farm), trackRecord);
   }
 
   const api = {
@@ -466,11 +515,13 @@
     // each dam on the text's date
     kind, daysLeft, daysSinceLook,
     // wording
-    inTen, chanceText, fullness, floorText, shortDate, dateText, dayNumber, oneDecimal,
+    inTen, chanceText, fullness, floorText, shortDate, dateText, dayNumber, oneDecimal, countText,
+    // the track record (long text only)
+    trackRecordLine, hasTrackRecord,
     // one SMS
     septets, isGsm7, fitsOneSms,
     // settings
-    SMS_MAX, CAP_DAYS, OK_DAYS, RECENT_LOOK_DAYS, DEFAULT_RADIUS_KM, NAME_IF_IN_TEN,
+    SMS_MAX, CAP_DAYS, OK_DAYS, RECENT_LOOK_DAYS, DEFAULT_RADIUS_KM, NAME_IF_IN_TEN, TRACK_RECORD_MIN, TRACK_RECORD_YEARS,
   };
 
   if (typeof module === "object" && module.exports) module.exports = api;       // Node: the parity check

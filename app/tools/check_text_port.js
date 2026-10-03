@@ -16,7 +16,9 @@
  *
  * Other fixture files can be given as arguments (tests/test_app_text_port.py passes random farms).
  * A fixture is { today, forecasts, cases: [{ farm, dam_ids, sms, long, region? }] }; `forecasts`
- * is one forecasts.json document, or one per region when cases name a `region`.
+ * is one forecasts.json document, or one per region when cases name a `region`. A case (or the whole
+ * fixture) may also give `track_record` ({dam_id: {held, judged}}): the long text is then made with
+ * the optional track-record line, as notify/message.py's long_text(..., track_record) makes it.
  * Exit code 0 when everything matches, 1 otherwise.
  */
 "use strict";
@@ -43,7 +45,7 @@ function firstDifference(expected, got) {
 }
 
 /** Compare one farm's dams and texts. Returns a list of problems (empty if it matches). */
-function checkCase(label, farm, forecasts, today, expected) {
+function checkCase(label, farm, forecasts, today, expected, trackRecord = null) {
   const problems = [];
   let dams;
   let sms;
@@ -51,7 +53,7 @@ function checkCase(label, farm, forecasts, today, expected) {
   try {
     dams = text.damsForFarm(farm, forecasts);
     sms = text.smsForDams(dams, today, farm.radius_km);
-    long = text.longForDams(dams, today, farm.name || "Your farm", farm.radius_km);
+    long = text.longForDams(dams, today, farm.name || "Your farm", farm.radius_km, trackRecord);
   } catch (error) {
     return [label + ": the port failed: " + error.message];
   }
@@ -74,7 +76,9 @@ function checkFixture(file) {
   fixture.cases.forEach((c, i) => {
     const forecasts = c.forecasts || (c.region ? fixture.forecasts[c.region] : fixture.forecasts);
     const label = path.basename(file) + " #" + (i + 1) + " (" + (c.key || c.farm.farm_id) + ")";
-    problems.push(...checkCase(label, c.farm, forecasts, c.today || fixture.today, c));
+    const trackRecord = c.track_record !== undefined ? c.track_record
+      : (fixture.track_record !== undefined ? fixture.track_record : null);
+    problems.push(...checkCase(label, c.farm, forecasts, c.today || fixture.today, c, trackRecord));
   });
   return { name: file, cases: fixture.cases.length, problems: problems };
 }

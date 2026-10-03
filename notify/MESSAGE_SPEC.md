@@ -9,7 +9,7 @@
 | file | what it does |
 |---|---|
 | [`farms.py`](farms.py) | a farm = homestead point + radius (3 km by default) + optional name; `dams_for_farm()` finds its dams and numbers them by distance |
-| [`message.py`](message.py) | `weekly_text()` makes the SMS; `long_text()` makes the app/email version |
+| [`message.py`](message.py) | `weekly_text()` makes the SMS; `long_text()` makes the app/email version (optionally with each farm's track record: section 4) |
 | [`gsm7.py`](gsm7.py) | which characters an SMS can carry, and how many of the 160 places each takes |
 | [`outbox.py`](outbox.py) | writes the week's texts to `outbox/<date>.json` |
 | [`sms.py`](sms.py) | optional Twilio sender: a dry run unless you add `--send` and your own account's keys |
@@ -86,6 +86,27 @@ Dam 1 (0.4 km from the homestead) was ~45% full on 28 Sep: at least 23 days befo
 Also: Dam 3 ~80% full, at least 103 days (chance by 27 Dec: 1 in 10); Dam 2 full, at least 143 days (chance by 27 Dec: 1 in 10).
 Days are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]
 ```
+
+### The optional track record (long text only, never the SMS)
+
+A mentor (Sat 3 Oct) said the forecast is the farmer's lifeline, so farmers need a way to judge its accuracy themselves, on their own water. `long_text(farm, forecasts, today, track_record=...)` adds one line, just before the last: how often our cautious days-left promise held on **these dams** in the backtest.
+
+- **The backtest** = forecasts the model made for years it never saw. The frozen model learned only from data before July 2016, then made a forecast at every clear satellite look from July 2016 to June 2026, and each was checked against what the dam really did ([`scripts/18_track_record.py`](../scripts/18_track_record.py); the numbers are in [`app/data/real/track_record.json`](../app/data/real/track_record.json), whose `dams` is what `track_record` takes: `{dam_id: {"held": ..., "judged": ...}}`).
+- **Held / judged.** A promise of "at least N days" (as the text shows it; "6 months+" is judged at 180 days) is judged only when the satellite archive watched the dam for at least N days, and held when the dam stayed above a third that long.
+- **The line** adds up the farm's dams that have at least **5** judged past forecasts (`TRACK_RECORD_MIN`), says how many of the dams that is when some have fewer, then gives the headline dam's own record (or says it has too few past forecasts to judge). Counts get thousands commas (`1,362`). No percent: a record is a count, "held 15 of 20 times".
+- **Without `track_record`** (the default) the long text is exactly as above. The SMS never carries the track record: it keeps its 160 places for days.
+
+Example (worked example 2 with made-up records, `examples.TRACK_RECORD_EXAMPLE`: Dam 1 held 15 of 20, Dam 2 190 of 200, Dam 3 has only 4 judged forecasts):
+
+```
+Example farm 2, Mon 5 Oct 2026: 3 farm dams within 3 km of the homestead; latest satellite look 28 Sep.
+Dam 1 (0.4 km from the homestead) was ~45% full on 28 Sep: at least 23 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 6 in 10.
+Also: Dam 3 ~80% full, at least 103 days (chance by 27 Dec: 1 in 10); Dam 2 full, at least 143 days (chance by 27 Dec: 1 in 10).
+Our track record on these 3 dams (2016-2026 backtest, forecasts the model made for years it never saw): the cautious days-left promise held 205 of 220 times (2 of the 3 have enough history to judge); on Dam 1, 15 of 20.
+Days are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]
+```
+
+The app's My farm view shows the same line in "The longer version" (made by the JavaScript port, section 8), plus each dam's record in its table and card. This week's outbox (`outbox/2026-10-02.json`) was written before the track record existed, so its long texts do not carry the line.
 
 ---
 
@@ -320,7 +341,7 @@ node app/tools/check_text_port.js                                # the fixtures 
 - [`fixtures/spec_examples.json`](fixtures/spec_examples.json): the 10 worked examples above.
 - [`fixtures/demo_week.json`](fixtures/demo_week.json): this week's 10 demo farms. It keeps their dams, plus those up to 1 km beyond each radius, so the cut-off is tested too.
 
-Each fixture holds `today`, the input `forecasts` (the format of `forecasts.json`), and `cases`. Each case has a `farm` and the expected `dam_ids` (closest first), `sms` and `long`. Run each farm on `today` and compare the texts exactly.
+Each fixture holds `today`, the input `forecasts` (the format of `forecasts.json`), and `cases`. Each case has a `farm` and the expected `dam_ids` (closest first), `sms` and `long`. Run each farm on `today` and compare the texts exactly. A case (or the whole fixture) may also hold `track_record`: the long text is then made with the optional track-record line (section 4). `tests/test_app_text_port.py` checks that line on 400 random farms and on the demo farms with the published `track_record.json`.
 
 Three details keep the two languages in step:
 

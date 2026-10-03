@@ -8,6 +8,9 @@
  *      a third, 9 times in 10, counted from the day of this week's text (or, in
  *      Rewind, from the day the forecast was made)
  *   3. the chance it drops below a third within 90 days, as "3 in 10"
+ *   3b. today's forecast only (My farm, Runway): our track record on this dam, so a farmer
+ *      can judge our accuracy on their own water: how often the cautious days-left promise
+ *      held on it in the 2016-2026 backtest (track_record.json, scripts/18_track_record.py)
  *   4. the runway curve (chance by 30, 60, 90 and 180 days after the last look)
  *   5. the water history since 1988
  *   6. Rewind only: what actually happened
@@ -126,6 +129,82 @@ DamDays.damCard = (function () {
     return html;
   }
 
+  // ---- 3b. Our track record on this dam (2016-2026 backtest) -------------------
+  /** "2016" -> "2016-17" (a July-June season). */
+  function seasonLabel(year) {
+    const y = Number(year);
+    return y + "-" + String(y + 1).slice(-2);
+  }
+
+  /** A share as "about 8 times in 10", rounded as chances are ("N in 10"). */
+  function timesInTen(share) {
+    const tenths = DamDays.text.inTen(share);
+    if (tenths === 0) return "less than once in 10";
+    if (tenths === 1) return "about once in 10";
+    if (tenths === 10) return "more than 9 times in 10";
+    return "about " + tenths + " times in 10";
+  }
+
+  /** How the dam's record compares with the 9 in 10 the promise aims for, in one plain sentence. */
+  function recordVerdict(record) {
+    const tenths = DamDays.text.inTen(record.held / record.judged);
+    let words;
+    if (record.held === record.judged) words = "It held every time.";
+    else if (tenths === 10) words = "That is " + timesInTen(record.held / record.judged) + ".";
+    else if (tenths === 9) words = "That is " + timesInTen(record.held / record.judged) + ", as it aims for.";
+    else {
+      words = "That is " + timesInTen(record.held / record.judged) + ", less often than the 9 in 10 it aims " +
+              "for: on this dam, give the days extra margin.";
+    }
+    if (record.judged < 20) words += " With so few past forecasts, this is only a rough guide.";
+    return words;
+  }
+
+  /**
+   * "Our track record on this dam (2016-2026 backtest): the cautious days-left promise held 18 of 20 times."
+   * With fewer than 5 judged past forecasts: "not enough history". Every dam is shown as it is, good or poor.
+   */
+  function trackRecordSection(track, damId) {
+    if (!track || !track.dams) return "";
+    const record = track.dams[damId];
+    const tip = fmt.tip("What is the backtest?", track.tip);
+    const lead = '<strong>Our track record on this dam</strong> (<span class="record-label">' + esc(track.label) +
+                 "</span>): ";
+    if (!DamDays.text.hasTrackRecord(record)) {
+      const n = record ? record.judged : 0;
+      return '<section class="card-section card-record"><p class="record-main">' + lead +
+             "<strong>not enough history</strong>. " + (n === 0 ? "No past forecast for this dam could be checked"
+               : "Only " + fmt.count(n, "past forecast") + " could be checked") +
+             "; we show a record once " + track.min_judged + " can be checked. " + tip + "</p></section>";
+    }
+    const count = DamDays.text.countText;
+    const years = Object.keys(record.by_season).sort();
+    const span = years.length === 1 ? "1 season (" + seasonLabel(years[0]) + ")"
+      : years.length + " seasons, " + seasonLabel(years[0]) + " to " + seasonLabel(years[years.length - 1]);
+    const typical = record.median_days === null || record.median_days < 1 ? ""
+      : " Its typical promise was " + (record.median_days >= DamDays.settings.damdaysCapDays
+        ? "6 months or more" : "at least " + fmt.count(record.median_days, "day")) + ".";
+    const likely = record.likely_said > 0
+      ? '<p class="record-more">When we said a fall below a third was likely (5 in 10 or more), it fell within ' +
+        "90 days " + count(record.likely_fell) + " of " + count(record.likely_said) + " times.</p>" : "";
+    const seasons = years.map((y) => seasonLabel(y) + ": " + count(record.by_season[y][0]) + " of " +
+                                     count(record.by_season[y][1])).join(" &middot; ");
+    // The last three seasons of the backtest, so a change on this dam is easy to see.
+    const recentYears = [0, 1, 2].map((i) => String(track.last_season_year - i)).filter((y) => record.by_season[y]);
+    const recentHeld = recentYears.reduce((sum, y) => sum + record.by_season[y][0], 0);
+    const recentJudged = recentYears.reduce((sum, y) => sum + record.by_season[y][1], 0);
+    const recent = recentJudged > 0 && years.length > recentYears.length
+      ? " In the last three seasons (" + seasonLabel(track.last_season_year - 2) + " to " +
+        seasonLabel(track.last_season_year) + ") it held " + count(recentHeld) + " of " + count(recentJudged) + " times."
+      : "";
+    return '<section class="card-section card-record">' +
+      '<p class="record-main">' + lead + "the cautious days-left promise held <strong>" + count(record.held) +
+      " of " + count(record.judged) + " times</strong>. " + tip + "</p>" +
+      '<p class="record-more">' + esc(recordVerdict(record)) + recent + typical + "</p>" + likely +
+      '<p class="chart-note">Over ' + span + ". Season by season (July to June), held of checked: " + seasons +
+      ".</p></section>";
+  }
+
   /** Size, and the dam's name on the Runway map when the card calls it something else. */
   function facts(dam, row, name) {
     const parts = ["Size " + dam.area_ha.toFixed(1) + " ha"];
@@ -215,6 +294,7 @@ DamDays.damCard = (function () {
       headline(name, row, meta) +
       damdaysNumber(row, asOf, isLive) +
       chanceLines(row) +
+      (isLive ? trackRecordSection(data.trackRecord, dam.dam_id) : "") +
       facts(dam, row, name) +
       (inData ? curveSection(row, data.curveFor(issue.issue_date, damId), data.curveHorizons) : "") +
       (options.revealed ? outcomeSection(row) : "") +
@@ -240,5 +320,5 @@ DamDays.damCard = (function () {
     }
   }
 
-  return { render, bringIntoView, daysFrom, daysWords, howFull };
+  return { render, bringIntoView, daysFrom, daysWords, howFull, seasonLabel, timesInTen };
 })();

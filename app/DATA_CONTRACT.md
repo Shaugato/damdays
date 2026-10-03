@@ -18,7 +18,9 @@ app/data/
     cells.json         2 km cells: rainfall-only score, DamDays Rating, what happened
     scoreboard.json    test scores (AUC with ranges)
     farms.json         optional: the demo farms and this week's texts, for My farm (scripts/16)
-    bundle.js          the six files (and farms.json) packed into one script (made by build_bundle.py)
+    proof.json         optional: what accuracy looks like, for the Proof view (scripts/17)
+    track_record.json  optional: each dam's track record in the 2016-2026 backtest (scripts/18)
+    bundle.js          the six files (and the optional ones there) packed into one script (made by build_bundle.py)
 ```
 
 To publish a dataset:
@@ -361,3 +363,45 @@ Not one of the six files above: optional. It is written by `scripts/17_proof_dat
 | `dam_by_dam.dams[]` | the demo farm's dams (Dam 1 = closest to the homestead): `looks` are `[date, level_pct]` at each clear satellite look (level as in `forecasts.json`, % of the dam's usual full level), `forecasts` every test forecast made for the dam between `season.forecasts_from` and `season.forecasts_to` (`fell`: the R30 answer, `null` if not known), `falls` the days it fell below a third, `rewind` its row in `forecasts.json` on `rewind_date` (the script checks they agree) |
 
 "%" appears only as how full a dam is; a chance is "N in 10"; how often something held is "N in 1,000".
+
+---
+
+## track_record.json (optional): each dam's track record, so a farmer can judge our accuracy
+
+Written by `scripts/18_track_record.py` (seconds, after steps 13, 15, 11, 16 and 17; it rebuilds `bundle.js` itself, and also writes the same numbers as a page, `artifacts/track_record.md`). The dam card (for today's forecast, in My farm and Runway) and My farm's table show it: "Our track record on this dam (2016-2026 backtest): the cautious days-left promise held 18 of 20 times." Without it, the cards and the table leave it out. The weekly text's long version can carry it too (`notify.message.long_text(..., track_record=doc["dams"])`); the SMS never does.
+
+The backtest is the ten test years: the frozen model learned only from data before July 2016 and made a forecast at every clear satellite look from July 2016 to June 2026 (scripts/13), scored once by scripts/15. This file only counts those saved forecasts dam by dam. Added up over every dam of both development regions, the counts must equal `artifacts/test_results.json` (`floor.shown_all`: forecasts judged, share held, by year), and the "likely" calls on the headline set must equal `proof.json`'s groups, or the script writes nothing.
+
+```json
+{
+  "schema_version": "1.0", "generated_at": "2026-10-03T10:30:00+10:00", "made_by": "scripts/18_track_record.py",
+  "years": "2016-2026", "label": "2016-2026 backtest", "first_season": "2016-17", "last_season": "2025-26",
+  "first_season_year": 2016, "last_season_year": 2025, "min_judged": 5, "cap_days": 180, "likely_in_ten": 5,
+  "tip": "Backtest = forecasts the model made for years it never saw. ...", "about": "...", "caveat": "...", "how": ["..."],
+  "dams": { "nsw_cw-0407": { "dea_uid": "r638...", "region": "nsw_cw", "forecasts": 217, "judged": 216, "held": 166,
+                             "not_judged": 1, "enough": true, "by_season": { "2016": [21, 21], "2024": [3, 21] },
+                             "median_days": 113, "likely_said": 0, "likely_fell": 0 } },
+  "farms": [ { "farm_id": "farm-d", "name": "Farm D (near Dubbo)", "region": "nsw_cw", "radius_km": 3.0, "dams": 7,
+               "dams_with_record": 7, "held": 1362, "judged": 1524, "not_enough_history": [],
+               "lowest": { "name": "Dam 1", "dam_id": "nsw_cw-0407", "held": 166, "judged": 216 }, "seasons": [2016] } ],
+  "summary": { "dams_in_app": 941, "distribution": { "dams_with_record": 929, "median_in_1000": 912, "...": "..." } },
+  "checks": { "equal_to_test_results": [ { "what": "forecasts judged", "value": 730449, "test_results": 730449 } ],
+              "equal_to_proof": [ "..." ], "ledger": "nothing scored on the TEST ledger" },
+  "sources": { "...": "..." }
+}
+```
+
+| field | meaning |
+|---|---|
+| `dams` | one record per dam the app shows (every dam of `forecasts.json`, and the demo farms' dams in `farms.json` outside the map's region), keyed by `dam_id` |
+| `forecasts` | the dam's at-risk R30 forecasts of the backtest with a known answer (one per clear satellite look while it was above a third and had refilled) |
+| `judged`, `held`, `not_judged` | the promise "at least N days above a third", N as the app and the text show it (whole days; "180+" judged at 180 days). JUDGED when the archive watched the dam for at least N days, whatever happened (`not_judged`: too recent). HELD when the dam stayed above a third for at least N days |
+| `enough` | `judged >= min_judged` (5). Below that the app shows "not enough history" |
+| `by_season` | `{"2016": [held, judged], ...}`, July-June years (2016 = July 2016 to June 2017), only the years with a judged forecast: the seasons covered |
+| `median_days` | the typical promise (judged forecasts, whole days rounded down; 180 = "180+"), or `null` |
+| `likely_said`, `likely_fell` | forecasts that gave a chance of 5 in 10 or more (rounded as the text rounds it) with a known 90-day answer, and how many were followed by a fall below a third within those 90 days |
+| `farms[]` | one roll-up per demo farm of `farms.json`: its dams with enough history added up (`held`, `judged`), the others named in `not_enough_history`, and the dam with the lowest share held (the closest one on a tie) |
+| `summary` | `dams_in_app`, the spread of the share held over dams with enough history (`distribution`: median, quartiles and counts below 9 in 10, 8 in 10, ...), and the app dams' totals |
+
+A record is a count ("held 18 of 20 times"), never a percent: "%" means only how full a dam is.
+

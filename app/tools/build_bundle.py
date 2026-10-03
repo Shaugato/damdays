@@ -11,6 +11,8 @@ by scripts/16_weekly_texts.py), it is packed too, for the app's "My farm" view.
 It is optional: a dataset without it still works, and My farm then starts empty.
 The same goes for proof.json (the Proof view's charts, written by
 scripts/17_proof_data.py): without it, the Proof view says the charts need it.
+And for track_record.json (each dam's 2016-2026 track record, written by
+scripts/18_track_record.py): without it, the dam cards and My farm leave it out.
 
 This script also rewrites app/data/datasets.js, the list of datasets the app
 can use. "real" is always listed first, so the app prefers real data whenever
@@ -28,7 +30,7 @@ from pathlib import Path
 PARTS = ["meta", "forecasts", "curves", "history", "cells", "scoreboard"]
 
 # Files packed only if the folder has them.
-OPTIONAL_PARTS = ["farms", "proof"]
+OPTIONAL_PARTS = ["farms", "proof", "track_record"]
 
 # The top-level keys each file must have. A light check that catches a
 # half-written export before it reaches the app.
@@ -41,6 +43,7 @@ REQUIRED_KEYS = {
     "scoreboard": ["source", "rating"],
     "farms": ["date", "farms"],
     "proof": ["schema_version", "test", "unseen_exam", "calibration", "by_year", "dam_by_dam"],
+    "track_record": ["schema_version", "label", "min_judged", "tip", "dams", "farms"],
 }
 
 # Datasets the app knows about, in order of preference.
@@ -61,7 +64,7 @@ def read_part(folder, name):
 
 
 def write_bundle(folder):
-    """Combine the six JSON files (and farms.json and proof.json, if there) into folder/bundle.js."""
+    """Combine the six JSON files (and farms.json, proof.json and track_record.json, if there) into folder/bundle.js."""
     bundle = {name: read_part(folder, name) for name in PARTS}
     for name in OPTIONAL_PARTS:
         if (folder / f"{name}.json").exists():

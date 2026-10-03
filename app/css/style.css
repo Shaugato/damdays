@@ -312,6 +312,9 @@ main { max-width: 1440px; margin: 0 auto; padding: var(--gap); }
 .card-notes { padding-left: 1.2em; color: var(--ink-soft); }
 .card-coverage { margin-top: 14px; font-size: 0.88rem; color: var(--muted); }
 .card-empty { color: var(--ink-soft); }
+.card-record .record-main { font-size: 1.05rem; margin-bottom: 4px; }
+.card-record .record-more { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 4px; }
+.record-label { white-space: nowrap; }   /* keeps "2016-2026 backtest" on one line */
 
 .damdays-box {
   display: flex;
@@ -470,6 +473,7 @@ thead th { font-size: 0.85rem; color: var(--ink-soft); font-weight: 600; }
 .farm-table th[scope="row"] { white-space: nowrap; }
 .farm-table tr.is-selected { background: #eef3fa; }
 .farm-footnote { max-width: 80ch; }
+.farm-record { max-width: 80ch; margin: 0 0 8px; font-size: 0.95rem; }
 .dam-link {
   min-height: 36px;
   padding: 2px 0;

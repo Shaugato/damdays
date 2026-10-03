@@ -92,3 +92,11 @@ def build_examples():
                      issues=[dict(issue_date=LOOK, kind="live", label="Worked examples (made-up numbers)",
                                   note="Made-up numbers for notify/MESSAGE_SPEC.md.", rows=rows)])
     return forecasts, farms
+
+
+# Made-up track records for the long text's optional track-record line (MESSAGE_SPEC.md, section 4), for the
+# dams of worked example 2: Dam 1 (example-02-a) held 15 of 20 times, Dam 2 190 of 200, and Dam 3 has only 4
+# judged past forecasts, too few to judge. Real records come from app/data/real/track_record.json
+# (scripts/18_track_record.py).
+TRACK_RECORD_EXAMPLE = {"example-02-a": dict(held=15, judged=20), "example-02-b": dict(held=190, judged=200),
+                        "example-02-c": dict(held=3, judged=4)}

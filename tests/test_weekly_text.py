@@ -10,6 +10,8 @@
   optional sender (dry run, refusals; never touches the network); the fixtures for the
   JavaScript port; this week's demo texts against the app's published forecasts.
 * A STRESS TEST. 3,000 random farms (0 to 40 dams of every kind) must all obey the rules.
+* THE TRACK RECORD (optional, long text only): how often our days-left promise held on the farm's
+  dams in the 2016-2026 backtest; the SMS never changes, and without it the long text never changes.
 """
 import json
 import random
@@ -21,8 +23,9 @@ import pytest
 
 from notify import examples, gsm7, sms
 from notify.farms import Farm, FarmDam, dams_for_farm, distance_km, to_10_metres
-from notify.message import (CAP_DAYS, as_date, chance_text, date_text, days_left, floor_text, fullness,
-                            long_for_dams, long_text, sms_for_dams, weekly_text)
+from notify.message import (CAP_DAYS, TRACK_RECORD_MIN, as_date, chance_text, count_text, date_text, days_left,
+                            floor_text, fullness, has_track_record, long_for_dams, long_text, sms_for_dams,
+                            track_record_line, weekly_text)
 from notify.outbox import message_record, read_outbox, write_outbox
 
 REPO = Path(__file__).resolve().parents[1]
@@ -64,9 +67,11 @@ def check_percent_means_full(text):
 
 
 def check_long_rules(text):
-    """The long text: 2 to 4 lines; '%' means full; every chance is 'N in 10'."""
+    """The long text: 2 to 4 lines (5 with the optional track record); '%' means full; every chance is 'N in 10'."""
     lines = text.split("\n")
-    assert 2 <= len(lines) <= 4, lines
+    with_record = sum(line.startswith("Our track record on ") for line in lines)
+    assert with_record <= 1, lines
+    assert 2 <= len(lines) - with_record <= 4, lines
     check_percent_means_full(text)
     for clause in re.split(r"[.;]", text):
         if "chance" in clause.lower():
@@ -418,3 +423,91 @@ def test_random_farms_keep_every_rule():
         if with_days:
             first = min(with_days, key=lambda d: (days_left(d, today), d.number))
             assert re.search(rf"(^|\n){first.name} (full|~\d+% full): ", text), (first, text)
+
+
+# ===========================================================================
+# 9. The optional track record (long text only)
+# ===========================================================================
+def records_for(*pairs):
+    """{dam_id: {"held", "judged"}} for dams t-001, t-002, ... (None: no record for that dam)."""
+    return {f"t-{n:03d}": dict(held=pair[0], judged=pair[1]) for n, pair in enumerate(pairs, start=1) if pair}
+
+
+def test_count_text_and_enough_history():
+    assert [count_text(n) for n in (0, 7, 999, 1000, 1362, 1524, 12345, 1234567)] == \
+        ["0", "7", "999", "1,000", "1,362", "1,524", "12,345", "1,234,567"]
+    assert TRACK_RECORD_MIN == 5
+    assert has_track_record(dict(held=0, judged=5)) and not has_track_record(dict(held=4, judged=4))
+    assert not has_track_record(None)
+
+
+def test_track_record_line_for_a_farm():
+    today = "2026-10-05"
+    dams = [dam(1, status="already_low", level=0), dam(2, floor=40, chance=0.3), dam(3, floor=100, chance=0.1)]
+    line = track_record_line(dams, today, records_for((166, 216), (198, 222), (998, 1086)))
+    assert line == ("Our track record on these 3 dams (2016-2026 backtest, forecasts the model made for years it "
+                    "never saw): the cautious days-left promise held 1,362 of 1,524 times; on Dam 2, 198 of 222.")
+
+
+def test_track_record_line_with_too_little_history():
+    today = "2026-10-05"
+    dams = [dam(1, floor=40), dam(2, floor=100), dam(3, status="not_refilled", level=45)]
+    # Dam 1 (the headline: fewest days) has only 4 judged forecasts; Dam 3 has none.
+    line = track_record_line(dams, today, records_for((4, 4), (90, 100)))
+    assert line.endswith("the cautious days-left promise held 90 of 100 times (1 of the 3 has enough history to "
+                         "judge); Dam 1 has too few past forecasts to judge.")
+    assert track_record_line(dams, today, {}).endswith("): too few past forecasts to judge.")
+
+
+def test_spec_track_record_example_is_exact():
+    forecasts, farms = examples.build_examples()
+    _, farm = farms[1]
+    long = long_text(farm, forecasts, examples.TODAY, track_record=examples.TRACK_RECORD_EXAMPLE)
+    assert "```\n" + long + "\n```" in SPEC.read_text(encoding="utf-8")
+    check_long_rules(long)
+
+
+def test_track_record_line_for_one_dam():
+    line = track_record_line([dam(1, floor=40)], "2026-10-05", records_for((18, 20)))
+    assert line == ("Our track record on this dam (2016-2026 backtest, forecasts the model made for years it never "
+                    "saw): the cautious days-left promise held 18 of 20 times.")
+
+
+def test_track_record_is_in_the_long_text_only():
+    forecasts, farms = examples.build_examples()
+    for _, farm in farms:
+        dams = dams_for_farm(farm, forecasts)
+        records = {d.dam_id: dict(held=17 + d.number, judged=20 + d.number) for d in dams}
+        plain = long_text(farm, forecasts, examples.TODAY)
+        with_record = long_text(farm, forecasts, examples.TODAY, track_record=records)
+        check_long_rules(with_record)
+        if not dams:
+            assert with_record == plain             # no dams: nothing to report
+            continue
+        lines, plain_lines = with_record.split("\n"), plain.split("\n")
+        assert lines[:-2] + lines[-1:] == plain_lines                       # one line added, before the last
+        assert lines[-2] == track_record_line(dams, examples.TODAY, records)
+        assert "backtest" not in weekly_text(farm, forecasts, examples.TODAY)   # never in the SMS
+
+
+def test_track_record_on_random_farms_keeps_every_rule():
+    rng = random.Random(20261003)
+    today = date(2026, 10, 2)
+    for _ in range(1000):
+        dams = random_farm(rng, today)
+        records = {}
+        for d in dams:
+            if rng.random() < 0.85:
+                held = rng.randint(0, 2000)
+                records[d.dam_id] = dict(held=held, judged=held + rng.randint(0, 30))
+        text = long_for_dams(dams, today, track_record=records)
+        check_long_rules(text)
+        if not dams:
+            continue
+        line = next(x for x in text.split("\n") if x.startswith("Our track record on "))
+        shown = [records[d.dam_id] for d in dams if d.dam_id in records and records[d.dam_id]["judged"] >= 5]
+        if shown:
+            held, judged = sum(r["held"] for r in shown), sum(r["judged"] for r in shown)
+            assert f"held {count_text(held)} of {count_text(judged)} times" in line
+        else:
+            assert line.endswith("too few past forecasts to judge.")
