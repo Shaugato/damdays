@@ -110,6 +110,16 @@ The unseen exam was pre-registered to open on Sat 3 Oct at 17:30 AEST. We did no
 
 `git diff --stat c95d5db HEAD -- damdays/ scripts/20_open_sealed_region.py` prints nothing: the model code (fingerprinted by config hash `7d466291008d`) and the opening runner are exactly as frozen on Fri 2 Oct at 20:21 AEST. After the freeze we added the one-time scoring of the test years (`scripts/15_score_test.py`, run Fri 20:36 AEST, as the pre-registration says) and code that shows or publishes results, never how they are computed or scored: the app's data export (`scripts/11`), the weekly text (`scripts/16` and the wording in `notify/`), the Proof data (`scripts/17`), the track record (`scripts/18`), the publishing step (`scripts/21`), the app and the docs.
 
+## Sunday 4 October (AEDT): the unseen exam
+
+| Time | What happened |
+|---|---|
+| 09:12 | Addendum 2 committed and pushed on its own (the opening moves to Sunday; nothing else changes), then the final docs. |
+| 09:19:52 | **The unseen exam opened**, once, with `scripts/20_open_sealed_region.py --open`, on a screen recording. All 4,711 sealed files matched their published fingerprints; the frozen models matched their manifest. |
+| 09:21-10:16 | Built the third region from raw files (2,008 dam-sized waterbodies), forecast it with the frozen models, scored it once on the shared ledger. |
+| 10:16:04 | **Result: all 4 pre-registered pass marks met, and all 6 pre-declared expectations inside their ranges.** Below a third within 90 days: skill +0.183 (expected +0.15 to +0.23), ahead of the benchmark G2 (+0.172); fully dry +0.173 (G2 +0.149); the cautious days held 882 times in 1,000 (on target, 880 to 920); the area outlook picked the right 2 km area 8 times in 10, rainfall alone 5 in 10. |
+| 10:20 | Raw results committed unedited (`artifacts/sealed/`, the ledger), then published into the README, pitch, video script and the app with `scripts/21_publish_sealed.py`. |
+
 ## Next
 
-Next: the unseen exam opening (Sun 4 Oct), publishing its result, the video, submission.
+The video, then submission.
