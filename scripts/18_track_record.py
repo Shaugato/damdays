@@ -81,7 +81,7 @@ MIN_JUDGED = TRACK_RECORD_MIN      # fewer judged forecasts than this: "not enou
 LIKELY_IN_TEN = NAME_IF_IN_TEN     # "likely": a chance shown as 5 in 10 or more (the text always names such a dam)
 FIRST_YEAR, LAST_YEAR = 2016, 2025 # July-June years of the backtest
 REGION_WORDS = {"nsw_cw": "NSW Central West", "wvic_sesa": "western Victoria / SE South Australia"}
-TIP = ("Backtest = forecasts the model made for years it never saw. It learned only from data before July 2016, "
+TIP = ("Backtest = forecasts the model made for years it never trained on. It learned only from data before July 2016, "
        "then made a forecast at every clear satellite look from July 2016 to June 2026, and each one was checked "
        "against what the dam really did. Forecasts a week or two apart often share one dry spell, so misses tend to "
        "come in runs: a few misses can be one bad season.")
@@ -437,7 +437,7 @@ def build():
         tip=TIP,
         about=("For each dam the app shows: how often our cautious days-left promise (\"at least N days before it "
                "drops below a third\") held on that dam, over the forecasts the frozen model made for July 2016 to "
-               "June 2026, years it never saw (it learned only from data before July 2016). One forecast per clear "
+               "June 2026, years it never trained on (it learned only from data before July 2016). One forecast per clear "
                "satellite look while the dam was above a third and had refilled."),
         caveat=("These are the same ten test years that were scored once on Fri 2 Oct 2026 (artifacts/test_results.md), "
                 "counted dam by dam; nothing new was scored. Those years were looked at before the event, so they may "

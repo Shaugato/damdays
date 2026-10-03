@@ -29,12 +29,12 @@ This spring is dry. At the latest satellite looks (to 14 Sep 2026), **272 of the
 
 ## What exists, and why DamDays is different
 
-Forecasting stock water is not new. Sensors show one dam's level now; NSW's monthly maps use the same satellite data, by parish, with no forecast; Victoria's calculators and Small Farm Dams pilot need the farmer to measure each dam; USGS FEWS NET forecasts African waterholes 30 days ahead. What we did not find is a forecast for **every farm dam the satellites can see, with nothing to install**, whose accuracy is **tested in public** (on ten years it never trained on, and today on a sealed region it has never seen), sent **dam by dam as one weekly text** with each dam's own track record. Full comparison: [WHAT_EXISTS.md](WHAT_EXISTS.md).
+Forecasting stock water is not new. Sensors show one dam's level now; NSW's monthly maps use the same satellite data, by parish, with no forecast; Victoria's calculators and Small Farm Dams pilot need the farmer to measure each dam; USGS FEWS NET forecasts African waterholes 30 days ahead. What we did not find is a forecast for **each farm dam big enough for the satellites to see (about 0.5 to 5 ha), with nothing to install**, whose accuracy is **tested in public** (on ten years it never trained on, and today on a sealed region it has never seen), sent **dam by dam as one weekly text** with each dam's own track record. Full comparison: [WHAT_EXISTS.md](WHAT_EXISTS.md).
 
 ## How we know it works
 
-- **The exam came first.** Test rules and pass marks were committed at 09:12 on Fri 2 Oct, before any code ([PREREG.md](../PREREG.md)).
-- **Ten years it never saw.** Trained only on data before July 2016, tested once on every year to June 2026 (142,938 forecasts): **nearly a quarter less error than the usual guess**, and less in every one of the ten years. The cautious **days-left promise held 9 times in 10** (900 in 1,000), as designed ([results](../artifacts/test_results.md)).
+- **The exam came first.** Test rules and pass marks were committed at 09:12 on Fri 2 Oct, before the build began ([PREREG.md](../PREREG.md)).
+- **Ten years it never trained on.** Trained only on data before July 2016, tested once on every year to June 2026 (142,938 forecasts): **nearly a quarter less error than the usual guess**, and less in every one of the ten years. The cautious **days-left promise held 9 times in 10** (900 in 1,000), as designed ([results](../artifacts/test_results.md)).
 - **A track record on your own dam.** Each dam's card says how often the promise held on it: the typical dam 912 times in 1,000; Dam 2 above, 198 of 222. Weak dams are shown too: 101 of the 929 dams with a record held less than 8 times in 10 ([track record](../artifacts/track_record.md)).
 - **The unseen exam.** A whole region, locked away with public fingerprints, opens once on camera on **Sat 3 Oct, 17:30 AEST**; the score is published whatever it is. (The ten test years were looked at in pre-event research, so they may flatter the model slightly; this is the clean test.)
 

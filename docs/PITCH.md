@@ -68,12 +68,13 @@ An illustrative family built from these numbers ("Meet Kath and Graeme", clearly
 
 **One honest limit of the fit.** About 1 in 11 points across each test region has a dam DamDays can see within 2 km. The app's 10 demo farms sit on the densest clusters (5 to 30 such dams within 3 km; Farm D has 7), so they show the text at its best; a typical target farm will see 1 or 2 of its dams in the text.
 
-**What we learned from talking to people.** We showed DamDays to two mentors during the event. Each point changed what we built:
+**What we learned from talking to people.** We showed DamDays to four mentors during the event. Each point changed what we built:
 - **The need is real.** The first, who grew up on farms, said that in a drought, knowing how long the water will last would be "super useful". The second called it a valid and worthwhile problem.
 - **Farmers don't open apps or emails; a weekly text is what they'd use.** So the weekly text became the product, and the app became the place to set up a farm and look closer.
 - **"%" reads as how full.** So in DamDays "%" means only how full a dam is, chances are written "6 in 10", and days left is the headline.
 - **The proof needed plainer words, and pictures.** "Sealed region" became "the unseen exam". The second mentor said judges need to see three things: accuracy on data the model never saw, as recent as possible; how it keeps up as the climate shifts; and that it works dam by dam, shown as pictures rather than scores. So we built the app's **Proof** view.
 - **Pick one audience, and describe them precisely.** The second mentor advised focusing on farmers and setting the corporate agribusiness case aside. So the pitch is for one farmer, described from public farm surveys ([TARGET_FARMER.md](TARGET_FARMER.md)).
+- **Say the problem in one sentence, show what already exists, and let farmers judge the accuracy.** Two more mentors could not get a clear problem statement at first, asked how a farmer could trust the numbers, and asked what makes DamDays different from sensors and existing tools. So we wrote a one-page brief ([ONE_PAGER.md](ONE_PAGER.md)), checked what already exists ([WHAT_EXISTS.md](WHAT_EXISTS.md)), and added a track record to every dam's card.
 
 ## 7. Solution and intended impact
 
@@ -158,7 +159,7 @@ That's COP31's Awareness track in practice: helping farmers adapt, with climate 
 | Where the weather moved it | wet years ran high (2020-21: average chance 0.223, 0.138 fell); some dry years a little low (2025-26: 0.229, 0.262 fell) | `proof.json`, `by_year.years[]`: `mean_chance`, `share_fell` |
 | Today's forecasts are refit | on every answer known by the last satellite look (cutoff 15 Sep 2026) | `app/data/real/meta.json`, `live`; [damdays/export/live_model.py](../damdays/export/live_model.py) |
 | The 2018-19 drought, replayed | 782 forecasts for 366 dams on 3 dates: about 248 expected to fall below a third, 244 did (186 different dams); by date, expected and fell: 1 Nov 2018 about 95 and 76; 1 Jan 2019 about 97 and 106; 1 Mar 2019 about 57 and 62 | the app's Rewind view; `app/data/real/meta.json`, `rewind.tallies`; dams counted from `app/data/real/forecasts.json` |
-| Pass marks written before any code | committed Fri 2 Oct 2026, 09:12 AEST; pushed 09:15 | [PREREG.md](../PREREG.md) and its commit (e0e9b0b) on GitHub |
+| Pass marks written before the build began | committed Fri 2 Oct 2026, 09:12 AEST; pushed 09:15 | [PREREG.md](../PREREG.md) and its commit (e0e9b0b) on GitHub |
 | Model frozen before the test years were scored | Fri 2 Oct 2026, 20:21 AEST, code fingerprint 7d466291008d | [PREREG_ADDENDUM_1.md](../PREREG_ADDENDUM_1.md) |
 | The fourth pre-registered pass mark (a season-ahead rating, not part of this pitch) | ranking accuracy 0.81 against 0.53 for rainfall alone; gain +0.285 (mark +0.05): PASS | [artifacts/test_results.md](../artifacts/test_results.md), P2 |
 | The unseen exam | <!-- SEALED:START evidence -->[opens Sat 3 Oct 17:30 AEST]<!-- SEALED:END --> | `artifacts/sealed/SEALED_RESULTS.md` (after Sat 17:30) |

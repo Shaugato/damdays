@@ -91,7 +91,7 @@ Days are counted from today and are cautious: in ten test years a dam stayed abo
 
 A mentor (Sat 3 Oct) said the forecast is the farmer's lifeline, so farmers need a way to judge its accuracy themselves, on their own water. `long_text(farm, forecasts, today, track_record=...)` adds one line, just before the last: how often our cautious days-left promise held on **these dams** in the backtest.
 
-- **The backtest** = forecasts the model made for years it never saw. The frozen model learned only from data before July 2016, then made a forecast at every clear satellite look from July 2016 to June 2026, and each was checked against what the dam really did ([`scripts/18_track_record.py`](../scripts/18_track_record.py); the numbers are in [`app/data/real/track_record.json`](../app/data/real/track_record.json), whose `dams` is what `track_record` takes: `{dam_id: {"held": ..., "judged": ...}}`).
+- **The backtest** = forecasts the model made for years it never trained on. The frozen model learned only from data before July 2016, then made a forecast at every clear satellite look from July 2016 to June 2026, and each was checked against what the dam really did ([`scripts/18_track_record.py`](../scripts/18_track_record.py); the numbers are in [`app/data/real/track_record.json`](../app/data/real/track_record.json), whose `dams` is what `track_record` takes: `{dam_id: {"held": ..., "judged": ...}}`).
 - **Held / judged.** A promise of "at least N days" (as the text shows it; "6 months+" is judged at 180 days) is judged only when the satellite archive watched the dam for at least N days, and held when the dam stayed above a third that long.
 - **The line** adds up the farm's dams that have at least **5** judged past forecasts (`TRACK_RECORD_MIN`), says how many of the dams that is when some have fewer, then gives the headline dam's own record (or says it has too few past forecasts to judge). Counts get thousands commas (`1,362`). No percent: a record is a count, "held 15 of 20 times".
 - **Without `track_record`** (the default) the long text is exactly as above. The SMS never carries the track record: it keeps its 160 places for days.
@@ -102,7 +102,7 @@ Example (worked example 2 with made-up records, `examples.TRACK_RECORD_EXAMPLE`:
 Example farm 2, Mon 5 Oct 2026: 3 farm dams within 3 km of the homestead; latest satellite look 28 Sep.
 Dam 1 (0.4 km from the homestead) was ~45% full on 28 Sep: at least 23 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 6 in 10.
 Also: Dam 3 ~80% full, at least 103 days (chance by 27 Dec: 1 in 10); Dam 2 full, at least 143 days (chance by 27 Dec: 1 in 10).
-Our track record on these 3 dams (2016-2026 backtest, forecasts the model made for years it never saw): the cautious days-left promise held 205 of 220 times (2 of the 3 have enough history to judge); on Dam 1, 15 of 20.
+Our track record on these 3 dams (2016-2026 backtest, forecasts the model made for years it never trained on): the cautious days-left promise held 205 of 220 times (2 of the 3 have enough history to judge); on Dam 1, 15 of 20.
 Days are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]
 ```
 

@@ -369,15 +369,15 @@ def track_record_line(dams, today, records):
 
     records  {dam_id: {"held": int, "judged": int, ...}}: the "dams" of app/data/real/track_record.json
              (scripts/18_track_record.py), counted on the forecasts the frozen model made for July 2016 to
-             June 2026, years it never saw. A dam with fewer than TRACK_RECORD_MIN judged forecasts, or none,
+             June 2026, years it never trained on. A dam with fewer than TRACK_RECORD_MIN judged forecasts, or none,
              has "too few past forecasts to judge".
     The farm's dams with a record are added up; with two or more dams, the headline dam's own record follows:
-    "Our track record on these 7 dams (2016-2026 backtest, forecasts the model made for years it never saw):
+    "Our track record on these 7 dams (2016-2026 backtest, forecasts the model made for years it never trained on):
     the cautious days-left promise held 1,234 of 1,370 times; on Dam 2, 180 of 200."
     """
     where = "this dam" if len(dams) == 1 else f"these {len(dams)} dams"
     head = (f"Our track record on {where} ({TRACK_RECORD_YEARS} backtest, forecasts the model made for years "
-            "it never saw): ")
+            "it never trained on): ")
     recorded = [d for d in dams if has_track_record(records.get(d.dam_id))]
     if not recorded:
         return head + "too few past forecasts to judge."

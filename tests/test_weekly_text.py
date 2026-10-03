@@ -446,7 +446,7 @@ def test_track_record_line_for_a_farm():
     dams = [dam(1, status="already_low", level=0), dam(2, floor=40, chance=0.3), dam(3, floor=100, chance=0.1)]
     line = track_record_line(dams, today, records_for((166, 216), (198, 222), (998, 1086)))
     assert line == ("Our track record on these 3 dams (2016-2026 backtest, forecasts the model made for years it "
-                    "never saw): the cautious days-left promise held 1,362 of 1,524 times; on Dam 2, 198 of 222.")
+                    "never trained on): the cautious days-left promise held 1,362 of 1,524 times; on Dam 2, 198 of 222.")
 
 
 def test_track_record_line_with_too_little_history():
@@ -470,7 +470,7 @@ def test_spec_track_record_example_is_exact():
 def test_track_record_line_for_one_dam():
     line = track_record_line([dam(1, floor=40)], "2026-10-05", records_for((18, 20)))
     assert line == ("Our track record on this dam (2016-2026 backtest, forecasts the model made for years it never "
-                    "saw): the cautious days-left promise held 18 of 20 times.")
+                    "trained on): the cautious days-left promise held 18 of 20 times.")
 
 
 def test_track_record_is_in_the_long_text_only():

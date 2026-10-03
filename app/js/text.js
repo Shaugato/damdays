@@ -438,7 +438,7 @@
   function trackRecordLine(dams, today, records) {
     const where = dams.length === 1 ? "this dam" : "these " + dams.length + " dams";
     const head = "Our track record on " + where + " (" + TRACK_RECORD_YEARS + " backtest, forecasts the model " +
-                 "made for years it never saw): ";
+                 "made for years it never trained on): ";
     const recorded = dams.filter((d) => hasTrackRecord(records[d.dam_id]));
     if (!recorded.length) return head + "too few past forecasts to judge.";
     const held = recorded.reduce((sum, d) => sum + records[d.dam_id].held, 0);

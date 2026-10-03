@@ -114,7 +114,7 @@ If ten versions of a model are scored on the test years and only the best is rep
 
 ## 6. The pre-registered pass bars
 
-[PREREG.md](../PREREG.md) set these before any code was written. For R30, primary set:
+[PREREG.md](../PREREG.md) set these before the build began. For R30, primary set:
 
 | bar | required |
 |---|---|
