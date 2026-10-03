@@ -1,0 +1,38 @@
+{
+  "id": "/damdays/app/",
+  "name": "DamDays",
+  "short_name": "DamDays",
+  "description": "One text a week for each farm dam big enough for the satellites to see: at least how many days before it drops below a third. The app is where you look closer.",
+  "lang": "en-AU",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F6F3EC",
+  "theme_color": "#F6F3EC",
+  "categories": ["weather", "utilities", "productivity"],
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "My farm: the demo farm's dams", "short_name": "My farm", "url": "./#farm",
+      "icons": [{ "src": "icons/shortcut-farm.png", "sizes": "96x96", "type": "image/png" }] },
+    { "name": "Proof: what we said against what happened", "short_name": "Proof", "url": "./#proof",
+      "icons": [{ "src": "icons/shortcut-proof.png", "sizes": "96x96", "type": "image/png" }] },
+    { "name": "Questions judges ask", "short_name": "Questions", "url": "./#questions",
+      "icons": [{ "src": "icons/shortcut-questions.png", "sizes": "96x96", "type": "image/png" }] },
+    { "name": "Runway: the region map", "short_name": "Runway", "url": "./#runway",
+      "icons": [{ "src": "icons/shortcut-runway.png", "sizes": "96x96", "type": "image/png" }] }
+  ],
+  "screenshots": [
+    { "src": "screenshots/welcome-narrow.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow",
+      "label": "This week's text for a demo farm" },
+    { "src": "screenshots/proof-narrow.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow",
+      "label": "Proof: what we said against what happened" }
+  ]
+}

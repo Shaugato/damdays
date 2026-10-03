@@ -13,8 +13,9 @@ What it does
      It refuses anything that is not the sealed opening (a dry run, or a score whose arena is not
      "sealed"), so a rehearsal can never be published as the sealed result.
   2. App: fills the "Sealed region" panel of app/data/real/scoreboard.json with scripts/11's own
-     sealed_panel() (the code behind `scripts/11_export_app.py --panel-only --sealed-scores ...`),
-     rebuilds app/data/real/bundle.js, and checks that the bundle carries the new panel. Two views show
+     sealed_panel() (the code behind `scripts/11_export_app.py --panel-only --sealed-scores ...`; its floor
+     block, with the frozen on_target flag, is copied from sealed_results.json), rebuilds
+     app/data/real/bundle.js and the data parts, and checks that the bundle carries the new panel. Two views show
      that one panel: About, and the "Unseen exam" card at the top of Proof (app/js/views/proof.js, which
      draws it with About's panelHtml). The rebuild must keep proof.json (scripts/17) in the bundle too.
   3. Docs: replaces the text between these markers in README.md, docs/PITCH.md and docs/VIDEO_SCRIPT.md
@@ -461,6 +462,11 @@ def readme_main(f, now):
         verdict = ("on target" if fl["on_target"] else
                    ("below target: here the days given were too many too often" if fl["coverage"] < fl["target"] else
                     "above target: here the days given were more cautious than needed"))
+        # Off target by the frozen flag (coverage.py, in floats) though it reads 88.0% or 92.0%: say so, so the
+        # sentence does not seem to contradict the range beside it (the app says it the same way).
+        if not fl["on_target"] and 88.0 <= round(fl["coverage"] * 100, 1) <= 92.0:
+            verdict = "just " + verdict.replace(": here", ", at the very edge: by the test's exact check it is just "
+                                                         "outside the range, and here", 1)
         line = (f"- **The DamDays number** (\"at least N days above a third, 9 times in 10\"): held for "
                 f"{pct(fl['coverage'])} of {count(fl['n'])} forecasts, {verdict} (the target is {pct(fl['target'], 0)}, "
                 "and 88% to 92% counts as on target" + (f"; development test years: {pct(dev['floor'])}" if dev else "")
@@ -765,10 +771,11 @@ def load_step11():
     return module
 
 
-def build_panel(scorecard_dir, step11):
-    """The scored sealed panel, from the three scorecard files scripts/20 wrote (block TEST, arena sealed)."""
+def build_panel(scorecard_dir, step11, results=None):
+    """The scored sealed panel, from the three scorecard files scripts/20 wrote (block TEST, arena sealed), plus the
+    floor block (held, target, tolerance, the frozen on_target flag) from `results`, the sealed_results.json read here."""
     try:
-        return step11.sealed_panel(scorecard_dir)
+        return step11.sealed_panel(scorecard_dir, results=results)
     except SystemExit as problem:            # scripts/11 stops with a message if a file is missing or not sealed
         raise Refused(f"App panel: {problem}") from None
 
@@ -799,7 +806,9 @@ def panel_disagreements(panel, f):
              ("runway pass bars", get(panel, "runway", "pass_bars_met"), p1_passed),
              ("rating gain over rainfall-only", get(panel, "rating", "gain_vs_rain", "value"), f["p2"]["gain"]),
              ("rating pass bar", get(panel, "rating", "pass_bar_met"), f["p2"]["passed"]),
-             ("kill rule", get(panel, "rating", "kill_rule_triggered"), f["kill"])]
+             ("kill rule", get(panel, "rating", "kill_rule_triggered"), f["kill"]),
+             ("floor held", get(panel, "floor", "held"), f["floor"]["coverage"]),
+             ("floor on target", get(panel, "floor", "on_target"), f["floor"]["on_target"])]
     return [f"{what}: app {a!r}, results {b!r}" for what, a, b in pairs if not same(a, b)]
 
 
@@ -824,7 +833,7 @@ def app_wording_warnings(panel, about_js=""):
 
 def write_panel(app_dir, board, panel):
     """Put the panel into scoreboard.json, rebuild bundle.js (app/tools/build_bundle.py), check the bundle carries it."""
-    app_dir = Path(app_dir)
+    app_dir = Path(app_dir).resolve()          # build_bundle.py runs from the repo folder: never a relative path
     board = dict(board, panels=[panel if p.get("key") == "sealed" else p for p in board["panels"]])
     (app_dir / "scoreboard.json").write_text(json.dumps(board, indent=1, ensure_ascii=False, allow_nan=False),
                                              encoding="utf-8")
@@ -837,7 +846,23 @@ def write_panel(app_dir, board, panel):
         raise RuntimeError("bundle.js does not carry the new sealed panel.")
     if (app_dir / "proof.json").exists() and "proof" not in bundle:     # the Proof view's charts (scripts/17)
         raise RuntimeError("bundle.js lost proof.json (the Proof view): check app/tools/build_bundle.py.")
+    # The app reads the split data parts (parts.js lists them), not bundle.js: the "first" part must carry it too.
+    first = first_part(app_dir)
+    if first is not None and next((p for p in first.get("scoreboard", {}).get("panels", [])
+                                   if p.get("key") == "sealed"), None) != shipped:
+        raise RuntimeError("The app's first data part (parts.js) does not carry the new sealed panel.")
     return shipped
+
+
+def first_part(app_dir):
+    """The "first" data part that app_dir/parts.js lists, as the app loads it; None without parts.js."""
+    listing_path = Path(app_dir) / "parts.js"
+    if not listing_path.exists():
+        return None
+    text = listing_path.read_text(encoding="utf-8")
+    listing = json.loads(text[text.index("] = ") + 4:text.index("};\n") + 1])
+    part = (Path(app_dir) / listing["files"]["first"]).read_text(encoding="utf-8")
+    return json.loads(part[part.index("] = ") + 4:].strip().rstrip(";"))
 
 
 # ===========================================================================
@@ -893,7 +918,7 @@ def publish(repo=REPO, results_dir=None, app_dir=None, check=False, skip_app=Fal
         panel, board, warnings = None, None, []
         if not skip_app:
             board = check_board(app_dir)
-            panel = build_panel(results_dir / "scorecard" / "sealed_TEST", load_step11())
+            panel = build_panel(results_dir / "scorecard" / "sealed_TEST", load_step11(), r)
             differ = panel_disagreements(panel, f)
             if differ:
                 raise Refused("The app's scorecard files and sealed_results.json disagree (" + "; ".join(differ)
@@ -937,8 +962,10 @@ def publish(repo=REPO, results_dir=None, app_dir=None, check=False, skip_app=Fal
         out(f"CHECK THE APP'S WORDING: {warning}")
     if not check:
         out("\nNext, by hand: read the changes (git diff), then commit and push them:")
-        out("  git add README.md docs/PITCH.md docs/VIDEO_SCRIPT.md app/data/real/scoreboard.json "
-            "app/data/real/bundle.js app/data/datasets.js")
+        # -A: the rebuild writes new hashed data parts (app/data/real/first.<hash>.js ...), deletes the old ones,
+        # rewrites parts.js and restamps app/sw-version.js; the app reads the parts, not bundle.js.
+        out("  git add -A README.md docs/PITCH.md docs/VIDEO_SCRIPT.md app/data app/sw-version.js")
+        out("  git status   (expect the new app/data/real/first.<hash>.js added and the old one deleted)")
         out('  git commit -m "Sealed results published (scripts/21_publish_sealed.py)"')
         out("  git push")
     return status

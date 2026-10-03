@@ -14,7 +14,7 @@
 | [`outbox.py`](outbox.py) | writes the week's texts to `outbox/<date>.json` |
 | [`sms.py`](sms.py) | optional Twilio sender: a dry run unless you add `--send` and your own account's keys |
 | [`examples.py`](examples.py) | the inputs of the worked examples below |
-| [`../scripts/16_weekly_texts.py`](../scripts/16_weekly_texts.py) | makes this week's texts for 10 demo farms (outbox, `app/data/real/farms.json`, test fixtures) |
+| [`../scripts/16_weekly_texts.py`](../scripts/16_weekly_texts.py) | makes this week's texts for the demo farms (outbox, `app/data/real/farms.json`, test fixtures) |
 | [`../tests/test_weekly_text.py`](../tests/test_weekly_text.py) | checks every rule on this page |
 | [`../app/js/text.js`](../app/js/text.js) | the same text in JavaScript, for the phone in the app's My farm view (checked against this code: section 8) |
 
@@ -26,7 +26,7 @@ Run: `.venv/Scripts/python.exe scripts/16_weekly_texts.py` (seconds), then `.ven
 
 - **A farm** is a homestead point (latitude, longitude), a radius and an optional name.
 - **We have no property boundaries.** So a farm's dams are the farm dams the satellites can see within the radius of the homestead: 3 km by default. On a small block the circle can take in a neighbour's dams, and on a big station it can miss some. The farmer fixes that by moving the point or changing the radius.
-- **Which dams.** Every dam in the live forecasts (`app/data/real/forecasts.json`): waterbodies that look and behave like farm dams, about 0.5 ha and up. Smaller dams, tanks and bores are invisible to the satellites.
+- **Which dams.** Every dam in the live forecasts (`app/data/real/forecasts.json`): dam-sized waterbodies, mostly farm dams, that look and behave like farm dams and are big enough for the satellites to see (about 0.5 to 5 ha). Smaller dams, tanks and bores are invisible to the satellites. The filter can also let through some town or industrial ponds, so the texts say "dams the satellites can see", not "farm dams" (and Farm D was set aside: section 6).
 - **Numbering.** Dams are numbered by distance: **Dam 1 is the closest** to the homestead. Two dams at the same distance (to the nearest 10 m) go in order of their id. Each dam also keeps its stable id (`dam_id`, and DEA's own `dea_uid`), so it can always be traced back to the data.
 
 ## 2. The words (the mentor's rules)
@@ -35,8 +35,9 @@ The mentor read "%" as how full a dam is, not as a chance. So:
 
 | what | how it is written | rule |
 |---|---|---|
-| **How full** | `~45% full`, or `full` at 100% or more | The only thing ever written as a percent. It is the dam's latest clear satellite look, against the dam's own full level. |
-| **Days left** (the headline) | `at least 16 days before it drops below 1/3` | The cautious DamDays floor. On the ten test years it held 9 times in 10. **Counted from the day the text is sent**: the floor from the satellite look, minus the days since that look. |
+| **How full** | `~45% full`, or `full` at 100% or more | The only thing ever written as a percent. It is the dam's latest clear satellite look, against the dam's own full level: the share of its usual full water surface that is wet, not depth. |
+| **No water seen** (0%) | `Dam 3: no water seen` | The satellite saw no water at the dam's last clear look. **Never "dry"**: a small pool, or muddy or green water, can be missed, and one look can be wrong (the long text says so). |
+| **Days left** (the headline) | `at least 16 days before it drops below 1/3` | The cautious DamDays floor: across all dams in the ten test years it held 9 times in 10, a little less often for spring looks. **Counted from the day the text is sent**: the floor from the satellite look, minus the days since that look. Never "days until empty". |
 | ... once it reaches 180 days | `6 months+` | The cap (the app shows "180+"). |
 | ... once the floor has run out since the look | `may be below 1/3 now` | The cautious number of days has passed. The next clear look will tell. |
 | **Chance** (long text only) | `6 in 10` | The 90-day chance of falling below a third, rounded to the nearest tenth (halves up). Under 0.05 is `less than 1 in 10`, and 0.95 or more is `more than 9 in 10`. Never a percent. The SMS gives no chances. |
@@ -53,60 +54,61 @@ One message, one fact per line, most important first:
 |---|---|---|
 | 1 | **The date** the text is sent, then the farm's latest satellite look | `Fri 2 Oct (satellite 13 Sep)` |
 | 2 | **The dams that matter most**, fewest days left first: any dam whose floor has run out since its look (two or more share one line, `Dams 1 and 4 may be below 1/3 now`); **the headline dam** (the fewest days still left); and any dam with at least a **5 in 10 chance** of falling below a third within 90 days. Only the first line that gives days says "before it drops below 1/3". | `Dam 2 ~55% full: at least 18 days before it drops below 1/3`<br>`Dam 4 ~60% full: at least 33 days` |
-| 3 | **Dams already below a third**, said plainly | `Dam 1 already below 1/3` · `Dam 3 looks dry` (no water seen) · `Dams 1 and 2 already below 1/3` · `5 dams already below 1/3` (5 or more) |
-| 4 | **The other dams with a forecast**, summed up by their shortest floor (one dam alone gets its own line) | `Other 2 dams OK for 3 months+` (all at least 90 days) · `Other 2 dams: at least 68 days` |
+| 3 | **Dams already below a third**, said plainly | `Dam 1 already below 1/3` · `Dam 3: no water seen` (0% at its last clear look) · `Dams 1 and 2 already below 1/3` · `5 dams already below 1/3` (5 or more) |
+| 4 | **The other dams with a forecast**, summed up by their shortest floor (one dam alone gets its own line) | `Other 2 dams: 3 months+` (all at least 90 days) · `Other 2 dams: at least 68 days` |
 | 5 | **Dams with no forecast** | `Dam 2 ~40% full: no forecast until it refills` (not back to 60% full since its last low: the forecast's starting rule) · `Dam 5: no clear satellite look lately` (none in 60 days) · `Dams 7 and 11: no forecast this week` |
 | last | **The close** | `Reply MAP` (replying MAP would send the link to the farm's map in the app) |
 
 Two special cases:
 
 - **All is fine.** Every dam has a forecast with at least 90 days left and under a 5 in 10 chance. Then the text says `All 3 dams look OK for 3 months+` (or `Your dam ...`, or `Both dams ...`), then the headline dam's line.
-- **No dams.** `No farm dams the satellites can see within 3 km`.
+- **No dams.** `No dams the satellites can see within 3 km`.
 
 ### Fitting one SMS
 
 - **One SMS = 160 places, in the GSM-7 alphabet.** A single emoji or curly quote switches a message to a 70-character format, so the texts use only plain letters, digits, spaces, line breaks and `. , : ; ( ) + - / % ' ~`. No emoji.
 - **`~` takes two places.** It sits in GSM-7's extension table. So `Dam 1 ~45% full` is 15 characters but 16 places. The code counts places (`gsm7.septets`), not just characters.
 - **If the text is too long:** first the satellite date is left out of line 1. Then lines are left out from the end, the least important first (5, then 4, then 3, then the later lines of 2). The headline dam's line always stays. The close says how many dams were left out: `Reply MAP for 5 more dams`.
+- **Short words keep the satellite date.** The satellite date tells the farmer how old the reading is, so the lines are worded to leave room for it: `Other 2 dams: 3 months+` (not "OK for 3 months+") and `Dam 3: no water seen`. With them, this week's hero text (Farm E, section 6) keeps "(satellite 13 Sep)" in 159 places.
 
 ## 4. The long text (app or email)
 
 Two to four lines:
 
-1. The farm, the date, how many dams lie within the radius, and the latest satellite look.
+1. The farm, the date, how many dams the satellites can see within the radius, and the latest satellite look.
 2. The headline dam in full: its distance from the homestead, how full it was and on which day, its days from today, and its chance (`Chance it drops below a third by 27 Dec: 6 in 10.`).
-3. `Also:` the other dams, most urgent first (at most 6 by name; the map shows them all).
-4. What the days mean ("in ten test years a dam stayed above a third at least that long 9 times in 10"), and the map link (`[map link]` is a placeholder).
+3. `Also:` the other dams, most urgent first (at most 6 by name; the map shows them all). A dam at 0% reads `Dam 3: no water seen at its 28 Sep satellite look (one look can be wrong)`.
+4. What the days mean ("across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks"), and the map link (`[map link]` is a placeholder).
 
 Example (the farm of worked example 2 below):
 
 ```
-Example farm 2, Mon 5 Oct 2026: 3 farm dams within 3 km of the homestead; latest satellite look 28 Sep.
+Example farm 2, Mon 5 Oct 2026: 3 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.
 Dam 1 (0.4 km from the homestead) was ~45% full on 28 Sep: at least 23 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 6 in 10.
 Also: Dam 3 ~80% full, at least 103 days (chance by 27 Dec: 1 in 10); Dam 2 full, at least 143 days (chance by 27 Dec: 1 in 10).
-Days are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]
+Days are counted from today and are cautious: across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks. Map: [map link]
 ```
 
 ### The optional track record (long text only, never the SMS)
 
-A mentor (Sat 3 Oct) said the forecast is the farmer's lifeline, so farmers need a way to judge its accuracy themselves, on their own water. `long_text(farm, forecasts, today, track_record=...)` adds one line, just before the last: how often our cautious days-left promise held on **these dams** in the backtest.
+A mentor (Sat 3 Oct) said the forecast is the farmer's lifeline, so farmers need a way to judge its accuracy themselves, on their own water. `long_text(farm, forecasts, today, track_record=...)` adds one line, just before the last: **our record on these dams over the last 10 years**, how often our days-left number held, in plain words (no "backtest", "frozen model" or "never trained on" in the text).
 
-- **The backtest** = forecasts the model made for years it never trained on. The frozen model learned only from data before July 2016, then made a forecast at every clear satellite look from July 2016 to June 2026, and each was checked against what the dam really did ([`scripts/18_track_record.py`](../scripts/18_track_record.py); the numbers are in [`app/data/real/track_record.json`](../app/data/real/track_record.json), whose `dams` is what `track_record` takes: `{dam_id: {"held": ..., "judged": ...}}`).
+- **How it was made** (the line's last sentence, `TRACK_RECORD_HOW`, also the app's "?" tip): "We re-ran our forecasts for July 2016 to June 2026 using only data from before July 2016, then checked each one against what the dam really did." In the code's terms: the frozen model's forecasts for the ten test years ([`scripts/18_track_record.py`](../scripts/18_track_record.py); the numbers are in [`app/data/real/track_record.json`](../app/data/real/track_record.json), whose `dams` is what `track_record` takes: `{dam_id: {"held": ..., "judged": ...}}`).
 - **Held / judged.** A promise of "at least N days" (as the text shows it; "6 months+" is judged at 180 days) is judged only when the satellite archive watched the dam for at least N days, and held when the dam stayed above a third that long.
-- **The line** adds up the farm's dams that have at least **5** judged past forecasts (`TRACK_RECORD_MIN`), says how many of the dams that is when some have fewer, then gives the headline dam's own record (or says it has too few past forecasts to judge). Counts get thousands commas (`1,362`). No percent: a record is a count, "held 15 of 20 times".
+- **The line** adds up the farm's dams that have at least **5** judged past forecasts (`TRACK_RECORD_MIN`), gives the share in tenths as chances are rounded (`about 9 in 10`; `more than 9 in 10` from 0.95; none when it held every time: `held_share_text`), says on how many dams when some have fewer, then gives the headline dam's own record (or says it has too few past forecasts to judge). Counts get thousands commas (`1,362`). No percent: a record is a count, "held 15 of 20 times". Poor records are shown as they are.
 - **Without `track_record`** (the default) the long text is exactly as above. The SMS never carries the track record: it keeps its 160 places for days.
 
 Example (worked example 2 with made-up records, `examples.TRACK_RECORD_EXAMPLE`: Dam 1 held 15 of 20, Dam 2 190 of 200, Dam 3 has only 4 judged forecasts):
 
 ```
-Example farm 2, Mon 5 Oct 2026: 3 farm dams within 3 km of the homestead; latest satellite look 28 Sep.
+Example farm 2, Mon 5 Oct 2026: 3 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.
 Dam 1 (0.4 km from the homestead) was ~45% full on 28 Sep: at least 23 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 6 in 10.
 Also: Dam 3 ~80% full, at least 103 days (chance by 27 Dec: 1 in 10); Dam 2 full, at least 143 days (chance by 27 Dec: 1 in 10).
-Our track record on these 3 dams (2016-2026 backtest, forecasts the model made for years it never trained on): the cautious days-left promise held 205 of 220 times (2 of the 3 have enough history to judge); on Dam 1, 15 of 20.
-Days are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]
+Our record on these 3 dams over the last 10 years: our days-left number held 205 of 220 times (about 9 in 10) on the 2 dams with enough history to judge; on Dam 1, 15 of 20. We re-ran our forecasts for July 2016 to June 2026 using only data from before July 2016, then checked each one against what the dam really did.
+Days are counted from today and are cautious: across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks. Map: [map link]
 ```
 
-The app's My farm view shows the same line in "The longer version" (made by the JavaScript port, section 8), plus each dam's record in its table and card. This week's outbox (`outbox/2026-10-02.json`) was written before the track record existed, so its long texts do not carry the line.
+The app's My farm view shows the same line in "The longer version" (made by the JavaScript port, section 8), plus each dam's record in its table and card. The outbox's long texts (`outbox/2026-10-02.json`) and `farms.json`'s `long` do not carry the line; the app adds it from `track_record.json`.
 
 ---
 
@@ -142,11 +144,11 @@ Every dam has at least 90 days and under a 5 in 10 chance. The headline dam is s
 ```
 Mon 5 Oct (satellite 28 Sep)
 Dam 1 ~45% full: at least 23 days before it drops below 1/3
-Other 2 dams OK for 3 months+
+Other 2 dams: 3 months+
 Reply MAP
 ```
 
-The floor was 30 days from 28 Sep, so it is 23 days from 5 Oct.
+The floor was 30 days from 28 Sep, so it is 23 days from 5 Oct. The other two dams have at least 90 days each (and under a 5 in 10 chance, or they would be named).
 
 ### 3. A dam already below a third
 
@@ -183,7 +185,7 @@ Reply MAP
 
 Dam 2 is the headline. Dam 4 is named too, because it has a 5 in 10 chance. With the satellite date, the text would take 165 places, so the date is left out first (146 places).
 
-### 5. A floor that ran out since the satellite look, and a dry dam
+### 5. A floor that ran out since the satellite look, and a dam with no water seen
 
 | dam | km | status | how full | floor from the look | days left on 5 Oct | chance in 90 days |
 |---|---|---|---|---|---|---|
@@ -195,11 +197,11 @@ Dam 2 is the headline. Dam 4 is named too, because it has a 5 in 10 chance. With
 Mon 5 Oct (satellite 28 Sep)
 Dam 1 ~35% full: may be below 1/3 now
 Dam 2 ~60% full: at least 43 days before it drops below 1/3
-Dam 3 looks dry
+Dam 3: no water seen
 Reply MAP
 ```
 
-Dam 1's 5 cautious days ran out on 3 Oct, so the text does not promise any more. Dam 2 has the fewest days still left, so it is named and carries "before it drops below 1/3".
+Dam 1's 5 cautious days ran out on 3 Oct, so the text does not promise any more. Dam 2 has the fewest days still left, so it is named and carries "before it drops below 1/3". Dam 3 was at 0%: the satellite saw no water at its 28 Sep look. That is not "dry": a small pool, or muddy or green water, can be missed, and one look can be wrong; the long text says so.
 
 ### 6. One dam, its floor capped at 6 months
 
@@ -229,7 +231,7 @@ Dams 1 and 2 already below 1/3
 Reply MAP
 ```
 
-Two to four such dams are listed by number, and five or more are counted. The long text says Dam 1 looks dry and Dam 2 is ~15% full.
+Two to four such dams are listed by number, and five or more are counted. The long text says no water was seen at Dam 1's 28 Sep look (one look can be wrong), and that Dam 2 is ~15% full.
 
 ### 8. A dam with no forecast until it refills
 
@@ -280,7 +282,7 @@ No dam within 3 km.
 
 ```
 Mon 5 Oct
-No farm dams the satellites can see within 3 km
+No dams the satellites can see within 3 km
 Reply MAP
 ```
 
@@ -288,22 +290,26 @@ Reply MAP
 
 ## 6. This week's real texts
 
-`scripts/16_weekly_texts.py` makes the texts for 10 demo farms from the live forecasts (data to 14 Sep 2026):
+`scripts/16_weekly_texts.py` makes the texts for the demo farms from the live forecasts (data to 14 Sep 2026):
 
-- **5 farms in NSW Central West**, from the app's published file.
-- **5 farms in western Victoria / SE South Australia**, from the same production fit. The script rebuilds them with the app exporter's own functions, and it first checks that rebuilding NSW the same way gives the published file row for row.
+- **5 farms in NSW Central West** (A to E; D set aside, below), from the app's published file.
+- **5 farms in western Victoria / SE South Australia** (F to J), from the same production fit. The script rebuilds them with the app exporter's own functions, and it first checks that rebuilding NSW the same way gives the published file row for row.
 
-Each homestead point is the middle of a real cluster of dams (the densest clusters, at least 25 km apart), named after the nearest town. **They are not real homesteads.** The texts go to `outbox/<date>.json` and `app/data/real/farms.json`. For example, the text made on Fri 2 Oct 2026 for Farm D (near Dubbo), 7 dams within 3 km:
+Each homestead point is the middle of a real cluster of dam-sized waterbodies, mostly farm dams (the densest clusters, at least 25 km apart), named after the nearest town. **They are not real homesteads.** The texts go to `outbox/<date>.json` and `app/data/real/farms.json`.
+
+**Farm D (near Dubbo) is set aside.** On aerial photos its waterbodies are not farm dams: three are cells of one treatment-pond complex at the edge of Dubbo, and the others include a pond at a racecourse, a garden pond at the town edge and a stretch of the Macquarie River. The cluster search still finds it, so the other farms keep their letters, but it gets no text; `farms.json` lists it under `set_aside` with the reason (`SET_ASIDE` in `scripts/16_weekly_texts.py`; `--set-aside ""` keeps it). So this week there are 9 texts.
+
+The hero farm is **Farm E (near Mudgee)**: all 5 of its waterbodies are farm dams on aerial photos. The text made on Fri 2 Oct 2026 for Farm E, 5 dams within 3 km (159 of 160 places):
 
 ```
 Fri 2 Oct (satellite 13 Sep)
-Dam 2 ~67% full: at least 29 days before it drops below 1/3
-Dam 1 looks dry
-Other 5 dams: at least 52 days
-Reply MAP
+Dam 1 ~80% full: at least 68 days before it drops below 1/3
+Dam 3: no water seen
+Other 2 dams: 3 months+
+Reply MAP for 1 more dam
 ```
 
-Dam 2's forecast was made from its 13 Sep look, so its floor (48 days from then) is 29 days from 2 Oct.
+Dam 1's forecast was made from its 13 Sep look, so its floor (87 days from then) is 68 days from 2 Oct. The dam left out is Dam 4 (~33% full, no forecast until it refills); the long text names it.
 
 ## 7. Sending (optional, never automatic)
 
@@ -316,7 +322,7 @@ The demo farms have no phone numbers, so a real send also needs `--farm` and `--
 
 ```
 .venv/Scripts/python.exe -m notify.sms outbox/2026-10-02.json                                      # dry run
-.venv/Scripts/python.exe -m notify.sms outbox/2026-10-02.json --farm farm-d --to +61491570156 --send # real send
+.venv/Scripts/python.exe -m notify.sms outbox/2026-10-02.json --farm farm-e --to +61491570156 --send # real send
 ```
 
 **Not built yet (needed for a real service):**
@@ -339,7 +345,7 @@ node app/tools/check_text_port.js                                # the fixtures 
 `scripts/16_weekly_texts.py` writes two fixtures for this check:
 
 - [`fixtures/spec_examples.json`](fixtures/spec_examples.json): the 10 worked examples above.
-- [`fixtures/demo_week.json`](fixtures/demo_week.json): this week's 10 demo farms. It keeps their dams, plus those up to 1 km beyond each radius, so the cut-off is tested too.
+- [`fixtures/demo_week.json`](fixtures/demo_week.json): this week's demo farms (9, with Farm D set aside). It keeps their dams, plus those up to 1 km beyond each radius, so the cut-off is tested too.
 
 Each fixture holds `today`, the input `forecasts` (the format of `forecasts.json`), and `cases`. Each case has a `farm` and the expected `dam_ids` (closest first), `sms` and `long`. Run each farm on `today` and compare the texts exactly. A case (or the whole fixture) may also hold `track_record`: the long text is then made with the optional track-record line (section 4). `tests/test_app_text_port.py` checks that line on 400 random farms and on the demo farms with the published `track_record.json`.
 

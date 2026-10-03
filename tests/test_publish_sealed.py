@@ -14,8 +14,10 @@ What is proved here:
   * table rows keep their columns, the pitch and video texts never use "%" (it means only how full
     a dam is), and the video line has at most 12 words;
   * the app: the panel is built by scripts/11's sealed_panel() from the scorecard files, written to
-    scoreboard.json and carried by the rebuilt bundle.js; scorecard files that disagree with
-    sealed_results.json are refused.
+    scoreboard.json and carried by the rebuilt bundle.js and data parts; scorecard files that disagree with
+    sealed_results.json are refused;
+  * the panel's floor block carries the opening's own on_target flag (damdays/evaluation/coverage.py's rule,
+    in floats: 0.893 on target; 0.880, 0.875 and 0.925 not), copied, never recomputed.
 """
 import copy
 import importlib.util
@@ -24,6 +26,7 @@ import shutil
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 REPO = Path(__file__).resolve().parents[1]
@@ -164,6 +167,14 @@ def write_app(app_dir):
                      dict(key="sealed", status="pending", title="Sealed region: opened Sat 3 Oct 17:30")]))
     for name, content in parts.items():
         (app_dir / f"{name}.json").write_text(json.dumps(content), encoding="utf-8")
+
+
+def first_part(app_dir):
+    """The "first" data part that parts.js lists, as the app loads it (app/tools/build_bundle.py write_parts)."""
+    text = (app_dir / "parts.js").read_text(encoding="utf-8")
+    listing = json.loads(text[text.index("] = ") + 4:text.index("};\n") + 1])
+    part = (app_dir / listing["files"]["first"]).read_text(encoding="utf-8")
+    return json.loads(part[part.index("] = ") + 4:].strip().rstrip(";"))
 
 
 def table_cells(line):
@@ -346,9 +357,66 @@ def test_app_panel_is_filled_and_bundled(tmp_path):
     bundle = (app_dir / "bundle.js").read_text(encoding="utf-8")
     shipped = json.loads(bundle[bundle.index("=") + 1:].strip().rstrip(";"))
     assert next(p for p in shipped["scoreboard"]["panels"] if p["key"] == "sealed") == panel
+    # The app reads the split parts (js/data.js), not bundle.js: the "first" part parts.js lists must carry it too.
+    assert next(p for p in first_part(app_dir)["scoreboard"]["panels"] if p["key"] == "sealed") == panel
     # The real About page says "Ahead of ... G2" for any gain: the founder is told to check it.
     assert any(line.startswith("CHECK THE APP'S WORDING") for line in out) or "Not clearly ahead of" in (
         REPO / "app" / "js" / "views" / "about.js").read_text(encoding="utf-8")
+
+
+def floor_rule(held):
+    """coverage.py's own verdict for a share `held` of 1,000 judged forecasts (the frozen rule, run in floats)."""
+    from damdays.evaluation import coverage
+    n = 1000
+    kept = round(held * n)
+    floor_days, followup = np.full(n, 30.0), np.full(n, 365.0)        # every row judged (followed for 365 days)
+    days_to_event = np.where(np.arange(n) < kept, np.inf, 10.0)         # `kept` rows never fell; the rest on day 10
+    return coverage.floor_coverage(floor_days, days_to_event, followup, n_boot=0), coverage
+
+
+# 0.880 is the float edge: |0.88 - 0.9| is 0.020000000000000018 in floats, above FLOOR_TOLERANCE, so off target.
+@pytest.mark.parametrize("held, on_target", [(0.893, True), (0.880, False), (0.875, False), (0.925, False)])
+def test_app_panel_carries_the_floor_and_its_frozen_on_target_flag(tmp_path, held, on_target):
+    """The sealed panel's floor block: held, target, tolerance and the opening's own on_target flag (never
+    recomputed), ci and n; the README's words and the app panel agree on it."""
+    rule, coverage = floor_rule(held)
+    assert rule["coverage"] == pytest.approx(held, abs=1e-12) and rule["on_target"] is on_target
+    assert rule["on_target"] is (abs(held - coverage.FLOOR_TARGET) <= coverage.FLOOR_TOLERANCE)
+    results = synthetic_results("pass")
+    results["floor"]["issued_all"].update(coverage=held, target=rule["target"], on_target=rule["on_target"],
+                                          ci_dam=dict(coverage=[held - 0.004, held + 0.004]))
+    repo, _ = make_repo(tmp_path, results, scorecard=True)
+    app_dir = repo / "app" / "data" / "real"
+    out = []
+    assert step21.publish(repo, now=NOW, out=out.append) == 0, out
+    board = json.loads((app_dir / "scoreboard.json").read_text(encoding="utf-8"))
+    panel = next(p for p in board["panels"] if p["key"] == "sealed")
+    floor = panel["floor"]
+    assert floor["held"] == held and floor["on_target"] is on_target
+    assert floor["target"] == coverage.FLOOR_TARGET and floor["tolerance"] == coverage.FLOOR_TOLERANCE
+    assert (floor["ci_low"], floor["ci_high"]) == (held - 0.004, held + 0.004)
+    assert floor["n_forecasts"] == 250_000 and floor["worst_year"] == dict(year=2019, coverage=0.84)
+    assert any(source.endswith("sealed_results.json (floor.issued_all)") for source in panel["sources"])
+    # what the app loads (the "first" data part) carries the same block
+    assert next(p for p in first_part(app_dir)["scoreboard"]["panels"] if p["key"] == "sealed")["floor"] == floor
+    # README reads the same flag: on target, or below / above target ("just below" at the edge, where 88.0% would
+    # otherwise seem to contradict "88% to 92% counts as on target")
+    main = (repo / "README.md").read_text(encoding="utf-8")
+    verdict = "on target" if on_target else ("below target" if held < 0.9 else "above target")
+    if held == 0.880:
+        verdict = "just below target, at the very edge: by the test's exact check it is just outside the range"
+    assert f"held for {held * 100:.1f}% of 250,000 forecasts, {verdict}" in main
+
+
+def test_app_panel_copies_the_flag_not_a_recomputation(tmp_path):
+    """sealed_results.json keeps 5 decimals: a coverage stored as 0.88 may have been 0.880004 (on target) when it
+    was judged. The panel copies the opening's flag; it never judges the rounded number again."""
+    results = synthetic_results("pass")
+    results["floor"]["issued_all"].update(coverage=0.88, on_target=True)
+    repo, _ = make_repo(tmp_path, results, scorecard=True)
+    assert step21.publish(repo, now=NOW, out=lambda line: None) == 0
+    board = json.loads((repo / "app" / "data" / "real" / "scoreboard.json").read_text(encoding="utf-8"))
+    assert next(p for p in board["panels"] if p["key"] == "sealed")["floor"]["on_target"] is True
 
 
 def test_app_rebuild_keeps_the_proof_view(tmp_path):

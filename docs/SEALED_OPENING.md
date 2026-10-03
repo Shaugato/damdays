@@ -73,6 +73,8 @@ git push
 
 The same in **Git Bash**: `export DAMDAYS_OPEN_SEALED=yes`, then `.venv/Scripts/python.exe scripts/20_open_sealed_region.py --open`, and `unset DAMDAYS_OPEN_SEALED` afterwards.
 
+**Then publish** with `scripts/21_publish_sealed.py` ([SATURDAY_CHECKLIST.md](SATURDAY_CHECKLIST.md), section 8, "Publish the results everywhere"). Commit with `git add -A README.md docs/PITCH.md docs/VIDEO_SCRIPT.md app/data app/sw-version.js` (the `git add` line scripts/21 prints): the app reads the split data parts, and the rebuild writes a new `app/data/real/first.<hash>.js`, deletes the old one, rewrites `parts.js` and restamps `app/sw-version.js`. Check that `git status` shows the new part added and the old one deleted, or the live app keeps saying "Unseen exam: not opened yet".
+
 ## What appears on screen
 
 Every line starts with the clock time and the minutes since the start; the same lines go to `artifacts/sealed/run_log.txt`. The rehearsal printed these stages (the opening prints the same, with the sealed region's names and counts):

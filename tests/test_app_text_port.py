@@ -158,7 +158,7 @@ def test_port_matches_python_on_the_demo_farms_with_the_published_track_record(t
                 {k: d[k] for k in ("dam_id", "status", "issued_on", "window_end", "level_pct", "chance",
                                    "damdays_days")} for d in f["dams"]])])
         long = long_text(farm, doc, farms["date"], track_record=records)
-        assert "Our track record on these" in long and long.count("\n") == f["long"].count("\n") + 1
+        assert "Our record on these" in long and long.count("\n") == f["long"].count("\n") + 1
         cases.append(dict(farm=dict(farm_id=farm.farm_id, name=farm.name, lat=farm.lat, lon=farm.lon,
                                     radius_km=farm.radius_km), forecasts=doc,
                           dam_ids=[d["dam_id"] for d in f["dams"]], sms=f["sms"], long=long))

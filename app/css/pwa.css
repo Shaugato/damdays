@@ -1,0 +1,54 @@
+/* pwa.css (WP-B): the offline chip (top, in #status-top), the update chip (above the tab bar on
+ * phones, bottom on desktop, in #pwa-bar; shell.css places the slots and hides #pwa-bar while a
+ * sheet is open), the "Loading" lines, and show/hide hooks for the install steps.
+ * Tokens only (css/tokens.css), so dark mode follows. UI_SPEC 5.22, 5.23, 9.5. */
+
+/* ---- offline (inside #status-top: shell.css gives it the straw fill and ink-2 text) ---- */
+.pwa-status { margin: 0; line-height: 1.4; }
+.pwa-status strong { color: var(--ink); }
+.pwa-status .i { flex: none; color: var(--ink); }
+
+/* ---- update ----------------------------------------------------------------------------- */
+#pwa-bar { display: flex; flex-direction: column; align-items: center; gap: var(--s2); padding: 0 var(--gutter) var(--s3); }
+.pwa-chip {
+  display: flex; align-items: center; gap: var(--s3);
+  width: 100%; max-width: 560px; min-height: var(--tap-main);
+  padding: var(--s1) var(--s1) var(--s1) var(--s4);
+  border-radius: var(--r-m);
+  background: var(--ink); color: var(--on-ink);
+  box-shadow: var(--shadow-2);
+  font-size: var(--fs-meta); line-height: 1.35;
+}
+.pwa-chip > .i { flex: none; }
+.pwa-chip > span { flex: 1; }
+.pwa-action {
+  flex: none; min-height: var(--tap); padding: 0 var(--s4);
+  border: 0; border-radius: var(--r-s);
+  background: var(--on-ink); color: var(--ink);
+  font: inherit; font-weight: 700; cursor: pointer;
+}
+.pwa-close {
+  flex: none; width: var(--tap); height: var(--tap); display: grid; place-items: center;
+  border: 0; border-radius: var(--r-s); background: transparent; color: var(--on-ink); cursor: pointer;
+}
+.pwa-action:focus-visible, .pwa-close:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.pwa-action:disabled { opacity: .35; cursor: default; }
+@media (prefers-reduced-motion: no-preference) {
+  .pwa-chip { animation: dd-rise var(--dur-base) var(--ease-out) both; }
+  .pwa-action:active, .pwa-close:active { transform: scale(.98); transition: transform var(--dur-press) var(--ease-standard); }
+}
+@media (min-width: 960px) {
+  #pwa-bar { align-items: flex-end; padding: 0 var(--s6) var(--s6); }
+  .pwa-chip { width: auto; max-width: 480px; }
+}
+
+/* ---- "Loading..." and "not saved yet" lines (data parts, the water history) -------------- */
+.card-loading, .pwa-loading { color: var(--ink-3); font-size: var(--fs-meta); }
+
+/* ---- show the right install steps: set on <html> by pwa.js ------------------------------ */
+html:not([data-can-install]) .pwa-if-installable,
+html:not([data-ios]) .pwa-if-ios,
+html:not([data-android]) .pwa-if-android,
+html:not([data-standalone]) .pwa-if-standalone,
+html[data-standalone] .pwa-if-browser,
+html:not([data-offline]) .pwa-if-offline { display: none !important; }

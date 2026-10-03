@@ -2,20 +2,24 @@
  * The card that opens when you pick a dam. Used by My farm and Runway (today's
  * forecast) and Rewind (a past forecast, and after the reveal, what happened).
  *
- * The card, top to bottom, in the weekly text's words (mentor feedback):
- *   1. how full the dam was at its last clear look ("~67% full on 13 Sep 2026")
- *   2. the DamDays number, the headline: "at least 29 days" before it drops below
- *      a third, 9 times in 10, counted from the day of this week's text (or, in
- *      Rewind, from the day the forecast was made)
+ * The card, top to bottom, in the weekly text's words (mentor feedback; days come first):
+ *   1. the DamDays number, the headline: "at least 29 days" before it drops below
+ *      a third, counted from the day of this week's text (or, in Rewind, from the day
+ *      the forecast was made); cautious, built to hold 9 times in 10 across all dams
+ *   2. how full the dam was at its last clear look ("~67% full on 13 Sep 2026"); a 0%
+ *      look is "no water seen" (one look can be wrong), never "dry"
  *   3. the chance it drops below a third within 90 days, as "3 in 10"
- *   3b. today's forecast only (My farm, Runway): our track record on this dam, so a farmer
- *      can judge our accuracy on their own water: how often the cautious days-left promise
- *      held on it in the 2016-2026 backtest (track_record.json, scripts/18_track_record.py)
- *   4. the runway curve (chance by 30, 60, 90 and 180 days after the last look)
+ *   3b. today's forecast only (My farm, Runway): our record on this dam, so a farmer can
+ *      judge our accuracy on their own water: how often our days-left number held on it over
+ *      the last 10 years (forecasts re-run for July 2016 to June 2026 with only earlier data;
+ *      track_record.json, scripts/18_track_record.py)
+ *   4. the six-month chance, its points written as dates, with the DamDays day marked
+ *      (research/checks/DEMO_CHECKS.md items 7 to 9)
  *   5. the water history since 1988
  *   6. Rewind only: what actually happened
  *   7. notes and the coverage reminder
  * "%" only ever means how full a dam is. A chance is always "N in 10".
+ * The new dam sheet (js/dam-sheet.js) is the redesign of this card; the old map views still use it.
  */
 window.DamDays = window.DamDays || {};
 
@@ -30,9 +34,9 @@ DamDays.damCard = (function () {
     return DamDays.text.dateText(isoDate) + " " + isoDate.slice(0, 4);
   }
 
-  /** "~67% full" or "full" (how full at the look), or "dry" when no water was seen. */
+  /** "~67% full" or "full" (how full at the look), or "no water seen" at 0% (never "dry"). */
   function howFull(levelPct) {
-    return levelPct === 0 ? "dry" : DamDays.text.fullness(levelPct);
+    return levelPct === 0 ? (DamDays.text.NO_WATER_SEEN || "no water seen") : DamDays.text.fullness(levelPct);
   }
 
   /**
@@ -48,7 +52,7 @@ DamDays.damCard = (function () {
 
   /** A few words about a dam's days, for map tips: "at least 29 days", "may be below a third now". */
   function daysWords(row, asOf) {
-    if (row.status === "already_low") return row.level_pct === 0 ? "looks dry" : "already below a third";
+    if (row.status === "already_low") return row.level_pct === 0 ? "no water seen" : "already below a third";
     if (row.status === "not_refilled") return "no forecast until it refills";
     if (row.status !== "forecast" || row.damdays_days === null) return "no recent clear look";
     const left = daysFrom(row, asOf).left;
@@ -64,9 +68,14 @@ DamDays.damCard = (function () {
              ", its last clear satellite look.</p>";
     }
     if (row.status === "already_low") {
-      const level = row.level_pct === 0 ? "it looked dry on " + when : "it was " + howFull(row.level_pct) + " on " + when;
-      return '<p class="card-headline">' + who + " is already below a third: " + level +
-             ", its last clear satellite look. No forecast until it refills.</p>";
+      if (row.level_pct === 0) {
+        // research/checks/DEMO_CHECKS.md item 4: 0% is "no water seen", and one look can be wrong.
+        return '<p class="card-headline">' + who + ": no water was seen at its last clear satellite look (" + when +
+               "). A satellite can miss a small pool, or muddy or green water, and one look can be wrong. " +
+               "No forecast until it refills.</p>";
+      }
+      return '<p class="card-headline">' + who + " is already below a third: it was " + howFull(row.level_pct) +
+             " on " + when + ", its last clear satellite look. No forecast until it refills.</p>";
     }
     if (row.status === "not_refilled") {
       const level = row.level_pct === null ? "" : " (" + howFull(row.level_pct) + " on " + when + ")";
@@ -91,8 +100,9 @@ DamDays.damCard = (function () {
     if (row.status !== "forecast" || row.damdays_days === null) return "";
     const days = daysFrom(row, asOf);
     const tip = fmt.tip("What is the DamDays number?",
-                        "A cautious count of days of water. In 9 seasons out of 10 like this one, the dam " +
-                        "would stay above a third for at least this many days. In ten test years it held 9 times in 10.");
+                        "A cautious count of days of water: the dam should stay above a third for at least this " +
+                        "many days. Across all dams in ten test years it held 9 times in 10, a little less often " +
+                        "for spring looks.");
     const note = '<p class="damdays-from">' + esc(countedFrom(row, asOf, days.since, isLive)) + "</p>";
     if (days.left <= 0) {
       return '<div class="damdays-box"><p class="damdays-text"><strong>DamDays.</strong> Its cautious days ' +
@@ -104,9 +114,11 @@ DamDays.damCard = (function () {
     if (days.left < 7) {
       sentence = "It could drop below a third within days.";
     } else if (days.left >= DamDays.settings.damdaysCapDays) {
-      sentence = "At least " + shown + " days (six months or more) before it drops below a third, 9 times in 10.";
+      sentence = "At least " + shown + " days (six months or more) before it drops below a third. Cautious: built to hold " +
+                 "9 times in 10 across all dams, a little less often for spring looks.";
     } else {
-      sentence = "At least " + shown + " days before it drops below a third, 9 times in 10.";
+      sentence = "At least " + shown + " days before it drops below a third. Cautious: built to hold 9 times in 10 " +
+                 "across all dams, a little less often for spring looks.";
     }
     return '<div class="damdays-box">' +
            '<p class="damdays-value"><span class="damdays-big">' + shown + "</span> <span>" +
@@ -129,7 +141,7 @@ DamDays.damCard = (function () {
     return html;
   }
 
-  // ---- 3b. Our track record on this dam (2016-2026 backtest) -------------------
+  // ---- 3b. Our record on this dam (the last 10 years) ---------------------------
   /** "2016" -> "2016-17" (a July-June season). */
   function seasonLabel(year) {
     const y = Number(year);
@@ -147,29 +159,25 @@ DamDays.damCard = (function () {
 
   /** How the dam's record compares with the 9 in 10 the promise aims for, in one plain sentence. */
   function recordVerdict(record) {
-    const tenths = DamDays.text.inTen(record.held / record.judged);
     let words;
     if (record.held === record.judged) words = "It held every time.";
-    else if (tenths === 10) words = "That is " + timesInTen(record.held / record.judged) + ".";
-    else if (tenths === 9) words = "That is " + timesInTen(record.held / record.judged) + ", as it aims for.";
-    else {
-      words = "That is " + timesInTen(record.held / record.judged) + ", less often than the 9 in 10 it aims " +
-              "for: on this dam, give the days extra margin.";
-    }
+    else words = "That is " + DamDays.format.recordLead(record.held, record.judged) + DamDays.format.recordAimWords(record.held, record.judged);
     if (record.judged < 20) words += " With so few past forecasts, this is only a rough guide.";
     return words;
   }
 
   /**
-   * "Our track record on this dam (2016-2026 backtest): the cautious days-left promise held 18 of 20 times."
+   * "Our record on this dam over the last 10 years: our days-left number held 18 of 20 times."
    * With fewer than 5 judged past forecasts: "not enough history". Every dam is shown as it is, good or poor.
+   * The "?" says how it was checked (track_record.json tip: forecasts re-run for July 2016 to June 2026
+   * using only data from before July 2016, each checked against what the dam really did).
    */
   function trackRecordSection(track, damId) {
     if (!track || !track.dams) return "";
     const record = track.dams[damId];
-    const tip = fmt.tip("What is the backtest?", track.tip);
-    const lead = '<strong>Our track record on this dam</strong> (<span class="record-label">' + esc(track.label) +
-                 "</span>): ";
+    const tip = fmt.tip("How was this checked?", track.tip);
+    const lead = '<strong>Our record on this dam</strong> over <span class="record-label">' + esc(track.label) +
+                 "</span>: ";
     if (!DamDays.text.hasTrackRecord(record)) {
       const n = record ? record.judged : 0;
       return '<section class="card-section card-record"><p class="record-main">' + lead +
@@ -189,7 +197,7 @@ DamDays.damCard = (function () {
         "90 days " + count(record.likely_fell) + " of " + count(record.likely_said) + " times.</p>" : "";
     const seasons = years.map((y) => seasonLabel(y) + ": " + count(record.by_season[y][0]) + " of " +
                                      count(record.by_season[y][1])).join(" &middot; ");
-    // The last three seasons of the backtest, so a change on this dam is easy to see.
+    // The last three seasons, so a change on this dam is easy to see.
     const recentYears = [0, 1, 2].map((i) => String(track.last_season_year - i)).filter((y) => record.by_season[y]);
     const recentHeld = recentYears.reduce((sum, y) => sum + record.by_season[y][0], 0);
     const recentJudged = recentYears.reduce((sum, y) => sum + record.by_season[y][1], 0);
@@ -198,7 +206,7 @@ DamDays.damCard = (function () {
         seasonLabel(track.last_season_year) + ") it held " + count(recentHeld) + " of " + count(recentJudged) + " times."
       : "";
     return '<section class="card-section card-record">' +
-      '<p class="record-main">' + lead + "the cautious days-left promise held <strong>" + count(record.held) +
+      '<p class="record-main">' + lead + "our days-left number held <strong>" + count(record.held) +
       " of " + count(record.judged) + " times</strong>. " + tip + "</p>" +
       '<p class="record-more">' + esc(recordVerdict(record)) + recent + typical + "</p>" + likely +
       '<p class="chart-note">Over ' + span + ". Season by season (July to June), held of checked: " + seasons +
@@ -212,16 +220,46 @@ DamDays.damCard = (function () {
     return '<p class="card-facts">' + parts.join(" &middot; ") + "</p>";
   }
 
-  // ---- 4. The runway curve ------------------------------------------------------
-  function curveSection(row, curve, horizons) {
-    if (!curve) return "";
+  // ---- 4. The six-month chance (DEMO_CHECKS items 7 to 9) ------------------------
+  /**
+   * The chance by each date after the look, written as dates; the DamDays day marked on the chart;
+   * one sentence saying the curve and the days come from two models. asOf: the text's date (live)
+   * or the forecast's date (Rewind).
+   */
+  function curveSection(row, curve, horizons, asOf, isLive) {
+    if (!curve || !row.issued_on) return "";
     const shaped = { horizons: horizons, chance: curve.chance, low: curve.low, high: curve.high };
     const headlineMark = { days: 90, chance: row.chance,
                            label: fmt.chance(row.chance) + " by " + fmt.date(row.window_end) };
-    const asText = horizons.map((d, i) => d + " days: " + fmt.chance(curve.chance[i])).join(" &middot; ");
+    const maxDays = horizons[horizons.length - 1];
+    const dd = row.status === "forecast" ? row.damdays_days : null;
+    const since = asOf ? daysFrom(row, asOf).since : 0;
+    const marks = {
+      issuedOn: row.issued_on,
+      damdaysDays: dd,
+      sinceDays: since,
+      sinceLabel: (isLive ? "today, " : "forecast, ") + (asOf ? DamDays.text.shortDate(asOf) : ""),
+    };
+    const asText = horizons.map((d, i) => "by " + DamDays.text.shortDate(fmt.addDays(row.issued_on, d)) + ": " +
+                                          fmt.chance(curve.chance[i])).join(" &middot; ");
+    let ddText = "";
+    if (dd !== null && dd !== undefined) {
+      if (dd >= maxDays) {
+        ddText = " DamDays day: after the end of this chart.";
+      } else {
+        const v = DamDays.charts.lineAt(curve.chance, horizons, dd);
+        const tenths = DamDays.text.inTen(v);
+        const words = tenths === 0 ? "less than 1 in 10" : tenths === 10 ? "more than 9 in 10" : "about " + fmt.chance(v);
+        ddText = " On " + DamDays.text.shortDate(fmt.addDays(row.issued_on, dd)) + ", the DamDays day, this curve reads " +
+                 words + ". They come from two models: the curve is the chance for dams like this one; the DamDays " +
+                 "number is a cautious count that held 9 times in 10 across all dams in ten test years, less often for " +
+                 "spring looks and where this curve reads 2 in 10 or more.";
+      }
+    }
     return '<section class="card-section"><h3>Chance of dropping below a third, up to six months after the last look</h3>' +
-           DamDays.charts.runwayCurve(shaped, headlineMark) +
-           '<p class="chart-note">' + asText + ". Shaded: a wetter or drier season than usual.</p></section>";
+           DamDays.charts.runwayCurve(shaped, headlineMark, marks) +
+           '<p class="chart-note">' + asText + ". Shaded: a wetter or drier season than usual." + esc(ddText) +
+           "</p></section>";
   }
 
   // ---- 5. The water history -----------------------------------------------------
@@ -237,7 +275,7 @@ DamDays.damCard = (function () {
     const hidden = options.untilDate ? " Later months stay hidden until you reveal what happened." : "";
     return '<section class="card-section"><h3>How full since ' + range.first_month.slice(0, 4) +
            " (% of full)</h3>" + chart +
-           '<p class="chart-note">Short orange ticks: it fell below a third. Tall black ticks: it ran dry.' +
+           '<p class="chart-note">Short orange ticks: it fell below a third. Tall black ticks: no water seen at a look.' +
            hidden + "</p></section>";
   }
 
@@ -291,12 +329,12 @@ DamDays.damCard = (function () {
     return '<article class="card" aria-label="' + esc(name) + '">' +
       '<p class="card-kicker">' + esc(isLive ? "Forecast" : "Forecast made on " + fmt.date(issue.issue_date)) +
       mockTag + "</p>" +
-      headline(name, row, meta) +
       damdaysNumber(row, asOf, isLive) +
+      headline(name, row, meta) +
       chanceLines(row) +
       (isLive ? trackRecordSection(data.trackRecord, dam.dam_id) : "") +
       facts(dam, row, name) +
-      (inData ? curveSection(row, data.curveFor(issue.issue_date, damId), data.curveHorizons) : "") +
+      (inData ? curveSection(row, data.curveFor(issue.issue_date, damId), data.curveHorizons, asOf, isLive) : "") +
       (options.revealed ? outcomeSection(row) : "") +
       (inData ? historySection(data.historyFor(damId), data.history, {
         thresholdPct: meta.threshold_pct,
@@ -316,9 +354,14 @@ DamDays.damCard = (function () {
   function bringIntoView(panel) {
     panel.scrollTop = 0;
     if (window.matchMedia("(max-width: 960px)").matches) {
-      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+      const still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      panel.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
     }
   }
 
   return { render, bringIntoView, daysFrom, daysWords, howFull, seasonLabel, timesInTen };
 })();
+
+// Loaded on demand (js/main.js LAZY) after js/data.js: let it wrap render() so a card whose water
+// history is not loaded yet draws at once and fills in when the history arrives.
+if (DamDays.data && typeof DamDays.data.wrapDamCard === "function") DamDays.data.wrapDamCard();

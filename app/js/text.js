@@ -13,13 +13,15 @@
  *   - A chance is written "6 in 10" (rounded; "less than 1 in 10" under 0.05), never a percent.
  *     The SMS gives no chances; the long text and the app do.
  *   - The headline is DAYS: the cautious DamDays floor, counted from the day the text is sent.
+ *   - A dam at 0% is "no water seen" (the satellite saw no water at its last clear look), never "dry".
  *
  * Python name -> JavaScript name: weekly_text -> weeklyText, sms_for_dams -> smsForDams,
  * long_for_dams -> longForDams, dams_for_farm -> damsForFarm, days_left -> daysLeft,
- * track_record_line -> trackRecordLine, and so on.
+ * track_record_line -> trackRecordLine, held_share_text -> heldShareText, and so on.
  * Dates are "YYYY-MM-DD" strings (calendar days, no time zone), as in the data files.
- * The long text's optional track-record line (how often our days-left promise held on these dams in the
- * 2016-2026 backtest) takes the "dams" of app/data/real/track_record.json; the SMS never carries it.
+ * The long text's optional track-record line (our record on these dams over the last 10 years: how often
+ * our days-left number held) takes the "dams" of app/data/real/track_record.json; the SMS never carries it.
+ * TRACK_RECORD_HOW is the plain sentence saying how that record was made (also the app's "?" tip).
  *
  * In the browser this file adds DamDays.text; in Node (the parity check) it is a module.
  */
@@ -152,8 +154,13 @@
   const CLOSE = "Reply MAP";      // replying MAP would send a link to the farm's map in the app
   const MAP_LINK = "[map link]";  // placeholder for the farm's link in the app (long text)
   const LONG_OTHERS_MAX = 6;      // the long text lists at most 6 other dams by name
+  const NO_WATER_SEEN = "no water seen";   // a dam at 0%: the satellite saw no water at its last clear look (never "dry")
   const TRACK_RECORD_MIN = 5;     // a dam's track record is shown only with at least this many judged past forecasts
-  const TRACK_RECORD_YEARS = "2016-2026";   // the backtest the track record counts (scripts/18_track_record.py)
+  const TRACK_RECORD_YEARS = "2016-2026";   // the July-June years the track record counts (scripts/18_track_record.py)
+  const TRACK_RECORD_SPAN = "the last 10 years";   // the same years, in the words the farmer reads
+  // How the track record was made, in plain words (the long text's record line, and the app's "?" tip).
+  const TRACK_RECORD_HOW = "We re-ran our forecasts for July 2016 to June 2026 using only data from before July 2016, " +
+                           "then checked each one against what the dam really did.";
 
   const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -285,11 +292,11 @@
     return ranOut.length + " dams may be below 1/3 now";
   }
 
-  /** Dams already below a third: "Dam 3 already below 1/3", "Dam 3 looks dry", "7 dams already below 1/3". */
+  /** Dams already below a third: "Dam 3 already below 1/3", "Dam 3: no water seen", "7 dams already below 1/3". */
   function lowLine(low) {
     if (low.length === 1) {
       const dam = low[0];
-      return dam.level_pct === 0 ? dam.name + " looks dry" : dam.name + " already below 1/3";
+      return dam.level_pct === 0 ? dam.name + ": " + NO_WATER_SEEN : dam.name + " already below 1/3";
     }
     if (low.length <= 4) return "Dams " + numbersText(low) + " already below 1/3";
     return low.length + " dams already below 1/3";
@@ -306,10 +313,10 @@
     return dams.length + " dams: no forecast this week";
   }
 
-  /** The forecast dams not named, by their shortest floor: "Other 3 dams: at least 45 days". */
+  /** The forecast dams not named, by their shortest floor: "Other 3 dams: at least 45 days", "Other 3 dams: 3 months+". */
   function restLine(rest, today, explain) {
     const fewest = Math.min.apply(null, rest.map((d) => daysLeft(d, today)));
-    if (fewest >= OK_DAYS) return "Other " + rest.length + " dams OK for 3 months+";
+    if (fewest >= OK_DAYS) return "Other " + rest.length + " dams: 3 months+";
     const line = "Other " + rest.length + " dams: " + floorText(fewest);
     return explain ? line + " before they drop below 1/3" : line;
   }
@@ -323,7 +330,7 @@
 
   /** The SMS's middle lines, most important first, each as [line, how many dams it covers]. */
   function smsItems(dams, today, radiusKm) {
-    if (!dams.length) return [["No farm dams the satellites can see within " + kmText(radiusKm) + " km", 0]];
+    if (!dams.length) return [["No dams the satellites can see within " + kmText(radiusKm) + " km", 0]];
     const groups = sortedByKind(dams, today);
     const forecast = groups.forecast;
     const low = groups.low;
@@ -414,8 +421,10 @@
              " (chance by " + shortDate(dam.window_end) + ": " + chanceText(dam.chance) + ")";
     }
     if (what === "low") {
-      return dam.level_pct === 0 ? dam.name + " looks dry"
-                                 : dam.name + " already below a third (" + fullness(dam.level_pct) + ")";
+      if (dam.level_pct === 0) {
+        return dam.name + ": " + NO_WATER_SEEN + " at its " + shortDate(dam.issued_on) + " satellite look (one look can be wrong)";
+      }
+      return dam.name + " already below a third (" + fullness(dam.level_pct) + ")";
     }
     if (what === "not_refilled") return dam.name + " " + fullness(dam.level_pct) + ", no forecast until it refills to 60% full";
     return dam.name + " has had no clear satellite look in the last " + RECENT_LOOK_DAYS + " days";
@@ -432,21 +441,33 @@
   }
 
   /**
-   * The long text's optional track-record line: how often our cautious days-left promise held on these dams
-   * in the 2016-2026 backtest. records: {dam_id: {held, judged, ...}}, the "dams" of track_record.json.
+   * How often a record held, in tenths, rounded as chances are: 1640 of 1767 -> "about 9 in 10";
+   * "more than 9 in 10" from 0.95, "less than 1 in 10" under 0.05, "every time" when it always held.
+   */
+  function heldShareText(held, judged) {
+    if (held === judged) return "every time";
+    const tenths = inTen(held / judged);
+    if (tenths === 0) return "less than 1 in 10";
+    if (tenths === 10) return "more than 9 in 10";
+    return "about " + tenths + " in 10";
+  }
+
+  /**
+   * The long text's optional track-record line: our record on these dams over the last 10 years (how often
+   * our days-left number held), then how it was made (TRACK_RECORD_HOW).
+   * records: {dam_id: {held, judged, ...}}, the "dams" of track_record.json.
    */
   function trackRecordLine(dams, today, records) {
     const where = dams.length === 1 ? "this dam" : "these " + dams.length + " dams";
-    const head = "Our track record on " + where + " (" + TRACK_RECORD_YEARS + " backtest, forecasts the model " +
-                 "made for years it never trained on): ";
+    const head = "Our record on " + where + " over " + TRACK_RECORD_SPAN + ": ";
     const recorded = dams.filter((d) => hasTrackRecord(records[d.dam_id]));
     if (!recorded.length) return head + "too few past forecasts to judge.";
     const held = recorded.reduce((sum, d) => sum + records[d.dam_id].held, 0);
     const judged = recorded.reduce((sum, d) => sum + records[d.dam_id].judged, 0);
-    let body = "the cautious days-left promise held " + countText(held) + " of " + countText(judged) + " times";
+    let body = "our days-left number held " + countText(held) + " of " + countText(judged) + " times";
+    if (held !== judged) body += " (" + heldShareText(held, judged) + ")";
     if (recorded.length < dams.length) {
-      body += " (" + recorded.length + " of the " + dams.length + (recorded.length === 1 ? " has" : " have") +
-              " enough history to judge)";
+      body += " on the " + recorded.length + " dam" + (recorded.length === 1 ? "" : "s") + " with enough history to judge";
     }
     const forecast = sortedByKind(dams, today).forecast;
     if (dams.length > 1 && forecast.length) {
@@ -458,7 +479,7 @@
         body += "; " + dam.name + " has too few past forecasts to judge";
       }
     }
-    return head + body + ".";
+    return head + body + ". " + TRACK_RECORD_HOW;
   }
 
   /**
@@ -468,10 +489,10 @@
   function longForDams(dams, today, farmLabel = "Your farm", radiusKm = DEFAULT_RADIUS_KM, trackRecord = null) {
     const opening = farmLabel + ", " + dateText(today) + " " + Number(today.slice(0, 4)) + ": ";
     if (!dams.length) {
-      return [opening + "no farm dams the satellites can see within " + kmText(radiusKm) + " km of " +
-              "the homestead. They see dams of about half a hectare and up.", "Map: " + MAP_LINK].join("\n");
+      return [opening + "no dams the satellites can see within " + kmText(radiusKm) + " km of " +
+              "the homestead. DamDays follows dams of about half a hectare to 5 hectares.", "Map: " + MAP_LINK].join("\n");
     }
-    const count = dams.length + " farm dam" + (dams.length === 1 ? "" : "s");
+    const count = dams.length + " dam" + (dams.length === 1 ? "" : "s") + " the satellites can see";
     const look = latestLook(dams, today);
     const seen = look ? "latest satellite look " + shortDate(look)
                       : "no clear satellite look in the last " + RECENT_LOOK_DAYS + " days";
@@ -494,8 +515,9 @@
     }
     if (trackRecord !== null && trackRecord !== undefined) lines.push(trackRecordLine(dams, today, trackRecord));
     if (groups.forecast.length) {
-      lines.push("Days are counted from today and are cautious: in ten test years a dam stayed above a " +
-                 "third at least that long 9 times in 10. Map: " + MAP_LINK);
+      lines.push("Days are counted from today and are cautious: across all dams in ten test years, a dam " +
+                 "stayed above a third at least that long 9 times in 10, a little less often for spring " +
+                 "looks. Map: " + MAP_LINK);
     } else {
       lines.push("Map: " + MAP_LINK);
     }
@@ -516,12 +538,13 @@
     kind, daysLeft, daysSinceLook,
     // wording
     inTen, chanceText, fullness, floorText, shortDate, dateText, dayNumber, oneDecimal, countText,
-    // the track record (long text only)
-    trackRecordLine, hasTrackRecord,
+    // the track record (long text only; heldShareText and TRACK_RECORD_HOW also for the app's record rows and tip)
+    trackRecordLine, hasTrackRecord, heldShareText,
     // one SMS
     septets, isGsm7, fitsOneSms,
-    // settings
+    // settings and fixed words
     SMS_MAX, CAP_DAYS, OK_DAYS, RECENT_LOOK_DAYS, DEFAULT_RADIUS_KM, NAME_IF_IN_TEN, TRACK_RECORD_MIN, TRACK_RECORD_YEARS,
+    TRACK_RECORD_SPAN, TRACK_RECORD_HOW, NO_WATER_SEEN,
   };
 
   if (typeof module === "object" && module.exports) module.exports = api;       // Node: the parity check

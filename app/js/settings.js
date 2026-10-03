@@ -19,6 +19,8 @@ DamDays.settings = {
     { minTenths: 7, maxTenths: 10, label: "7 in 10 or more", color: "#7a320b" },
   ],
   noForecastColor: "#b9b6ae",   // grey: dams without a forecast
+  lowFill: "#ffffff",           // already below a third: a hollow ring (as the sketches draw it)
+  lowRing: "#14222B",
   markOutline: "#4a463f",       // thin dark ring so pale dots still show on the map
   selectedOutline: "#1c5cab",   // blue ring around the dam you clicked
   revealOutline: "#111111",     // thick black ring: "this one did run low / dry"
@@ -45,3 +47,27 @@ DamDays.settings = {
     maxZoom: 17,
   },
 };
+
+/* ---- Additions for the redesign (WP-A) ---------------------------------------------------- */
+Object.assign(DamDays.settings, {
+  // The demo farm every view opens on (founder, Sat 3 Oct): Farm E near Mudgee. All 5 of its
+  // dams are farm dams (checked against aerial photos; research/checks/DEMO_CHECKS.md).
+  defaultFarmId: "farm-e",
+  // Demo farms left out of every picker and list: Farm D near Dubbo turned out to be treatment
+  // ponds, a racecourse and a river, not farm dams (About's honest limits says so).
+  hiddenFarmIds: ["farm-d"],
+
+  // Phones below this width get the bottom tab bar and bottom sheets; desktop gets the top bar.
+  desktopMinWidth: 960,
+
+  // Leaflet (the map library), loaded only when a map opens: DamDays.lazy.leaflet().
+  leaflet: {
+    css: "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
+    cssIntegrity: "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=",
+    js: "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
+    jsIntegrity: "sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=",
+  },
+
+  // "Where to check" links: a file in the public repository.
+  repoBlobUrl: "https://github.com/Shaugato/damdays/blob/main/",
+});

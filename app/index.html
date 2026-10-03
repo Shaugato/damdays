@@ -1,228 +1,329 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-AU">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DamDays</title>
-  <meta name="description" content="DamDays: how many days of water each farm dam has left, from 38 years of satellite water history, sent to farmers as one text a week.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23cfe0f5' stroke='%231d1c1a' stroke-width='3'/%3E%3Cpath d='M3 20h26a14 14 0 0 1-26 0z' fill='%23256abf'/%3E%3C/svg%3E">
-  <!-- Leaflet draws the maps. Loaded from a CDN, so the page needs internet for maps. -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>DamDays: one text a week for each farm dam the satellites can see</title>
+  <meta name="description" content="DamDays: one text a week telling sheep and cattle farmers how many days each farm dam big enough for the satellites to see (about 0.5 to 5 ha) has before it drops below a third, from 38 years of free satellite records.">
+  <meta name="theme-color" content="#F6F3EC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0E161B" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-title" content="DamDays">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- The mark: a farm dam seen from above, on an ink square (UI_SPEC 5.1). -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='26' fill='%2314222B'/%3E%3Cg transform='translate(8 6) scale(.84)'%3E%3Cpath d='M20 31C23 15 45 9 63 13C81 17 92 31 89 51C86 72 72 89 50 88C28 87 12 74 11 55C10 45 16 39 20 31Z' fill='%23EDE5D3'/%3E%3Cpath d='M20 31C23 15 45 9 63 13C81 17 92 31 89 51C86 72 72 89 50 88C28 87 12 74 11 55C10 45 16 39 20 31Z' fill='%233B7BD0' transform='translate(64 70) scale(.72) translate(-64 -70)'/%3E%3Cpath d='M34 86 Q52 95 74 84' fill='none' stroke='%23C9A97A' stroke-width='7' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+  <!-- Before anything paints: the theme asked for (?theme=dark), and on a deep link keep the
+       static Welcome hidden until the router shows the right page. -->
+  <script>
+    (function () {
+      var d = document.documentElement, t = /[?&]theme=(dark|light)\b/.exec(location.search);
+      if (t) d.setAttribute("data-theme", t[1]);
+      var first = location.hash.replace(/^#\/?/, "").split("/")[0].toLowerCase();
+      if (first && first !== "welcome" && first !== "home" && first !== "main") {
+        d.setAttribute("data-boot", "away");
+        setTimeout(function () { d.removeAttribute("data-boot"); }, 4000);
+      }
+      // The manifest and the font preload over http(s) only: a double-clicked file:// page refuses a
+      // crossorigin font preload with a console error (the @font-face in fonts/fonts.css still loads),
+      // and when the offline copy serves the page a preload only draws a warning.
+      if (/^https?:$/.test(location.protocol)) {
+        var m = document.createElement("link"); m.rel = "manifest"; m.href = "manifest.webmanifest";
+        document.head.appendChild(m);
+        if (!(navigator.serviceWorker && navigator.serviceWorker.controller)) {
+          var f = document.createElement("link"); f.rel = "preload"; f.as = "font"; f.type = "font/woff2";
+          f.crossOrigin = ""; f.href = "fonts/atkinson-hyperlegible-next-latin.woff2"; document.head.appendChild(f);
+        }
+      }
+    })();
+  </script>
+  <!-- Starts the "first" data part at once, beside the CSS and the deferred scripts (js/data.js picks
+       it up; on ?data=mock it does nothing). -->
+  <script async src="data/real/parts.js"></script>
+
+  <!-- One type family, self-hosted (Atkinson Hyperlegible Next, SIL OFL: fonts/OFL.txt). -->
+  <link rel="stylesheet" href="fonts/fonts.css">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/shell.css">
+  <link rel="stylesheet" href="css/welcome.css">
+  <link rel="stylesheet" href="css/farm.css">
+  <link rel="stylesheet" href="css/dam.css">
+  <!-- css/proof.css, css/more.css and css/legacy.css load with their pages (main.js LAZY), each in
+       its place in this order (main.js CSS_ORDER). -->
+  <link rel="stylesheet" href="css/pwa.css">
+
+  <!-- Scripts run in this order once the page is parsed (defer). Each file adds one part to
+       the global DamDays object; main.js (the router) comes before the views so they can
+       register, and starts the first route when every file has run. Plain scripts, not
+       modules: a double-clicked index.html (file://) still works.
+       Only the shell and what the first screen needs load here. My farm and the dam sheet follow
+       when the phone is idle; the other views (Proof, Rewind, Questions, More, Runway, About, the
+       Area outlook) and js/map.js load when their address opens (main.js LAZY, through
+       DamDays.lazy). The service worker keeps them all for offline use. -->
+  <script defer src="data/datasets.js"></script>
+  <script defer src="js/settings.js"></script>
+  <script defer src="js/text.js"></script>
+  <script defer src="js/format.js"></script>
+  <script defer src="js/colors.js"></script>
+  <script defer src="js/data.js"></script>
+  <script defer src="js/sheet.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/sketch.js"></script>
+  <script defer src="js/views/welcome.js"></script>
+  <script defer src="js/pwa.js"></script>
 </head>
-<body>
-  <!-- Shown only when the loaded data says it is mock data (meta.is_mock). -->
+<body data-view="welcome">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Icons: one inline sprite, 2 px line style. Use with DamDays.icon("i-chev"). -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v9H4z"/><path d="M10 20v-5h4v5"/></symbol>
+      <symbol id="i-proof" viewBox="0 0 24 24"><path d="M6 5v14M10 5v14M14 5v14M18 5v14M4 15.5L20 8.5"/></symbol>
+      <symbol id="i-tally" viewBox="0 0 24 24"><path d="M6 5v14M10 5v14M14 5v14M18 5v14M4 15.5L20 8.5"/></symbol>
+      <symbol id="i-q" viewBox="0 0 24 24"><path d="M4 5h16v11H11l-4 4v-4H4z"/><path d="M10 9.2a2.2 2.2 0 1 1 3 2c-.7.3-1 .7-1 1.4"/><path d="M12 14.6v.1"/></symbol>
+      <symbol id="i-more" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/></symbol>
+      <symbol id="i-farm" viewBox="0 0 24 24"><path d="M4.5 9.5C5.5 5.5 10 3.8 14 4.4c4 .6 6.3 3.5 5.6 7.6-.7 4.3-3.9 7.6-8.3 7.5-4.4-.1-7.2-2.9-7.5-6.4-.1-1.4.2-2.4.7-3.6z"/><path d="M9.5 15.4c.3-2.2 2.2-3.6 4.3-3.3 1.8.3 2.6 1.7 2.3 3.2"/></symbol>
+      <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5.5M6.5 11L12 5.5l5.5 5.5"/></symbol>
+      <symbol id="i-sat" viewBox="0 0 24 24"><path d="M8.5 8.5l7 7M5 12l3-3 7 7-3 3zM12 5l3-3 7 7-3 3"/><path d="M4 16a4 4 0 0 0 4 4"/></symbol>
+      <symbol id="i-tap" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V12m0-1a1.5 1.5 0 0 1 3 0v4.5a5.5 5.5 0 0 1-5.5 5.5H11a5 5 0 0 1-4-2l-2.6-3.5a1.5 1.5 0 0 1 2.3-1.9L9 15"/></symbol>
+      <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.5c3.5 4.4 6 7.6 6 10.5a6 6 0 0 1-12 0c0-2.9 2.5-6.1 6-10.5z"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.1"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+      <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></symbol>
+      <symbol id="i-rewind" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/><path d="M12 8v4l3 2"/></symbol>
+      <symbol id="i-hex" viewBox="0 0 24 24"><path d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9z"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/><path d="M11 18.5h2"/></symbol>
+      <symbol id="i-sms" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M7 15l4-4 3 3 5-6"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v5h-5"/></symbol>
+      <symbol id="i-cloud-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M7.5 7.6A5 5 0 0 0 6 17h11"/><path d="M10 6.3A6 6 0 0 1 18 11a4 4 0 0 1 2.2 6.3"/></symbol>
+      <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+      <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v8h14v-8"/></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M12 21V10"/><path d="M12 14c-4 0-6-2.5-6-6 3.5 0 6 2 6 6z"/><path d="M12 11c0-3.5 2.5-6 6-6 0 3.5-2 6-6 6z"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- Shown only when the loaded data says it is mock data (meta.is_mock), e.g. ?data=mock. -->
   <div id="mock-banner" class="mock-banner" role="status" hidden>
     <strong>MOCK DATA</strong>
     <span>Every dam and number on this page is made up to test the app. These are not forecasts.</span>
   </div>
 
-  <header class="site-header">
-    <a class="brand" href="#farm">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-name">DamDays</span>
-    </a>
-    <p class="tagline">How long will the water in your farm dam last?</p>
-    <nav class="tabs" aria-label="Views">
-      <a href="#farm" data-view="farm">My farm</a>
-      <a href="#runway" data-view="runway">Runway</a>
-      <a href="#rewind" data-view="rewind">Rewind</a>
-      <a href="#proof" data-view="proof">Proof</a>
-      <a href="#rating" data-view="rating">Rating</a>
-      <a href="#about" data-view="about">About</a>
-    </nav>
+  <header class="topbar" id="topbar">
+    <div class="wrap">
+      <a class="brand" href="#welcome" aria-label="DamDays, home">
+        <svg class="logo" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect width="100" height="100" rx="26" fill="#14222B"/><g transform="translate(8 6) scale(.84)"><path d="M20 31C23 15 45 9 63 13C81 17 92 31 89 51C86 72 72 89 50 88C28 87 12 74 11 55C10 45 16 39 20 31Z" fill="#EDE5D3"/><path d="M20 31C23 15 45 9 63 13C81 17 92 31 89 51C86 72 72 89 50 88C28 87 12 74 11 55C10 45 16 39 20 31Z" fill="#3B7BD0" transform="translate(64 70) scale(.72) translate(-64 -70)"/><path d="M34 86 Q52 95 74 84" fill="none" stroke="#C9A97A" stroke-width="7" stroke-linecap="round"/></g></svg>
+        <span>DamDays</span>
+      </a>
+      <!-- What DamDays is, beside the brand on every page but the Welcome (its H1 says it there), so a deep link
+           (a QR to #questions, a shared #proof) still says it. Phones drop the "One text a week" lead to fit the bar. -->
+      <span class="brand-tag"><span class="bt-lead">One text a week: </span>days before each farm dam drops below a third</span>
+      <nav class="topnav" aria-label="Main">
+        <a href="#farm" data-tab="farm" aria-current="page"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-home"/></svg>My farm</a>
+        <a href="#proof" data-tab="proof"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-proof"/></svg>Proof</a>
+        <a href="#questions" data-tab="questions"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-q"/></svg>Questions</a>
+        <a href="#more" data-tab="more"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-more"/></svg>More</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <noscript><p class="load-error">DamDays needs JavaScript turned on to show its maps and forecasts.</p></noscript>
-    <div id="load-error" class="load-error" role="alert" hidden></div>
+  <!-- Offline notice (pwa.js): top of the content. -->
+  <div id="status-top" class="status-top" role="status" aria-live="polite"></div>
 
-    <!-- 1. MY FARM: the farmer product. Set the homestead, see this week's text on a phone. -->
-    <section id="view-farm" class="view view-farm" aria-labelledby="farm-title" hidden>
-      <div class="view-intro">
-        <h1 id="farm-title">My farm</h1>
-        <p>Farmers don't open apps or emails, so DamDays is <strong>one text message a week</strong>. Set your farm up once: click the map where your homestead is (or pick a demo farm), choose how far out your dams go, and see the text you would get.</p>
-      </div>
-      <div class="controls">
-        <label class="control">
-          <span>Demo farm</span>
-          <select id="farm-pick"></select>
-        </label>
-        <label class="control control-range">
-          <span>Dams within <output id="farm-radius-out" for="farm-radius">3 km</output> of the homestead</span>
-          <input id="farm-radius" type="range" min="0.5" max="10" step="0.5" value="3">
-        </label>
-      </div>
-      <p id="farm-note" class="note"></p>
-      <div class="map-and-panel">
-        <div class="map-column">
-          <div id="farm-map" class="map" role="region" aria-label="Map of farm dams: click to set your homestead"></div>
-          <div id="farm-legend" class="legend"></div>
-          <div id="farm-dams" class="farm-dams"></div>
+  <main id="main" tabindex="-1">
+    <noscript><div class="wrap"><p class="load-error">DamDays needs JavaScript turned on to show its forecasts.</p></div></noscript>
+    <div class="wrap"><div id="load-error" class="load-error" role="alert" hidden></div></div>
+
+    <!-- ============ WELCOME: the first screen (the QR opens this). Static, so it paints before any data. ============
+         welcome.js (WP-C) fills: #welcome-sms (the text, word for word from farms.sms), #welcome-trust,
+         #welcome-stats (desktop), #welcome-phone-cap (desktop), #welcome-below, and the dam count in #welcome-see-dams. -->
+    <section class="view welcome is-active" id="v-welcome" aria-labelledby="welcome-h1">
+      <div class="welcome-hero">
+        <div class="wrap welcome-grid">
+          <p class="eyebrow">For sheep and cattle farmers</p>
+          <h1 id="welcome-h1">One text a week: how many days each <button class="gloss" type="button" data-open="#welcome/farm-dam" aria-haspopup="dialog">farm dam</button> has before it drops below a third.</h1>
+          <p class="sub">For dams big enough for the satellites to see (<span data-fill="size">about 0.5 to 5 ha</span>).<span class="sub-more"> From <span data-fill="years">38</span> years of free satellite records; nothing to install on the farm.</span></p>
+          <div class="welcome-phone">
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <div class="phone-status" aria-hidden="true"><span>7:02</span><span class="island"></span><span>4G</span></div>
+                <div class="welcome-sms" id="welcome-sms" aria-busy="true">
+                  <div class="sms-skel">
+                    <span class="vh">Loading this week's text for a demo farm near Mudgee.</span>
+                    <div class="sk-head" aria-hidden="true"><span class="skel sk-avatar"></span><span class="sk-who">DamDays</span> <span class="tag">Demo</span></div>
+                    <div class="sk-bubble" aria-hidden="true">
+                      <span class="skel skel-line" style="width:70%"></span>
+                      <span class="skel skel-line" style="width:96%"></span>
+                      <span class="skel skel-line" style="width:58%"></span>
+                      <span class="skel skel-line" style="width:44%"></span>
+                      <span class="skel skel-line" style="width:80%"></span>
+                      <span class="skel skel-line" style="width:52%"></span>
+                    </div>
+                    <p class="sk-foot">Real dams near Mudgee; the homestead point is made up.</p>
+                  </div>
+                </div>
+                <div class="phone-input" aria-hidden="true">Text message</div>
+              </div>
+            </div>
+            <p class="phone-cap desk-only" id="welcome-phone-cap">This week's real text for a demo farm near Mudgee: its dams and their forecasts are real; the homestead point is made up.</p>
+          </div>
+          <div class="welcome-trust" id="welcome-trust"><div class="trust-skel" aria-hidden="true"><span class="skel skel-line" style="width:88%"></span><span class="skel skel-line" style="width:62%"></span><span class="skel skel-line" style="width:48%"></span></div></div>
+          <div class="actions">
+            <a class="btn btn-primary" id="welcome-see-dams" href="#farm">See the dams</a>
+            <a class="btn btn-secondary" id="welcome-can-trust" href="#proof">Can I trust it?</a>
+          </div>
+          <div class="welcome-stats desk-only" id="welcome-stats"></div>
         </div>
-        <aside id="farm-panel" class="panel" aria-live="polite"></aside>
       </div>
+      <div class="wrap welcome-below" id="welcome-below"></div>
     </section>
 
-    <!-- 2. RUNWAY: the regional map; each dam's days of water and chance of falling below a third. -->
-    <section id="view-runway" class="view" aria-labelledby="runway-title" hidden>
-      <div class="view-intro">
-        <h1 id="runway-title">DamDays Runway</h1>
-        <p>The whole region. Each dot is a farm dam, coloured by the chance it falls below a third full in the next 90 days. Pick a dam to see how many days of water it has left.</p>
-      </div>
-      <div class="map-and-panel">
-        <div class="map-column">
-          <div id="runway-map" class="map" role="region" aria-label="Map of dams coloured by chance"></div>
-          <div id="runway-legend" class="legend"></div>
+    <!-- ============ The other places. Each is filled by its view (DamDays.router.register). ============ -->
+    <section class="view" id="v-farm" data-view="farm">
+      <div class="wrap view-skeleton" aria-hidden="true"><span class="skel skel-title"></span><span class="skel skel-card"></span><span class="skel skel-card"></span></div>
+    </section>
+    <section class="view" id="v-proof" data-view="proof">
+      <div class="wrap page-narrow view-skeleton" aria-hidden="true"><span class="skel skel-title"></span><span class="skel skel-card"></span><span class="skel skel-card"></span></div>
+    </section>
+    <section class="view" id="v-questions" data-view="questions">
+      <div class="wrap page-narrow view-skeleton" aria-hidden="true"><span class="skel skel-title"></span><span class="skel skel-card"></span></div>
+    </section>
+    <section class="view" id="v-more" data-view="more">
+      <div class="wrap page-narrow view-skeleton" aria-hidden="true"><span class="skel skel-title"></span><span class="skel skel-card"></span></div>
+    </section>
+    <section class="view" id="v-runway" data-view="runway">
+      <div class="wrap view-skeleton" aria-hidden="true"><span class="skel skel-title"></span><span class="skel skel-card"></span></div>
+    </section>
+    <section class="view" id="v-about" data-view="about">
+      <div class="wrap page-narrow view-skeleton" aria-hidden="true"><span class="skel skel-title"></span><span class="skel skel-card"></span></div>
+    </section>
+    <section class="view" id="v-outlook" data-view="outlook">
+      <div class="wrap view-skeleton" aria-hidden="true"><span class="skel skel-title"></span><span class="skel skel-card"></span></div>
+    </section>
+
+    <!-- ============ LEGACY VIEWS ============
+         The old views' markup, ids unchanged, so the old view files (js/views/*.js init/show) still work.
+         DamDays.legacy.mount(name, container) moves one into a page and starts it. Hidden until then. -->
+    <div id="legacy-store" hidden>
+
+      <!-- Runway (old): the region map; each dam's chance of dropping below a third. -->
+      <section id="view-runway" class="legacy-view" aria-labelledby="runway-title" hidden>
+        <div class="view-intro">
+          <h1 id="runway-title">Runway: the region map</h1>
+          <p>Every dam-sized waterbody DamDays watches in <span data-fill="region-name">the region</span>, mostly farm dams big enough for the satellites to see (<span data-fill="size">about 0.5 to 5 ha</span>). Each dot is coloured by the chance it drops below a third in the next <span data-fill="horizon-days">90</span> days. Pick one to see at least how many days it has before it drops below a third.</p>
         </div>
-        <aside id="runway-panel" class="panel" aria-live="polite"></aside>
-      </div>
-    </section>
-
-    <!-- 3. REWIND: go back to a past season, then reveal what really happened. -->
-    <section id="view-rewind" class="view" aria-labelledby="rewind-title" hidden>
-      <div class="view-intro">
-        <h1 id="rewind-title">Rewind</h1>
-        <p>Go back in time. The map shows the forecasts as they would have been made on that day, using only what the satellites had seen by then. Then reveal what actually happened.</p>
-      </div>
-      <div class="controls">
-        <label class="control">
-          <span>Forecast made on</span>
-          <select id="rewind-issue"></select>
-        </label>
-        <button id="rewind-reveal" class="button button-primary" type="button">Reveal what happened</button>
-      </div>
-      <p id="rewind-note" class="note"></p>
-      <div class="map-and-panel">
-        <div class="map-column">
-          <div id="rewind-map" class="map" role="region" aria-label="Map of past forecasts"></div>
-          <div id="rewind-legend" class="legend"></div>
+        <div class="map-and-panel">
+          <div class="map-column">
+            <div id="runway-map" class="map" role="region" aria-label="Map of dams coloured by chance"></div>
+            <div id="runway-legend" class="legend"></div>
+          </div>
+          <aside id="runway-panel" class="panel" aria-live="polite"></aside>
         </div>
-        <aside id="rewind-panel" class="panel" aria-live="polite">
-          <div id="rewind-card"></div>
-          <div id="rewind-tally"></div>
-        </aside>
-      </div>
-    </section>
+      </section>
 
-    <!-- 4. PROOF: what accuracy looks like on the ten test years, in three pictures, and the unseen exam. -->
-    <section id="view-proof" class="view proof" aria-labelledby="proof-title" hidden>
-      <div class="view-intro">
-        <h1 id="proof-title">Proof: what accuracy looks like</h1>
-        <p id="proof-intro">Can you trust the forecasts? Three pictures, each from forecasts the model made for years it never learned from, set against what really happened.</p>
-      </div>
-      <div id="proof-exam" class="proof-exam" aria-live="polite"></div>
-      <div id="proof-body" class="proof-body"></div>
-    </section>
+      <!-- Rewind (old): go back to the 2018-19 drought, then reveal what really happened. -->
+      <section id="view-rewind" class="legacy-view" aria-labelledby="rewind-title" hidden>
+        <div class="view-intro">
+          <h2 id="rewind-title">Rewind: the 2018-19 drought</h2>
+          <p>Go back in time. Pick a date: the map shows the forecasts as they were made that day, using only what the satellites had seen by then. Then reveal what really happened.</p>
+        </div>
+        <div class="controls">
+          <label class="control">
+            <span>Forecast made on</span>
+            <select id="rewind-issue"></select>
+          </label>
+          <button id="rewind-reveal" class="button button-primary" type="button">Reveal what happened</button>
+        </div>
+        <p id="rewind-note" class="note"></p>
+        <div class="map-and-panel">
+          <div class="map-column">
+            <div id="rewind-map" class="map" role="region" aria-label="Map of past forecasts"></div>
+            <div id="rewind-legend" class="legend"></div>
+          </div>
+          <aside id="rewind-panel" class="panel" aria-live="polite">
+            <div id="rewind-card"></div>
+            <div id="rewind-tally"></div>
+          </aside>
+        </div>
+      </section>
 
-    <!-- 5. RATING: lenders compare a rainfall-only score with the DamDays Rating. -->
-    <section id="view-rating" class="view" aria-labelledby="rating-title" hidden>
-      <div class="view-intro">
-        <h1 id="rating-title">DamDays Rating</h1>
-        <p>For lenders and valuers. Each hexagon is a 2 km patch of farmland. Colour shows the chance that every dam in it runs completely dry between October and March. Left: a score from rainfall alone, like most drought tools today. Right: the DamDays Rating, from each dam's own satellite history.</p>
-      </div>
-      <div class="controls">
-        <label class="control">
-          <span>Season</span>
-          <select id="rating-season"></select>
-        </label>
-        <button id="rating-reveal" class="button button-primary" type="button">Reveal which ran dry</button>
-      </div>
-      <p id="rating-note" class="note"></p>
-      <div class="twin-maps">
-        <figure class="twin">
-          <figcaption>
-            <h2>Rainfall-only score</h2>
-            <p>Uses the last one to two years of rain in the area.</p>
-          </figcaption>
-          <div id="rating-map-rain" class="map map-twin" role="region" aria-label="Map of rainfall-only scores"></div>
-        </figure>
-        <figure class="twin">
-          <figcaption>
-            <h2>DamDays Rating</h2>
-            <p>Uses each dam's own water history, seen from space since 1987.</p>
-          </figcaption>
-          <div id="rating-map-damdays" class="map map-twin" role="region" aria-label="Map of DamDays Rating"></div>
-        </figure>
-      </div>
-      <div id="rating-legend" class="legend"></div>
-      <div id="rating-scoreboard" class="scoreboard" aria-live="polite"></div>
-    </section>
+      <!-- Area outlook (old "Rating"): set aside to focus on farmers; its result is still reported. -->
+      <section id="view-rating" class="legacy-view" aria-labelledby="rating-title" hidden>
+        <div class="view-intro outlook-head">
+          <p class="eyebrow">More · also built <span class="tag">Set aside</span></p>
+          <h1 id="rating-title">Area outlook</h1>
+          <p class="lead">A season-ahead outlook for 2 km areas, made for lenders. We set it aside to focus on farmers; it had a pass mark written before the code, so its result is reported here.</p>
+        </div>
+        <div class="controls">
+          <label class="control">
+            <span>Season</span>
+            <select id="rating-season"></select>
+          </label>
+          <button id="rating-reveal" class="button button-primary" type="button">Reveal what happened</button>
+        </div>
+        <p id="rating-note" class="note"></p>
+        <p class="note outlook-how"><b>How to read it:</b> each hexagon is a 2 km patch of farmland (a dot until you zoom in), coloured by the chance that every dam in it fell to ~0% full (no water seen at a clear look) between October and March. Two maps: the rainfall-only score uses rain alone; the DamDays outlook uses each dam's own satellite history.</p>
+        <p class="note outlook-how outlook-limit"><b>What it can't do:</b> it ranks areas, not drought years. It is good at saying which areas are more exposed in a season; whether a whole season will be dry is a different job, best left to the Bureau of Meteorology's climate outlooks.</p>
+        <div class="twin-maps">
+          <figure class="twin">
+            <figcaption>
+              <h2>Rainfall-only score</h2>
+              <p>Uses the last one to two years of rain in the area.</p>
+            </figcaption>
+            <div id="rating-map-rain" class="map map-twin" role="region" aria-label="Map of rainfall-only scores"></div>
+          </figure>
+          <figure class="twin">
+            <figcaption>
+              <h2>DamDays outlook</h2>
+              <p>Uses each dam's own water history, seen from space since <span data-fill="since">1988</span>.</p>
+            </figcaption>
+            <div id="rating-map-damdays" class="map map-twin" role="region" aria-label="Map of the DamDays outlook"></div>
+          </figure>
+        </div>
+        <div id="rating-legend" class="legend"></div>
+        <div id="rating-scoreboard" class="scoreboard" aria-live="polite"></div>
+      </section>
 
-    <!-- 6. ABOUT: how it works, the data, the honest limits, and why it matters. -->
-    <section id="view-about" class="view about" aria-labelledby="about-title" hidden>
-      <h1 id="about-title">About DamDays</h1>
-
-      <h2>How it works</h2>
-      <ol class="steps">
-        <li><strong>Satellites watch farm dams.</strong> Landsat has photographed Australia every couple of weeks since 1987. Geoscience Australia turns those photos into the wet area of each waterbody: 38 years of water history per dam.</li>
-        <li><strong>We learn how each dam behaves.</strong> How fast it drops in summer, how it fills after rain, and whether it runs drier than its neighbours.</li>
-        <li><strong>We forecast the chance of running low.</strong> For each dam: the chance it falls below a third of its usual full level in the next 90 days (written "3 in 10"), plus a whole six-month curve.</li>
-        <li><strong>The DamDays number: days of water left.</strong> The number of days the dam should stay above a third, 9 times in 10. If it says 60, then in 9 seasons out of 10 like this one the dam would last at least 60 days. It is the headline.</li>
-        <li><strong>One text a week.</strong> Farmers don't open apps or emails, so each farm gets one text message a week: the days of water left for the dams that matter most, how full they are, and which are already low. <a href="#farm">My farm</a> shows the text for a homestead you pick on the map.</li>
-        <li><strong>The DamDays Rating.</strong> For lenders: before each season starts (1 July), a rating for every 2 km patch of farmland: the chance its dams all run dry between October and March.</li>
-      </ol>
-
-      <p class="note"><strong>A note on words.</strong> In DamDays "%" always means how full a dam is: its wet area against its usual full area. A chance is written "3 in 10". The test scores below are for judges and lenders, so they keep their usual units, each in plain words.</p>
-
-      <h2>How we checked it</h2>
-      <p>We wrote down the tests and the pass marks before writing any code (see <code>PREREG.md</code> in the repository). <span id="about-split">The model learned only from years before July 2016 and was then scored on July 2016 to June 2026, years it had never seen.</span> A third region was locked away before the event and is opened only once, on camera, after the model is frozen. <a href="#proof">Proof</a> shows the test years in pictures: what we said against what happened, year by year, and dam by dam. And so you can judge us on your own water, each dam's card and <a href="#farm">My farm</a> show <strong>our track record on that dam</strong> in those test years (the 2016-2026 backtest): how often the cautious days-left promise held on it, poor records included.</p>
-      <div id="about-scores"></div>
-
-      <h2>Honest limits</h2>
-      <ul>
-        <li><strong>Only dams larger than about <span data-fill="min-area">0.5</span> ha.</strong> A dam needs at least six 30 m satellite pixels. Bores, tanks and small dams are not visible.</li>
-        <li><strong>Water area, not depth.</strong> Satellites see how much of the dam is wet, not how deep it is. "A third" means a third of the dam's usual full wet area.</li>
-        <li><strong>Clouds and gaps.</strong> Some weeks have no clear look. Each forecast shows the date of the last clear look.</li>
-        <li><strong>A chance is a chance.</strong> A chance of 3 in 10 means that about 3 of every 10 dams like this one fall below a third. Some will, most won't.</li>
-        <li><strong>The days are cautious, not certain.</strong> "At least N days" held 9 times in 10 in the ten test years, so about 1 time in 10 a dam drops below a third sooner. On some dams it held less often than that: each dam's card shows its own record. Each forecast starts from the dam's last clear satellite look; the days since that look are taken off.</li>
-        <li><strong>A farm is a circle.</strong> We have no property boundaries, so a farm's dams are the dams within the radius you choose. On a small block the circle can take in a neighbour's dams; on a big station it can miss some.</li>
-        <li><strong>The rating ranks properties, not drought years.</strong> It is good at saying which farms are more exposed in a season. Forecasting whether a whole season will be dry is a different job, best left to climate outlooks.</li>
-        <li><strong>Not advice.</strong> Use it alongside your own eyes on the dam and local knowledge.</li>
-      </ul>
-
-      <h2>Why it matters for COP31</h2>
-      <ul>
-        <li><strong>Awareness track: helping farmers adapt.</strong> Farmers get a forecast for each dam the satellites can see, counted in days, to help them decide while there are still choices: sell or move stock, book water carting, or fix a leaking dam.</li>
-        <li><strong>Global Goal on Adaptation.</strong> Its framework (the UAE Framework for Global Climate Resilience) includes targets on water scarcity and climate-resilient farming. DamDays gives a farm-by-farm measure of water security, updated every couple of weeks.</li>
-        <li><strong>A number lenders could use for adaptation.</strong> Lenders and valuers could rate drought exposure property by property. Because the rating follows each dam's own record, a farm that improves its water supply can see that reflected over time, so adaptation can earn better finance.</li>
-      </ul>
-
-      <h2>Data and credits</h2>
-      <ul>
-        <li><strong>DEA Waterbodies</strong> (version 3), Geoscience Australia. Licence: CC BY 4.0. <a href="https://www.dea.ga.gov.au/" rel="noopener">dea.ga.gov.au</a></li>
-        <li><strong>SILO climate data</strong> (monthly rainfall), Queensland Government. Licence: CC BY 4.0. <a href="https://www.longpaddock.qld.gov.au/silo/" rel="noopener">longpaddock.qld.gov.au/silo</a></li>
-        <li><strong>Map tiles</strong> &copy; OpenStreetMap contributors (ODbL). <strong>Maps</strong> by Leaflet.</li>
-      </ul>
-
-      <h2>This page's data</h2>
-      <dl id="about-dataset" class="facts"></dl>
-    </section>
+    </div>
   </main>
 
   <footer class="site-footer">
-    <p>DamDays. Built for Climate Hack-tion 2026. Contains data from Geoscience Australia (DEA Waterbodies) and the Queensland Government (SILO), both CC BY 4.0.</p>
+    <div class="wrap">
+      <p>DamDays, built for Climate Hack-tion 2026. Contains data from Geoscience Australia (DEA Waterbodies) and the Queensland Government (SILO), both CC BY 4.0.</p>
+    </div>
   </footer>
 
-  <!-- Scripts load in order. Each file adds one part to the global DamDays object. -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/datasets.js"></script>
-  <script src="js/settings.js"></script>
-  <script src="js/text.js"></script>
-  <script src="js/format.js"></script>
-  <script src="js/colors.js"></script>
-  <script src="js/charts.js"></script>
-  <script src="js/map.js"></script>
-  <script src="js/dam-card.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/views/farm.js"></script>
-  <script src="js/views/runway.js"></script>
-  <script src="js/views/rewind.js"></script>
-  <script src="js/views/rating.js"></script>
-  <script src="js/views/about.js"></script>
-  <script src="js/views/proof.js"></script>
-  <script src="js/main.js"></script>
+  <!-- Phone: the four places in a bottom bar (desktop: the top bar above). -->
+  <nav class="tabbar" aria-label="Main">
+    <a href="#farm" data-tab="farm" aria-current="page"><span class="pill"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-home"/></svg></span>My farm</a>
+    <a href="#proof" data-tab="proof"><span class="pill"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-proof"/></svg></span>Proof</a>
+    <a href="#questions" data-tab="questions"><span class="pill"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-q"/></svg></span>Questions</a>
+    <a href="#more" data-tab="more"><span class="pill"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-more"/></svg></span>More</a>
+  </nav>
+
+  <!-- Update and install chips (pwa.js): above the tab bar. -->
+  <div id="pwa-bar" class="pwa-bar" aria-live="polite"></div>
+
+  <!-- The sheet (js/sheet.js): every second level opens here; never stacks. -->
+  <div class="scrim" id="sheet-scrim" aria-hidden="true"></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" aria-hidden="true" tabindex="-1">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <div class="sheet-head" id="sheet-head"></div>
+    <div class="sheet-body" id="sheet-body" tabindex="0" role="region" aria-labelledby="sheet-title"></div>
+  </div>
 </body>
 </html>

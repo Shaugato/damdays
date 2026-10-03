@@ -1,0 +1,150 @@
+/* tokens.css (WP-A)
+ * Every design token, defined once (UI_SPEC.md section 6). One meaning per colour:
+ *   blue = water, brown = chance (only), ink = actions, numbers and records,
+ *   straw = dry ground and the highlight. No red, amber or green; no traffic lights.
+ * Light by default; dark when the phone asks (prefers-color-scheme) or ?theme=dark.
+ * Sizes are in rem (root 16 px) so the phone's own text size setting scales them.
+ */
+:root {
+  /* ---- colour (light) ---- */
+  --paper: #F6F3EC;
+  --surface: #FFFFFF;
+  --surface-2: #FBF9F4;
+  --sky-1: #D3E3EE;
+  --sky-2: #EEF3F4;
+  --ink: #14222B;
+  --on-ink: #FFFFFF;
+  --ink-2: #3B4850;
+  --ink-3: #56636B;            /* meta and small print only */
+  --earth: #6A5640;            /* uppercase labels, the dam wall */
+  --water: #1C5CAB;            /* the wet patch, the history line, the focus ring */
+  --water-deep: #164C8E;       /* links */
+  --water-wash: #DCE8F5;       /* the dam note background */
+  --mark: #F2D98A;             /* the highlighter */
+  --mark-edge: #B98A2E;
+  --on-mark: #14222B;
+  --straw: #EFE6CF;            /* dry ground: below-a-third hero, chart band, current tab pill */
+  --straw-deep: #D9C9A0;
+  --dam-bed: #EDE5D3;          /* the dam's usual full outline */
+  --dam-rim: #8C8473;
+  --bubble: #ECEAE4;           /* the incoming text bubble, segmented control */
+  --line: #E2DDD2;             /* hairlines */
+  --line-strong: #8C8574;      /* control and empty-dot edges */
+  --saltbush: #5E6E59;         /* decoration and the who-else slot only */
+  /* chance only (the same fills as js/settings.js chanceBands) */
+  --c0: #fbe0bf;
+  --c1: #f4b073;
+  --c2: #e3803c;
+  --c3: #bb561a;
+  --c4: #7a320b;
+  --c-none: #b9b6ae;
+  --c-ring: #4a463f;
+  --chance-ink: #7A320B;       /* chance text ("3 in 10") */
+  --focus: #1C5CAB;
+  --scrim: rgba(14, 22, 27, .42);
+
+  /* ---- type: one family, Atkinson Hyperlegible Next (weights 400, 700, 800) ---- */
+  --font: "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fs-label: .875rem;         /* 14: uppercase labels (+.07em) */
+  --fs-meta: .9375rem;         /* 15 */
+  --fs-body: 1.0625rem;        /* 17 */
+  --fs-lead: 1.1875rem;        /* 19 (20 on desktop) */
+  --fs-h3: 1.1875rem;          /* 19: card title, dam row name */
+  --fs-h2: 1.375rem;           /* 22: section title */
+  --fs-h1: 1.625rem;           /* 26: welcome H1 (24 short screens, 56 desktop) */
+  --fs-page: 1.875rem;         /* 30: page title (40 desktop) */
+  --fs-tile: 2.125rem;         /* 34: row days */
+  --fs-hero: 4.75rem;          /* 76: farm hero number (88 desktop) */
+  --fs-sheet-hero: 5.25rem;    /* 84: sheet hero number */
+  --fs-sms: 1.125rem;          /* 18: SMS bubble (17 short and desktop) */
+  --fs-tab: .875rem;           /* 14: tab label (16 desktop) */
+  --fs-chart: .8125rem;        /* 13: chart labels (12 minimum) */
+  --lh-body: 1.5;
+
+  /* ---- space (4, 8, 12, 16, 20, 24, 32, 40, 56) ---- */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px; --s7: 32px; --s8: 40px; --s9: 56px;
+  --gutter: 16px;
+  --container: 1200px;
+  --container-narrow: 760px;   /* Proof, Questions, More text */
+
+  /* ---- radius ---- */
+  --r-s: 10px;                 /* tags */
+  --r-m: 16px;                 /* buttons, FAQ */
+  --r-l: 22px;                 /* cards, tiles, rows */
+  --r-xl: 28px;                /* SMS card, headline, Proof hero */
+  --r-sheet: 26px;             /* sheet top */
+  --r-pill: 999px;
+
+  /* ---- elevation ---- */
+  --shadow-1: 0 1px 2px rgba(20,34,43,.06), 0 2px 8px rgba(20,34,43,.05);
+  --shadow-2: 0 2px 4px rgba(20,34,43,.08), 0 12px 32px rgba(20,34,43,.12);
+  --shadow-sheet: 0 -4px 24px rgba(20,34,43,.16);
+
+  /* ---- targets ---- */
+  --tap: 48px;
+  --tap-main: 56px;
+  --tabbar-h: 64px;
+  --topbar-h: 56px;            /* 64 on desktop (sticky there) */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* ---- motion ---- */
+  --dur-press: 120ms;
+  --dur-quick: 160ms;
+  --dur-base: 220ms;
+  --dur-sheet-in: 300ms;
+  --dur-sheet-out: 220ms;
+  --dur-story: 300ms;
+  --stagger: 40ms;
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ease-standard: cubic-bezier(.2, 0, 0, 1);
+  --ease-sheet: cubic-bezier(.32, .72, 0, 1);
+  --ease-exit: cubic-bezier(.3, 0, 1, 1);
+
+  color-scheme: light;
+}
+
+/* ---- dark: when the phone asks, unless ?theme=light ---- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E161B; --surface: #172329; --surface-2: #1D2B32; --sky-1: #1B303C; --sky-2: #121D23;
+    --ink: #EEF2F3; --on-ink: #0E161B; --ink-2: #C3CDD2; --ink-3: #9AA8AF; --earth: #D6C29F;
+    --water: #86B6F0; --water-deep: #9CC3F2; --water-wash: #1E3550;
+    --straw: #2E2B22; --straw-deep: #5A5038; --dam-bed: #3A352B; --dam-rim: #A89F8C;
+    --bubble: #24333B; --line: #2C3A41; --line-strong: #6F7C83; --saltbush: #A9B8A2;
+    --chance-ink: #F4B073; --focus: #86B6F0; --scrim: rgba(0, 0, 0, .55);
+    --shadow-1: none; --shadow-2: 0 12px 32px rgba(0,0,0,.4); --shadow-sheet: 0 -4px 24px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+}
+/* ---- dark on request: ?theme=dark ---- */
+:root[data-theme="dark"] {
+  --paper: #0E161B; --surface: #172329; --surface-2: #1D2B32; --sky-1: #1B303C; --sky-2: #121D23;
+  --ink: #EEF2F3; --on-ink: #0E161B; --ink-2: #C3CDD2; --ink-3: #9AA8AF; --earth: #D6C29F;
+  --water: #86B6F0; --water-deep: #9CC3F2; --water-wash: #1E3550;
+  --straw: #2E2B22; --straw-deep: #5A5038; --dam-bed: #3A352B; --dam-rim: #A89F8C;
+  --bubble: #24333B; --line: #2C3A41; --line-strong: #6F7C83; --saltbush: #A9B8A2;
+  --chance-ink: #F4B073; --focus: #86B6F0; --scrim: rgba(0, 0, 0, .55);
+  --shadow-1: none; --shadow-2: 0 12px 32px rgba(0,0,0,.4); --shadow-sheet: 0 -4px 24px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
+
+/* ---- desktop sizes (960 px and up) ---- */
+@media (min-width: 960px) {
+  :root {
+    --fs-lead: 1.25rem;        /* 20 */
+    --fs-h1: 3.5rem;           /* 56 */
+    --fs-page: 2.5rem;         /* 40 */
+    --fs-hero: 5.5rem;         /* 88 */
+    --fs-sms: 1.0625rem;       /* 17 */
+    --fs-tab: 1rem;            /* 16 */
+    --topbar-h: 64px;
+  }
+}
+/* ---- short phones: keep the definition, the text and both buttons above the tab bar ---- */
+@media (max-height: 700px) and (max-width: 959.98px), (max-width: 380px) and (max-height: 820px) {
+  :root { --fs-h1: 1.5rem; --fs-sms: 1.0625rem; }
+}
+/* ---- landscape phones ---- */
+@media (max-height: 500px) {
+  :root { --fs-hero: 4rem; --fs-sheet-hero: 4rem; }
+}

@@ -46,7 +46,7 @@ EXAMPLES = [
          dams=[S(0.8, "already_low", 25), F(1.9, 65, 60, 0.35)]),
     dict(key="two_at_risk", title="Two dams at risk, and the rest summed up (the satellite date is left out to fit)",
          dams=[F(0.5, 90, 75, 0.30), F(1.2, 55, 25, 0.71), F(1.8, 95, 95, 0.20), F(2.6, 60, 40, 0.52)]),
-    dict(key="floor_ran_out", title="A floor that ran out since the satellite look, and a dry dam",
+    dict(key="floor_ran_out", title="A floor that ran out since the satellite look, and a dam with no water seen",
          dams=[F(0.3, 35, 5, 0.81), F(1.0, 60, 50, 0.40), S(2.4, "already_low", 0)]),
     dict(key="capped", title="One dam, its floor capped at 6 months",
          dams=[F(0.9, 100, 260, 0.01)]),

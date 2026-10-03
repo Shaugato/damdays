@@ -4,6 +4,7 @@ Run from the repo folder (seconds):
     .venv/Scripts/python.exe scripts/16_weekly_texts.py                  # texts dated today
     .venv/Scripts/python.exe scripts/16_weekly_texts.py --date 2026-10-02
     .venv/Scripts/python.exe scripts/16_weekly_texts.py --regions nsw_cw # without data_cache: the app's region only
+    .venv/Scripts/python.exe scripts/16_weekly_texts.py --set-aside ""   # keep every demo farm (default: farm-d set aside)
 
 What it does
   1. LIVE FORECASTS of each development region, the same numbers the app shows:
@@ -18,6 +19,9 @@ What it does
      For every dam, take the centre of the dams within 3 km of it; rank those points by how many
      dams lie within 3 km; keep the best five that are at least 25 km apart. They are named
      neutrally after the nearest town ("Farm A (near Orange)"). They are NOT real homesteads.
+     A farm whose waterbodies turned out not to be farm dams on aerial photos is SET ASIDE (SET_ASIDE:
+     Farm D, near Dubbo): it keeps its letter, so the others keep theirs, but it gets no text and is
+     listed only under farms.json's "set_aside", with the reason.
   3. THE TEXTS (notify.message): one SMS per farm and its longer app/email version, written to
        outbox/<date>.json                    the week's texts, ready for notify/sms.py (dry run by default)
        app/data/real/farms.json              the demo farms, their dams and texts, for the app
@@ -49,6 +53,18 @@ REGION_NAMES = {"nsw_cw": "NSW Central West", "wvic_sesa": "western Victoria / S
 FARMS_PER_REGION = 5
 FARM_SPACING_KM = 25            # demo farms at least this far apart
 FIXTURE_MARGIN_KM = 1.0         # the fixture keeps dams up to 1 km beyond each radius (to test the cut-off)
+
+# Demo farms set aside after a check of every demo farm against aerial photos (Sat 3 Oct 2026). The cluster
+# search still finds them (so the other farms keep their letters); they get no text, and farms.json lists them
+# under "set_aside" with the reason. `name` guards against the search ever picking a different place.
+SET_ASIDE = {
+    "farm-d": dict(
+        name="Farm D (near Dubbo)",
+        reason=("Set aside: on aerial photos its waterbodies are not farm dams. Three are cells of one "
+                "treatment-pond complex at the edge of Dubbo; the others include a pond at a racecourse, a garden "
+                "pond at the town edge and a stretch of the Macquarie River. They passed the filter that picks "
+                "dam-sized waterbodies, which is why we checked the demo farms against aerial photos.")),
+}
 
 # Approximate town centres (degrees, from public maps), used ONLY to give each demo farm a
 # neutral name: "Farm A (near Orange)". Nothing else uses them.
@@ -249,17 +265,36 @@ def main():
     parser.add_argument("--regions", default="nsw_cw,wvic_sesa",
                         help="development regions, comma-separated (default both; nsw_cw alone needs no data_cache)")
     parser.add_argument("--radius", type=float, default=DEFAULT_RADIUS_KM, help="farm radius in km (default 3)")
+    parser.add_argument("--set-aside", default=",".join(SET_ASIDE),
+                        help="demo farms to set aside, comma-separated (default: %(default)s; \"\" keeps every farm); "
+                             "each needs a reason in SET_ASIDE")
     args = parser.parse_args()
     today = date.fromisoformat(args.date)
     regions = [r.strip() for r in args.regions.split(",") if r.strip()]
     unknown = [r for r in regions if r not in REGION_NAMES]
     if unknown:
         parser.error(f"unknown region(s) {unknown}; choose from {list(REGION_NAMES)}")
+    set_aside_ids = [f.strip() for f in args.set_aside.split(",") if f.strip()]
+    no_reason = [f for f in set_aside_ids if f not in SET_ASIDE]
+    if no_reason:
+        parser.error(f"no reason recorded in SET_ASIDE for {no_reason}")
 
     docs, app_region, source = live_forecasts(regions)
     farms = []
     for i, region in enumerate(regions):
         farms += demo_farms(region, docs[region], chr(ord("A") + FARMS_PER_REGION * i), args.radius)
+
+    # Set aside the farms whose waterbodies are not farm dams (they keep their letters; see SET_ASIDE).
+    set_aside = []
+    for item in [f for f in farms if f["farm"].farm_id in set_aside_ids]:
+        farm = item["farm"]
+        if farm.name != SET_ASIDE[farm.farm_id]["name"]:
+            raise SystemExit(f"{farm.farm_id} is now {farm.name!r}, not {SET_ASIDE[farm.farm_id]['name']!r}: the "
+                             "cluster search picked another place; check SET_ASIDE before setting it aside.")
+        set_aside.append(dict(farm_id=farm.farm_id, name=farm.name, region=item["region"],
+                              reason=SET_ASIDE[farm.farm_id]["reason"]))
+        log(f"set aside: {farm.name} ({SET_ASIDE[farm.farm_id]['reason']})")
+    farms = [f for f in farms if f["farm"].farm_id not in set_aside_ids]
 
     messages, app_farms, cases = [], [], []
     for item in farms:
@@ -286,11 +321,12 @@ def main():
     write_json(FARMS_JSON, dict(
         schema_version="1.0", generated_at=made_at, date=str(today), radius_km=args.radius,
         about=("Demo farms for the weekly text. Each homestead point is placed in the middle of a real cluster "
-               "of farm dams (the densest clusters, at least 25 km apart) and named after the nearest town; "
-               "they are not real homesteads. A farm's dams are the dams within its radius: we have no "
-               "property boundaries. Texts made by notify.message from the live forecasts "
-               "(scripts/16_weekly_texts.py). `dams_in_app` is false for farms outside the region the app shows."),
-        source=source, farms=app_farms))
+               "of dam-sized waterbodies, mostly farm dams (the densest clusters, at least 25 km apart), and named "
+               "after the nearest town; they are not real homesteads. A farm's dams are the dams within its "
+               "radius: we have no property boundaries. Texts made by notify.message from the live forecasts "
+               "(scripts/16_weekly_texts.py). `dams_in_app` is false for farms outside the region the app shows. "
+               "`set_aside`: farms found the same way but left out, with the reason."),
+        source=source, farms=app_farms, set_aside=set_aside))
     write_json(FIXTURES / "demo_week.json", dict(
         about=("The demo farms' texts for one week, to check the app's JavaScript port. For each case: run "
                "the farm against forecasts[region] on `today`; the dams (closest first) must be `dam_ids`, "

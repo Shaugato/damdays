@@ -1,0 +1,238 @@
+/* legacy.css (WP-F)
+ * The old views (js/views/runway.js, rewind.js, rating.js, and the old farm, proof and about if anything
+ * still mounts them), restyled to the new tokens. Everything is scoped under .legacy, the class
+ * DamDays.legacy.mount() adds, so nothing leaks into the new views. Loaded after shell.css, so these
+ * rules win over its minimal "LEGACY HOST" block at equal specificity. css/style.css is no longer used.
+ */
+
+/* ---------- the frame ---------- */
+.legacy { padding: var(--s4) 0 var(--s7); color: var(--ink); }
+.legacy .view-intro { max-width: 70ch; margin-bottom: var(--s3); }
+.legacy .view-intro h1 { font-size: var(--fs-page); font-weight: 800; line-height: 1.12; letter-spacing: -.01em; margin: var(--s1) 0 var(--s2); }
+.legacy .view-intro h2 { font-size: var(--fs-h2); font-weight: 800; line-height: 1.2; margin: 0 0 var(--s2); }
+.legacy .view-intro p, .legacy .note { color: var(--ink-2); }
+.legacy .view-intro .tag { margin-bottom: 4px; }
+.legacy .outlook-head .eyebrow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.legacy .outlook-head .eyebrow .tag { margin: 0; }
+.legacy .outlook-head .lead { font-size: var(--fs-lead); line-height: 1.4; color: var(--ink-2); }
+.legacy .outlook-how { max-width: 70ch; margin: var(--s2) 0 var(--s3); }
+.legacy .outlook-how b { color: var(--ink); }
+.legacy h2 { font-size: var(--fs-h2); font-weight: 800; line-height: 1.2; margin: var(--s5) 0 var(--s2); }
+.legacy h3 { font-size: var(--fs-h3); font-weight: 800; line-height: 1.25; margin: var(--s3) 0 var(--s1); }
+.legacy p + p, .legacy ul + p, .legacy p + ul, .legacy p + table { margin-top: var(--s2); }
+.legacy .note { font-size: var(--fs-meta); margin: var(--s2) 0; }
+.legacy .note:empty { display: none; }
+.legacy .muted { color: var(--ink-3); }
+
+/* ---------- controls ---------- */
+.legacy .controls { display: flex; flex-wrap: wrap; gap: var(--s3); align-items: end; margin: var(--s3) 0; }
+.legacy .control { display: flex; flex-direction: column; gap: 4px; font-weight: 700; font-size: var(--fs-meta); color: var(--ink-2); max-width: 100%; }
+.legacy select {
+  min-height: var(--tap); padding: 0 40px 0 var(--s3); border: 1.5px solid var(--line-strong); border-radius: 14px;
+  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2356636B' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center / 18px;
+  color: var(--ink); font-weight: 700; font-size: var(--fs-body); max-width: 100%; -webkit-appearance: none; appearance: none;
+}
+.legacy input[type="range"] { width: 14em; max-width: 100%; min-height: 44px; accent-color: var(--ink); }
+.legacy .control-range output { font-variant-numeric: tabular-nums; }
+.legacy .button {
+  display: inline-flex; align-items: center; justify-content: center; min-height: var(--tap); padding: 0 var(--s5); border-radius: var(--r-m);
+  border: 2px solid var(--ink); background: var(--ink); color: var(--on-ink); font-weight: 800; font-size: var(--fs-body); cursor: pointer;
+  transition: transform var(--dur-press) var(--ease-out), background-color var(--dur-quick), color var(--dur-quick);
+}
+.legacy .button:active { transform: scale(.98); }
+.legacy .button[aria-pressed="true"] { background: var(--surface); color: var(--ink); }
+.legacy .button:disabled { opacity: .35; cursor: not-allowed; }
+/* phones: the Reveal / Hide button takes its own full-width row in both states, so its two labels (of different
+   lengths) never reflow the controls and move the maps under the reader's thumb */
+@media (max-width: 599.98px) { .legacy .controls > .button { flex: 1 1 100%; } }
+.legacy .button-link {
+  min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--water-deep); font-weight: 700;
+  text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+
+/* ---------- map and side panel ---------- */
+.legacy .map-and-panel { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s4); align-items: start; }
+@media (min-width: 960px) { .legacy .map-and-panel { grid-template-columns: minmax(0, 1fr) 400px; } }
+.legacy .map-column { min-width: 0; }
+.legacy .map {
+  position: relative; z-index: 0; isolation: isolate; height: 60vh; min-height: 320px; max-height: 640px;
+  border-radius: var(--r-l); overflow: hidden; border: 1px solid var(--line); background: var(--surface-2);
+}
+.legacy .map-missing { padding: var(--s6); color: var(--ink-2); }
+.legacy .leaflet-tile-pane { filter: grayscale(.9) contrast(.92) brightness(1.04); }
+.legacy .leaflet-container { font-family: var(--font); }
+/* beats leaflet.css (loaded later, on demand): .leaflet-touch .leaflet-bar a is 30 px */
+.legacy .leaflet-bar.leaflet-control-zoom a { width: 44px; height: 44px; line-height: 44px; font-size: 20px; color: var(--ink); background: var(--surface); border-color: var(--line); }
+.legacy .leaflet-bar.leaflet-control-zoom a:hover { background: var(--surface-2); }
+.legacy .leaflet-bar.leaflet-control-zoom a.leaflet-disabled { color: var(--ink-3); background: var(--surface-2); }
+/* .legacy .leaflet-container ... beats leaflet.css's own rule (same weight, loaded later): a readable credit in dark mode */
+.legacy .leaflet-container .leaflet-control-attribution { font-size: 12px; background: color-mix(in srgb, var(--surface) 88%, transparent); color: var(--ink-2); }
+.legacy .leaflet-control-attribution a { color: var(--water-deep); }
+.legacy .leaflet-control-scale-line { background: color-mix(in srgb, var(--surface) 80%, transparent); color: var(--ink); border-color: var(--ink-2); }
+.legacy .leaflet-tooltip { font-family: var(--font); font-size: var(--fs-meta); color: var(--ink); background: var(--surface); border-radius: 10px; box-shadow: var(--shadow-2); border: 1px solid var(--line); }
+.legacy .leaflet-tooltip-top::before { border-top-color: var(--surface); }
+.legacy .leaflet-tooltip-bottom::before { border-bottom-color: var(--surface); }
+.legacy .leaflet-tooltip-left::before { border-left-color: var(--surface); }
+.legacy .leaflet-tooltip-right::before { border-right-color: var(--surface); }
+/* a dam's tooltip wraps rather than running off the map, at every width: the desktop street map opens in a
+   536 px column, narrower than a one-line forecast tooltip; map.js then slides the narrower box fully inside */
+.legacy .leaflet-tooltip { white-space: normal; width: max-content; max-width: min(300px, 80vw); }
+@media (max-width: 599.98px) { .legacy .leaflet-tooltip { max-width: min(240px, 70vw); } }
+.legacy .panel {
+  background: var(--surface); border-radius: var(--r-l); box-shadow: var(--shadow-1); padding: var(--s4) 18px; min-width: 0;
+}
+@media (min-width: 960px) { .legacy .panel { max-height: calc(60vh + 200px); overflow-y: auto; overscroll-behavior: contain; } }
+.legacy .panel-title { font-size: var(--fs-h2); font-weight: 800; line-height: 1.2; margin: 0 0 6px; }
+.legacy .panel-subtitle { font-size: var(--fs-h3); margin-top: var(--s4); }
+.legacy .panel-lead { font-size: var(--fs-lead); line-height: 1.4; }
+.legacy .panel-small { font-size: var(--fs-meta); color: var(--ink-2); }
+.legacy .panel-hint { font-size: var(--fs-meta); color: var(--ink-3); }
+
+/* ---------- colour key ---------- */
+.legacy .legend { margin-top: 10px; font-size: var(--fs-meta); color: var(--ink-2); }
+.legacy .legend-title { font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.legacy .legend-items { display: flex; flex-wrap: wrap; gap: 6px 16px; list-style: none; padding: 0; }
+.legacy .legend-items li { display: inline-flex; align-items: center; gap: 6px; margin: 0; }
+.legacy .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--c-ring); flex: none; }
+/* the ring the maps draw (settings.revealOutline, #111) in both themes, so the key matches the map and its words */
+.legacy .swatch-ring { background: #ffffff; border: 3.5px solid #111111; }
+.legacy .swatch-faded { background: rgba(227, 128, 60, .3); border: 1px dashed var(--line-strong); }
+.legacy .swatch-home { border-radius: 3px; background: var(--ink); border-color: var(--ink); }
+.legacy .swatch-radius { background: var(--water-wash); border: 2px dashed var(--water); }
+
+/* ---------- "?" tips ---------- */
+.legacy .tip {
+  display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; vertical-align: middle;
+  border: 1.5px solid var(--line-strong); background: var(--surface); color: var(--ink); font-weight: 800; padding: 0; cursor: pointer;
+  position: relative;
+}
+.legacy .tip::after { content: ""; position: absolute; inset: -8px; }
+.legacy .tip[aria-expanded="true"] { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.legacy .tip-text { display: block; margin: 6px 0; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); color: var(--ink-2); font-size: var(--fs-meta); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* ---------- lists of dams (Runway panel) ---------- */
+.legacy .dam-list { list-style: none; margin: 0 0 var(--s3); padding: 0; }
+.legacy .dam-list li { margin: 0; }
+.legacy .dam-pick {
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; padding: 8px 6px; border: 0; border-bottom: 1px solid var(--line);
+  background: none; color: var(--ink); text-align: left; font-size: var(--fs-body); cursor: pointer; border-radius: 0;
+}
+.legacy .dam-pick:hover { background: var(--surface-2); }
+.legacy .dam-pick .dam-pick-name { flex: 1; min-width: 0; font-weight: 700; }
+.legacy .dam-pick-days { display: block; font-size: var(--fs-meta); font-weight: 400; color: var(--ink-2); }
+.legacy .dam-pick strong { color: var(--chance-ink); white-space: nowrap; }
+
+/* ---------- the old dam card (Rewind's panel) ---------- */
+.legacy .card { font-size: var(--fs-body); }
+.legacy .card-kicker { font-size: var(--fs-label); font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--earth); margin-bottom: 4px; }
+.legacy .card-headline { font-size: var(--fs-h3); line-height: 1.35; margin-bottom: 6px; }
+.legacy .card-chance { font-size: var(--fs-body); margin: 10px 0 4px; }
+.legacy .card-band, .legacy .card-distance { color: var(--ink-2); font-size: var(--fs-meta); }
+.legacy .card-facts, .legacy .card-coverage { color: var(--ink-3); font-size: var(--fs-meta); margin-top: 10px; }
+.legacy .card-section { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.legacy .card-section h3 { margin-top: 0; }
+.legacy .card-outcome { background: var(--water-wash); border: 0; border-radius: var(--r-m); padding: 12px 14px; }
+.legacy .card-notes { list-style: disc; padding-left: 1.2em; color: var(--ink-2); margin-top: 10px; }
+.legacy .card-empty { color: var(--ink-2); }
+.legacy .card-record .record-main { font-size: var(--fs-body); margin-bottom: 4px; }
+.legacy .card-record .record-more { color: var(--ink-2); font-size: var(--fs-meta); margin-bottom: 4px; }
+.legacy .damdays-box {
+  display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; margin: 10px 0; padding: 12px 14px;
+  border-radius: var(--r-m); background: linear-gradient(180deg, var(--sky-1), var(--sky-2));
+}
+.legacy .damdays-value { margin: 0; font-weight: 800; white-space: nowrap; }
+.legacy .damdays-big { font-size: 2.6rem; line-height: 1; letter-spacing: -.02em; }
+.legacy .damdays-text { margin: 0; flex: 1 1 180px; }
+.legacy .damdays-from { flex: 1 1 100%; margin: 0; font-size: var(--fs-meta); color: var(--ink-2); }
+.legacy .chart { display: block; width: 100%; height: auto; overflow: visible; }
+.legacy .chart-axis { font-size: 12px; fill: var(--ink-3); font-family: var(--font); }
+.legacy .chart-label { font-size: 12px; font-weight: 700; fill: var(--ink); font-family: var(--font); }
+.legacy .chart-note { font-size: var(--fs-meta); color: var(--ink-2); margin-top: 4px; }
+
+/* ---------- tables (Rewind's tally, the Area outlook scoreboard) ---------- */
+.legacy table { width: 100%; border-collapse: collapse; margin: 10px 0 14px; font-size: var(--fs-meta); font-variant-numeric: tabular-nums; }
+.legacy caption { text-align: left; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+.legacy th, .legacy td { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.legacy thead th { font-size: var(--fs-label); color: var(--ink-3); font-weight: 700; }
+.legacy .band-table th .swatch { margin-right: 6px; vertical-align: -2px; }
+.legacy .score-table td, .legacy .score-table th { padding: 10px 8px 10px 0; }
+.legacy .score-big { font-size: 1.75rem; font-weight: 800; margin-right: 4px; line-height: 1.1; }
+/* the result after the reveal, outside the specialists' disclosure: the two scores side by side, then in words */
+.legacy .outlook-result { display: grid; gap: 10px; background: var(--surface); border-radius: var(--r-l); box-shadow: var(--shadow-1); padding: var(--s4) 18px; }
+.legacy .outlook-result p { color: var(--ink-2); }
+.legacy .outlook-result strong { color: var(--ink); }
+.legacy .outlook-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.legacy .outlook-vs > div { display: grid; gap: 2px; padding: 12px 14px; border-radius: var(--r-m); background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); }
+.legacy .outlook-vs > div.is-ours { box-shadow: inset 0 0 0 2px var(--ink); }
+.legacy .outlook-vs .ov-n { color: var(--ink); font-weight: 700; }
+.legacy .outlook-vs .score-big { font-size: 2rem; }
+.legacy .outlook-vs .ov-who { color: var(--ink-2); font-size: var(--fs-meta); font-weight: 700; }
+.legacy .score-range { display: block; font-size: var(--fs-label); color: var(--ink-3); font-weight: 400; }
+.legacy .row-pending th, .legacy .row-pending td { color: var(--ink-2); }
+.legacy ul:not(.legend-items):not(.dam-list):not(.panel-list) { list-style: disc; padding-left: 1.3em; }
+.legacy ol { list-style: decimal; padding-left: 1.3em; }
+.legacy li + li { margin-top: 4px; }
+.legacy .facts { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; }
+.legacy .facts dt { font-weight: 700; }
+.legacy .facts dd { margin: 0; }
+
+/* ---------- the old phone and SMS (old farm view, if mounted) ---------- */
+.legacy .phone { max-width: 340px; border-radius: 36px; background: #11191E; padding: 10px; margin: 10px 0; }
+.legacy .phone-screen { background: var(--surface); border-radius: 28px; padding: 12px; min-height: 0; display: block; }
+.legacy .sms-bubble { background: var(--bubble); border-radius: 18px 18px 18px 6px; padding: 10px 14px; white-space: pre-line; }
+.legacy .farm-dams { margin-top: 12px; overflow-x: auto; }
+
+/* ---------- the Area outlook (#outlook) ---------- */
+.legacy .twin-maps { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s4); }
+@media (min-width: 800px) { .legacy .twin-maps { grid-template-columns: 1fr 1fr; } }
+.legacy .twin { margin: 0; min-width: 0; }
+.legacy .twin figcaption { margin-bottom: 8px; }
+.legacy .twin figcaption h2 { font-size: var(--fs-h3); margin: 0 0 2px; }
+.legacy .twin figcaption p { color: var(--ink-2); font-size: var(--fs-meta); }
+.legacy .map-twin { height: 54vh; min-height: 300px; }
+.legacy .map-twin .cell-hex { display: none; }
+.legacy .map-twin.zoomed-in .cell-hex { display: inline; }
+.legacy .map-twin.zoomed-in .cell-dot { display: none; }
+.legacy .scoreboard:empty { display: none; }
+.legacy .scoreboard { margin-top: var(--s4); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s3); }
+.legacy .outlook-summary { font-size: var(--fs-lead); line-height: 1.4; background: var(--straw); border-radius: var(--r-l); padding: var(--s4) 18px; }
+.legacy .outlook-specialists { background: var(--surface); border-radius: var(--r-l); box-shadow: var(--shadow-1); padding: 0 16px; border-top: 0; }
+.legacy .outlook-specialists > summary { min-height: var(--tap-main); }
+.legacy .outlook-specialists .panel-small { margin-bottom: 4px; }
+#v-outlook .legacy .view-intro { padding-top: var(--s2); }
+@media (min-width: 960px) { #v-outlook .legacy { padding-top: var(--s7); } }
+
+/* ---------- Rewind inside Proof ---------- */
+.legacy#view-rewind .map-and-panel, #view-rewind.legacy .map-and-panel { margin-top: var(--s2); }
+#view-rewind.legacy .panel #rewind-card:not(:empty) { margin-bottom: var(--s4); padding-bottom: var(--s3); border-bottom: 1px solid var(--line); }
+
+/* ---------- Runway's interactive map, mounted under the sketch (views/region.js) ---------- */
+.region-live-mount .legacy { padding: 0; }
+.region-live-mount .legacy .view-intro, .region-live-mount .legacy #runway-panel { display: none; }
+.region-live-mount .legacy .map-and-panel { grid-template-columns: minmax(0, 1fr); }
+.region-live-mount .legacy .map { height: 70vh; max-height: 720px; }
+.region-live-off { padding: var(--s4); background: var(--surface-2); border-radius: var(--r-l); }
+
+/* ---------- dark theme: the light map tiles get a softer frame ---------- */
+:root[data-theme="dark"] .legacy .leaflet-tile-pane { filter: grayscale(.9) invert(.88) contrast(.9) brightness(.95); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .legacy .leaflet-tile-pane { filter: grayscale(.9) invert(.88) contrast(.9) brightness(.95); }
+}
+/* dark theme: the reveal's thick rings (settings.revealOutline, #111) would vanish on the dark tiles, so they and
+   their key are drawn light; the key's words say "thick ring", true in both themes. CSS beats Leaflet's stroke attribute. */
+:root[data-theme="dark"] .legacy .map path[stroke="#111111"] { stroke: #F4F1EA; }
+:root[data-theme="dark"] .legacy .swatch-ring { background: var(--surface); border-color: #F4F1EA; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .legacy .map path[stroke="#111111"] { stroke: #F4F1EA; }
+  :root:not([data-theme="light"]) .legacy .swatch-ring { background: var(--surface); border-color: #F4F1EA; }
+}
+@media (max-width: 599.98px) {
+  /* phones: one block per row (the two scores side by side under its name), never a sideways scroll */
+  .legacy .score-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .legacy .score-table, .legacy .score-table tbody { display: block; width: auto; }
+  .legacy .score-table tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .legacy .score-table th[scope="row"] { grid-column: 1 / -1; padding: 0; border: 0; }
+  .legacy .score-table td { padding: 0; border: 0; white-space: normal; }
+  .legacy .score-table td[colspan] { grid-column: 1 / -1; }
+  .legacy .score-table td[data-label]::before { content: attr(data-label); display: block; color: var(--ink-3); font-size: var(--fs-label); font-weight: 700; }
+}

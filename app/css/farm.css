@@ -1,0 +1,330 @@
+/* farm.css (WP-C)
+ * My farm (UI_SPEC 3.2): the head, the headline card, the farm from above (sketch 5.9 and the
+ * map), the dam rows (5.10), the farm's record, the table, the link rows; the text and setup
+ * sheets (5.24). The sketch's tags (.tag2) are shared with the Welcome story and the replay.
+ * Colours and sizes come from tokens.css only.
+ */
+
+.farm { padding-bottom: var(--s7); }
+
+/* ---------- head ---------- */
+.farm-head { padding: 12px 0 14px; }
+.farm-head-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; }
+.farm-head h1 { font-size: var(--fs-page); font-weight: 800; line-height: 1.1; letter-spacing: -.01em; margin-top: 2px; }
+.farm-head h1[tabindex="-1"]:focus { outline: none; }   /* the router moves focus here on a view change; it is not a control */
+.farm-count { margin-top: 4px; font-size: var(--fs-body); }
+.farm-note { margin-top: 4px; color: var(--ink-3); font-size: var(--fs-meta); line-height: 1.4; max-width: 70ch; }
+.farm-change { gap: 6px; padding: 0 14px; }
+
+/* ---------- headline card (Apple Weather style) ---------- */
+.headline {
+  display: block; position: relative; text-decoration: none; color: var(--ink);
+  background: linear-gradient(180deg, var(--sky-1), var(--sky-2)); border-radius: var(--r-xl); padding: 16px 18px;
+  transition: transform var(--dur-press) var(--ease-out);
+}
+a.headline:active { transform: scale(.985); }
+.headline .eyebrow { color: var(--ink-2); }
+.headline .chev { position: absolute; right: 16px; top: 14px; color: var(--ink-2); }
+.headline .who { font-size: var(--fs-h2); font-weight: 800; margin-top: 2px; line-height: 1.2; }
+.bigdays { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 8px; line-height: 1; margin-top: 4px; }
+.bigdays .pre, .bigdays .post { font-size: 1.375rem; font-weight: 800; }
+.bigdays .n { font-size: var(--fs-hero); font-weight: 800; letter-spacing: -.04em; }
+.bigdays .n-cap { font-size: 3.25rem; letter-spacing: -.02em; }
+.bigdays .n-words { font-size: 2rem; font-weight: 800; line-height: 1.1; }
+.headline .before { font-size: var(--fs-h3); font-weight: 800; margin-top: 2px; }
+.headline .caution { color: var(--ink-2); margin-top: 6px; font-size: 1rem; line-height: 1.4; }
+.headline .caution.soon { color: var(--ink); }
+.headline .caution.weak-rec { display: flex; gap: 8px; align-items: flex-start; color: var(--ink); font-weight: 700; }
+.headline .caution.weak-rec svg.i { flex: none; margin-top: 3px; color: var(--c3); }
+.headline .chip { margin-top: 10px; background: color-mix(in srgb, var(--surface) 80%, transparent); }
+.headline.is-empty .btn { margin-top: 12px; }
+.headline.is-empty, .headline.is-none { background: var(--straw); }
+.counts { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--ink-2); padding: 12px 4px 0; font-size: 1rem; }
+.counts b { color: var(--ink); }
+/* this week's text, one tap from the first screen */
+.farm-textlink { margin-top: 14px; }
+.farm-textlink > svg.i:first-child { color: var(--ink); }
+
+/* ---------- the farm from above: sketch or map ---------- */
+.sketch-card { background: var(--surface); border-radius: var(--r-l); box-shadow: var(--shadow-1); padding: 10px 10px 12px; margin: 16px 0 0; }
+.sketch-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 2px 4px 8px 6px; }
+.seg { display: inline-grid; grid-auto-flow: column; background: var(--bubble); border-radius: 14px; padding: 4px; gap: 2px; }
+.seg button {
+  min-height: 44px; padding: 0 12px; border: 0; border-radius: 10px; background: transparent;
+  font-weight: 800; font-size: var(--fs-meta); color: var(--ink-2); cursor: pointer;
+}
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-1); }
+.seg-sm button { min-height: 44px; padding: 0 12px; }
+.sketch { position: relative; }
+/* the sketch's room before it is drawn (the ratios of sketch.js farm()), so the rows below never move */
+.sketch-wrap { container-type: inline-size; }
+.sketch-wrap > .sketch:empty { aspect-ratio: 1 / 1.12; max-height: 640px; }
+@container (max-width: 479.98px) { .sketch-wrap > .sketch:empty { aspect-ratio: 1 / 1.24; } }
+@container (max-width: 339.98px) { .sketch-wrap > .sketch:empty { aspect-ratio: 1 / 1.42; } }
+@media (min-width: 960px) { .sketch-wrap > .sketch:empty { aspect-ratio: 1 / 0.92; max-height: 620px; } }
+.sketch svg.sketch-art { display: block; max-width: none; }
+.sketch-cap { color: var(--ink-2); font-size: var(--fs-meta); padding: 8px 6px 0; line-height: 1.4; }
+
+/* the tags: number disc + days, 36 px tall with a 46 px hit area */
+.tag2 {
+  position: absolute; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 7px;
+  height: 36px; padding: 0 12px 0 4px; border-radius: var(--r-pill); background: var(--surface);
+  border: 2px solid var(--ink); color: var(--ink); font-weight: 800; font-size: 15px; line-height: 1;   /* px: the sketch places tags by measuring 15 px text */
+  white-space: nowrap; text-decoration: none; box-shadow: var(--shadow-1); -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--dur-quick), color var(--dur-quick);
+}
+.tag2::after { content: ""; position: absolute; inset: -5px -2px; }
+.tag2 .no {
+  display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--ink); color: var(--on-ink); font-size: 14px; flex: none;
+}
+.tag2.is-small { font-size: 14px; gap: 6px; padding-right: 10px; }
+.tag2.is-low { border-style: dashed; }
+.tag2.is-low .no { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+.tag2.is-quiet { border-color: var(--line-strong); color: var(--ink-2); }
+.tag2.is-quiet .no { background: var(--surface-2); color: var(--ink); box-shadow: inset 0 0 0 2px var(--line-strong); }
+.tag2.is-ring { border-width: 3px; }
+a.tag2:hover, .tag2.is-hot { background: color-mix(in srgb, var(--ink) 10%, var(--surface)); }
+.tag2.is-on, a.tag2.is-on:hover { background: var(--ink); color: var(--on-ink); border-style: solid; border-color: var(--ink); }
+.tag2.is-on .no { background: var(--on-ink); color: var(--ink); box-shadow: none; }
+.tag2:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; z-index: 2; }
+
+/* the farm on a real map (Leaflet, loaded on demand) */
+.farm-mapbox { padding: 0 2px; }
+.farm-map, .setup-map {
+  position: relative; z-index: 0; isolation: isolate; height: 380px; border-radius: var(--r-m); overflow: hidden;
+  border: 1px solid var(--line); background: var(--surface-2);
+}
+/* base.css clamps every svg to its box (max-width: 100%), and a Leaflet pane div has no width, so the svg of a
+   custom pane (dd-region: the region's other dams, drawn faintly) would be 0 px wide and never seen. leaflet.css
+   only frees the overlay pane's svg; this frees every pane's. */
+.leaflet-container .leaflet-pane > svg { max-width: none !important; max-height: none !important; }
+.farm-map .leaflet-tile-pane, .setup-map .leaflet-tile-pane { filter: grayscale(.9) contrast(.92) brightness(1.04); }
+/* dark theme: the same soft dark tiles as the other maps (legacy.css), so the setup map does not glare at night */
+:root[data-theme="dark"] .farm-map .leaflet-tile-pane, :root[data-theme="dark"] .setup-map .leaflet-tile-pane { filter: grayscale(.9) invert(.88) contrast(.9) brightness(.95); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .farm-map .leaflet-tile-pane, :root:not([data-theme="light"]) .setup-map .leaflet-tile-pane { filter: grayscale(.9) invert(.88) contrast(.9) brightness(.95); }
+}
+.farm-map .leaflet-bar.leaflet-control-zoom a, .setup-map .leaflet-bar.leaflet-control-zoom a { width: 48px; height: 48px; line-height: 48px; font-size: 22px; color: var(--ink); background: var(--surface); border-color: var(--line); }
+/* .x.leaflet-container beats leaflet.css's own rule (same weight, loaded later), so dark mode keeps a readable credit */
+.farm-map.leaflet-container .leaflet-control-attribution, .setup-map.leaflet-container .leaflet-control-attribution { background: color-mix(in srgb, var(--surface) 88%, transparent); color: var(--ink-2); }
+.farm-map .leaflet-control-attribution a, .setup-map .leaflet-control-attribution a { color: var(--water-deep); }
+.farm-map .leaflet-control-scale-line, .setup-map .leaflet-control-scale-line { background: color-mix(in srgb, var(--surface) 80%, transparent); color: var(--ink); border-color: var(--ink-2); }
+.farm-map .leaflet-tooltip.dam-number, .setup-map .leaflet-tooltip.dam-number {
+  background: var(--surface); color: var(--ink); border: 1.5px solid var(--ink); border-radius: 8px;
+  font: 800 13px/1 var(--font); padding: 3px 6px; box-shadow: none;
+}
+.farm-map .leaflet-tooltip.dam-number::before, .setup-map .leaflet-tooltip.dam-number::before { display: none; }
+.home-icon { background: none; border: 0; }
+.map-missing { padding: 24px; color: var(--ink-2); }
+.map-key { margin-top: 8px; font-size: var(--fs-meta); color: var(--ink-2); }
+.map-key-title { font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.map-key-items { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.map-key-items li { display: inline-flex; align-items: center; gap: 6px; }
+.map-key .swatch { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--c-ring); flex: none; }
+/* the key's house, dashed circle (the farm's circle on the map: #1c5cab, dashed) and the region's small dots */
+.map-key .swatch-house { flex: none; }
+.map-key .swatch-ring-dash { width: 16px; height: 16px; background: rgba(28, 92, 171, .08); border: 2px dashed #1c5cab; }
+.map-key .swatch-small { width: 8px; height: 8px; margin: 0 3px; background: var(--c1); border-width: 1px; opacity: .8; }
+
+/* ---------- the dams ---------- */
+.list-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 12px; margin: 26px 0 10px; }
+.list-head h2 { font-size: var(--fs-h2); font-weight: 800; }
+.group-label { margin: 14px 4px 8px; }
+.rows { display: grid; gap: 10px; }
+.row {
+  display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 4px 12px; align-items: center;
+  background: var(--surface); border-radius: var(--r-l); padding: 14px 16px; text-decoration: none; color: var(--ink);
+  box-shadow: var(--shadow-1); border: 2px solid transparent;
+  transition: transform var(--dur-press) var(--ease-out), border-color var(--dur-quick);
+}
+.row:active { transform: scale(.985); }
+.row.is-hot { border-color: var(--ink); }
+.row.is-near { border-color: var(--line-strong); }
+.row-main { display: grid; gap: 2px; min-width: 0; }
+.row .name { font-size: var(--fs-h3); font-weight: 800; line-height: 1.2; }
+.row .meta { color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.35; }
+.row .days { text-align: right; line-height: 1; }
+.row .days small { display: block; font-size: var(--fs-label); font-weight: 700; color: var(--ink-2); margin-bottom: 2px; }
+.row .days b { font-size: var(--fs-tile); font-weight: 800; letter-spacing: -.02em; }
+.row .days b.cap { font-size: 1.5rem; letter-spacing: 0; }
+.row .days span { font-size: 1rem; font-weight: 800; margin-left: 3px; }
+.row .days .low { display: block; font-size: 1.125rem; font-weight: 800; line-height: 1.15; margin: 0; }
+.row .days .low.quiet { color: var(--ink-2); }
+.row .facts {
+  grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: var(--fs-meta); color: var(--ink-2);
+  padding-top: 8px; border-top: 1px solid var(--line); margin-top: 6px; line-height: 1.4;
+}
+.row .facts .ch { color: var(--chance-ink); font-weight: 800; display: inline-flex; align-items: center; gap: 6px; }
+.row .facts .rec { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0 6px; min-width: 0; }
+.row .facts .weak { color: var(--ink); font-weight: 800; }
+@media (prefers-reduced-motion: no-preference) {
+  .rows.first .row { animation: dd-rise var(--dur-base) var(--ease-out) both; animation-delay: calc(var(--i) * var(--stagger)); }
+}
+.show-all { margin-top: 12px; }
+
+/* ---------- the farm's record ---------- */
+.farm-record {
+  margin-top: 18px; background: var(--surface-2); border-radius: var(--r-l); padding: 16px 18px;
+  box-shadow: inset 0 0 0 1px var(--line); color: var(--ink-2); display: grid; gap: 10px;
+}
+.farm-record h2 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.farm-record b { color: var(--ink); }
+.farm-record .tip {
+  position: relative; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line-strong);
+  background: var(--surface); color: var(--ink); font: 800 .9375rem/1 var(--font); padding: 0; letter-spacing: 0; text-transform: none;
+}
+.farm-record .tip::after { content: ""; position: absolute; inset: -9px; }
+.farm-record .tip[aria-expanded="true"] { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.farm-record .tip-text {
+  flex-basis: 100%; display: block; padding: 10px 12px; border-radius: 12px; background: var(--surface);
+  color: var(--ink-2); font: 400 var(--fs-meta)/1.45 var(--font); letter-spacing: 0; text-transform: none;
+}
+.farm-record .tip-text[hidden] { display: none; }
+
+/* ---------- all dams as a table (the most detail) ---------- */
+.farm-table-more { margin-top: 16px; background: var(--surface); border-radius: var(--r-l); box-shadow: var(--shadow-1); padding: 0 16px; border-top: 0; }
+.farm-table-more > summary svg.i:first-child { color: var(--ink-2); }
+.farm-table th small { color: var(--ink-2); font-weight: 400; font-size: .8125rem; }
+.farm-table th a { font-weight: 800; display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+.farm-table-more .small { margin-top: 10px; }
+/* phones: one block per dam (label, value), as Proof's wide tables do, never one word per line */
+@media (max-width: 599.98px) {
+  .farm-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .farm-stack table, .farm-stack tbody, .farm-stack tr, .farm-stack th, .farm-stack td { display: block; width: auto; }
+  .farm-stack tr { padding: 8px 0 10px; border-bottom: 1px solid var(--line); }
+  .farm-stack .farm-table th[scope="row"] { border: 0; padding: 0; font-size: var(--fs-body); color: var(--ink); }
+  .farm-stack .farm-table td { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 10px; border: 0; padding: 3px 0; color: var(--ink); }
+  .farm-stack td::before { content: attr(data-label); color: var(--ink-3); font-size: var(--fs-label); line-height: 1.35; }
+}
+
+.farm-links { margin-bottom: 0; }
+
+/* ---------- desktop: sketch left (sticky), headline and list right; the dam sheet covers the right ---------- */
+@media (min-width: 960px) {
+  .farm-head { padding: 26px 0 18px; }
+  .farm-grid {
+    display: grid; grid-template-columns: minmax(0, 1fr) 560px; column-gap: 32px;
+    grid-template-areas: "left top" "left right"; grid-template-rows: auto 1fr; align-items: start;
+  }
+  .farm-top { grid-area: top; }
+  .farm-left { grid-area: left; position: sticky; top: calc(var(--topbar-h) + 20px); align-self: start; }
+  .farm-right { grid-area: right; }
+  .farm-left .sketch-card { margin-top: 0; }
+  .list-head { margin-top: 20px; }
+  body.sheet-open.sheet-split .farm-top, body.sheet-open.sheet-split .farm-right, body.sheet-open.sheet-split .farm-change { visibility: hidden; }
+  /* the open dam's panel sits over the right column: the farm's heading keeps to the left one */
+  body.sheet-open.sheet-split .farm-head { max-width: calc(100% - 592px); }
+  .farm-map { height: 520px; }
+}
+
+/* =====================================================================
+   THE TEXT SHEET (#farm/text)
+   ===================================================================== */
+.text-sheet h2 { font-size: 1.625rem; font-weight: 800; line-height: 1.15; margin: 4px 0 6px; }
+.text-sheet .lead { font-size: var(--fs-body); margin-bottom: 14px; }
+.text-sheet .sms { box-shadow: var(--shadow-1); }
+/* desktop: the card in the drawn phone (shell.css .phone-frame), as it arrives */
+@media (min-width: 960px) {
+  .text-phone { max-width: 420px; margin: 0 auto; }
+  .text-phone .phone-screen { min-height: 0; }
+  .text-sheet .phone-frame .sms { box-shadow: none; }
+}
+.long-text { margin-top: 20px; background: var(--surface); border-radius: var(--r-l); box-shadow: var(--shadow-1); padding: 16px 18px; }
+.long-text h3 { font-size: var(--fs-h3); font-weight: 800; margin-bottom: 8px; }
+.long-body { display: grid; gap: 8px; color: var(--ink); }
+.text-sheet > .small { margin-top: 14px; }
+
+/* =====================================================================
+   THE SETUP SHEET (#farm/setup, 5.24)
+   ===================================================================== */
+.setup { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+.setup-title { font-size: 1.75rem; font-weight: 800; line-height: 1.15; }
+.setup .lead { font-size: var(--fs-body); }
+.setup-field { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.setup-label { font-weight: 800; font-size: var(--fs-h3); }
+.setup-label output { font-variant-numeric: tabular-nums; }
+.select {
+  min-height: var(--tap); width: 100%; padding: 0 12px; border: 1.5px solid var(--line-strong); border-radius: 12px;
+  background: var(--surface); color: var(--ink); font-weight: 700; max-width: 100%; text-overflow: ellipsis;
+}
+.setup-head { display: grid; gap: 6px; }
+/* below 960 px, as tall as the old My farm map was: up to 600 px wide about half the screen (52vh, never under
+   300 px: 439 px on a 390 x 844 phone, 485 on 430 x 932); wider (landscape phones, tablets) 64vh, never under
+   360 px. The Save button sits in the sheet's foot, so a taller map only means a little more scrolling. */
+.setup-map { height: max(300px, 52vh); }
+@media (min-width: 600.02px) { .setup-map { height: max(360px, 64vh); } }
+.setup-centre { margin-top: 8px; }
+.radius-row { display: grid; grid-template-columns: var(--tap) minmax(0, 1fr) var(--tap); gap: 12px; align-items: center; }
+.radius-row input[type="range"] { width: 100%; min-height: var(--tap); accent-color: var(--ink); margin: 0; }
+.setup-preview { display: grid; gap: 10px; }
+.setup-preview .sms { box-shadow: var(--shadow-1); }
+.setup-count { color: var(--ink-2); }
+.setup-count b { color: var(--ink); }
+.privacy { display: flex; align-items: center; gap: 8px; color: var(--ink-2); font-size: var(--fs-meta); }
+/* Save: in the sheet's foot (sheet.js), under the scrolling body, so it never covers the map or its button */
+.sheet-foot .setup-actions { display: flex; justify-content: flex-end; }
+.setup.saved { gap: 14px; }
+.setup-done { display: grid; gap: 10px; margin-top: 4px; }
+.setup-done .small { margin: -2px 4px 0; }
+
+/* desktop (farm.js setupWide, 960 px and up): the sheet widens (1,160 px); the map fills its left side at full
+   size and the picker, the circle and the text it would get sit beside it, so a tap on the map changes them in
+   view. At 960-1023 px the controls' column is 340 px, so the map keeps about 480 px. */
+@media (min-width: 960px) {
+  .sheet.is-wider .setup {
+    grid-template-columns: minmax(0, 1fr) 400px; column-gap: 28px; align-items: start;
+    grid-template-areas: "map head" "map pick" "map radius" "map preview" "map privacy" "map .";
+    grid-template-rows: auto auto auto auto auto 1fr;
+  }
+  .sheet.is-wider .setup-head { grid-area: head; }
+  .sheet.is-wider .setup-title { font-size: 1.5rem; }
+  .sheet.is-wider .setup-pickfield { grid-area: pick; }
+  .sheet.is-wider .setup-mapfield { grid-area: map; }
+  .sheet.is-wider .setup-radiusfield { grid-area: radius; }
+  .sheet.is-wider .setup-preview { grid-area: preview; }
+  .sheet.is-wider .privacy { grid-area: privacy; }
+  /* as tall as the sheet allows with the button under it still in view */
+  .sheet.is-wider .setup-map { height: clamp(380px, calc(100vh - 386px), 600px); }
+  .sheet.is-wider .setup-preview .sms { padding: 12px 12px 10px; }
+  .sheet.is-wider .sheet-foot .setup-actions .btn-block { width: 400px; }
+}
+@media (min-width: 960px) and (max-width: 1023.98px) {
+  .sheet.is-wider .setup { grid-template-columns: minmax(0, 1fr) 340px; column-gap: 24px; }
+  .sheet.is-wider .sheet-foot .setup-actions .btn-block { width: 340px; }
+}
+/* desktop screens under 960 px tall (1440 x 900, 1366 x 768, 1280 x 720, 1536 x 864 ...): the two explanations (what a farm
+   is, and that the demo points are made up) move below the text the farm would get, and the rows sit closer, so
+   the count and the text's first lines show beside the map (at least as many lines as the old My farm page
+   showed), and a tap on the map changes them in view. The page's reading order is unchanged. */
+@media (min-width: 960px) and (max-height: 959.98px) {
+  .sheet.is-wider .setup {
+    row-gap: 12px;
+    grid-template-areas: "map head" "map picklabel" "map pick" "map radius" "map preview" "map lead" "map picknote" "map privacy" "map .";
+    grid-template-rows: auto auto auto auto auto auto auto auto 1fr;
+  }
+  .sheet.is-wider .setup-head, .sheet.is-wider .setup-pickfield { display: contents; }
+  .sheet.is-wider .setup-title { grid-area: head; }
+  .sheet.is-wider .setup-pickfield > .setup-label { grid-area: picklabel; }
+  .sheet.is-wider .setup-pickfield > .select { grid-area: pick; margin-top: -4px; }
+  .sheet.is-wider .setup-head .lead { grid-area: lead; font-size: var(--fs-meta); color: var(--ink-2); }
+  .sheet.is-wider .setup-pickfield > .small { grid-area: picknote; margin-top: -6px; }
+  /* and the map gives up a little height on the shortest (720 px), so its centre button stays above Save */
+  .sheet.is-wider .setup-map { height: clamp(320px, calc(100vh - 386px), 600px); }
+}
+.install-card {
+  display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: var(--r-l);
+  background: var(--surface); box-shadow: var(--shadow-1);
+}
+.install-card svg.i { color: var(--ink-2); margin-top: 2px; }
+.install-actions { display: flex; align-items: center; gap: 16px; margin-top: 10px; }
+.install-actions .linkbtn { min-height: var(--tap); }
+
+/* narrow phones: the row's days drop under the name rather than squeeze it */
+@media (max-width: 339.98px) {
+  .row { grid-template-columns: 40px minmax(0, 1fr); }
+  .row .dam-glyph { width: 40px; height: 40px; }
+  .row .days { grid-column: 2; text-align: left; }
+  .row .days small { display: inline; margin-right: 4px; }
+  .sketch-top { flex-wrap: wrap; }
+}

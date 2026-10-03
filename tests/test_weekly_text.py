@@ -10,8 +10,10 @@
   optional sender (dry run, refusals; never touches the network); the fixtures for the
   JavaScript port; this week's demo texts against the app's published forecasts.
 * A STRESS TEST. 3,000 random farms (0 to 40 dams of every kind) must all obey the rules.
-* THE TRACK RECORD (optional, long text only): how often our days-left promise held on the farm's
-  dams in the 2016-2026 backtest; the SMS never changes, and without it the long text never changes.
+* THE TRACK RECORD (optional, long text only): our record on the farm's dams over the last 10 years
+  (how often our days-left number held), in plain words; the SMS never changes, and without it the long
+  text never changes.
+* PLAIN WORDS. No text ever says "dry" (a 0% dam is "no water seen"), "backtest", "frozen" or "never trained on".
 """
 import json
 import random
@@ -23,9 +25,9 @@ import pytest
 
 from notify import examples, gsm7, sms
 from notify.farms import Farm, FarmDam, dams_for_farm, distance_km, to_10_metres
-from notify.message import (CAP_DAYS, TRACK_RECORD_MIN, as_date, chance_text, count_text, date_text, days_left,
-                            floor_text, fullness, has_track_record, long_for_dams, long_text, sms_for_dams,
-                            track_record_line, weekly_text)
+from notify.message import (CAP_DAYS, TRACK_RECORD_HOW, TRACK_RECORD_MIN, as_date, chance_text, count_text,
+                            date_text, days_left, floor_text, fullness, has_track_record, held_share_text,
+                            long_for_dams, long_text, sms_for_dams, track_record_line, weekly_text)
 from notify.outbox import message_record, read_outbox, write_outbox
 
 REPO = Path(__file__).resolve().parents[1]
@@ -56,6 +58,7 @@ def check_sms_rules(text, today):
     assert lines[0].startswith(date_text(today)), "the text must lead with the date"
     assert lines[-1].startswith("Reply MAP"), "the text must close with Reply MAP"
     check_percent_means_full(text)
+    check_plain_words(text)
     assert "chance" not in text.lower() and "in 10" not in text, "the SMS gives no chances"
     assert not re.search(r"\d\.\d", text), "no decimals in an SMS"
 
@@ -66,13 +69,21 @@ def check_percent_means_full(text):
     assert not re.search(r"(?<!\d)%", text), f"'%' without a number: {text!r}"
 
 
+def check_plain_words(text):
+    """A 0% dam is "no water seen", never "dry"; the track record is told without jargon."""
+    lower = text.lower()
+    for word in ("dry", "backtest", "frozen", "never trained", "until empty"):
+        assert word not in lower, f"{word!r} in a text: {text!r}"
+
+
 def check_long_rules(text):
     """The long text: 2 to 4 lines (5 with the optional track record); '%' means full; every chance is 'N in 10'."""
     lines = text.split("\n")
-    with_record = sum(line.startswith("Our track record on ") for line in lines)
+    with_record = sum(line.startswith("Our record on ") for line in lines)
     assert with_record <= 1, lines
     assert 2 <= len(lines) - with_record <= 4, lines
     check_percent_means_full(text)
+    check_plain_words(text)
     for clause in re.split(r"[.;]", text):
         if "chance" in clause.lower():
             assert re.search(r"(less than 1|more than 9|\b[1-9]) in 10", clause), clause
@@ -196,15 +207,30 @@ def test_all_fine():
 
 def test_already_low_is_said_plainly():
     assert "Dam 2 already below 1/3" in sms_for_dams([dam(1), dam(2, status="already_low", level=20)], "2026-10-05")
-    assert "Dam 2 looks dry" in sms_for_dams([dam(1), dam(2, status="already_low", level=0)], "2026-10-05")
+    assert "Dam 2: no water seen" in sms_for_dams([dam(1), dam(2, status="already_low", level=0)], "2026-10-05")
     many = [dam(n, status="already_low", level=10) for n in range(1, 7)]
     assert "6 dams already below 1/3" in sms_for_dams(many, "2026-10-05")
+
+
+def test_zero_percent_is_no_water_seen_never_dry():
+    """0% means the satellite saw no water at its last clear look; one look can be wrong (never "dry")."""
+    dams = [dam(1, floor=40), dam(2, status="already_low", level=0, look="2026-09-13")]
+    sms_text = sms_for_dams(dams, "2026-10-05")
+    long = long_for_dams(dams, "2026-10-05")
+    assert "Dam 2: no water seen" in sms_text
+    assert "Dam 2: no water seen at its 13 Sep satellite look (one look can be wrong)" in long
+    assert "dry" not in sms_text.lower() + long.lower()
+
+
+def test_other_dams_with_3_months_or_more():
+    dams = [dam(1, level=45, floor=30, chance=0.62), dam(2, floor=150, chance=0.05), dam(3, floor=110, chance=0.09)]
+    assert sms_for_dams(dams, "2026-10-05").split("\n")[2] == "Other 2 dams: 3 months+"
 
 
 def test_no_dams():
     farm = Farm("f", -20.0, 130.0)
     text = weekly_text(farm, {"dams": [], "issues": [{"kind": "live", "rows": []}]}, "2026-10-05")
-    assert text == "Mon 5 Oct\nNo farm dams the satellites can see within 3 km\nReply MAP"
+    assert text == "Mon 5 Oct\nNo dams the satellites can see within 3 km\nReply MAP"
 
 
 # ===========================================================================
@@ -441,12 +467,23 @@ def test_count_text_and_enough_history():
     assert not has_track_record(None)
 
 
+def test_held_share_text():
+    assert held_share_text(1640, 1767) == "about 9 in 10"      # 0.928
+    assert held_share_text(166, 216) == "about 8 in 10"        # 0.769
+    assert held_share_text(402, 422) == "more than 9 in 10"    # 0.953
+    assert held_share_text(1, 30) == "less than 1 in 10"
+    assert held_share_text(413, 413) == "every time"
+    assert held_share_text(0, 5) == "less than 1 in 10"
+
+
 def test_track_record_line_for_a_farm():
     today = "2026-10-05"
     dams = [dam(1, status="already_low", level=0), dam(2, floor=40, chance=0.3), dam(3, floor=100, chance=0.1)]
     line = track_record_line(dams, today, records_for((166, 216), (198, 222), (998, 1086)))
-    assert line == ("Our track record on these 3 dams (2016-2026 backtest, forecasts the model made for years it "
-                    "never trained on): the cautious days-left promise held 1,362 of 1,524 times; on Dam 2, 198 of 222.")
+    assert line == ("Our record on these 3 dams over the last 10 years: our days-left number held 1,362 of 1,524 times "
+                    "(about 9 in 10); on Dam 2, 198 of 222. We re-ran our forecasts for July 2016 to June 2026 using "
+                    "only data from before July 2016, then checked each one against what the dam really did.")
+    assert line.endswith(" " + TRACK_RECORD_HOW)
 
 
 def test_track_record_line_with_too_little_history():
@@ -454,9 +491,10 @@ def test_track_record_line_with_too_little_history():
     dams = [dam(1, floor=40), dam(2, floor=100), dam(3, status="not_refilled", level=45)]
     # Dam 1 (the headline: fewest days) has only 4 judged forecasts; Dam 3 has none.
     line = track_record_line(dams, today, records_for((4, 4), (90, 100)))
-    assert line.endswith("the cautious days-left promise held 90 of 100 times (1 of the 3 has enough history to "
-                         "judge); Dam 1 has too few past forecasts to judge.")
-    assert track_record_line(dams, today, {}).endswith("): too few past forecasts to judge.")
+    assert ("our days-left number held 90 of 100 times (about 9 in 10) on the 1 dam with enough history to "
+            "judge; Dam 1 has too few past forecasts to judge. ") in line
+    assert track_record_line(dams, today, {}) == \
+        "Our record on these 3 dams over the last 10 years: too few past forecasts to judge."
 
 
 def test_spec_track_record_example_is_exact():
@@ -469,8 +507,10 @@ def test_spec_track_record_example_is_exact():
 
 def test_track_record_line_for_one_dam():
     line = track_record_line([dam(1, floor=40)], "2026-10-05", records_for((18, 20)))
-    assert line == ("Our track record on this dam (2016-2026 backtest, forecasts the model made for years it never "
-                    "trained on): the cautious days-left promise held 18 of 20 times.")
+    assert line == ("Our record on this dam over the last 10 years: our days-left number held 18 of 20 times "
+                    "(about 9 in 10). " + TRACK_RECORD_HOW)
+    always = track_record_line([dam(1, floor=40)], "2026-10-05", records_for((413, 413)))
+    assert "held 413 of 413 times. " in always                   # held every time: no "(about ...)"
 
 
 def test_track_record_is_in_the_long_text_only():
@@ -487,7 +527,7 @@ def test_track_record_is_in_the_long_text_only():
         lines, plain_lines = with_record.split("\n"), plain.split("\n")
         assert lines[:-2] + lines[-1:] == plain_lines                       # one line added, before the last
         assert lines[-2] == track_record_line(dams, examples.TODAY, records)
-        assert "backtest" not in weekly_text(farm, forecasts, examples.TODAY)   # never in the SMS
+        assert "record" not in weekly_text(farm, forecasts, examples.TODAY)     # never in the SMS
 
 
 def test_track_record_on_random_farms_keeps_every_rule():
@@ -504,7 +544,7 @@ def test_track_record_on_random_farms_keeps_every_rule():
         check_long_rules(text)
         if not dams:
             continue
-        line = next(x for x in text.split("\n") if x.startswith("Our track record on "))
+        line = next(x for x in text.split("\n") if x.startswith("Our record on "))
         shown = [records[d.dam_id] for d in dams if d.dam_id in records and records[d.dam_id]["judged"] >= 5]
         if shown:
             held, judged = sum(r["held"] for r in shown), sum(r["judged"] for r in shown)

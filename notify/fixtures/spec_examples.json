@@ -737,7 +737,7 @@
     "example-01-c"
    ],
    "sms": "Mon 5 Oct (satellite 28 Sep)\nAll 3 dams look OK for 3 months+\nDam 3 ~70% full: at least 113 days before it drops below 1/3\nReply MAP",
-   "long": "Example farm 1, Mon 5 Oct 2026: 3 farm dams within 3 km of the homestead; latest satellite look 28 Sep.\nDam 3 (2.2 km from the homestead) was ~70% full on 28 Sep: at least 113 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 1 in 10.\nAlso: Dam 2 ~85% full, at least 133 days (chance by 27 Dec: 1 in 10); Dam 1 full, 6 months+ (chance by 27 Dec: less than 1 in 10).\nDays are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]"
+   "long": "Example farm 1, Mon 5 Oct 2026: 3 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.\nDam 3 (2.2 km from the homestead) was ~70% full on 28 Sep: at least 113 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 1 in 10.\nAlso: Dam 2 ~85% full, at least 133 days (chance by 27 Dec: 1 in 10); Dam 1 full, 6 months+ (chance by 27 Dec: less than 1 in 10).\nDays are counted from today and are cautious: across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks. Map: [map link]"
   },
   {
    "key": "one_at_risk",
@@ -754,8 +754,8 @@
     "example-02-b",
     "example-02-c"
    ],
-   "sms": "Mon 5 Oct (satellite 28 Sep)\nDam 1 ~45% full: at least 23 days before it drops below 1/3\nOther 2 dams OK for 3 months+\nReply MAP",
-   "long": "Example farm 2, Mon 5 Oct 2026: 3 farm dams within 3 km of the homestead; latest satellite look 28 Sep.\nDam 1 (0.4 km from the homestead) was ~45% full on 28 Sep: at least 23 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 6 in 10.\nAlso: Dam 3 ~80% full, at least 103 days (chance by 27 Dec: 1 in 10); Dam 2 full, at least 143 days (chance by 27 Dec: 1 in 10).\nDays are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]"
+   "sms": "Mon 5 Oct (satellite 28 Sep)\nDam 1 ~45% full: at least 23 days before it drops below 1/3\nOther 2 dams: 3 months+\nReply MAP",
+   "long": "Example farm 2, Mon 5 Oct 2026: 3 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.\nDam 1 (0.4 km from the homestead) was ~45% full on 28 Sep: at least 23 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 6 in 10.\nAlso: Dam 3 ~80% full, at least 103 days (chance by 27 Dec: 1 in 10); Dam 2 full, at least 143 days (chance by 27 Dec: 1 in 10).\nDays are counted from today and are cautious: across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks. Map: [map link]"
   },
   {
    "key": "already_low",
@@ -772,7 +772,7 @@
     "example-03-b"
    ],
    "sms": "Mon 5 Oct (satellite 28 Sep)\nDam 2 ~65% full: at least 53 days before it drops below 1/3\nDam 1 already below 1/3\nReply MAP",
-   "long": "Example farm 3, Mon 5 Oct 2026: 2 farm dams within 3 km of the homestead; latest satellite look 28 Sep.\nDam 2 (1.9 km from the homestead) was ~65% full on 28 Sep: at least 53 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 4 in 10.\nAlso: Dam 1 already below a third (~25% full).\nDays are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]"
+   "long": "Example farm 3, Mon 5 Oct 2026: 2 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.\nDam 2 (1.9 km from the homestead) was ~65% full on 28 Sep: at least 53 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 4 in 10.\nAlso: Dam 1 already below a third (~25% full).\nDays are counted from today and are cautious: across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks. Map: [map link]"
   },
   {
    "key": "two_at_risk",
@@ -791,11 +791,11 @@
     "example-04-d"
    ],
    "sms": "Mon 5 Oct\nDam 2 ~55% full: at least 18 days before it drops below 1/3\nDam 4 ~60% full: at least 33 days\nOther 2 dams: at least 68 days\nReply MAP",
-   "long": "Example farm 4, Mon 5 Oct 2026: 4 farm dams within 3 km of the homestead; latest satellite look 28 Sep.\nDam 2 (1.2 km from the homestead) was ~55% full on 28 Sep: at least 18 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 7 in 10.\nAlso: Dam 4 ~60% full, at least 33 days (chance by 27 Dec: 5 in 10); Dam 1 ~90% full, at least 68 days (chance by 27 Dec: 3 in 10); Dam 3 ~95% full, at least 88 days (chance by 27 Dec: 2 in 10).\nDays are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]"
+   "long": "Example farm 4, Mon 5 Oct 2026: 4 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.\nDam 2 (1.2 km from the homestead) was ~55% full on 28 Sep: at least 18 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 7 in 10.\nAlso: Dam 4 ~60% full, at least 33 days (chance by 27 Dec: 5 in 10); Dam 1 ~90% full, at least 68 days (chance by 27 Dec: 3 in 10); Dam 3 ~95% full, at least 88 days (chance by 27 Dec: 2 in 10).\nDays are counted from today and are cautious: across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks. Map: [map link]"
   },
   {
    "key": "floor_ran_out",
-   "title": "A floor that ran out since the satellite look, and a dry dam",
+   "title": "A floor that ran out since the satellite look, and a dam with no water seen",
    "farm": {
     "farm_id": "example-05",
     "name": "Example farm 5",
@@ -808,8 +808,8 @@
     "example-05-b",
     "example-05-c"
    ],
-   "sms": "Mon 5 Oct (satellite 28 Sep)\nDam 1 ~35% full: may be below 1/3 now\nDam 2 ~60% full: at least 43 days before it drops below 1/3\nDam 3 looks dry\nReply MAP",
-   "long": "Example farm 5, Mon 5 Oct 2026: 3 farm dams within 3 km of the homestead; latest satellite look 28 Sep.\nDam 1 (0.3 km from the homestead) was ~35% full on 28 Sep: its cautious number of days has run out since then, so it may be below a third now. Chance it drops below a third by 27 Dec: 8 in 10.\nAlso: Dam 2 ~60% full, at least 43 days (chance by 27 Dec: 4 in 10); Dam 3 looks dry.\nDays are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]"
+   "sms": "Mon 5 Oct (satellite 28 Sep)\nDam 1 ~35% full: may be below 1/3 now\nDam 2 ~60% full: at least 43 days before it drops below 1/3\nDam 3: no water seen\nReply MAP",
+   "long": "Example farm 5, Mon 5 Oct 2026: 3 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.\nDam 1 (0.3 km from the homestead) was ~35% full on 28 Sep: its cautious number of days has run out since then, so it may be below a third now. Chance it drops below a third by 27 Dec: 8 in 10.\nAlso: Dam 2 ~60% full, at least 43 days (chance by 27 Dec: 4 in 10); Dam 3: no water seen at its 28 Sep satellite look (one look can be wrong).\nDays are counted from today and are cautious: across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks. Map: [map link]"
   },
   {
    "key": "capped",
@@ -825,7 +825,7 @@
     "example-06-a"
    ],
    "sms": "Mon 5 Oct (satellite 28 Sep)\nYour dam looks OK for 3 months+\nDam 1 full: 6 months+ before it drops below 1/3\nReply MAP",
-   "long": "Example farm 6, Mon 5 Oct 2026: 1 farm dam within 3 km of the homestead; latest satellite look 28 Sep.\nDam 1 (0.9 km from the homestead) was full on 28 Sep: 6 months or more before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: less than 1 in 10.\nDays are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]"
+   "long": "Example farm 6, Mon 5 Oct 2026: 1 dam the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.\nDam 1 (0.9 km from the homestead) was full on 28 Sep: 6 months or more before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: less than 1 in 10.\nDays are counted from today and are cautious: across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks. Map: [map link]"
   },
   {
    "key": "all_low",
@@ -842,7 +842,7 @@
     "example-07-b"
    ],
    "sms": "Mon 5 Oct (satellite 28 Sep)\nDams 1 and 2 already below 1/3\nReply MAP",
-   "long": "Example farm 7, Mon 5 Oct 2026: 2 farm dams within 3 km of the homestead; latest satellite look 28 Sep.\nNo dam has a forecast this week.\nDam 1 looks dry; Dam 2 already below a third (~15% full).\nMap: [map link]"
+   "long": "Example farm 7, Mon 5 Oct 2026: 2 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.\nNo dam has a forecast this week.\nDam 1: no water seen at its 28 Sep satellite look (one look can be wrong); Dam 2 already below a third (~15% full).\nMap: [map link]"
   },
   {
    "key": "not_refilled",
@@ -859,7 +859,7 @@
     "example-08-b"
    ],
    "sms": "Mon 5 Oct (satellite 28 Sep)\nDam 1 ~75% full: at least 38 days before it drops below 1/3\nDam 2 ~40% full: no forecast until it refills\nReply MAP",
-   "long": "Example farm 8, Mon 5 Oct 2026: 2 farm dams within 3 km of the homestead; latest satellite look 28 Sep.\nDam 1 (1.2 km from the homestead) was ~75% full on 28 Sep: at least 38 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 4 in 10.\nAlso: Dam 2 ~40% full, no forecast until it refills to 60% full.\nDays are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]"
+   "long": "Example farm 8, Mon 5 Oct 2026: 2 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.\nDam 1 (1.2 km from the homestead) was ~75% full on 28 Sep: at least 38 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 4 in 10.\nAlso: Dam 2 ~40% full, no forecast until it refills to 60% full.\nDays are counted from today and are cautious: across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks. Map: [map link]"
   },
   {
    "key": "many_dams",
@@ -886,7 +886,7 @@
     "example-09-l"
    ],
    "sms": "Mon 5 Oct\nDam 3 ~50% full: at least 14 days before it drops below 1/3\nDam 8 ~58% full: at least 29 days\n5 dams already below 1/3\nReply MAP for 5 more dams",
-   "long": "Example farm 9, Mon 5 Oct 2026: 12 farm dams within 3 km of the homestead; latest satellite look 28 Sep.\nDam 3 (0.9 km from the homestead) was ~50% full on 28 Sep: at least 14 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 7 in 10.\nAlso: Dam 8 ~58% full, at least 29 days (chance by 27 Dec: 6 in 10); Dam 1 ~70% full, at least 57 days (chance by 27 Dec: 3 in 10); Dam 5 ~85% full, at least 123 days (chance by 27 Dec: 1 in 10); Dam 12 full, 6 months+ (chance by 27 Dec: less than 1 in 10); Dam 2 already below a third (~22% full); Dam 4 already below a third (~18% full); and 5 more on the map.\nDays are counted from today and are cautious: in ten test years a dam stayed above a third at least that long 9 times in 10. Map: [map link]"
+   "long": "Example farm 9, Mon 5 Oct 2026: 12 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.\nDam 3 (0.9 km from the homestead) was ~50% full on 28 Sep: at least 14 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 7 in 10.\nAlso: Dam 8 ~58% full, at least 29 days (chance by 27 Dec: 6 in 10); Dam 1 ~70% full, at least 57 days (chance by 27 Dec: 3 in 10); Dam 5 ~85% full, at least 123 days (chance by 27 Dec: 1 in 10); Dam 12 full, 6 months+ (chance by 27 Dec: less than 1 in 10); Dam 2 already below a third (~22% full); Dam 4 already below a third (~18% full); and 5 more on the map.\nDays are counted from today and are cautious: across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks. Map: [map link]"
   },
   {
    "key": "no_dams",
@@ -899,8 +899,8 @@
     "radius_km": 3.0
    },
    "dam_ids": [],
-   "sms": "Mon 5 Oct\nNo farm dams the satellites can see within 3 km\nReply MAP",
-   "long": "Example farm 10, Mon 5 Oct 2026: no farm dams the satellites can see within 3 km of the homestead. They see dams of about half a hectare and up.\nMap: [map link]"
+   "sms": "Mon 5 Oct\nNo dams the satellites can see within 3 km\nReply MAP",
+   "long": "Example farm 10, Mon 5 Oct 2026: no dams the satellites can see within 3 km of the homestead. DamDays follows dams of about half a hectare to 5 hectares.\nMap: [map link]"
   }
  ]
 }

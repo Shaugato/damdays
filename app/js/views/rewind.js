@@ -51,7 +51,12 @@ DamDays.views.rewind = (function () {
       if (event.target.closest('[data-action="close"]')) unselect();
     });
 
-    map = DamDays.map.create("rewind-map");
+    // Inside the Rewind sheet the map must not take keyboard focus on a click: focusing it scrolls the
+    // window back but not the sheet, so the sheet jumped under the pointer and the tap on a dot was lost.
+    const inSheet = Boolean(el.card && el.card.closest("#rp-region-host"));
+    map = DamDays.map.create("rewind-map", inSheet ? { keyboard: false } : undefined);
+    // half zoom steps: on a phone the region opens at the zoom Runway uses, not one step out
+    if (map) { map.options.zoomSnap = 0.5; map.options.zoomDelta = 0.5; }
     setIssue(el.select.value);
   }
 
@@ -71,10 +76,24 @@ DamDays.views.rewind = (function () {
     issue = data.pastIssues.find((past) => past.issue_date === issueDate);
     revealed = false;
     selectedId = null;
-    el.note.textContent = issue.note || "";
+    el.note.textContent = plainNote(issue);
     el.card.innerHTML = "";
     if (map) drawMarkers();
     updateRevealState();
+  }
+
+  /**
+   * The note under the date, in plain words. The data's own note names the model and its settings
+   * (for specialists: About, "Methods and scores"); here it says what a farmer needs to know.
+   */
+  function plainNote(past) {
+    const cutoff = data.meta && data.meta.rewind && data.meta.rewind.model_cutoff;
+    const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const learned = cutoff
+      ? "from data before " + MONTHS[Number(cutoff.slice(5, 7)) - 1] + " " + cutoff.slice(0, 4)
+      : "from earlier years only";
+    return "Forecasts as they would have been made on " + fmt.date(past.issue_date) + ", using only what the satellites " +
+           "had seen by then, from a model that learned only " + learned + ": these are years it never trained on.";
   }
 
   /** Remove old dots and draw this date's dams. */
@@ -98,6 +117,10 @@ DamDays.views.rewind = (function () {
   function styleFor(row) {
     return DamDays.map.damStyle({
       chance: row.chance,
+      low: row.status === "already_low",
+      // thin grey rings: the dams already below a third (no forecast that day) stay quiet, so the thick black
+      // "it did fall below a third" rings of the reveal stand out
+      quietLow: true,
       selected: row.dam_id === selectedId,
       // Dams without a forecast are not judged, so they never get a reveal ring.
       revealed: revealed && row.status === "forecast",
@@ -108,7 +131,8 @@ DamDays.views.rewind = (function () {
   /** The hover text of one dot; it says what happened only after the reveal. */
   function tooltipFor(row) {
     const dam = data.damsById.get(row.dam_id);
-    let text = esc(dam.name) + ": " + (row.status === "forecast" ? fmt.chance(row.chance) + " chance" : "no forecast");
+    const none = row.status === "already_low" ? "already below a third" : row.status === "not_refilled" ? "waiting to refill" : "no forecast";
+    let text = esc(dam.name) + ": " + (row.status === "forecast" ? fmt.chance(row.chance) + " chance" : none);
     if (revealed && row.status === "forecast") {
       text += row.outcome === true ? " (fell below a third)" :
               row.outcome === false ? " (stayed above)" : " (unknown)";
@@ -130,13 +154,16 @@ DamDays.views.rewind = (function () {
     DamDays.colors.renderLegend(el.legend, {
       title: "Chance of falling below a third in the " + data.meta.horizon_days + " days after " + fmt.date(issue.issue_date),
       showNoForecast: true,
+      showLow: true,
+      lowQuiet: true,
+      noForecastLabel: "No forecast that day (waiting to refill, or no recent look)",
       extraItems: revealed ? [
-        { swatchClass: "swatch-ring", label: "Black ring: it did fall below a third" },
+        { swatchClass: "swatch-ring", label: "Thick ring: it did fall below a third" },
         { swatchClass: "swatch-faded", label: "Faded: it stayed above (dashed: unknown)" },
       ] : [],
     });
     el.tally.innerHTML = revealed ? tallyHtml() : beforeRevealHtml();
-    if (selectedId) renderCard();
+    if (selectedId) renderCard(false);
   }
 
   function toggleReveal() {
@@ -153,7 +180,7 @@ DamDays.views.rewind = (function () {
       if (marker) marker.setStyle(styleFor(issue.rowsByDam.get(id)));
     });
     markers.get(damId).bringToFront();
-    renderCard();
+    renderCard(true);
   }
 
   /** Close the card (the tally stays). */
@@ -165,12 +192,125 @@ DamDays.views.rewind = (function () {
     el.card.innerHTML = "";
   }
 
-  /** Show the card (it sits above the tally in the side panel). */
-  function renderCard() {
+  /** Show the dam's card (it sits above the tally): in the replay sheet, a short card in the new style. */
+  function renderCard(bring) {
+    const inReplay = Boolean(el.card.closest("#rp-region-host"));
+    if (inReplay) {
+      el.card.innerHTML = pastCardHtml(selectedId);
+      wireFull(el.card.querySelector("[data-rw-full]"));
+      // in the sheet, at every width: the card comes into view (beside the map on wide screens it already is)
+      const scroller = el.card.closest(".sheet-body");
+      const box = el.card.getBoundingClientRect(), view = scroller ? scroller.getBoundingClientRect() : { top: 0, bottom: window.innerHeight };
+      if (bring && (box.top < view.top || box.top > view.bottom - 120)) {
+        const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        el.card.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+      }
+      return;
+    }
     el.card.innerHTML =
       '<button type="button" class="button button-link" data-action="close">&times; Close this dam</button>' +
       DamDays.damCard.render(data, selectedId, issue, { rewind: true, revealed: revealed });
-    DamDays.damCard.bringIntoView(el.panel);
+    if (bring) DamDays.damCard.bringIntoView(el.panel);
+  }
+
+  /**
+   * One region dam on the past date, as the replay's rows say it: the chance by its date (ten dots), the
+   * cautious days, how full it was, and after the reveal what happened; a link to the dam today on Runway.
+   * Region dams are numbered across the region, so the name says so (not one of the farm's Dam 1 to 5).
+   */
+  function pastCardHtml(damId) {
+    const dam = data.damsById.get(damId);
+    const row = issue.rowsByDam.get(damId);
+    if (!dam || !row) return "";
+    const town = DamDays.region && DamDays.region.closestTown ? DamDays.region.closestTown(dam.lat, dam.lon) : null;
+    const name = dam.name + " of the region" + (town ? ", near " + town : "");
+    const look = row.issued_on ? fmt.fullness(row.level_pct) + " at its " + fmt.date(row.issued_on) + " look" : "no clear look lately";
+    let main;
+    if (row.status === "forecast" && row.chance !== null) {
+      const dots = DamDays.charts && DamDays.charts.tenDots
+        ? DamDays.charts.tenDots(row.chance, { r: 5.5, gap: 2.5, label: fmt.chance(row.chance) + " by " + fmt.date(row.window_end) }) : "";
+      const days = row.damdays_days === null || row.damdays_days === undefined ? "" : daysHtml(row);
+      main = '<p class="rw-chance"><b>' + esc(fmt.chance(row.chance)) + "</b> that it falls below a third by " + esc(fmt.date(row.window_end)) + "</p>" +
+        (dots ? '<div class="rw-dots">' + dots + "</div>" : "") + days;
+    } else {
+      const why = row.status === "already_low" ? "Already below a third on that day, so no forecast."
+        : row.status === "not_refilled" ? "No forecast: it had not refilled lately." : "No forecast: no recent clear look.";
+      main = '<p class="rw-chance">' + esc(why) + "</p>";
+    }
+    let outcome = "";
+    if (revealed && row.status === "forecast") {
+      const text = row.outcome === true ? "It <b>fell below a third</b> on " + esc(fmt.date(row.outcome_date)) + "."
+        : row.outcome === false ? "It <b>stayed above a third</b> until " + esc(fmt.date(row.window_end)) + "."
+          : "Not enough clear satellite looks to know.";
+      outcome = '<p class="rw-outcome"><span class="eyebrow">What happened</span><br>' + text + "</p>";
+    }
+    const full = '<details class="more rw-full" data-rw-full data-dam="' + esc(damId) + '"><summary>' +
+      (DamDays.icon ? DamDays.icon("i-chart") : "") + "<span>See it in full<small>" +
+      (row.status === "forecast" ? "The next six months as forecast that day, its water history to that day, and its note"
+        : "Its water history to that day, and what the numbers mean") + "</small></span>" + (DamDays.icon ? DamDays.icon("i-plus", "plus") : "") +
+      '</summary><div class="body" data-rw-full-body></div></details>';
+    return '<article class="rw-card" aria-label="' + esc(name) + '">' +
+      '<div class="rw-head"><p class="eyebrow">Forecast made on ' + esc(fmt.date(issue.issue_date)) + "</p>" +
+      '<button type="button" class="iconbtn rw-close" data-action="close" aria-label="Close this dam">' +
+      (DamDays.icon ? DamDays.icon("i-x") : "&times;") + "</button></div>" +
+      '<h4 class="rw-name">' + esc(name) + "</h4>" +
+      '<p class="rw-look">' + esc(look) + ".</p>" + main + outcome + full +
+      '<a class="linkrow rw-link" href="#runway/dam-' + esc(damId) + '">' + (DamDays.icon ? DamDays.icon("i-map") : "") +
+      "<span>This dam today, on Runway<small>This week's forecast and its water history since 1988</small></span>" +
+      '<span class="chev">' + (DamDays.icon ? DamDays.icon("i-chev") : "") + "</span></a></article>";
+  }
+
+  /**
+   * The cautious days as that day's text would have said them: counted from the date of the forecast (the days
+   * from the dam's last clear look, less the days since that look), as the dam sheet under "See it in full" and
+   * the weekly text count them, so the card and the sheet give one number.
+   */
+  function daysHtml(row) {
+    const d = DamDays.damCard && DamDays.damCard.daysFrom ? DamDays.damCard.daysFrom(row, issue.issue_date)
+      : { left: row.damdays_days, since: 0 };
+    const from = fmt.date(issue.issue_date);
+    const how = d.since > 0
+      ? '<span class="rw-how">' + esc(row.damdays_days + " days from its " + fmt.date(row.issued_on) + " look, less the " +
+        fmt.count(d.since, "day") + " since.") + "</span>" : "";
+    const cautious = " Cautious: built to hold 9 times in 10 across all dams (a little less often for spring looks).";
+    if (d.left <= 0) {
+      return '<p class="rw-days"><span class="rw-big is-words">May already be below a third</span>' +
+        esc("Its cautious days had run out by " + from + ".") + how + "</p>";
+    }
+    const cap = d.left >= DamDays.settings.damdaysCapDays;
+    const big = cap ? '<span class="rw-big"><b>6 months+</b></span>'
+      : '<span class="rw-big">at least <b>' + esc(d.left) + "</b> " + (d.left === 1 ? "day" : "days") + "</span>";
+    const soon = !cap && d.left < 7 ? " <strong>It could drop below a third within days.</strong>" : "";
+    return '<p class="rw-days">' + big + esc("before it drops below a third, counted from " + from + ".") + soon +
+      esc(cautious) + how + "</p>";
+  }
+
+  /** "See it in full": the dam sheet's past-forecast view (js/dam-sheet.js), drawn inline the first time it opens. */
+  function wireFull(det) {
+    if (!det) return;
+    const fill = () => {
+      const body = det.querySelector("[data-rw-full-body]");
+      if (!body || body.dataset.filled === "1") return;
+      body.dataset.filled = "1";
+      body.innerHTML = '<p class="small">Loading this dam&hellip;</p>';
+      const files = ["js/charts.js", "js/dam-sheet.js"];
+      const code = DamDays.damSheet ? Promise.resolve() : Promise.all(files.map((src) => DamDays.lazy(src)));
+      code.then(() => {
+        if (!det.isConnected) return;
+        const opts = { dam: { dam_id: det.dataset.dam }, issueDate: issue.issue_date, revealed };
+        body.innerHTML = DamDays.damSheet.html(data, opts);
+        const root = body.querySelector(".ds");
+        if (root) {
+          root.removeAttribute("aria-labelledby");          // the card's own heading names the dam
+          root.querySelectorAll("[id]").forEach((n) => n.removeAttribute("id"));
+          DamDays.damSheet.wire(root, data, opts);
+        }
+      }, () => {
+        body.dataset.filled = "";
+        body.innerHTML = '<p class="small">This part needs signal the first time. Check your signal and try again.</p>';
+      });
+    };
+    det.addEventListener("toggle", () => { if (det.open) fill(); });
   }
 
   // ---- The panel text -------------------------------------------------------

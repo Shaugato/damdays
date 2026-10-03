@@ -1,0 +1,167 @@
+/* welcome.css (WP-C)
+ * The first screen's insides (UI_SPEC 4, 5.3 to 5.6, 5.8): the text card with its tappable lines
+ * and straw highlight, the trust line, the desktop stats, the short cards below (phones), the
+ * story below (desktop), and the glossary sheet. The layout frame is in shell.css.
+ * Colours and sizes come from tokens.css only.
+ */
+
+/* =====================================================================
+   THE TEXT CARD (5.3): word for word from farms.json; also used in My farm's sheets
+   ===================================================================== */
+.sms {
+  background: var(--surface); border-radius: var(--r-xl); box-shadow: var(--shadow-2);
+  padding: 14px 14px 12px; margin: 0;
+}
+.sms-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; padding: 0 2px 10px; min-height: 46px; }
+.sms-head .avatar { width: 36px; height: 36px; flex: none; }
+.sms-head .who { font-weight: 800; font-size: 1.0625rem; display: inline-flex; align-items: center; gap: 8px; }
+.sms-head .when { margin-left: auto; color: var(--ink-2); font-size: var(--fs-meta); font-weight: 700; white-space: nowrap; }
+.bubble {
+  background: var(--bubble); border-radius: 20px 20px 20px 6px; padding: 12px 16px;
+  font-size: var(--fs-sms); line-height: 1.5; color: var(--ink); overflow-wrap: anywhere;
+}
+/* 5.4 the text lines: plain, or a link (the whole line), 27 px rows; the text stays exactly the SMS */
+.bubble .ln { display: block; text-decoration: none; color: inherit; border-radius: 8px; margin: 0 -6px; padding: 0 6px; min-height: 27px; }
+.bubble a.ln { cursor: pointer; transition: background-color var(--dur-quick); -webkit-tap-highlight-color: transparent; }
+.bubble a.ln:hover, .bubble a.ln:active { background: color-mix(in srgb, var(--ink) 7%, transparent); }
+.bubble a.ln:focus-visible { outline-offset: 1px; }
+.bubble a.ln .who { text-decoration: underline dotted 1.5px; text-decoration-color: var(--ink-3); text-underline-offset: 4px; }
+/* 5.5 the highlighter: straw fill, a darker 3 px bottom edge, across the line break */
+mark.hl {
+  color: var(--on-mark); background-color: transparent;
+  background-image: linear-gradient(var(--mark-edge), var(--mark-edge)), linear-gradient(var(--mark), var(--mark));
+  background-repeat: no-repeat; background-size: 100% 3px, 100% 100%; background-position: 0 100%, 0 0;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; border-radius: 4px; padding: 0 2px; margin: 0 -2px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sms.first { animation: dd-sms-in 260ms var(--ease-out) 120ms both; }
+  .sms.first mark.hl { animation: dd-hl-draw var(--dur-story) var(--ease-out) 380ms both; }
+}
+@keyframes dd-sms-in { from { opacity: 0; transform: translateY(12px); } }
+@keyframes dd-hl-draw { from { background-size: 0% 3px, 0% 100%; } }
+.sms-foot { display: flex; gap: 8px; align-items: flex-start; color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.4; padding: 10px 4px 0; }
+.sms-foot svg.i { width: 20px; height: 20px; margin-top: 1px; color: var(--ink-3); flex: none; }
+.sms-empty { padding: 18px; color: var(--ink-2); }
+
+/* =====================================================================
+   THE TRUST LINE (5.6) and the desktop stats (4.2)
+   ===================================================================== */
+.trust { display: flex; gap: 12px; align-items: center; padding: 0 4px; color: var(--ink); font-size: 1rem; line-height: 1.35; }
+.trust .badge {
+  flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+  background: var(--ink); color: var(--on-ink);
+}
+.trust b { font-weight: 800; }
+.trust small { display: block; color: var(--ink-2); font-size: var(--fs-meta); margin-top: 2px; }
+.trust small a { color: inherit; text-decoration-color: var(--line-strong); display: inline-block; padding: 12px 0; margin: -12px 0; }
+.trust small a:hover { color: var(--ink); }
+.trust small + small { margin-top: 8px; }
+
+.stats {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+}
+.stats div { padding: 14px 18px 0 0; }
+.stats div + div { padding-left: 18px; border-left: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); }
+.stats b { display: block; font-size: 1.625rem; font-weight: 800; line-height: 1.1; letter-spacing: -.01em; }
+.stats span { display: block; color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.35; margin-top: 4px; }
+
+/* =====================================================================
+   BELOW THE FIRST SCREEN, PHONES: three short cards
+   ===================================================================== */
+.why { margin-top: 28px; display: grid; gap: 14px; padding-bottom: var(--s7); }
+.why-card { background: var(--surface); border-radius: var(--r-l); padding: 18px; box-shadow: var(--shadow-1); }
+.why-card h2 { font-size: var(--fs-h3); font-weight: 800; margin: 6px 0; line-height: 1.25; }
+.why-card p:not(.eyebrow) { color: var(--ink-2); }
+.steps { counter-reset: s; display: grid; gap: 10px; margin-top: 8px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 32px 1fr; gap: 10px; color: var(--ink-2); }
+.steps li::before {
+  content: counter(s); width: 32px; height: 32px; border-radius: 50%; background: var(--straw); color: var(--ink);
+  font-weight: 800; display: grid; place-items: center;
+}
+.steps b { color: var(--ink); }
+
+/* =====================================================================
+   SHORT PHONES (4.1), and narrow tall ones (360 x 780): keep the definition, the text and both buttons
+   above the tab bar
+   ===================================================================== */
+@media (max-height: 700px) and (max-width: 959.98px), (max-width: 380px) and (max-height: 820px) {
+  .welcome .bubble { padding: 10px 14px; }
+  .welcome .bubble .ln { min-height: 25px; }
+  .welcome .sms-head { padding-bottom: 6px; min-height: 40px; }
+  .welcome .sms { padding: 10px 12px 10px; }
+  .welcome .sms-foot { display: none; }
+}
+
+/* =====================================================================
+   DESKTOP (960 px and up): the card sits in the drawn phone; the story below
+   ===================================================================== */
+@media (min-width: 960px) {
+  .phone-frame .sms { box-shadow: none; border-radius: 0; padding: 8px 18px 12px; flex: 1; }
+  .phone-frame .sms-head { border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 14px; }
+  .welcome-trust .trust { max-width: 560px; }
+  .welcome-stats .stats { max-width: 640px; }
+}
+
+/* the story: how a farmer sees it (desktop only; phones get the short cards) */
+.story { padding: var(--s9) 0 var(--s8); }
+.story-head { max-width: 760px; }
+.story-head h2 { font-size: 2.5rem; font-weight: 800; line-height: 1.1; letter-spacing: -.02em; margin-top: 8px; text-wrap: balance; }
+.story-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 28px; }
+.story-card {
+  position: relative; background: var(--surface); border-radius: var(--r-l); box-shadow: var(--shadow-1);
+  padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px;
+}
+.story-card h3 { font-size: 1.375rem; font-weight: 800; line-height: 1.2; }
+.story-card > p:not(.step-no):not(.small) { color: var(--ink-2); }
+.step-no {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--straw); color: var(--ink);
+  display: grid; place-items: center; font-weight: 800;
+}
+.story-quote { margin-top: auto; }
+.story-quote span {
+  display: block; background: var(--bubble); border-radius: 18px 18px 18px 6px; padding: 12px 14px;
+  font-size: 1.0625rem; line-height: 1.5; color: var(--ink);
+}
+.story-dam {
+  margin-top: auto; display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: var(--r-m);
+  background: linear-gradient(180deg, var(--sky-1), var(--sky-2)); color: var(--ink); text-decoration: none;
+  transition: transform var(--dur-press) var(--ease-out);
+}
+.story-dam:active { transform: scale(.985); }
+.story-dam .dam-glyph { flex: none; }
+.nowrap { white-space: nowrap; }
+.story-dam-text { display: grid; gap: 4px; font-size: var(--fs-meta); line-height: 1.35; min-width: 0; }
+.story-dam-text b { font-size: 1.0625rem; }
+.story-days { color: var(--ink); font-weight: 700; }
+.story-dam-text b { font-weight: 800; }
+.story-chance { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; color: var(--chance-ink); font-weight: 800; }
+.story-dam .chev { margin-left: auto; color: var(--ink-2); }
+.tallybar { height: 14px; border-radius: 7px; background: var(--surface-2); box-shadow: inset 0 0 0 1.5px var(--ink); overflow: hidden; }
+.tallybar > i { display: block; height: 100%; background: var(--ink); }
+.story-card .tallybar { margin-top: auto; }
+.story-farm {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 32px; align-items: center;
+  margin-top: 28px; background: var(--surface); border-radius: var(--r-xl); box-shadow: var(--shadow-1); padding: 24px;
+}
+.story-sketch { margin: 0; }
+.story-side { display: grid; gap: 12px; align-content: center; }
+.story-side h3 { font-size: 1.75rem; font-weight: 800; line-height: 1.15; letter-spacing: -.01em; }
+.story-side p:not(.eyebrow):not(.small) { color: var(--ink-2); font-size: var(--fs-lead); }
+.story-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.story-actions .btn-quiet { min-height: var(--tap-main); }
+.story-why { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+
+/* =====================================================================
+   GLOSSARY SHEET (5.8): "What is a farm dam?"
+   ===================================================================== */
+.gloss-sheet h2 { font-size: 1.75rem; font-weight: 800; line-height: 1.15; margin: 4px 0 12px; }
+.gloss-sheet .paddock { display: block; max-width: 420px; height: auto; }
+.gloss-sheet p { margin-top: 12px; }
+.gloss-sheet .words { display: grid; gap: 6px; margin-top: 12px; color: var(--ink-2); }
+.gloss-sheet .words div { display: flex; flex-wrap: wrap; gap: 0 6px; }
+.gloss-sheet .words dt { font-weight: 800; color: var(--ink); }
+.gloss-sheet .words dt::after { content: ":"; }
+
+/* the router moves focus to the H1 on a view change; it is not a control, so no ring */
+.welcome h1[tabindex="-1"]:focus { outline: none; }

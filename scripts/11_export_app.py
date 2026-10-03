@@ -38,8 +38,9 @@ What it does
 
 The production fit learns from every answer up to 2026, as a model for today must, but its
 forecasts are only shown, never scored. This script never reads the sealed region's data: the
-sealed panel reads only the scorecard result files that scripts/20 writes at the opening, and
-only when --sealed-scores is given.
+sealed panel reads only the scorecard result files that scripts/20 writes at the opening, plus the
+DamDays floor result in the opening's sealed_results.json (two folders above them), and only when
+--sealed-scores is given.
 """
 import argparse
 import gzip
@@ -61,6 +62,7 @@ sys.path.insert(0, str(REPO))
 from damdays import config  # noqa: E402
 from damdays.data.splits import hydro_year, time_block  # noqa: E402
 from damdays.evaluation import score  # noqa: E402
+from damdays.evaluation.coverage import FLOOR_TOLERANCE  # noqa: E402
 from damdays.evaluation.inputs import KEY, prepare_table  # noqa: E402
 from damdays.evaluation.ledger import Ledger, prediction_hash  # noqa: E402
 from damdays.evaluation.report import clean_for_json  # noqa: E402
@@ -101,6 +103,10 @@ P2_BAR, KILL_RULE_GAP = 0.05, 0.02
 PANEL_FILES = {"p1": ("P1_R30", "tidemark__dam_like+octmar+at_risk.json"),
                "p2": ("P2_cell", "tidemark__all.json"),
                "rain": ("P2_cell", "rain__all.json")}
+# The opening's results file (damdays/sealed/runs.py OPENING.results_json): the panel's floor block is copied from
+# its floor.issued_all. scripts/20 writes the scorecard files to <results>/scorecard/sealed_TEST/, so it is two
+# folders above the --sealed-scores folder.
+SEALED_RESULTS_NAME = "sealed_results.json"
 
 STARTED = time.time()
 
@@ -480,10 +486,55 @@ def sealed_placeholder():
         expectations=SEALED_EXPECTATIONS, fill_with=SEALED_FILL_COMMAND)
 
 
-def sealed_panel(folder, arena="sealed"):
+def sealed_floor(results):
+    """The sealed panel's floor block, copied from the opening's results (sealed_results.json, floor.issued_all).
+
+    held        the share of "at least N days" floors that held (every labelled forecast, as issued)
+    target      the target it was built for (0.90)
+    tolerance   damdays/evaluation/coverage.py FLOOR_TOLERANCE (0.02): 0.88 to 0.92 counts as on target
+    on_target   the opening's own flag, coverage.py's rule abs(coverage - target) <= tolerance computed in floats
+                on the unrounded coverage. Copied, never recomputed: the stored coverage is rounded to 5
+                decimals, so a recomputation could disagree at an edge (scripts/21's README text reads this flag).
+    ci_low, ci_high, n_forecasts, worst_year   when the results have them
+    None when the results carry no floor (the panel is then shown without it).
+    """
+    floor = ((results or {}).get("floor") or {}).get("issued_all") or {}
+    if not isinstance(floor.get("coverage"), (int, float)):
+        log("WARNING: the sealed results carry no floor coverage (floor.issued_all); the panel has no floor block")
+        return None
+    block = dict(label="DamDays floor ('at least N days, 9 times in 10'): share that held",
+                 held=floor["coverage"], target=floor.get("target"), tolerance=FLOOR_TOLERANCE)
+    if isinstance(floor.get("on_target"), bool):
+        block["on_target"] = floor["on_target"]
+    else:
+        log("WARNING: the sealed floor result has no on_target flag; the app judges it from held, target and tolerance")
+    ci = (floor.get("ci_dam") or {}).get("coverage")
+    if ci and len(ci) == 2:
+        block["ci_low"], block["ci_high"] = ci
+    if isinstance(floor.get("rows_judged"), int):
+        block["n_forecasts"] = floor["rows_judged"]
+    if floor.get("worst_year"):
+        block["worst_year"] = floor["worst_year"]
+    return block
+
+
+def sealed_results_for(folder):
+    """The opening's sealed_results.json for a --sealed-scores folder (<results>/scorecard/sealed_TEST): the run must
+    be the sealed opening, never a dry run."""
+    path = Path(folder).resolve().parents[1] / SEALED_RESULTS_NAME
+    results = read_json(path, "scripts/20_open_sealed_region.py --open (Sat 3 Oct 17:30)")
+    run = results.get("run", {})
+    if run.get("name") != "sealed" or run.get("rehearsal") is not False:
+        raise SystemExit(f"{path} is not the sealed opening (run {run.get('name')!r}, rehearsal "
+                         f"{run.get('rehearsal')!r}); a dry run is never shown as the sealed result.")
+    return results
+
+
+def sealed_panel(folder, arena="sealed", results=None):
     """The sealed-region panel from the opening's scorecard files (scripts/20 --open writes one JSON per score).
 
-    Reads only these three result files; every one must say block TEST and arena "sealed", so a
+    Reads only these three result files, plus the floor of the opening's sealed_results.json (`results`, or
+    read from two folders above `folder`); every scorecard file must say block TEST and arena "sealed", so a
     development result can never be shown as the sealed one.
     """
     folder = Path(folder)
@@ -494,12 +545,21 @@ def sealed_panel(folder, arena="sealed"):
             raise SystemExit(f"{folder / task / name} is block {result.get('block')}, arena {result.get('arena')}; "
                              f"the sealed panel needs block TEST, arena {arena!r}.")
         found[part] = result
+    if results is None:
+        results = sealed_results_for(folder)
     panel = headline_panel("sealed", "Sealed region, opened Sat 3 Oct 17:30, scored once",
                            f"{SEALED_NAME}; forecasts issued July 2016 to June 2026; scored once on "
                            f"{human_day(found['p1']['time'])}", found["p1"], found["p2"], found["rain"])
+    floor = sealed_floor(results)
+    if floor is not None:
+        panel["floor"] = floor
     panel["expectations"] = SEALED_EXPECTATIONS
     shown = folder.resolve().relative_to(REPO) if folder.resolve().is_relative_to(REPO) else folder
     panel["sources"] = [f"{shown.as_posix()}/{task}/{name}" for task, name in PANEL_FILES.values()]
+    if floor is not None:
+        results_dir = folder.resolve().parents[1]
+        where = results_dir.relative_to(REPO).as_posix() if results_dir.is_relative_to(REPO) else results_dir.as_posix()
+        panel["sources"].append(f"{where}/{SEALED_RESULTS_NAME} (floor.issued_all)")
     return panel
 
 
@@ -598,9 +658,11 @@ def update_sealed_panel_only(folder):
     panel = sealed_panel(folder)
     board["panels"] = [panel if p["key"] == "sealed" else p for p in board["panels"]]
     path.write_text(json.dumps(board, indent=1, ensure_ascii=False, allow_nan=False), encoding="utf-8")
+    floor = panel.get("floor")
     log(f"sealed panel filled from {folder}: R30 skill vs the usual rate "
         f"{panel['runway']['skill_vs_usual_rate']['value']:+.3f}; rating AUC {panel['rating']['rating_auc']['value']:.3f} "
-        f"against rainfall-only {panel['rating']['rain_only_auc']['value']:.3f}")
+        f"against rainfall-only {panel['rating']['rain_only_auc']['value']:.3f}"
+        + (f"; floor held {floor['held']:.3f} (on target: {floor.get('on_target')})" if floor else "; no floor block"))
     build_bundle()
 
 

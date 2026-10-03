@@ -8,7 +8,7 @@ All numbers in the examples on this page are made up, only to show the format.
 
 ```
 app/data/
-  datasets.js          list of datasets, preferred first ("real" before "mock")
+  datasets.js          list of datasets, preferred first ("real" before "mock"), and which are split into parts
   mock/                made-up data for building the app (make_mock_data.py)
   real/                real forecasts, written by the pipeline's exporter
     meta.json          what this dataset is
@@ -19,16 +19,20 @@ app/data/
     scoreboard.json    test scores (AUC with ranges)
     farms.json         optional: the demo farms and this week's texts, for My farm (scripts/16)
     proof.json         optional: what accuracy looks like, for the Proof view (scripts/17)
-    track_record.json  optional: each dam's track record in the 2016-2026 backtest (scripts/18)
+    track_record.json  optional: each dam's track record over the last 10 years (scripts/18)
     bundle.js          the six files (and the optional ones there) packed into one script (made by build_bundle.py)
+    parts.js           the same data split into parts, and their file names (made by build_bundle.py)
+    <part>.<hash>.js   first, farms, core, rewind, rating, history-00 to -11 (made by build_bundle.py)
 ```
 
 To publish a dataset:
 
 1. Write the six JSON files into `app/data/real/`.
-2. Run `python app/tools/build_bundle.py app/data/real`. This checks that each file has its main fields, writes `bundle.js`, and lists `real` first in `datasets.js`, so the app uses it from then on.
+2. Run `python app/tools/build_bundle.py app/data/real`. This checks that each file has its main fields, writes `bundle.js` and the parts, lists `real` first in `datasets.js`, so the app uses it from then on, and re-stamps `app/sw-version.js`.
 
 Why `bundle.js`: when you double-click `index.html`, browsers refuse to read other local files with `fetch()`, but they do run `<script>` files. The bundle is a copy of the JSON wrapped in one script. Never edit it by hand.
+
+**Data parts** (`parts.js` and `<part>.<hash>.js`, written by `build_bundle.py`'s `write_parts()`; UI_SPEC 8.2): the same JSON again, split by how soon the app needs it, so a phone on a slow connection downloads about 28 KB (compressed) of data before this week's text shows, not the whole 0.65 MB `bundle.js`. `first` holds `meta`, `scoreboard`, `farms`, `proof` and, for the demo farms' dams only, their `forecasts.json` entries, today's rows and curves and their track records (plus every other field of `track_record.json`); `farms` the demo farms' dams' water history; `core` every other dam (entries, today's rows and curves, track records) and which `history-NN` part holds its history; `rewind` the past forecast dates and their curves; `rating` the cells; `history-00` to `history-11` the other dams' history, grouped by map area. Like `bundle.js` they are copies (the JSON files stay the source of truth), each a `<script>` that adds itself to `self.DAMDAYS_PART_DATA["<dataset>/<part>"]`, so a double-clicked `index.html` still works. The hash in each name is of its content: a new export writes new names and deletes the old files, and the service worker keeps a part for good. `js/data.js` merges them into the same object `bundle.js` gives (`DamDays.data.need("first")`, `need("core")`, `history(damId)`, and `load()` for everything but the history shards); a dataset without `parts.js` (e.g. `mock`) loads its `bundle.js`.
 
 To look at the mock data even when real data exists, add `?data=mock` to the address.
 
@@ -272,7 +276,7 @@ The app only shows an AUC when at least 5 cells ran dry that season (`minDryCell
 | `status` | `"scored"` (numbers below are filled) or `"pending"` (not opened yet: only `title`, `label`, `text`, `expectations`) |
 | `runway` | R30 on the primary set (farm-like dams, October-March forecasts): skill against the usual rate (B0) and the dam's own record (B2), the paired gain over the benchmark G2, AUC, calibration slope, and the pre-registered pass bars (`null` if not checked) |
 | `rating` | the 2 km cell rating: its AUC, the rainfall-only AUC, the paired AUC gain, the pre-registered bar (gain at least 0.05 with its range above 0) and the kill rule (rainfall-only within 0.02) |
-| `floor`, `band` | optional: DamDays floor coverage and season-band coverage |
+| `floor`, `band` | optional: DamDays floor coverage and season-band coverage. `floor`: `held` (share of "at least N days" floors that held), `target` (0.9), `ci_low`/`ci_high`, `n_forecasts`, `worst_year`. The scored sealed panel also carries `tolerance` (0.02, `damdays/evaluation/coverage.py` FLOOR_TOLERANCE) and `on_target`, the opening's own flag (`abs(held - target) <= tolerance`, computed on the unrounded share; copied from `sealed_results.json` `floor.issued_all`, never recomputed). The app (`format.floorCheck`) follows `on_target` when present; otherwise it applies the same rule in floats with proof.json's `by_year.floor_tolerance` |
 | `expectations` | optional: the PREREG pre-declared expectations; `field` names the panel number each is compared with once scored |
 
 Every number in a panel is copied from a scorecard result file (`dev_test`: `artifacts/test_results.json`; `sealed`: the files `scripts/20` writes to `artifacts/sealed/scorecard/sealed_TEST/` at the opening).
@@ -287,15 +291,16 @@ Not one of the six files above: optional. It is written by `scripts/16_weekly_te
 {
   "schema_version": "1.0", "generated_at": "2026-10-02T12:30:00Z", "date": "2026-10-02", "radius_km": 3.0,
   "about": "...", "source": "...",
-  "farms": [ { "farm_id": "farm-d", "name": "Farm D (near Dubbo)", "lat": -32.22, "lon": 148.635, "radius_km": 3.0,
-               "region": "nsw_cw", "region_name": "NSW Central West", "near_town": "Dubbo", "town_km": 4.7,
+  "farms": [ { "farm_id": "farm-e", "name": "Farm E (near Mudgee)", "lat": -32.526, "lon": 149.609, "radius_km": 3.0,
+               "region": "nsw_cw", "region_name": "NSW Central West", "near_town": "Mudgee", "town_km": 7.3,
                "dams_in_app": true, "data_through": "2026-09-14",
-               "dams": [ { "number": 1, "name": "Dam 1", "dam_id": "nsw_cw-0407", "dea_uid": "r638...",
-                           "distance_km": 0.94, "lat": -32.21365, "lon": 148.64156, "area_ha": 1.17,
-                           "status": "already_low", "issued_on": "2026-09-13", "window_end": "2026-12-12",
-                           "level_pct": 0, "chance": null, "damdays_days": null,
-                           "text_kind": "low", "days_left": null } ],
-               "sms": "Fri 2 Oct (satellite 13 Sep)\n...", "sms_septets": 146, "long": "..." } ]
+               "dams": [ { "number": 1, "name": "Dam 1", "dam_id": "nsw_cw-0659", "dea_uid": "r64q...",
+                           "distance_km": 0.47, "lat": -32.52548, "lon": 149.60403, "area_ha": 0.63,
+                           "status": "forecast", "issued_on": "2026-09-13", "window_end": "2026-12-12",
+                           "level_pct": 80, "chance": 0.089, "damdays_days": 87,
+                           "text_kind": "forecast", "days_left": 68 } ],
+               "sms": "Fri 2 Oct (satellite 13 Sep)\n...", "sms_septets": 159, "long": "..." } ],
+  "set_aside": [ { "farm_id": "farm-d", "name": "Farm D (near Dubbo)", "region": "nsw_cw", "reason": "Set aside: ..." } ]
 }
 ```
 
@@ -309,6 +314,7 @@ Not one of the six files above: optional. It is written by `scripts/16_weekly_te
 | `dams[].days_left` | forecast dams only: the DamDays floor counted from `date` (`damdays_days` minus the days since `issued_on`); 180 or more is shown "6 months+" |
 | `farms[].sms` | the weekly SMS: GSM-7 only, 160 places or fewer, lines separated by `\n` |
 | `farms[].long` | the longer app/email version (2 to 4 lines) |
+| `set_aside[]` | demo farms found the same way but left out, with the `reason` (e.g. aerial photos show its waterbodies are not farm dams); the app may name them in its limits, never in a picker |
 
 In every farmer-facing text, "%" means only how full a dam is, and a chance is written "6 in 10", never as a percent.
 
@@ -341,16 +347,18 @@ Not one of the six files above: optional. It is written by `scripts/17_proof_dat
                             "skill": 0.2148, "skill_ci": [0.18561, 0.24439], "skill_words": "a fifth",
                             "rain_vs_usual": { "nsw_cw": 1.041, "wvic_sesa": 0.71 }, "rain_vs_usual_mean": 0.876,
                             "drier": true, "floor": { "held": 0.87199, "held_in_1000": 872, "judged": 81580 } } ] },
-  "dam_by_dam": { "title": "...", "takeaway": "...", "farm": { "farm_id": "farm-d", "name": "Farm D (near Dubbo)", "...": "..." },
+  "dam_by_dam": { "title": "...", "takeaway": "...", "farm": { "farm_id": "farm-e", "name": "Farm E (near Mudgee)", "...": "..." },
                   "rewind_date": "2018-11-01",
                   "season": { "forecasts_from": "2018-07-01", "forecasts_to": "2019-06-30", "show_to": "2019-09-30" },
-                  "threshold_pct": 30, "default_dam": "nsw_cw-0407", "how_chosen": "...", "how_to_read": "...",
-                  "dams": [ { "dam_id": "nsw_cw-0407", "name": "Dam 1", "area_ha": 1.17, "dea_uid": "r638...",
-                              "rewind": { "status": "forecast", "issued_on": "2018-10-01", "level_pct": 60, "chance": 0.37,
-                                          "said": "4 in 10", "outcome": true, "outcome_date": "2018-12-04" },
+                  "rewind_dates": [ { "date": "2018-11-01", "forecasts": 3, "chance_sum": 0.368, "fell": ["Dam 1"], "unknown": [] } ],
+                  "all_dates_takeaway": "...",
+                  "threshold_pct": 30, "default_dam": "nsw_cw-0659", "how_chosen": "...", "how_to_read": "...",
+                  "dams": [ { "dam_id": "nsw_cw-0659", "name": "Dam 1", "area_ha": 0.63, "dea_uid": "r64q...",
+                              "rewind": { "status": "forecast", "issued_on": "2018-10-26", "level_pct": 120, "chance": 0.145,
+                                          "said": "1 in 10", "outcome": true, "outcome_date": "2018-12-20" },
                               "looks": [ ["2018-07-13", 60] ],
-                              "forecasts": [ { "date": "2018-10-01", "chance": 0.37, "fell": true, "fell_on": "2018-12-04" } ],
-                              "falls": ["2018-12-04"], "summary": "..." } ] },
+                              "forecasts": [ { "date": "2018-10-26", "chance": 0.145, "fell": true, "fell_on": "2018-12-20" } ],
+                              "falls": ["2018-12-20"], "summary": "..." } ] },
   "sources": { "...": "..." }, "checks": { "equal_to_test_results": [ { "what": "...", "value": 142938 } ], "ledger": "..." }
 }
 ```
@@ -361,6 +369,7 @@ Not one of the six files above: optional. It is written by `scripts/17_proof_dat
 | `calibration.bins[]` | one group per chance as the text rounds it (`in_ten` 0 = "less than 1 in 10", 10 = "more than 9 in 10"): how many forecasts, how many fell below a third within 90 days, the share that fell (`share_fell_ci`: 95% range from re-drawing whole dams 500 times), the average chance given. A group with fewer than `min_forecasts_to_plot` forecasts is listed (`plotted: false`), not drawn |
 | `by_year.years[]` | one July-June year each (`year` 2016 = July 2016 to June 2017): `skill` is the Brier skill score against the usual rate B0 on that year's forecasts (`skill_ci`: re-drawing that year's dams 500 times); `floor` is how often "at least N days" held that year, copied from `test_results.json` (`floor.issued_all.by_year`: all judged forecasts, all months); `drier` is the rain rule in `drier_rule` (July-June SILO rain, averaged over the two regions' ratios to their 1960-2016 average, below 1) |
 | `dam_by_dam.dams[]` | the demo farm's dams (Dam 1 = closest to the homestead): `looks` are `[date, level_pct]` at each clear satellite look (level as in `forecasts.json`, % of the dam's usual full level), `forecasts` every test forecast made for the dam between `season.forecasts_from` and `season.forecasts_to` (`fell`: the R30 answer, `null` if not known), `falls` the days it fell below a third, `rewind` its row in `forecasts.json` on `rewind_date` (the script checks they agree) |
+| `dam_by_dam.rewind_dates[]`, `all_dates_takeaway` | the same farm on every Rewind date in `forecasts.json`: how many forecasts, the sum of their chances (the falls expected), which dams fell below a third within 90 days (`unknown`: no answer yet); and one sentence over all the dates |
 
 "%" appears only as how full a dam is; a chance is "N in 10"; how often something held is "N in 1,000".
 
@@ -368,22 +377,23 @@ Not one of the six files above: optional. It is written by `scripts/17_proof_dat
 
 ## track_record.json (optional): each dam's track record, so a farmer can judge our accuracy
 
-Written by `scripts/18_track_record.py` (seconds, after steps 13, 15, 11, 16 and 17; it rebuilds `bundle.js` itself, and also writes the same numbers as a page, `artifacts/track_record.md`). The dam card (for today's forecast, in My farm and Runway) and My farm's table show it: "Our track record on this dam (2016-2026 backtest): the cautious days-left promise held 18 of 20 times." Without it, the cards and the table leave it out. The weekly text's long version can carry it too (`notify.message.long_text(..., track_record=doc["dams"])`); the SMS never does.
+Written by `scripts/18_track_record.py` (seconds, after steps 13, 15, 11, 16 and 17; it rebuilds `bundle.js` itself, and also writes the same numbers as a page, `artifacts/track_record.md`). The dam sheet (for today's forecast, in My farm and Runway) and My farm's rows show it: "Our record on this dam: held 18 of 20 times" (over the last 10 years). Without it, the cards and the table leave it out. The weekly text's long version can carry it too (`notify.message.long_text(..., track_record=doc["dams"])`); the SMS never does.
 
 The backtest is the ten test years: the frozen model learned only from data before July 2016 and made a forecast at every clear satellite look from July 2016 to June 2026 (scripts/13), scored once by scripts/15. This file only counts those saved forecasts dam by dam. Added up over every dam of both development regions, the counts must equal `artifacts/test_results.json` (`floor.shown_all`: forecasts judged, share held, by year), and the "likely" calls on the headline set must equal `proof.json`'s groups, or the script writes nothing.
 
 ```json
 {
   "schema_version": "1.0", "generated_at": "2026-10-03T10:30:00+10:00", "made_by": "scripts/18_track_record.py",
-  "years": "2016-2026", "label": "2016-2026 backtest", "first_season": "2016-17", "last_season": "2025-26",
+  "years": "2016-2026", "label": "the last 10 years", "first_season": "2016-17", "last_season": "2025-26",
   "first_season_year": 2016, "last_season_year": 2025, "min_judged": 5, "cap_days": 180, "likely_in_ten": 5,
-  "tip": "Backtest = forecasts the model made for years it never saw. ...", "about": "...", "caveat": "...", "how": ["..."],
-  "dams": { "nsw_cw-0407": { "dea_uid": "r638...", "region": "nsw_cw", "forecasts": 217, "judged": 216, "held": 166,
-                             "not_judged": 1, "enough": true, "by_season": { "2016": [21, 21], "2024": [3, 21] },
-                             "median_days": 113, "likely_said": 0, "likely_fell": 0 } },
-  "farms": [ { "farm_id": "farm-d", "name": "Farm D (near Dubbo)", "region": "nsw_cw", "radius_km": 3.0, "dams": 7,
-               "dams_with_record": 7, "held": 1362, "judged": 1524, "not_enough_history": [],
-               "lowest": { "name": "Dam 1", "dam_id": "nsw_cw-0407", "held": 166, "judged": 216 }, "seasons": [2016] } ],
+  "tip": "We re-ran our forecasts for July 2016 to June 2026 using only data from before July 2016, ...",
+  "about": "...", "caveat": "...", "how": ["..."],
+  "dams": { "nsw_cw-0659": { "dea_uid": "r64q...", "region": "nsw_cw", "forecasts": 429, "judged": 428, "held": 380,
+                             "not_judged": 1, "enough": true, "by_season": { "2016": [37, 37], "2025": [32, 48] },
+                             "median_days": 105, "likely_said": 4, "likely_fell": 0 } },
+  "farms": [ { "farm_id": "farm-e", "name": "Farm E (near Mudgee)", "region": "nsw_cw", "radius_km": 3.0, "dams": 5,
+               "dams_with_record": 5, "held": 1640, "judged": 1767, "not_enough_history": [],
+               "lowest": { "name": "Dam 4", "dam_id": "nsw_cw-0660", "held": 212, "judged": 246 }, "seasons": [2016] } ],
   "summary": { "dams_in_app": 941, "distribution": { "dams_with_record": 929, "median_in_1000": 912, "...": "..." } },
   "checks": { "equal_to_test_results": [ { "what": "forecasts judged", "value": 730449, "test_results": 730449 } ],
               "equal_to_proof": [ "..." ], "ledger": "nothing scored on the TEST ledger" },

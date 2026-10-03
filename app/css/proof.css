@@ -1,0 +1,385 @@
+/* proof.css (WP-E)
+ * Proof (#proof) and its sheets: the hero, the unseen exam card, the picture cards, the charts drawn
+ * at their box's width, and Rewind (the 2018-19 replay sheet). UI_SPEC 3.4, 5.15 to 5.19.
+ * Colours and sizes come from tokens.css only: blue = water, brown = chance, ink = records and numbers,
+ * straw = dry ground (below a third, drier years). Motion only inside prefers-reduced-motion: no-preference.
+ */
+
+/* =====================================================================
+   THE PAGE
+   ===================================================================== */
+.proof-page { padding-bottom: var(--s8); }
+.proof-page .page-head .lead { max-width: 60ch; }
+
+/* ---- hero (5.16) ---- */
+.proof-hero {
+  margin-top: var(--s2); padding: 18px 18px 6px; border-radius: var(--r-xl);
+  background: linear-gradient(180deg, var(--sky-1), var(--sky-2));
+}
+.proof-hero .eyebrow { color: var(--ink-2); }
+.proof-big { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; line-height: 1; margin-top: 6px; }
+.proof-big b { font-size: 4.5rem; font-weight: 800; letter-spacing: -.03em; }
+.proof-big span { font-size: 1.625rem; font-weight: 800; }
+.proof-tendots { display: flex; flex-wrap: nowrap; gap: clamp(4px, 1.6vw, 8px); margin: 14px 0 6px; }
+.proof-tendots i { flex: 0 0 auto; width: clamp(20px, 6.4vw, 24px); height: auto; aspect-ratio: 1; border-radius: 50%; background: var(--ink); }
+.proof-tendots i.off { background: transparent; box-shadow: inset 0 0 0 2px var(--ink); }
+.proof-hero-line { font-size: var(--fs-lead); font-weight: 700; line-height: 1.35; margin-top: 4px; }
+.proof-hero-dams { color: var(--ink-2); margin-top: 8px; }
+.proof-hero-dams b { color: var(--ink); }
+.proof-hero details.more { margin-top: 10px; }
+.proof-hero details.more > .body p + p { margin-top: 6px; }
+
+/* ---- the unseen exam card (5.15) ---- */
+.exam-card {
+  margin-top: var(--s4); background: var(--surface); border: 2px solid var(--ink); border-radius: var(--r-l);
+  padding: var(--s4) 18px;
+}
+.exam-card.is-missing { border-width: 1px; border-color: var(--line); }
+.exam-top { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); flex-wrap: wrap; }
+.tag-ink { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.exam-card h2 { font-size: var(--fs-h2); font-weight: 800; line-height: 1.2; margin: 6px 0 8px; }
+.exam-card > p { color: var(--ink-2); }
+.exam-card > p + p { margin-top: 8px; }
+.exam-card .exam-result { color: var(--ink); font-size: var(--fs-lead); font-weight: 700; line-height: 1.35; }
+/* scored: the region it was, and each thing we said to expect against what came out (a miss is said in words) */
+.exam-region { display: flex; gap: 8px; align-items: flex-start; color: var(--ink-2); font-weight: 700; margin: -2px 0 8px; }
+.exam-region svg.i { flex: none; margin-top: 2px; }
+.exam-got { display: grid; gap: 6px; margin-top: 10px; color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.45; }
+.exam-got li { display: flex; gap: 8px; align-items: flex-start; }
+.exam-got li svg.i { flex: none; margin-top: 1px; color: var(--ink-3); }
+.exam-got li.is-miss { color: var(--ink); font-weight: 700; }
+.exam-got li.is-miss svg.i { color: var(--ink); }
+.exam-got.is-sheet { font-size: var(--fs-body); }
+.exam-when {
+  display: flex; gap: 10px; align-items: flex-start; margin-top: 10px; padding: 10px 12px; border-radius: var(--r-m);
+  background: var(--straw); color: var(--ink); font-size: var(--fs-meta); line-height: 1.4;
+}
+.exam-when svg.i { margin-top: 1px; flex: none; }
+.exam-expect { color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.45; }
+.exam-card .exam-expect { margin-top: 10px; }
+.exam-more {
+  display: inline-flex; align-items: center; gap: 6px; min-height: var(--tap); margin-top: 4px;
+  font-weight: 800; color: var(--water-deep); text-decoration: none;
+}
+.exam-more span { text-decoration: underline; text-underline-offset: 3px; }
+
+.timeline { display: grid; margin-top: 14px; }
+.timeline li { display: grid; grid-template-columns: 20px 1fr; gap: 10px; padding-bottom: 10px; position: relative; color: var(--ink-2); line-height: 1.4; }
+.timeline li::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--ink); margin-top: 4px; }
+.timeline li::after { content: ""; position: absolute; left: 6px; top: 20px; bottom: 0; width: 2px; background: var(--ink); }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li:last-child::after { display: none; }
+.timeline li.is-pending::before { background: var(--surface); box-shadow: inset 0 0 0 2px var(--ink); }
+.timeline b { color: var(--ink); }
+
+/* ---- picture cards (5.17) ---- */
+.proof-cards-title { margin: var(--s7) 2px var(--s3); }
+.proof-cards { display: grid; gap: 10px; }
+.pcard {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 14px 18px var(--s4); border-radius: var(--r-l); background: var(--surface); box-shadow: var(--shadow-1);
+  color: var(--ink); text-decoration: none; border: 2px solid transparent;
+  transition: transform var(--dur-press) var(--ease-out), border-color var(--dur-quick);
+}
+.pcard:hover { border-color: var(--line-strong); }
+.pcard:active { transform: scale(.985); }
+.pcard-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s3); }
+.pcard-top .eyebrow { padding-top: 4px; }
+.pcard-mini { display: block; flex: none; line-height: 0; }
+.pcard-mini svg { display: block; width: 56px; height: 56px; }
+.pcard-h { font-size: var(--fs-h3); font-weight: 800; line-height: 1.28; text-wrap: pretty; }
+.pcard-sub { color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.4; }
+.pcard-go { display: inline-flex; align-items: center; gap: 4px; margin-top: 2px; color: var(--water-deep); font-weight: 800; font-size: var(--fs-meta); }
+.pcard-cta {
+  display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; min-height: 44px; margin-top: 6px;
+  padding: 0 14px; border-radius: 14px; background: var(--ink); color: var(--on-ink); font-weight: 800; font-size: var(--fs-meta);
+}
+.pcard.is-feature { background: linear-gradient(180deg, var(--surface), var(--surface-2)); border-color: var(--ink); }
+.pcard.is-feature .pcard-h { font-size: var(--fs-h2); line-height: 1.22; }
+.pcard.is-feature .pcard-mini svg { width: 80px; height: 80px; }
+
+.proof-caveat {
+  display: flex; gap: 10px; align-items: flex-start; margin: var(--s5) 4px 0; color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.45;
+}
+.proof-caveat svg.i { flex: none; margin-top: 1px; color: var(--ink-3); }
+
+/* ---- who-else slot (5.21): an idea, not built ---- */
+.slot-who-else {
+  display: flex; gap: 12px; align-items: flex-start; margin-top: var(--s5); padding: 14px 16px;
+  border: 2px dashed var(--line-strong); border-radius: var(--r-l); color: var(--ink-2);
+}
+.slot-who-else svg.i { flex: none; color: var(--saltbush); margin-top: 2px; }
+.slot-who-else > div { min-width: 0; }
+.slot-who-else .tag { margin-bottom: 6px; white-space: normal; height: auto; min-height: 24px; }
+
+@media (min-width: 700px) {
+  .proof-cards { grid-template-columns: 1fr 1fr; }
+  .proof-cards .pcard.is-feature, .proof-cards .pcard:nth-child(n+4) { grid-column: 1 / -1; }
+  .proof-cards .pcard.is-feature { position: relative; padding-right: 140px; }
+  .proof-cards .pcard.is-feature .pcard-mini { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); }
+  .proof-cards .pcard.is-feature .pcard-mini svg { width: 100px; height: 100px; }
+}
+
+
+/* =====================================================================
+   THE PICTURE SHEETS
+   ===================================================================== */
+.ps { display: block; }
+.ps > .eyebrow { margin-top: 2px; }
+.ps-h { font-size: 1.5rem; font-weight: 800; line-height: 1.2; letter-spacing: -.01em; margin: 6px 0 10px; text-wrap: pretty; }
+.ps-h3 { font-size: var(--fs-h3); font-weight: 800; line-height: 1.3; margin: var(--s6) 2px var(--s2); }
+.ps-lead { color: var(--ink-2); line-height: 1.5; }
+.ps-lead + .ps-lead { margin-top: 8px; }
+.ps-note { color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.5; margin-top: 10px; }
+.ps-list { list-style: disc; padding-left: 1.2em; display: grid; gap: 4px; margin: 6px 0; }
+.ps-fig {
+  margin-top: var(--s4); padding: 12px 10px 8px; border-radius: var(--r-l); background: var(--surface); box-shadow: var(--shadow-1);
+}
+.ps-fig-h { font-weight: 800; font-size: var(--fs-meta); line-height: 1.35; padding: 0 4px 8px; color: var(--ink); }
+.ps-chart { width: 100%; min-height: 120px; }
+.ps-chart:empty { min-height: 200px; }
+
+/* the charts themselves (5.18): labels 13 px, tokens for every colour */
+.pc { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--font); }
+.pc text { font-size: 13px; }
+.pc .pc-axis { fill: var(--ink-3); }
+.pc .pc-axis-strong { fill: var(--ink-2); font-weight: 700; }
+.pc .pc-title { fill: var(--ink-2); font-weight: 700; }
+.pc .pc-halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+.pc .pc-hit { cursor: help; }
+@media (prefers-reduced-motion: no-preference) {
+  .pc { animation: dd-fade 200ms var(--ease-out); }
+}
+
+/* "Show the numbers" and "For specialists": the most-detail level, in one quiet card */
+.ps-more { margin-top: var(--s4); padding: 0 16px; border-radius: var(--r-l); background: var(--surface); box-shadow: var(--shadow-1); }
+.ps-more details.more:first-child { border-top: 0; }
+.ps details.more > .body { color: var(--ink-2); }
+.ps details.more > .body > * + * { margin-top: 10px; }
+.ps details.more caption { caption-side: top; text-align: left; font-weight: 800; color: var(--ink); padding: 4px 0 6px; font-size: var(--fs-meta); }
+.ps table.data { min-width: 0; }
+.ps table.data th[scope="row"] { color: var(--ink); font-size: var(--fs-meta); font-weight: 700; }
+.ps .table-scroll { border-radius: 8px; }
+.ps > details.ps-spec { margin-top: var(--s4); }
+/* wide "Show the numbers" tables: one block per row where the box is narrow (phones, the tablet sheet), so nothing
+   is squeezed into one-word columns; the wide desktop sheet keeps the table */
+.ps-more { container-type: inline-size; }
+@container (max-width: 600px) {
+  .ps-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .ps-stack table, .ps-stack tbody, .ps-stack tr, .ps-stack th, .ps-stack td { display: block; width: auto; }
+  .ps-stack tr { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .ps-stack th[scope="row"] { border: 0; padding: 0 0 4px; font-size: var(--fs-body); }
+  .ps-stack td { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 10px; border: 0; padding: 3px 0; }
+  .ps-stack td::before { content: attr(data-label); color: var(--ink-3); font-size: var(--fs-label); line-height: 1.35; }
+}
+
+/* dam by dam: each dam as it stood on the Rewind date (its chance, what happened); the row picks the dam */
+.ps-picker { display: grid; gap: 6px; margin-top: var(--s4); }
+.ps-pick-cap { color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.4; margin: 0 2px 2px; }
+.ps-pick-head { display: none; }
+.ps-pick-row {
+  display: grid; grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr); grid-template-areas: "name ch" "out out"; gap: 4px 12px;
+  align-items: center; width: 100%; min-height: var(--tap); padding: 10px 14px; text-align: left; cursor: pointer;
+  border-radius: 14px; border: 1.5px solid var(--line-strong); background: var(--surface); color: var(--ink); font-size: var(--fs-meta);
+  transition: background-color var(--dur-quick), color var(--dur-quick), transform var(--dur-press) var(--ease-out);
+}
+.ps-pick-row:active { transform: scale(.985); }
+.ps-pick-row .pk-name { grid-area: name; font-weight: 800; font-size: var(--fs-body); }
+.ps-pick-row .pk-ch { grid-area: ch; display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; }
+.ps-pick-row .pk-ch b { color: var(--chance-ink); font-weight: 800; white-space: nowrap; }
+.ps-pick-row .pk-none { color: var(--ink-2); }
+.ps-pick-row .pk-out { grid-area: out; color: var(--ink-2); }
+.ps-pick-row.is-fell .pk-out { color: var(--ink); font-weight: 800; }
+.ps-pick-row[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
+.ps-pick-row[aria-pressed="true"] .pk-ch b, .ps-pick-row[aria-pressed="true"] .pk-none, .ps-pick-row[aria-pressed="true"] .pk-out { color: var(--on-ink); }
+.ps-pick-row[aria-pressed="true"] .dots circle[fill="none"] { stroke: color-mix(in srgb, var(--on-ink) 60%, transparent); }
+@media (min-width: 600px) {
+  .ps-pick-head, .ps-pick-row { grid-template-columns: 6rem minmax(0, 1.1fr) minmax(0, 1fr); grid-template-areas: "name ch out"; }
+  .ps-pick-head { display: grid; gap: 4px 12px; padding: 0 16px; color: var(--ink-3); font-size: var(--fs-label); font-weight: 700; }
+}
+.ps-chooser { display: grid; grid-template-columns: repeat(auto-fit, minmax(3.5rem, 1fr)); gap: 6px; margin-top: var(--s4); }
+.ps-chip {
+  min-height: var(--tap); padding: 0 4px; border-radius: 14px; border: 1.5px solid var(--line-strong); background: var(--surface);
+  color: var(--ink); font-weight: 800; font-size: var(--fs-meta); cursor: pointer; white-space: nowrap;
+  transition: background-color var(--dur-quick), color var(--dur-quick), transform var(--dur-press) var(--ease-out);
+}
+.ps-chip:active { transform: scale(.97); }
+.ps-chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
+.ps-dam-summary { margin-top: var(--s4); font-weight: 700; line-height: 1.45; }
+.ps-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; color: var(--ink-2); font-size: var(--fs-meta); }
+.ps-legend li { display: inline-flex; align-items: center; gap: 8px; }
+.ps-legend svg { flex: none; }
+
+/* the specialists' view of the sealed panel (about.js panelHtml): its own text, no second box inside the expander */
+.proof-specialists .score-panel { padding: 0; background: none; box-shadow: none; border: 0; }
+.proof-specialists .panel-status {
+  display: inline-flex; align-items: center; height: 24px; padding: 0 8px; border-radius: 6px; font-size: .8125rem; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase; border: 1.5px solid var(--line-strong); color: var(--ink-2);
+}
+.proof-specialists .panel-status-done { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.proof-specialists h3 { font-size: var(--fs-h3); font-weight: 800; color: var(--ink); margin: 8px 0 2px; }
+.proof-specialists .panel-label, .proof-specialists .panel-small { font-size: var(--fs-meta); color: var(--ink-3); }
+.proof-specialists .panel-list { list-style: disc; padding-left: 1.2em; display: grid; gap: 6px; margin: 8px 0; }
+.proof-specialists strong { color: var(--ink); }
+
+/* =====================================================================
+   REWIND (5.19): the replay sheet
+   ===================================================================== */
+.rp-dates { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 6px; margin-top: var(--s4); padding: 4px; border-radius: 16px; background: var(--bubble); }
+.rp-date {
+  min-height: var(--tap); padding: 0 8px; border: 0; border-radius: 12px; background: transparent; color: var(--ink-2);
+  font-weight: 800; font-size: var(--fs-meta); cursor: pointer; transition: background-color var(--dur-quick), color var(--dur-quick);
+}
+.rp-date[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-1); }
+.rp-select { display: grid; gap: 4px; margin-top: var(--s4); font-weight: 700; }
+.rp-select select { min-height: var(--tap); padding: 0 var(--s3); border: 1.5px solid var(--line-strong); border-radius: 12px; background: var(--surface); max-width: 100%; }
+.rp-start { margin: 8px 4px 0; }
+
+.rp-sketch-card { margin-top: var(--s3); padding: 10px 10px 12px; border-radius: var(--r-l); background: var(--surface); box-shadow: var(--shadow-1); }
+.rp-sketch { position: relative; width: 100%; min-height: 240px; }
+.rp-sketch > svg { display: block; }
+.rp-sketch-card figcaption { padding: 6px 6px 0; }
+.rp-svg-label { font-size: 13px; font-weight: 800; fill: var(--ink-2); }
+.rp-svg-meta { font-size: 13px; fill: var(--ink-3); }
+.rp-tag {
+  position: absolute; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 7px; min-height: 36px;
+  padding: 3px 14px 3px 3px; border-radius: 20px; background: var(--surface); border: 2px solid var(--ink); color: var(--ink);
+  font: 800 15px/1.1 var(--font); white-space: nowrap; cursor: pointer; box-shadow: var(--shadow-1); text-align: left;
+  transition: background-color var(--dur-quick), color var(--dur-quick);
+}
+.rp-tag .tx { display: grid; gap: 1px; }
+.rp-tag .l2 { font-size: 13px; font-weight: 800; color: var(--ink-2); }
+.rp-tag.is-fell .l2 { color: var(--ink); }
+.rp-tag.is-on .l2 { color: var(--on-ink); }
+.rp-tag::after { content: ""; position: absolute; inset: -5px -2px; }   /* 46 px hit area */
+.rp-tag .no { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: var(--on-ink); font-size: 14px; }
+.rp-tag.is-low { border-style: dashed; }
+.rp-tag.is-low .no { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+.rp-tag.is-fell { border-width: 3px; }
+.rp-tag.is-on { background: var(--ink); color: var(--on-ink); }
+.rp-tag.is-on .no { background: var(--on-ink); color: var(--ink); box-shadow: none; }
+.rp-tag:focus-visible { outline-offset: 2px; }
+.rp-tag.rp-tag-probe { visibility: hidden; left: 0; top: 0; pointer-events: none; }
+
+.rp-reveal { margin-top: var(--s3); }
+.rp-reveal[aria-pressed="true"] { background: var(--surface); color: var(--ink); border-color: var(--ink); }
+
+.rp-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: var(--s3); }
+.rp-tile { padding: 14px 12px 14px 14px; border-radius: var(--r-l); background: var(--surface); box-shadow: var(--shadow-1); min-width: 0; }
+.rp-tile .eyebrow { font-size: .8125rem; }
+.rp-big { font-size: clamp(1.375rem, 7vw, 1.875rem); font-weight: 800; line-height: 1.1; margin-top: 6px; letter-spacing: -.01em; }
+.rp-tile p:not(.eyebrow):not(.rp-big) { color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.4; margin-top: 6px; }
+.rp-tile.is-hidden { background: var(--surface-2); box-shadow: inset 0 0 0 1.5px var(--line-strong); }
+.rp-tile.is-hidden .rp-big { color: var(--ink-3); }
+.rp-tile.is-shown { box-shadow: inset 0 0 0 2px var(--ink); }
+.rp-why { margin: 10px 4px 0; }
+.rp-all { margin-top: 10px; padding: 12px 14px; border-radius: var(--r-m); background: var(--sky-2); color: var(--ink); line-height: 1.45; }
+
+.rp-rows { display: grid; gap: 10px; }
+.rp-row {
+  padding: 12px 14px; border-radius: var(--r-l); background: var(--surface); box-shadow: var(--shadow-1); border: 2px solid transparent;
+  transition: border-color var(--dur-quick);
+}
+.rp-row:focus { outline: none; }
+.rp-row:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.rp-row.is-hot { border-color: var(--ink); }
+.rp-row-top { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.rp-row-top > svg { display: block; }
+.rp-name b { display: block; font-size: var(--fs-h3); font-weight: 800; line-height: 1.2; }
+.rp-name .meta { display: block; }
+.rp-ch { color: var(--chance-ink); font-weight: 800; text-align: right; white-space: nowrap; }
+.rp-low { font-weight: 800; text-align: right; line-height: 1.15; max-width: 7.5em; }
+.rp-row > p { margin-top: 8px; }
+.rp-dots { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; color: var(--ink-2); font-size: var(--fs-meta); padding-top: 8px; border-top: 1px solid var(--line); }
+.rp-dots svg { flex: none; }
+.rp-out { display: flex; gap: 8px; align-items: flex-start; font-weight: 700; color: var(--ink-2); line-height: 1.4; }
+.rp-out svg { flex: none; margin-top: 1px; }
+.rp-out.is-fell { color: var(--ink); font-weight: 800; }
+.rp-season {
+  display: inline-flex; align-items: center; gap: 4px; min-height: 44px; margin-top: 2px;
+  color: var(--water-deep); font-weight: 700; font-size: var(--fs-meta);
+}
+
+.rp-region { margin-top: var(--s2); }
+.rp-region [data-rp-region] p { color: var(--ink-2); line-height: 1.5; }
+.rp-region [data-rp-region] p + p { margin-top: 6px; }
+.rp-region [data-rp-region] b { color: var(--ink); }
+.rp-region [data-rp-numbers] { margin-top: var(--s3); }
+.rp-region [data-rp-numbers] details.more { padding: 0 16px; border-radius: var(--r-l); background: var(--surface); box-shadow: var(--shadow-1); border-top: 0; }
+.rp-region .table-scroll + .table-scroll { margin-top: 12px; }
+.rp-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--c-ring); margin-right: 8px; vertical-align: -2px; }
+.rp-map-btn { margin-top: var(--s4); width: 100%; }
+.rp-map-note { margin: 6px 4px 0; }
+.rp-region-host { margin-top: var(--s3); }
+
+/* the old Rewind map, mounted here: driven by this sheet's own date and reveal, so its own controls hide */
+#rp-region-host .legacy { padding: 0; }
+#rp-region-host .view-intro, #rp-region-host .controls, #rp-region-host #rewind-note, #rp-region-host #rewind-tally { display: none; }
+#rp-region-host .map-and-panel { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s3); }
+#rp-region-host .map { height: min(62vh, 520px); min-height: 360px; }
+/* a region dam on the past date (rewind.js pastCardHtml): the replay's own look */
+#rp-region-host .rw-card { background: var(--surface); border-radius: var(--r-l); box-shadow: var(--shadow-1); padding: 14px 16px 16px; margin-bottom: var(--s3); display: grid; gap: 8px; }
+#rp-region-host .rw-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+#rp-region-host .rw-name { font-size: var(--fs-h3); font-weight: 800; line-height: 1.2; margin: 0; }
+#rp-region-host .rw-look, #rp-region-host .rw-days { color: var(--ink-2); }
+/* the cautious days that day, counted from the forecast's date (as the sheet under "See it in full") */
+#rp-region-host .rw-big { display: block; color: var(--ink); font-size: 1.125rem; font-weight: 800; line-height: 1.1; margin: 2px 0 4px; }
+#rp-region-host .rw-big b { font-size: 2.25rem; letter-spacing: -.02em; }
+#rp-region-host .rw-big.is-words { font-size: 1.375rem; }
+#rp-region-host .rw-days strong { color: var(--ink); }
+#rp-region-host .rw-how { display: block; margin-top: 4px; color: var(--ink-3); font-size: var(--fs-meta); }
+#rp-region-host .rw-chance b { color: var(--chance-ink); font-weight: 800; }
+#rp-region-host .rw-outcome { padding: 10px 12px; border-radius: 12px; background: var(--surface-2); }
+#rp-region-host .rw-link { margin-top: 4px; }
+/* "See it in full": the dam sheet's past-forecast view inside the card (its name and outcome are on the card already) */
+#rp-region-host .rw-full > summary small { display: block; font-weight: 400; color: var(--ink-2); font-size: var(--fs-meta); }
+#rp-region-host .rw-full .ds-head, #rp-region-host .rw-full .ds-outcome { display: none; }
+#rp-region-host .rw-full > .body { padding-top: 4px; }
+#rp-region-host .panel { background: none; box-shadow: none; padding: 0; border: 0; max-height: none; overflow: visible; }
+/* the date and reveal controls again, right above the region map */
+.rp-mapbar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: var(--s3); padding: 8px;
+  border-radius: var(--r-l); background: var(--surface); box-shadow: var(--shadow-1);
+}
+.rp-mapbar[hidden] { display: none; }
+.rp-mapbar .rp-dates { margin: 0; flex: 1 1 280px; }
+.rp-mapbar .rp-select { margin: 0; flex: 1 1 220px; }
+.rp-mapbar .rp-reveal-mini { flex: 1 1 200px; min-height: var(--tap); }
+.rp-reveal-mini[aria-pressed="true"] { background: var(--ink); color: var(--on-ink); }
+/* wide screens: the sheet widens while the map is open (replay.js widenFor); a dam's card sits beside the map */
+@media (min-width: 1024px) {
+  .sheet.is-wider #rp-region-host .map-and-panel { grid-template-columns: minmax(0, 1fr) 380px; gap: var(--s5); }
+  .sheet.is-wider #rp-region-host .panel { position: sticky; top: 0; }
+  /* before a dam is picked, the column beside the map says what goes there */
+  .sheet.is-wider #rp-region-host #rewind-card:empty {
+    display: block; padding: var(--s4); border: 2px dashed var(--line-strong); border-radius: var(--r-l); color: var(--ink-2); line-height: 1.45;
+  }
+  .sheet.is-wider #rp-region-host #rewind-card:empty::before {
+    content: "Tap a dot on the map: that dam's forecast as it was made that day, and once you show what happened, what came of it.";
+  }
+  .sheet.is-wider #rp-region-host .map { height: min(64vh, 600px); }
+}
+#rp-region-host #rewind-card:not(:empty) { background: var(--surface); border-radius: var(--r-l); padding: var(--s4); box-shadow: var(--shadow-1); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .rp-ring { animation: dd-fade 200ms var(--ease-out); }
+  .rp-tile.is-shown .rp-big { animation: dd-fade 200ms var(--ease-out); }
+}
+
+/* very narrow phones: one tile per row, smaller sheet headings */
+@media (max-width: 359.98px) {
+  .ps-h { font-size: 1.3125rem; }
+}
+@media (max-width: 339.98px) {
+  .rp-tiles { grid-template-columns: 1fr; }
+  .proof-big b { font-size: 3.75rem; }
+  .rp-tag { font-size: 14px; }
+}
+
+/* desktop: the page sits in the 760 px column; the sheets are 560 px side panels */
+@media (min-width: 960px) {
+  .proof-hero { padding: 24px 26px 10px; }
+  .proof-big b { font-size: 5rem; }
+  .exam-card { padding: 20px 24px; }
+  .ps-h { font-size: 1.625rem; }
+}

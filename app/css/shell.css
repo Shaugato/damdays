@@ -1,0 +1,424 @@
+/* shell.css (WP-A)
+ * The frame around every view: brand and top bar, the phone tab bar, views,
+ * the sheet (5.13), the status slots (offline, update, mock data), the static
+ * first screen (4.1, 4.2) with its skeleton, the footer, and a minimal host for
+ * the legacy map views until css/legacy.css takes over.
+ */
+
+/* =====================================================================
+   TOP BAR AND BRAND (5.1, 5.2)
+   ===================================================================== */
+.topbar { position: relative; z-index: 20; background: var(--paper); border-bottom: 1px solid var(--line); }
+body[data-view="welcome"] .topbar { background: var(--sky-1); border-bottom-color: transparent; }
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); height: var(--topbar-h); }
+.brand {
+  display: inline-flex; align-items: center; gap: 10px; min-height: var(--tap);
+  text-decoration: none; color: var(--ink); font-weight: 800; font-size: 1.3125rem; letter-spacing: -.01em;
+}
+.brand .logo { width: 34px; height: 34px; flex: none; }
+/* what DamDays is, beside the brand on every page but the Welcome (its H1 says it there), so a deep link (a QR
+   to #questions, a shared #proof) still says it. Desktop: the whole line, two balanced lines at 960-1099 px.
+   Below 960: 13 px; phones also drop "One text a week: " (two lines in the 56 px bar), its first letter a
+   capital. With larger text the bar grows (phones and desktop) rather than letting the words spill out of it. */
+.brand-tag {
+  display: none; min-width: 0; margin-right: auto; margin-left: calc(var(--s3) - var(--s4));
+  padding-left: var(--s3); border-left: 1.5px solid var(--line-strong);
+  color: var(--ink-2); font-size: var(--fs-meta); font-weight: 700; line-height: 1.25; text-wrap: balance;
+}
+body:not([data-view="welcome"]) .brand-tag { display: block; }
+@media (max-width: 959.98px) {
+  .topbar .wrap { height: auto; min-height: var(--topbar-h); padding-top: 4px; padding-bottom: 4px; }
+  .brand-tag { font-size: .8125rem; line-height: 1.2; }
+}
+@media (max-width: 599.98px) {
+  .brand-tag .bt-lead { display: none; }
+  .brand-tag::first-letter { text-transform: uppercase; }
+}
+.topnav { display: none; gap: 4px; flex: none; }
+.topnav a {
+  display: inline-flex; align-items: center; gap: var(--s2); min-height: var(--tap); padding: 0 var(--s4); white-space: nowrap;
+  border-radius: 12px; color: var(--ink-2); text-decoration: none; font-weight: 700; font-size: var(--fs-tab);
+  transition: background-color var(--dur-quick), color var(--dur-quick);
+}
+.topnav a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
+/* where you are: a solid ink pill (the primary button's look), unmistakable at a glance */
+.topnav a[aria-current="page"], .topnav a[aria-current="page"]:hover { background: var(--ink); color: var(--on-ink); box-shadow: none; }
+.topnav a[aria-current="page"]:focus-visible { outline-color: var(--water); }
+.topnav svg.i { width: 20px; height: 20px; }
+
+/* =====================================================================
+   PHONE TAB BAR: the only fixed chrome on phones
+   ===================================================================== */
+.tabbar {
+  position: fixed; z-index: 20; left: 0; right: 0; bottom: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  min-height: calc(var(--tabbar-h) + var(--safe-bottom)); height: auto; padding-bottom: var(--safe-bottom);
+  background: var(--surface); border-top: 1px solid var(--line);
+}
+.tabbar a {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  min-width: 0; padding: 6px 2px; text-align: center; overflow-wrap: anywhere;
+  text-decoration: none; color: var(--ink-2); font-size: clamp(12px, var(--fs-tab), min(18px, 4.6vw)); font-weight: 700; line-height: 1.2;
+  -webkit-tap-highlight-color: transparent;
+}
+.tabbar a:active .pill { transform: scale(.98); }
+.tabbar .pill {
+  display: grid; place-items: center; width: 56px; height: 30px; border-radius: var(--r-pill);
+  transition: background-color var(--dur-quick) var(--ease-standard), transform var(--dur-press) var(--ease-out);
+}
+.tabbar a[aria-current="page"] { color: var(--ink); }
+.tabbar a[aria-current="page"] .pill { background: var(--straw); }
+.tabbar a:focus-visible { outline-offset: -4px; }
+html { scroll-padding-bottom: calc(var(--tabbar-real, calc(var(--tabbar-h) + var(--safe-bottom))) + 8px); }
+body { padding-bottom: var(--tabbar-real, calc(var(--tabbar-h) + var(--safe-bottom))); }
+
+/* =====================================================================
+   VIEWS
+   ===================================================================== */
+/* at least a screen tall: on a deep link the footer starts below the fold, so it does not jump when the page fills in */
+main { display: block; min-height: calc(100vh - var(--topbar-h)); min-height: calc(100svh - var(--topbar-h)); }
+main:focus { outline: none; }
+.view { display: none; }
+.view.is-active { display: block; }
+/* first paint on a deep link: the static Welcome stays hidden until the router runs */
+html[data-boot="away"] #v-welcome { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .view.is-entering { animation: dd-rise var(--dur-base) var(--ease-out); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .view.is-entering { animation: dd-fade 150ms linear; }
+}
+
+/* =====================================================================
+   STATUS SLOTS (5.22): mock data, offline (top), update and install (bottom)
+   ===================================================================== */
+/* MOCK DATA: loud on purpose (saturated stripes, a heavy ink rule), and pinned to the top on screens 700 px
+   and wider, so a scrolled page, a screenshot or a recording of made-up numbers always carries the warning.
+   Fixed colours, not tokens: it must read the same in dark mode. */
+.mock-banner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 12px;
+  padding: 10px var(--gutter); text-align: center; color: #14222B; font-size: var(--fs-meta); font-weight: 700;
+  background: repeating-linear-gradient(-45deg, #F2D98A 0 18px, #FFE28A 18px 36px);
+  border-bottom: 3px solid #14222B;
+}
+.mock-banner strong { font-size: 1.15rem; font-weight: 800; letter-spacing: .08em; }
+@media (min-width: 700px) {
+  .mock-banner { position: sticky; top: 0; z-index: 22; }
+}
+.status-top:empty { display: none; }
+.status-top { width: min(var(--container), 100% - 2 * var(--gutter)); margin: var(--s3) auto 0; display: grid; gap: var(--s2); }
+.status-top > * {
+  display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--r-m);
+  background: var(--straw); color: var(--ink-2); font-size: var(--fs-meta);
+}
+/* update and install chips sit above the tab bar on phones (pwa.js fills #pwa-bar) */
+#pwa-bar { position: fixed; z-index: 25; left: 0; right: 0; bottom: var(--tabbar-real, calc(var(--tabbar-h) + var(--safe-bottom))); pointer-events: none; }
+#pwa-bar:empty { display: none; }
+#pwa-bar > * { pointer-events: auto; }
+body.sheet-open #pwa-bar { display: none; }
+
+/* =====================================================================
+   SHEET (5.13): bottom sheet on phones, side panel on desktop; never stacks
+   ===================================================================== */
+.scrim {
+  position: fixed; inset: 0; z-index: 30; background: var(--scrim); opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-sheet-out) var(--ease-exit);
+}
+body.sheet-open .scrim { opacity: 1; pointer-events: auto; transition: opacity var(--dur-sheet-in) var(--ease-out); }
+.sheet {
+  position: fixed; z-index: 31; left: 0; right: 0; bottom: 0; top: 40px;
+  display: flex; flex-direction: column; background: var(--paper);
+  border-radius: var(--r-sheet) var(--r-sheet) 0 0; box-shadow: var(--shadow-sheet);
+  transform: translateY(104%); visibility: hidden;
+  transition: transform var(--dur-sheet-out) var(--ease-exit), visibility 0s linear var(--dur-sheet-out);
+}
+body.sheet-open .sheet { transform: none; visibility: visible; transition: transform var(--dur-sheet-in) var(--ease-sheet), visibility 0s; }
+.sheet.is-short { top: auto; max-height: calc(100% - 40px); }
+.sheet:focus, .sheet-title:focus { outline: none; }
+.sheet-grip { width: 44px; height: 5px; border-radius: 3px; background: var(--line-strong); margin: 8px auto 2px; opacity: .7; flex: none; }
+.sheet-head {
+  display: grid; grid-template-columns: var(--tap) minmax(0, 1fr) var(--tap) var(--tap); gap: var(--s2); align-items: center;
+  padding: 6px 14px 10px; border-bottom: 1px solid var(--line); flex: none;
+}
+/* never cut off (200 per cent text included): the size is capped as the tab bar's is, and a long title wraps */
+.sheet-head .sheet-title {
+  margin: 0; text-align: center; font-weight: 800; font-size: min(1rem, 20px); color: var(--ink-2); line-height: 1.2;
+  white-space: normal; overflow-wrap: anywhere;
+}
+.sheet-head .spacer { width: var(--tap); height: var(--tap); }
+.sheet-body {
+  flex: 1; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  padding: var(--s4) var(--s4) calc(var(--s8) + var(--safe-bottom));
+}
+/* a bar fixed under the scrolling body (sheet.js opts.foot): it never covers what is in the body */
+.sheet-foot {
+  flex: none; padding: 10px var(--s4) calc(10px + var(--safe-bottom)); background: var(--paper);
+  border-top: 1px solid var(--line);
+}
+.sheet.has-foot .sheet-body { padding-bottom: var(--s5); }
+.sheet-body:focus { outline: none; }
+.sheet-body:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; border-radius: 6px; }
+@media (prefers-reduced-motion: no-preference) {
+  .sheet-body.is-swapping > * { animation: dd-fade var(--dur-quick) var(--ease-out); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet { transform: none; opacity: 0; transition: opacity 120ms linear, visibility 0s linear 120ms; }
+  body.sheet-open .sheet { opacity: 1; transition: opacity 120ms linear, visibility 0s; }
+  .scrim, body.sheet-open .scrim { transition-duration: 120ms; }
+}
+/* phones: the page behind does not scroll while a sheet is open */
+@media (max-width: 959.98px) {
+  body.sheet-open { overflow: hidden; }
+}
+/* tablets and big phones sideways: the phone layout, centred, sheets 640 px */
+@media (min-width: 600px) and (max-width: 959.98px) {
+  /* never wider than the screen (600-639 px: full width, as on phones) */
+  .sheet { left: max(0px, calc(50% - 320px)); right: auto; width: min(640px, 100%); }
+}
+/* landscape phones: sheet top at 8 px */
+@media (max-height: 500px) and (max-width: 959.98px) {
+  .sheet { top: 8px; }
+  .sheet.is-short { max-height: calc(100% - 8px); }
+}
+
+/* =====================================================================
+   FIRST SCREEN (4.1 phone, 4.2 desktop): static in index.html, filled by welcome.js
+   ===================================================================== */
+/* The Welcome's sky runs unbroken from the brand row into the hero, also behind the offline chip and a load
+   error between them (the page's own paper would cut a strip across it). main.js (setSky) sets --sky-h to the
+   hero's top, wherever the chip, the error or larger text put it; the hero paints its own sky from there. */
+body[data-view="welcome"] { background: linear-gradient(var(--sky-1), var(--sky-1)) 0 0 / 100% var(--sky-h, 320px) no-repeat, var(--paper); }
+.welcome-hero { background: linear-gradient(180deg, var(--sky-1), var(--sky-2) 78%, var(--paper)); padding: 0 0 18px; }
+.sms-skel .sk-failed { min-height: calc(6 * 27px + 24px); display: grid; place-items: center; text-align: center; padding: 12px 16px;
+  background: var(--bubble); border-radius: 20px 20px 20px 6px; color: var(--ink-2); }
+.welcome-grid { display: flex; flex-direction: column; padding-top: 10px; }
+.welcome-grid .eyebrow { margin-top: 0; }
+.welcome h1 {
+  font-size: var(--fs-h1); line-height: 1.14; font-weight: 800; letter-spacing: -.015em; margin-top: 4px;
+}
+.gloss {
+  background: none; border: 0; padding: 0; font: inherit; color: inherit; letter-spacing: inherit; cursor: pointer;
+  text-decoration: underline dotted 2px; text-decoration-color: var(--earth); text-underline-offset: 5px;
+}
+.welcome .sub { color: var(--ink-2); font-size: var(--fs-body); margin-top: 6px; line-height: 1.4; }
+.welcome-phone { margin-top: var(--s3); }
+.welcome-trust { margin-top: var(--s3); min-height: 4.1rem; }
+.welcome .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: var(--s3); }
+.welcome .actions .btn { padding: 0 10px; }
+.welcome-stats:empty { display: none; }
+.welcome-below:empty { min-height: 70vh; }
+/* the phone frame: plain on phones (the card sits on the page), a drawn phone on desktop */
+.phone-status, .phone-input { display: none; }
+
+/* the text card skeleton: the final height is reserved so nothing jumps (6 lines at 27 px) */
+.sms-skel {
+  background: var(--surface); border-radius: var(--r-xl); box-shadow: var(--shadow-2); padding: 14px 14px 12px;
+}
+.sms-skel .sk-head { display: flex; align-items: center; gap: 10px; padding: 0 2px 10px; min-height: 46px; }
+.sms-skel .sk-avatar { width: 36px; height: 36px; border-radius: 10px; }
+.sms-skel .sk-who { font-weight: 800; font-size: 1.0625rem; }
+.sms-skel .sk-bubble {
+  background: var(--bubble); border-radius: 20px 20px 20px 6px; padding: 12px 16px;
+  min-height: calc(6 * 27px + 24px); display: grid; align-content: start; gap: 9px;
+}
+.sms-skel .sk-bubble .skel-line { height: 18px; margin: 0; background: color-mix(in srgb, var(--ink) 10%, transparent); }
+.sms-skel .sk-foot { color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.4; padding: 10px 4px 0; min-height: 52px; }
+.trust-skel { display: grid; gap: 6px; padding: 4px 4px 0 56px; min-height: 4.1rem; align-content: start; }
+.trust-skel .skel-line { height: 16px; margin: 0; }
+
+/* short phones (4.1): hide the sub-line, the caption and the trust line */
+@media (max-height: 700px) and (max-width: 959.98px) {
+  .welcome .sub, .welcome-trust { display: none; }
+  .sms-skel .sk-foot { display: none; }
+  .sms-skel .sk-bubble { min-height: calc(5 * 25px + 20px); padding: 10px 14px; }
+  .welcome .actions { margin-top: 10px; }
+}
+
+/* narrow tall phones (360 x 780, 375 x 812): the H1 wraps to four lines, so the sub-line keeps only which dams
+   are counted, the caption goes, and the two buttons stay above the tab bar */
+@media (max-width: 380px) and (min-height: 700.02px) and (max-height: 820px) {
+  .welcome .sub { margin-top: 4px; }
+  .welcome .sub .sub-more { display: none; }
+  .sms-skel .sk-foot { display: none; }
+  .welcome .actions { margin-top: 10px; }
+}
+
+@media (min-width: 960px) {
+  .welcome-hero { background: linear-gradient(180deg, var(--sky-1), var(--sky-2) 70%, var(--paper)); padding: 0; }
+  .welcome-grid {
+    display: grid; grid-template-columns: minmax(0, 1fr) 440px; column-gap: 72px;
+    grid-template-rows: 1fr repeat(6, auto) 1fr;
+    min-height: calc(100vh - var(--topbar-h) - 1px); padding: 40px 0 56px;
+  }
+  .welcome-grid > * { grid-column: 1; }
+  .welcome-grid > .eyebrow { grid-row: 2; }
+  .welcome-grid > h1 { grid-row: 3; }
+  .welcome-grid > .sub { grid-row: 4; }
+  .welcome-grid > .welcome-trust { grid-row: 5; }
+  .welcome-grid > .actions { grid-row: 6; }
+  .welcome-grid > .welcome-stats { grid-row: 7; }
+  .welcome-grid > .welcome-phone { grid-column: 2; grid-row: 1 / -1; align-self: center; justify-self: end; width: 400px; margin: 0; }
+  /* em, not ch: "ch" changes when the web font replaces the fallback, which re-wrapped the H1 (a layout shift) */
+  .welcome h1 { line-height: 1.06; letter-spacing: -.025em; margin-top: 12px; text-wrap: balance; max-width: 10em; }
+  .welcome .sub { font-size: 1.25rem; margin-top: 18px; max-width: 22em; }
+  .welcome-trust { margin-top: 26px; max-width: 560px; }
+  .welcome .actions { grid-template-columns: auto auto; justify-content: start; margin-top: 28px; gap: 12px; }
+  .welcome .actions .btn { padding: 0 26px; }
+  .welcome-stats { margin-top: 36px; max-width: 640px; min-height: 6.8rem; }
+  .welcome-stats:empty { display: block; }        /* its final height is kept while the data loads (no jump) */
+
+  .phone-frame {
+    border-radius: 54px; background: #11191E; padding: 12px;
+    box-shadow: 0 30px 60px rgba(20, 34, 43, .28), inset 0 0 0 2px #2A353B;
+  }
+  .phone-screen { border-radius: 44px; background: var(--surface); overflow: hidden; min-height: 560px; display: flex; flex-direction: column; }
+  .phone-status { display: flex; justify-content: space-between; align-items: center; padding: 16px 28px 6px; font-weight: 800; font-size: var(--fs-meta); color: var(--ink); }
+  .phone-status .island { width: 110px; height: 30px; border-radius: 18px; background: #11191E; }
+  .phone-input {
+    display: flex; align-items: center; margin: 0 14px 18px; height: 44px; border-radius: 22px;
+    border: 1.5px solid var(--line); padding: 0 16px; color: var(--ink-3); font-size: var(--fs-meta);
+  }
+  .welcome-sms { flex: 1; }
+  .phone-frame .sms-skel { box-shadow: none; border-radius: 0; padding: 8px 18px 12px; }
+  .phone-frame .sms-skel .sk-head { border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 14px; }
+  .phone-cap { margin-top: 14px; color: var(--ink-2); font-size: var(--fs-meta); }
+}
+
+/* =====================================================================
+   FOOTER
+   ===================================================================== */
+.site-footer { padding: var(--s6) 0 var(--s7); color: var(--ink-3); font-size: var(--fs-meta); line-height: 1.45; border-top: 1px solid var(--line); margin-top: var(--s7); }
+.site-footer p + p { margin-top: 6px; }
+
+/* =====================================================================
+   SHELL STUBS: shown only until a package registers its own view
+   ===================================================================== */
+.stub-page { padding-bottom: var(--s7); }
+.stub-sms { background: var(--surface); border-radius: var(--r-xl); box-shadow: var(--shadow-2); padding: 14px 14px 12px; }
+@media (min-width: 960px) { .phone-frame .stub-sms { box-shadow: none; border-radius: 0; padding: 8px 18px 12px; } }
+.stub-sms .stub-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 2px 10px; font-weight: 800; }
+.stub-sms .stub-bubble { background: var(--bubble); border-radius: 20px 20px 20px 6px; padding: 12px 16px; font-size: var(--fs-sms); line-height: 1.5; }
+.stub-sms .stub-bubble span { display: block; }
+.stub-sms .stub-foot { color: var(--ink-2); font-size: var(--fs-meta); line-height: 1.4; padding: 10px 4px 0; }
+.stub-trust { color: var(--ink); font-size: 1rem; line-height: 1.35; padding: 0 4px; }
+.stub-trust small { display: block; color: var(--ink-2); font-size: var(--fs-meta); }
+.sheet-prose p + p, .sheet-prose p + ol, .sheet-prose ol + p { margin-top: 10px; }
+.sheet-prose h2 { font-size: 1.75rem; font-weight: 800; line-height: 1.15; margin: 4px 0 12px; }
+.sheet-prose h3 { font-size: var(--fs-h3); font-weight: 800; margin: 18px 0 6px; }
+.sheet-prose ol { list-style: decimal; padding-left: 1.3em; color: var(--ink-2); }
+.sheet-prose ol li + li { margin-top: 6px; }
+
+/* =====================================================================
+   LEGACY HOST: the old map views (Leaflet), mounted by DamDays.legacy.mount().
+   A bare minimum so they work; css/legacy.css (WP-F) styles them properly.
+   ===================================================================== */
+.legacy { padding: var(--s4) 0 var(--s7); }
+.legacy .view-intro { max-width: 70ch; margin-bottom: var(--s3); }
+.legacy .view-intro h1 { font-size: var(--fs-page); font-weight: 800; line-height: 1.12; margin-bottom: var(--s2); }
+.legacy .view-intro p, .legacy .note { color: var(--ink-2); }
+.legacy h2 { font-size: var(--fs-h2); font-weight: 800; margin: var(--s5) 0 var(--s2); }
+.legacy p + p, .legacy ul + p, .legacy p + ul { margin-top: var(--s2); }
+.legacy .controls { display: flex; flex-wrap: wrap; gap: var(--s3); align-items: end; margin: var(--s3) 0; }
+.legacy .control { display: flex; flex-direction: column; gap: 4px; font-weight: 700; max-width: 100%; }
+.legacy select { min-height: var(--tap); padding: 0 var(--s3); border: 1.5px solid var(--line-strong); border-radius: 12px; background: var(--surface); max-width: 100%; }
+.legacy input[type="range"] { width: 14em; max-width: 100%; min-height: 44px; accent-color: var(--ink); }
+.legacy .button { min-height: var(--tap); padding: 0 var(--s4); border-radius: 12px; border: 2px solid var(--ink); background: var(--ink); color: var(--on-ink); font-weight: 800; cursor: pointer; }
+.legacy .button[aria-pressed="true"] { background: var(--surface); color: var(--ink); }
+.legacy .map-and-panel { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s4); align-items: start; }
+@media (min-width: 960px) { .legacy .map-and-panel { grid-template-columns: minmax(0, 1fr) 400px; } }
+.legacy .map { position: relative; z-index: 0; isolation: isolate; height: 60vh; min-height: 320px; border-radius: var(--r-l); overflow: hidden; border: 1px solid var(--line); background: var(--surface-2); }
+.legacy .map-twin { height: 54vh; }
+.legacy .twin-maps { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s4); }
+@media (min-width: 800px) { .legacy .twin-maps { grid-template-columns: 1fr 1fr; } }
+.legacy .twin { margin: 0; }
+.legacy .map-twin .cell-hex { display: none; }
+.legacy .map-twin.zoomed-in .cell-hex { display: inline; }
+.legacy .map-twin.zoomed-in .cell-dot { display: none; }
+.legacy .leaflet-tile-pane { filter: grayscale(.9) contrast(.92) brightness(1.04); }
+.legacy .panel { background: var(--surface); border-radius: var(--r-l); box-shadow: var(--shadow-1); padding: var(--s4); }
+.legacy .legend { margin-top: 10px; font-size: var(--fs-meta); }
+.legacy .legend-title { font-weight: 700; margin-bottom: 4px; }
+.legacy .legend-items { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.legacy .legend-items li { display: inline-flex; align-items: center; gap: 6px; }
+.legacy .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--c-ring); flex: none; }
+.legacy .swatch-ring { background: #fff; border: 3.5px solid #111; }
+.legacy .tip { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--line-strong); background: var(--surface); font-weight: 800; padding: 0; }
+.legacy .tip-text { display: block; margin: 4px 0; padding: 8px 10px; border-radius: 10px; background: var(--surface-2); color: var(--ink-2); font-size: var(--fs-meta); }
+.legacy table { width: 100%; margin: 10px 0 14px; font-size: var(--fs-meta); }
+.legacy th, .legacy td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.legacy ul:not(.legend-items):not(.dam-list) { list-style: disc; padding-left: 1.3em; }
+.legacy ol { list-style: decimal; padding-left: 1.3em; }
+.legacy li + li { margin-top: 4px; }
+.legacy .dam-pick span:nth-child(2) { flex: 1; }
+.legacy .dam-pick-days { display: block; font-size: var(--fs-meta); color: var(--ink-3); }
+.legacy .dam-pick { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; padding: 6px 8px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; }
+.legacy .card-section { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.legacy .damdays-box { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; margin: 10px 0; padding: 12px 14px; border-radius: var(--r-m); background: linear-gradient(180deg, var(--sky-1), var(--sky-2)); }
+.legacy .damdays-big { font-size: 2.6rem; line-height: 1; font-weight: 800; }
+.legacy .chart { display: block; width: 100%; height: auto; overflow: visible; }
+.legacy .chart-axis { font-size: 12px; fill: var(--ink-3); }
+.legacy .phone { max-width: 340px; border-radius: 36px; background: #11191E; padding: 10px; margin: 10px 0; }
+.legacy .phone-screen { background: var(--surface); border-radius: 28px; padding: 12px; min-height: 0; display: block; }
+.legacy .sms-bubble { background: var(--bubble); border-radius: 18px 18px 18px 6px; padding: 10px 14px; white-space: pre-line; }
+.legacy .facts { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; }
+.legacy .facts dt { font-weight: 700; }
+.legacy .score-panels { display: grid; gap: var(--s3); }
+.legacy .score-panel { background: var(--surface); border-radius: var(--r-l); padding: var(--s4); box-shadow: var(--shadow-1); }
+.legacy .map-missing { padding: 24px; color: var(--ink-2); }
+
+/* =====================================================================
+   DESKTOP (960 px and up): top bar with the same four places; the sheet is a
+   560 px side panel. On split views (My farm) there is no scrim, so the open
+   dam stays visible beside it; elsewhere a scrim sits behind it.
+   ===================================================================== */
+@media (min-width: 960px) {
+  body { padding-bottom: 0; }
+  html { scroll-padding-bottom: 8px; scroll-padding-top: calc(var(--topbar-h) + 8px); }
+  .tabbar { display: none; }
+  .topnav { display: flex; }
+  .topbar {
+    position: sticky; top: 0;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  }
+  body[data-view="welcome"] .topbar { background: color-mix(in srgb, var(--sky-1) 92%, transparent); }
+  /* With larger text the tagline wraps to more lines: the bar grows rather than letting the words spill out of
+     it, and main.js (watchTopbar) keeps --topbar-h at the bar's real height for the side sheet, the sticky
+     panels and the scroll padding. 64 px is tokens.css's desktop --topbar-h, written out so the measured
+     value never feeds back into the bar's own height. */
+  .topbar .wrap { height: auto; min-height: 64px; padding-top: 4px; padding-bottom: 4px; }
+  #pwa-bar { bottom: 0; }
+
+  .sheet {
+    left: auto; right: max(16px, calc((100vw - var(--container)) / 2)); top: calc(var(--topbar-h) + 20px); bottom: 20px;
+    width: 560px; border-radius: var(--r-xl); box-shadow: var(--shadow-2); border: 1px solid var(--line);
+    transform: translateX(24px); opacity: 0;
+    transition: transform var(--dur-sheet-out) var(--ease-exit), opacity var(--dur-sheet-out) var(--ease-exit), visibility 0s linear var(--dur-sheet-out);
+  }
+  body.sheet-open .sheet {
+    transform: none; opacity: 1;
+    transition: transform var(--dur-sheet-in) var(--ease-out), opacity var(--dur-sheet-in) var(--ease-out), visibility 0s;
+  }
+  .sheet.is-short { top: calc(var(--topbar-h) + 20px); bottom: auto; max-height: calc(100vh - var(--topbar-h) - 40px); }
+  /* sheets whose charts, tables or map need the room (sheet.js opts.wide): wider panels, same right edge */
+  .sheet.is-wide { width: min(880px, calc(100vw - 64px)); }
+  .sheet.is-wider { width: min(1160px, calc(100vw - 64px)); }
+  .sheet-grip { display: none; }
+  .sheet-head { padding-top: 12px; }
+  .sheet-body { padding: 18px 22px 32px; }
+  .sheet.has-foot .sheet-body { padding-bottom: 20px; }
+  .sheet-foot { padding: 12px 22px 14px; border-radius: 0 0 var(--r-xl) var(--r-xl); }
+  body.sheet-split .scrim { display: none; }
+  /* mock data: the sticky top bar and the side sheet sit under the pinned MOCK DATA banner (main.js sets --mock-h) */
+  body.is-mock .topbar { top: var(--mock-h, 48px); }
+  body.is-mock .sheet, body.is-mock .sheet.is-short { top: calc(var(--topbar-h) + var(--mock-h, 48px) + 12px); }
+  body.is-mock .sheet.is-short { max-height: calc(100vh - var(--topbar-h) - var(--mock-h, 48px) - 32px); }
+  html:has(body.is-mock) { scroll-padding-top: calc(var(--topbar-h) + var(--mock-h, 48px) + 8px); }
+}
+@media (min-width: 960px) and (max-width: 1199.98px) {
+  .welcome-stats { min-height: 9.9rem; }
+}
+@media (min-width: 960px) and (prefers-reduced-motion: reduce) {
+  .sheet { transform: none; transition: opacity 120ms linear, visibility 0s linear 120ms; }
+  body.sheet-open .sheet { transform: none; transition: opacity 120ms linear, visibility 0s; }
+}

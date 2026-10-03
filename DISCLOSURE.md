@@ -1,29 +1,20 @@
 # DISCLOSURE
 
-## Pre-event research (allowed by the organisers)
-The organisers confirmed on the event Discord that pre-event research, including data download, data processing and exploratory model analysis, is allowed. Screenshot: `[add path or link]`.
+## Before the event (allowed by the organisers)
+The organisers confirmed on the event Discord that pre-event research, including downloading and processing data and exploratory model comparisons, is allowed. Screenshot: [add path or link].
 
-Before 09:00 Fri 2 Oct 2026 we did the following:
-- **Problem research.** AI research agents (Claude) carried out web and desk research, fact audits and problem selection.
-- **Pre-event benchmark** on the two development regions (DEA Waterbodies plus SILO rainfall):
-  - data processing;
-  - nine model families compared under one evaluation harness, with selection on the 2009-2015 validation block and the 2016-2026 development test block scored once per family;
-  - a hybrid design (Tidemark v1);
-  - a leakage audit.
-
-  Results and the frozen design are summarised in PREREG.md.
-- **Data downloaded before the event:**
-  - DEA Waterbodies time series for the development regions;
-  - the sealed test region (hashed, **not opened**, see SEALED_HASHES.csv);
-  - SILO monthly rainfall 1960-2026, cropped to the study regions.
-- **Code.** All research code lives outside this repository. It was not copied in. **All code in this repository was written during the event**, re-implementing a written specification; the commit history is the evidence. Research outputs are used only as check values: counts and validation scores that the event build must reproduce.
+Before 09:00 Fri 2 Oct 2026 we:
+- **Explored the problem and the data.** AI research agents (Claude) helped with web and desk research and with choosing the problem.
+- **Ran exploratory model comparisons** on two regions (DEA Waterbodies plus SILO rainfall), to check the idea could work, and wrote down a design and the test plan. What was compared, and the results, are listed in [PREREG.md](PREREG.md) ("Pre-event research status").
+- **Downloaded the public data:** DEA Waterbodies for the two development regions; the sealed test region (fingerprinted, **not opened**; see SEALED_HASHES.csv); SILO monthly rainfall 1960-2026, cropped to the study regions.
+- **No research code is in this repository.** All code here was written during the event, from the written design; the commit history is the evidence. Research results are used only as check values that the event build had to reproduce.
 
 ## Datasets
 - **DEA Waterbodies v3:** Geoscience Australia, CC BY 4.0.
 - **SILO climate data:** Queensland Government, CC BY 4.0.
 
 ## Tools
-- Python, pandas, numpy, scipy, scikit-learn, LightGBM, PyTorch (CPU), h5py, pyshp and [front-end libraries].
+- Python, pandas, numpy, scipy, scikit-learn, LightGBM, PyTorch (CPU), h5py, pyshp; in the app, Leaflet 1.9.4 (maps, BSD-2-Clause) with OpenStreetMap tiles (ODbL), and the Atkinson Hyperlegible Next font (Braille Institute, SIL Open Font License).
 - **AI tools:**
   - Claude Code, for code generation and assistance during the event;
   - Claude research agents, for pre-event research and benchmarking.

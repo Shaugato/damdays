@@ -3,6 +3,7 @@
 Run from the repo folder, after steps 13, 15, 11 and 16 (about a minute):
     .venv/Scripts/python.exe scripts/17_proof_data.py            # write proof.json and rebuild bundle.js
     .venv/Scripts/python.exe scripts/17_proof_data.py --check    # build and check everything; write nothing
+    .venv/Scripts/python.exe scripts/17_proof_data.py --farm farm-a --rewind-day 2019-01-01 --check   # another farm/day
 
 Why: many judges do not read "AUC" or "Brier skill". The Proof view (app/js/views/proof.js, #proof)
 shows the same test in three pictures, each with one plain sentence:
@@ -15,9 +16,9 @@ shows the same test in three pictures, each with one plain sentence:
      B0, the same number as the headline, on that year's forecasts), with a 95% range from re-drawing that
      year's dams; and how often the "at least N days" promise held that year (copied from the test results).
      Drier years are marked by a rule on the rainfall record (SILO), written below and in proof.json.
-  3. DAM BY DAM. The demo farm near Dubbo of the weekly text (outbox farm-d, 7 dams): each dam's forecasts
-     from July 2018 to June 2019 against its satellite water level, and the farm's seven forecasts on
-     1 Nov 2018 (a Rewind date), with what happened.
+  3. DAM BY DAM. The hero farm of the weekly text (Farm E near Mudgee, outbox farm-e, 5 dams): each dam's
+     forecasts from July 2018 to June 2019 against its satellite water level, the farm's forecasts on
+     1 Nov 2018 (the first Rewind date), with what happened, and the tally over all three Rewind dates.
 
 What it reads (and checks)
   data_cache/preds/TEST/tidemark/L3_p1.pkl            the frozen model's test forecasts (scripts/13)
@@ -73,8 +74,13 @@ MIN_FORECASTS_TO_PLOT = 100        # a group with fewer forecasts is listed, not
 N_BOOT = 500                       # dam re-draws for the 95% ranges (as on the primary set in scripts/15)
 SEED = 2026                        # config.RANDOM_SEED
 RAIN_BASE_YEARS = (1960, 2015)     # "usual" rain: the July-June years July 1960 to June 2016 (before the test)
-FARM_ID = "farm-d"                 # the demo farm of the weekly text (outbox/2026-10-02.json)
-REWIND_DAY = "2018-11-01"          # the first Rewind date, in the 2018-19 drought
+FARM_ID = "farm-e"                 # the hero farm of the weekly text (outbox/2026-10-02.json); --farm to change
+REWIND_DAY = "2018-11-01"          # the first Rewind date, in the 2018-19 drought; --rewind-day to change
+# Why a farm is the one shown (how_chosen). Farm E: every one of its waterbodies is a farm dam on aerial photos
+# (Farm D, the first choice, was set aside by scripts/16 because its waterbodies are not farm dams).
+CHOSEN_BECAUSE = {"farm-e": "We picked it because its dams are clearly farm dams on aerial photos, not for these results."}
+STATUS_WORDS = {"already_low": "already below a third", "not_refilled": "not yet refilled to 60% full",
+                "no_recent_look": "without a recent clear satellite look"}
 SEASON_FROM, SEASON_TO = "2018-07-01", "2019-06-30"   # part 3: forecasts made in this July-June year
 SHOW_TO = "2019-09-30"             # ... drawn to here, so the 90 days after the last forecast can be seen
 REGION_WORDS = {"nsw_cw": "NSW Central West", "wvic_sesa": "western Victoria / SE South Australia"}
@@ -367,19 +373,50 @@ def dam_summary(name, forecasts, falls, closest=False):
     return text + f"; {followed or 'none'} of the {len(forecasts)} forecasts were followed by a fall within 90 days."
 
 
-def farm_words(farm_name, rows):
-    """The takeaway for part 3: one farm, one day, each dam its own chance, and what happened."""
+def about_count(expected):
+    """An expected number of falls in words: 1.57 -> "about 2"; under 0.5 -> "less than 1"."""
+    rounded = int(np.floor(expected + 0.5))
+    return "less than 1" if rounded == 0 else f"about {rounded}"
+
+
+def farm_words(farm_name, rows, day=REWIND_DAY):
+    """The takeaway for part 3: one farm, one day, each dam its own chance, and what happened.
+
+    rows: one per dam, with name, chance (None if it had no forecast that day), outcome and, optionally, status
+    (then the dams with no forecast are named, with the reason)."""
     with_chance = [r for r in rows if r["chance"] is not None]
     lowest, highest = min(r["chance"] for r in with_chance), max(r["chance"] for r in with_chance)
     expected = sum(r["chance"] for r in with_chance)
     fell = [r["name"] for r in with_chance if r["outcome"] is True]
     unknown = [r for r in with_chance if r["outcome"] is None]
-    text = (f"On {day_words(REWIND_DAY)}, the {number_words(len(with_chance))} dams on one farm, {farm_name}, "
+    text = (f"On {day_words(day)}, the {number_words(len(with_chance))} dams on one farm, {farm_name}, "
             f"each got their own chance, from {chance_text(lowest)} to {chance_text(highest)}; the chances added up to "
-            f"about {int(np.floor(expected + 0.5))}, and {len(fell)} fell below a third within 90 days"
+            f"{about_count(expected)}, and {len(fell)} fell below a third within 90 days"
             f"{' (' + list_words(fell) + ')' if fell else ''}.")
     if unknown:
         text += f" For {len(unknown)} the answer is not known."
+    no_forecast = [r for r in rows if r["chance"] is None and r.get("status")]
+    groups = {}
+    for r in no_forecast:
+        groups.setdefault(STATUS_WORDS.get(r["status"], "without a forecast"), []).append(r["name"])
+    if groups:
+        text += " " + "; ".join(f"{list_words(names)} {'was' if len(names) == 1 else 'were'} {words}"
+                                for words, names in groups.items()) + " that day, so had no forecast."
+    return text
+
+
+def all_dates_words(farm_name, dates):
+    """The tally over every Rewind date, so no one date is picked: how many forecasts the farm's dams got, what
+    their chances added up to, and how many fell below a third within 90 days (with the date of each forecast)."""
+    n = sum(d["forecasts"] for d in dates)
+    expected = sum(d["chance_sum"] for d in dates)
+    fell = [f"{name} after {day_words(d['date'])}" for d in dates for name in d["fell"]]
+    unknown = sum(len(d["unknown"]) for d in dates)
+    text = (f"Across all {number_words(len(dates))} Rewind dates ({list_words(day_words(d['date']) for d in dates)}), "
+            f"the dams on {farm_name} got {n} forecasts; their chances added up to {about_count(expected)} falls below "
+            f"a third within 90 days, and {len(fell)} happened{': ' + list_words(fell) if fell else ''}.")
+    if unknown:
+        text += f" For {unknown} the answer is not known."
     return text
 
 
@@ -477,18 +514,25 @@ def silo_ratios():
     return rain_by_year(rain["rain"], rain["months"], rain["cells"], sorted(REGION_WORDS))
 
 
-def farm_part(table, forecasts):
+def farm_part(table, forecasts, farm_id=FARM_ID, rewind_day=REWIND_DAY):
     """Part 3: the demo farm's dams, their 2018-19 forecasts and water levels, checked against Rewind."""
     from damdays import config
     from damdays.export import app_data as ad
 
     farms = read_json(APP_DIR / "farms.json")
     published = read_json(APP_DIR / "forecasts.json")
-    farm = next(f for f in farms["farms"] if f["farm_id"] == FARM_ID)
+    farm = next((f for f in farms["farms"] if f["farm_id"] == farm_id), None)
+    if farm is None:
+        raise SystemExit(f"{farm_id} is not among the demo farms of app/data/real/farms.json.")
+    if not farm["dams_in_app"]:
+        raise SystemExit(f"{farm_id} is outside the region the app shows: Rewind has no forecasts for its dams.")
     dam_ids = [d["dam_id"] for d in sorted(farm["dams"], key=lambda d: int(d["name"].split()[-1]))]
     names = {d["dam_id"]: d["name"] for d in farm["dams"]}
     app_dams_by_id = {d["dam_id"]: d for d in published["dams"]}
-    rewind = next(i for i in published["issues"] if i["kind"] == "past" and i["issue_date"] == REWIND_DAY)
+    past_issues = [i for i in published["issues"] if i["kind"] == "past"]
+    rewind = next((i for i in past_issues if i["issue_date"] == rewind_day), None)
+    if rewind is None:
+        raise SystemExit(f"{rewind_day} is not a Rewind date: {[i['issue_date'] for i in past_issues]}")
     rewind_rows = {r["dam_id"]: r for r in rewind["rows"]}
 
     attrs = pd.read_pickle(config.CACHE_DIR / "attributes.pkl")
@@ -525,12 +569,15 @@ def farm_part(table, forecasts):
             if row["fell"] and row["fell_on"] not in falls:
                 raise SystemExit(f"{dam_id} {row['date']}: the answer says it fell on {row['fell_on']}, "
                                  "but no fall below a third starts that day.")
-        # Rewind (1 Nov 2018) shows this dam's forecast from its last look: it must be one of these, unchanged.
+        # Every Rewind date shows this dam's forecast from its last look: each must be one of these, unchanged.
+        for issue in past_issues:
+            row = next(r for r in issue["rows"] if r["dam_id"] == dam_id)
+            if row["status"] == "forecast":
+                same = [r for r in rows_out if r["date"] == row["issued_on"]]
+                if len(same) != 1 or same[0]["chance"] != row["chance"] or same[0]["fell"] != row["outcome"]:
+                    raise SystemExit(f"{dam_id}: Rewind's {issue['issue_date']} forecast is not among these "
+                                     "forecasts, unchanged.")
         rw = rewind_rows[dam_id]
-        if rw["status"] == "forecast":
-            same = [r for r in rows_out if r["date"] == rw["issued_on"]]
-            if len(same) != 1 or same[0]["chance"] != rw["chance"] or same[0]["fell"] != rw["outcome"]:
-                raise SystemExit(f"{dam_id}: Rewind's {REWIND_DAY} forecast is not among these forecasts, unchanged.")
         seen = looks[(looks["uid"] == uid) & (looks["date"] >= start) & (looks["date"] <= show_to)]
         out.append(dict(
             dam_id=dam_id, name=names[dam_id], area_ha=app_dams_by_id[dam_id]["area_ha"], dea_uid=uid,
@@ -540,25 +587,39 @@ def farm_part(table, forecasts):
             looks=[[ad.day_text(d), ad.level_pct(v)] for d, v in zip(seen["date"], seen["rel"])],
             forecasts=rows_out, falls=falls,
             summary=dam_summary(names[dam_id], rows_out, falls, closest=names[dam_id] == "Dam 1")))
-    picker = [dict(name=d["name"], chance=d["rewind"]["chance"], outcome=d["rewind"]["outcome"]) for d in out]
+    picker = [dict(name=d["name"], chance=d["rewind"]["chance"], outcome=d["rewind"]["outcome"],
+                   status=d["rewind"]["status"]) for d in out]
     default = next((d["dam_id"] for d in out if d["forecasts"]), out[0]["dam_id"])
+    # The tally over EVERY Rewind date (so the one shown is not picked for its result), as Rewind shows them.
+    dates = []
+    for issue in past_issues:
+        rows = [r for r in issue["rows"] if r["dam_id"] in names and r["status"] == "forecast"]
+        dates.append(dict(date=issue["issue_date"], forecasts=len(rows),
+                          chance_sum=round(sum(r["chance"] for r in rows), 3),
+                          fell=[names[r["dam_id"]] for r in sorted(rows, key=lambda r: dam_ids.index(r["dam_id"]))
+                                if r["outcome"] is True],
+                          unknown=[names[r["dam_id"]] for r in rows if r["outcome"] is None]))
     return dict(
         title="Dam by dam",
-        takeaway=farm_words(farm["name"], picker),
+        takeaway=farm_words(farm["name"], picker, rewind_day),
         farm=dict(farm_id=farm["farm_id"], name=farm["name"], radius_km=farm["radius_km"], region=farm["region"],
                   region_name=REGION_WORDS[farm["region"]]),
-        rewind_date=REWIND_DAY, season=dict(forecasts_from=SEASON_FROM, forecasts_to=SEASON_TO, show_to=SHOW_TO),
+        rewind_date=rewind_day, season=dict(forecasts_from=SEASON_FROM, forecasts_to=SEASON_TO, show_to=SHOW_TO),
+        rewind_dates=dates, all_dates_takeaway=all_dates_words(farm["name"], dates),
         threshold_pct=int(round(config.R30_LEVEL * 100)), default_dam=default,
-        how_chosen=(f"The farm is the demo farm of this week's text ({farm['name']}, every farm dam the satellites can "
-                    f"see within {farm['radius_km']:g} km of the homestead point). It was picked for the text, not for "
-                    "these results. Dam 1, the dam closest to the homestead, is shown first; pick any of its dams."),
+        how_chosen=(f"The farm is the demo farm of this week's text ({farm['name']}: the farm dams big enough for the "
+                    f"satellites to see, about half a hectare to 5 hectares, within {farm['radius_km']:g} km of the "
+                    "homestead point). "
+                    + CHOSEN_BECAUSE.get(farm["farm_id"], "It was picked for the text, not for these results.")
+                    + " Dam 1, the dam closest to the homestead, is shown first; pick any of its dams."),
         how_to_read=("Top: the dam's water level at each clear satellite look (% of its usual full level), and the "
                      "days it fell below a third. A single odd look (cloud or shadow) is drawn as it is: a fall "
                      "counts only when a later look confirms it. Bottom: every forecast made for it from July 2018 to "
                      "June 2019 "
                      "(the chance it falls below a third within 90 days); a filled dot means it did fall within those "
-                     "90 days, an open dot that it did not. These are the frozen model's test forecasts, made only "
-                     "from what had been seen by each look. The app's Rewind view shows the same forecasts on "
+                     "90 days, an open dot that it did not. These are test forecasts from a model that learned only "
+                     "from data before July 2016, each made only from what had been seen by that look. The app's "
+                     "Rewind view shows the same forecasts on "
                      "1 Nov 2018, 1 Jan 2019 and 1 Mar 2019 (it also hides a forecast until the dam has refilled to "
                      "60% full, so a few forecasts here are not in Rewind)."),
         dams=out)
@@ -579,7 +640,7 @@ def expect_words():
 # ===========================================================================
 # Main
 # ===========================================================================
-def build():
+def build(farm_id=FARM_ID, rewind_day=REWIND_DAY):
     from damdays.evaluation.coverage import FLOOR_TARGET, FLOOR_TOLERANCE
 
     summary, results = read_json(FIT_SUMMARY), read_json(TEST_RESULTS)
@@ -612,7 +673,7 @@ def build():
         test=dict(
             label="Ten test years, July 2016 to June 2026",
             scored_at=results["scored_at"],
-            intro=(f"The frozen model learned only from data before July 2016. These are its forecasts for the ten "
+            intro=(f"The model learned only from data before July 2016. These are its forecasts for the ten "
                    f"years after, in two farming regions ({REGION_WORDS['nsw_cw']}; "
                    f"{REGION_WORDS['wvic_sesa']}), scored once on {scored_at:%a} {scored_at.day} {scored_at:%b %Y}. "
                    "The question: will this farm dam fall below a third of full within 90 days? Forecasts made "
@@ -664,7 +725,7 @@ def build():
                            floor_held=floor["coverage"], floor_judged=floor["rows_judged"],
                            floor_worst=floor["worst_year"]),
             floor_target=FLOOR_TARGET, floor_tolerance=FLOOR_TOLERANCE, years=years),
-        dam_by_dam=farm_part(table, forecasts),
+        dam_by_dam=farm_part(table, forecasts, farm_id, rewind_day),
         sources=dict(
             forecasts=f"{FORECASTS_FILE} (scripts/13; fingerprint {next(f['fingerprint'] for f in summary['files'] if f['path'] == FORECASTS_FILE)}, as scored by scripts/15)",
             usual_rate=f"{BASELINES_FILE} (B0: the usual rate for the region and month, fitted before July 2016)",
@@ -679,10 +740,13 @@ def build():
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--check", action="store_true", help="build and check everything; write nothing")
+    parser.add_argument("--farm", default=FARM_ID, help="the demo farm of the dam-by-dam panel (default %(default)s)")
+    parser.add_argument("--rewind-day", default=REWIND_DAY,
+                        help="the Rewind date of its takeaway (default %(default)s; 2019-01-01 and 2019-03-01 also)")
     args = parser.parse_args(argv)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    proof = build()
+    proof = build(args.farm, args.rewind_day)
     print("1. " + proof["calibration"]["takeaway"])
     print("   " + proof["calibration"]["detail"])
     print("   " + proof["calibration"]["lean"])
@@ -691,6 +755,9 @@ def main(argv=None):
     print("   " + proof["by_year"]["floor_detail"])
     print("   " + str(proof["unseen_exam"]["expect"]))
     print("3. " + proof["dam_by_dam"]["takeaway"])
+    print("   " + proof["dam_by_dam"]["all_dates_takeaway"])
+    for dam in proof["dam_by_dam"]["dams"]:
+        print("   " + dam["summary"])
     if args.check:
         print("CHECK ONLY: nothing written.")
         return 0
