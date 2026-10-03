@@ -114,7 +114,7 @@ The unseen exam was pre-registered to open on Sat 3 Oct at 17:30 AEST. We did no
 
 | Time | What happened |
 |---|---|
-| 09:12 | Addendum 2 committed and pushed on its own (the opening moves to Sunday; nothing else changes), then the final docs. |
+| 09:19:00 | Addendum 2 committed and pushed on its own (the opening moves to Sunday; nothing else changes), then the final docs. |
 | 09:19:52 | **The unseen exam opened**, once, with `scripts/20_open_sealed_region.py --open`, on a screen recording. All 4,711 sealed files matched their published fingerprints; the frozen models matched their manifest. |
 | 09:21-10:16 | Built the third region from raw files (2,008 dam-sized waterbodies), forecast it with the frozen models, scored it once on the shared ledger. |
 | 10:16:04 | **Result: all 4 pre-registered pass marks met, and all 6 pre-declared expectations inside their ranges.** Below a third within 90 days: skill +0.183 (expected +0.15 to +0.23), ahead of the benchmark G2 (+0.172); fully dry +0.173 (G2 +0.149); the cautious days held 882 times in 1,000 (on target, 880 to 920); the area outlook picked the right 2 km area 8 times in 10, rainfall alone 5 in 10. |
