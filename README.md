@@ -127,13 +127,13 @@ The clean test is **a third farming region whose satellite data we downloaded an
 - **Published whatever it shows.** A second script copies the numbers into this page, the pitch and the app, changing nothing but the rounding.
 - **When.** It was pre-registered to open at 17:30 AEST on Sat 3 Oct. We moved the opening to Sun 4 Oct (AEDT), after the app build, in a dated addendum that says why ([PREREG_ADDENDUM_2.md](PREREG_ADDENDUM_2.md)). The original time passed on Saturday while the mentor follow-ups, the aerial-photo check of the demo farms and the app redesign were still under way; the addendum was filed on Sunday, after that time but before any opening. The sealed files stayed unopened in the meantime, and the runner re-checks all 4,711 fingerprints before it reads anything.
 
-**Latest status** (filled in by the publishing script; until it runs, this line, the table's last cell and the result block further down still show the first planned time, Sat 3 Oct 17:30 AEST): <!-- SEALED:START status -->The sealed region opens Sat 3 Oct 17:30 AEST; its results are added below after that.<!-- SEALED:END -->
+**Latest status:** <!-- SEALED:START status -->The sealed region was opened and scored once on Sun 4 Oct 2026, 10:16 AEDT; its results were added below on Sun 4 Oct 2026, 10:17 AEDT.<!-- SEALED:END -->
 
 | exam | what it is | result |
 |---|---|---|
 | **Practice**, 2009 to 2015 | Design choices were made on these years (two were also informed by earlier looks at the test years: [below](#what-these-numbers-do-and-do-not-show)). | All pass marks met. |
 | **Ten years it never trained on**, July 2016 to June 2026 | Scored once, on Fri 2 Oct ([artifacts/test_results.md](artifacts/test_results.md)). | **All pass marks met.** |
-| **The unseen exam**, the same ten years in the third region | Opened once, on camera, and scored once. | <!-- SEALED:START cell -->**Opens Sat 3 Oct 17:30 AEST.** Numbers go here.<!-- SEALED:END --> |
+| **The unseen exam**, the same ten years in the third region | Opened once, on camera, and scored once. | <!-- SEALED:START cell -->**All pass marks met.** [Details below](#sealed-region-opened-sat-3-oct-2026-1730-aest).<!-- SEALED:END --> |
 
 The four pass marks, written down before the build began: at least a tenth less error than the usual guess (on the ten years: nearly a quarter less); at least a twentieth less error than each dam's own record (about a seventh less); chances neither too bold nor too timid (a calibration slope of 0.8 to 1.2; got 1.09); and an Area outlook that ranks 2 km patches better than rainfall alone, by at least 0.05 on a ranking score where 0.5 is a coin toss (got 0.29 better). The exact scores, and the unseen exam's full result, are in [For technical readers](#for-technical-readers).
 
@@ -213,9 +213,39 @@ Everything below is for readers who want the methods, the exact scores and how t
 ### The unseen exam: the result
 
 <!-- SEALED:START -->
-> **The sealed region opens Sat 3 Oct 17:30 AEST.** After the opening, `scripts/21_publish_sealed.py` writes its results here, copied from `artifacts/sealed/sealed_results.json` (the full page, unedited: `artifacts/sealed/SEALED_RESULTS.md`).
->
-> What we said to expect, before opening it ([PREREG.md](PREREG.md)): skill against the usual rate of about +0.15 to +0.23 (central +0.19); gain over G2 of +0.01 to +0.03; lender-rating gain over rainfall-only of +0.15 to +0.30. These are forecasts, not pass marks. Every number is published, whatever it shows.
+**All 4 pre-registered pass marks met.** The frozen model (Tidemark L3) was scored once on the sealed region (Southern Downs, Granite Belt and New England), a region it never learned from: 4,711 waterbodies, every forecast issued from July 2016 to June 2026. Scored Sun 4 Oct 2026, 10:16 AEDT. Every number below is copied from [`artifacts/sealed/sealed_results.json`](artifacts/sealed/sealed_results.json) by `scripts/21_publish_sealed.py` (Sun 4 Oct 2026, 10:17 AEDT) and only rounded; the full results page, unedited, is [`artifacts/sealed/SEALED_RESULTS.md`](artifacts/sealed/SEALED_RESULTS.md).
+
+**In plain words**
+
+- **Farmer forecast** (will this dam fall below a third in the next 90 days?): 18.3% less error than guessing the usual rate for the region and month (development test years: 23.5% less), and 12.3% less than the dam's own track record. Shown a dam that fell below a third and one that did not, it gave the right one the higher chance 8 times in 10 (AUC 0.81). Average chance given 0.16; share that fell below a third 0.15. 166,194 forecasts made October to March for 1,990 dam-sized waterbodies that look and behave like farm dams; 25,130 fell below a third.
+- **Against our own benchmark G2** (the decision-tree model alone), on exactly the same forecasts: ahead by +0.012 (95% range +0.008 to +0.014). We expected +0.01 to +0.03: inside that range.
+- **The DamDays floor, the cautious days** ("at least N days above a third, 9 times in 10"): held for 88.2% of 820,516 forecasts, on target (the target is 90%, and 88% to 92% counts as on target; development test years: 90.0%). Worst year: July 2018 to June 2019, 84.3%.
+- **Area outlook**, the pre-registered lender rating, set aside (will every dam the satellites can see in a 2 km patch fall to no water seen, ~0% full, between October and March?): shown a patch whose dams did and one whose dams did not, it picked the right one 8 times in 10 (AUC 0.81), against 5 in 10 for rainfall alone (0.54; a coin toss is 5 in 10); development test years 0.81 against 0.53. 16,373 patch-seasons rated on 1 July 2016 to 2025; in 1,834, every dam fell to ~0% full. Gain over rainfall-only +0.269 (95% range +0.248 to +0.288): pass mark met; kill rule not triggered. Within a single season: 0.81 against 0.51 for rainfall. The dam-by-dam rating's gain over rainfall-only: +0.250 [+0.233, +0.268], met.
+- **Season band** (how far a very wet or very dry year can move a forecast): covered 10 of 10 July-June years in the region, an independent check here (the single-block band, reported alongside as pre-registered: 8 of 10).
+- **Runway curve** (chance of falling below a third within 30, 60, 90 and 180 days), skill against each horizon's usual rate: +0.088 at 30 days, +0.145 at 60 days, +0.176 at 90 days, +0.197 at 180 days; none went down as the days went up.
+- **Harder cases, reported whatever they show** (skill against the usual rate): persistent dams +0.170 (G2 +0.157); fully dry (D0) +0.173 (G2 +0.149); gradual dry-out (D0g) +0.168 (G2 +0.142); all months +0.204 (G2 +0.177); without the 3-look rule +0.182 (G2 +0.170).
+- **How it was opened:** 4,711 of 4,711 sealed files matched their published fingerprints before anything was read. Code fingerprint of the run: `7d466291008d`, the frozen one (quoted in [PREREG_ADDENDUM_1.md](PREREG_ADDENDUM_1.md)).
+
+**Pass marks** (written before the build began: [PREREG.md](PREREG.md), "Pass bars"):
+
+| pass mark | bar | DamDays (Tidemark) | benchmark G2 |
+|---|---|---|---|
+| Farmer forecast: skill against the usual rate for the region and month (Brier skill score vs B0) | +0.10 or more, 95% range above 0 | +0.183 [+0.171, +0.197] **PASS** | +0.172 **PASS** |
+| Farmer forecast: skill against the dam's own track record (vs B2) | +0.05 or more | +0.123 [+0.115, +0.131] **PASS** | +0.110 **PASS** |
+| Farmer forecast: calibration slope (1.0 = chances exactly as spread out as the outcomes) | 0.8 to 1.2 | 1.02 **PASS** | 1.10 **PASS** |
+| Area outlook (the pre-registered lender rating): ranking gain over rainfall-only (AUC, 2 km patches) | +0.05 or more, 95% range above 0 | +0.269 [+0.248, +0.288] **PASS** | (G2 has no Area outlook) |
+| Kill rule: rainfall-only within 0.02 of the rating | must not trigger | not triggered | |
+
+**What we said to expect, before opening** (forecasts, not pass marks: [PREREG.md](PREREG.md), "Pre-declared expectations"). 6 of 6 results came out inside the ranges we declared before opening.
+
+| expectation | declared before opening | got [95% range] | |
+|---|---|---|---|
+| Skill against the usual rate | +0.15 to +0.23 (central +0.19) | +0.183 [+0.171, +0.197] | inside |
+| Skill against the dam's own record | +0.08 to +0.15 | +0.123 [+0.115, +0.131] | inside |
+| Calibration slope | 0.90 to 1.25 | 1.02 [0.99, 1.05] | inside |
+| Calibration-in-the-large (0 = right on average) | -0.30 to +0.30 | -0.07 [-0.11, -0.03] | inside |
+| Gain over the benchmark G2 | +0.01 to +0.03 | +0.012 [+0.008, +0.014] | inside |
+| Area outlook: gain over rainfall-only (AUC) | +0.15 to +0.30 | +0.269 [+0.248, +0.288] | inside |
 
 <!-- SEALED:END -->
 

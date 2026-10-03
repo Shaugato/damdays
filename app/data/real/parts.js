@@ -4,7 +4,7 @@
 (self.DAMDAYS_PART_LISTS = self.DAMDAYS_PART_LISTS || {})["real"] = {
  "dataset": "real",
  "files": {
-  "first": "first.eb35d708c6.js",
+  "first": "first.3f856ce3d4.js",
   "farms": "farms.956f05cad0.js",
   "core": "core.d1fff5b399.js",
   "rewind": "rewind.a52c010f0a.js",
@@ -23,7 +23,7 @@
   "history-11": "history-11.e7fae6b099.js"
  },
  "bytes": {
-  "first": 146266,
+  "first": 147435,
   "farms": 109021,
   "core": 679039,
   "rewind": 746588,
@@ -42,7 +42,7 @@
   "history-11": 182538
  },
  "gzip": {
-  "first": 28121,
+  "first": 28238,
   "farms": 23259,
   "core": 91557,
   "rewind": 50551,
@@ -72,7 +72,7 @@
   "rewind",
   "rating"
  ],
- "version": "6e21ee2fed"
+ "version": "28084275e7"
 };
 // In a page (not the service worker): start the "first" part now, before the other scripts run,
 // unless the address asks for another dataset (?data=mock). js/data.js picks it up.

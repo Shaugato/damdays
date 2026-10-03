@@ -133,10 +133,78 @@
   },
   {
    "key": "sealed",
-   "status": "pending",
-   "title": "Sealed region: opened Sat 3 Oct 17:30",
-   "label": "Southern Downs, Granite Belt and New England",
-   "text": "A third region, 4,711 waterbodies, was downloaded before the event and locked away (its file fingerprints are in SEALED_HASHES.csv). It is opened once, on camera, on Sat 3 Oct 2026 at 17:30 AEST, forecast with the frozen model and scored once. Its results will appear here.",
+   "status": "scored",
+   "title": "Sealed region, opened 4 Oct 2026, scored once",
+   "label": "Southern Downs, Granite Belt and New England; forecasts issued July 2016 to June 2026; scored once on 4 Oct 2026",
+   "scored_at": "2026-10-04 09:40:57",
+   "runway": {
+    "label": "Below a third within 90 days: farm-like dams, forecasts made October to March",
+    "n_forecasts": 166194,
+    "n_fell_below_third": 25130,
+    "n_dams": 1990,
+    "skill_vs_usual_rate": {
+     "value": 0.18326,
+     "ci_low": 0.17132,
+     "ci_high": 0.19672
+    },
+    "skill_vs_own_record": {
+     "value": 0.12274,
+     "ci_low": 0.1149,
+     "ci_high": 0.13134
+    },
+    "gain_vs_benchmark": {
+     "value": 0.01151,
+     "ci_low": 0.00822,
+     "ci_high": 0.01438
+    },
+    "auc": {
+     "value": 0.81121,
+     "ci_low": 0.80293,
+     "ci_high": 0.81877
+    },
+    "calibration_slope": {
+     "value": 1.0164,
+     "ci_low": 0.98827,
+     "ci_high": 1.04624
+    },
+    "pass_bars_met": true
+   },
+   "rating": {
+    "label": "Every dam in a 2 km cell runs dry, October to March; rated each 1 July",
+    "n_cells": 16373,
+    "n_ran_dry": 1834,
+    "rating_auc": {
+     "value": 0.80908,
+     "ci_low": 0.79674,
+     "ci_high": 0.82014
+    },
+    "rain_only_auc": {
+     "value": 0.53977,
+     "ci_low": 0.52306,
+     "ci_high": 0.55479
+    },
+    "gain_vs_rain": {
+     "value": 0.26931,
+     "ci_low": 0.24771,
+     "ci_high": 0.28789
+    },
+    "pass_bar_met": true,
+    "kill_rule_triggered": false
+   },
+   "floor": {
+    "label": "DamDays floor ('at least N days, 9 times in 10'): share that held",
+    "held": 0.88156,
+    "target": 0.9,
+    "tolerance": 0.02,
+    "on_target": true,
+    "ci_low": 0.87875,
+    "ci_high": 0.88422,
+    "n_forecasts": 820516,
+    "worst_year": {
+     "year": 2018,
+     "coverage": 0.84272
+    }
+   },
    "expectations": [
     {
      "what": "Runway skill vs the usual rate (R30 BSS vs B0)",
@@ -163,7 +231,12 @@
      "field": "rating.gain_vs_rain"
     }
    ],
-   "fill_with": "scripts/11_export_app.py --panel-only --sealed-scores artifacts/sealed/scorecard/sealed_TEST"
+   "sources": [
+    "artifacts/sealed/scorecard/sealed_TEST/P1_R30/tidemark__dam_like+octmar+at_risk.json",
+    "artifacts/sealed/scorecard/sealed_TEST/P2_cell/tidemark__all.json",
+    "artifacts/sealed/scorecard/sealed_TEST/P2_cell/rain__all.json",
+    "artifacts/sealed/sealed_results.json (floor.issued_all)"
+   ]
   }
  ],
  "sources": {
