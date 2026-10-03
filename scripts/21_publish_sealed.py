@@ -14,7 +14,9 @@ What it does
      "sealed"), so a rehearsal can never be published as the sealed result.
   2. App: fills the "Sealed region" panel of app/data/real/scoreboard.json with scripts/11's own
      sealed_panel() (the code behind `scripts/11_export_app.py --panel-only --sealed-scores ...`),
-     rebuilds app/data/real/bundle.js, and checks that the bundle carries the new panel.
+     rebuilds app/data/real/bundle.js, and checks that the bundle carries the new panel. Two views show
+     that one panel: About, and the "Unseen exam" card at the top of Proof (app/js/views/proof.js, which
+     draws it with About's panelHtml). The rebuild must keep proof.json (scripts/17) in the bundle too.
   3. Docs: replaces the text between these markers in README.md, docs/PITCH.md and docs/VIDEO_SCRIPT.md
          <!-- SEALED:START -->         ...  <!-- SEALED:END -->    the result block (markers on their own lines)
          <!-- SEALED:START name -->    ...  <!-- SEALED:END -->    a short fill-in inside a line or a table cell
@@ -833,6 +835,8 @@ def write_panel(app_dir, board, panel):
     shipped = next(p for p in bundle["scoreboard"]["panels"] if p.get("key") == "sealed")
     if shipped != json.loads(json.dumps(panel)):
         raise RuntimeError("bundle.js does not carry the new sealed panel.")
+    if (app_dir / "proof.json").exists() and "proof" not in bundle:     # the Proof view's charts (scripts/17)
+        raise RuntimeError("bundle.js lost proof.json (the Proof view): check app/tools/build_bundle.py.")
     return shipped
 
 

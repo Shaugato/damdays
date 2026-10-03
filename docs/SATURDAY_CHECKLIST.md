@@ -13,22 +13,26 @@ cd "D:\Climate Hack-tion 2026\damdays"
 ## Morning (until 15:00)
 
 - [ ] **Mentor chats.** Note anything to change in the app, pitch or video in [BUILD_LOG.md](../BUILD_LOG.md).
-- [ ] **Review the app** (double-click `app/index.html`): My farm opens on Farm D, then Runway, Rewind (1 Nov 2018, 1 Jan 2019, 1 Mar 2019), Rating (2018-19) and About. No MOCK banner. The About page shows the sealed panel as not yet opened.
+- [ ] **Review the app** (double-click `app/index.html`, then a hard reload): My farm opens on Farm D, then Runway, Rewind (1 Nov 2018, 1 Jan 2019, 1 Mar 2019), Proof (ten dots on the diagonal; ten bars above zero; the "Unseen exam" card not yet opened), Rating (2018-19) and About. No MOCK banner. The About page shows the sealed panel as not yet opened.
 - [ ] **Decide on the About-page wording fix** (`app/js/views/about.js`, not part of the frozen code). Today the sealed panel always says "Ahead of the pre-registered benchmark model G2", and writes a negative skill as "-2.0% less". The fix (ready, 2 lines) makes it say "Not clearly ahead of" or "Behind", and "% more", when the result calls for it; a pass reads exactly as before. Apply it before 15:00, or read the About page after the opening and say any mismatch on camera.
 - [ ] Only changes outside `damdays/` today. The model code is frozen (code fingerprint `7d466291008d`).
 
 ## 15:00 Final commit and push
 
-Tonight's prep is not committed yet; the opening refuses to start until it is. Commit exactly these files (and any you changed this morning):
+This morning's work is not committed yet; the opening refuses to start until it is. **Untracked files count too**: the opening's git check lists every modified, added, deleted or untracked file that is not git-ignored. As of Sat 3 Oct, 10:30 AEST, `git status` lists these (the Proof view, the target-farmer profile, script and pitch v2, and the draft video pipeline):
 
 ```powershell
-git add README.md app/README.md app/DEPLOY.md docs/PITCH.md docs/VIDEO_SCRIPT.md docs/SATURDAY_CHECKLIST.md requirements.txt scripts/21_publish_sealed.py tests/conftest.py tests/test_app_export_real.py tests/test_features.py tests/test_sealed_runner.py tests/test_publish_sealed.py
-git add app/js/views/about.js      # only if the wording fix was applied
+git add .gitignore README.md docs/PITCH.md docs/VIDEO_SCRIPT.md docs/SATURDAY_CHECKLIST.md docs/TARGET_FARMER.md
+git add app/DATA_CONTRACT.md app/README.md app/css/style.css app/data/real/README.md app/data/real/bundle.js app/data/real/proof.json app/index.html app/js/data.js app/js/main.js app/js/views/about.js app/js/views/proof.js app/tools/build_bundle.py
+git add scripts/17_proof_data.py scripts/21_publish_sealed.py tests/test_proof_data.py tests/test_publish_sealed.py
 git add BUILD_LOG.md               # only if you added notes this morning
-git commit -m "Sealed-opening prep: one-command publisher (scripts/21), Saturday checklist, Pages guide"
+git status                         # anything still listed? decide on it before committing
+git commit -m "Proof view, target-farmer profile, script and pitch v2 (farmers only)"
 git push
 git status
 ```
+
+- [ ] **Decide on `video/`** (the draft video pipeline: `assemble.py`, `render.py`, `shots.py`, `voice.py`, `common.py`, `beats.json`, `assets/`). It is untracked, so it alone would make the opening refuse. Either commit it (`git add video`; its renders in `video/out/` are git-ignored and stay out) or move it out of the repo folder until after the opening. `video/beats.json` is draft 1 and out of date with script v2.
 
 - [ ] `git status` says `nothing to commit, working tree clean`. If it lists a file you changed on purpose, add it, commit and push again. If you did not mean to change it: `git checkout -- <file>`.
 
@@ -104,15 +108,19 @@ git push
 
 ## The video ([VIDEO_SCRIPT.md](VIDEO_SCRIPT.md): 2:00 at most)
 
+Script v2 (Sat 3 Oct): farmers only, ten beats, 237 words. The shots below follow its shot list. Not used any more: Rewind, Rating, the About page and the `test_results.md` pass-mark table.
+
 **Saturday evening (AEST)**
-- [ ] Cut shot S5 from the opening recording: about 21 seconds, sped up, the clock visible.
-- [ ] Record the app shots, now that the app shows the sealed result: S2 (Runway), S4 (My farm), S6 (Rewind), S8 (Rating), S9 (About), and S7 (`artifacts/test_results.md`, the pass-mark table).
-- [ ] Check the beat-5 line and captions that scripts/21 wrote into VIDEO_SCRIPT.md against `artifacts/sealed/SEALED_RESULTS.md`.
+- [ ] Cut shot S8 from the opening recording: about 15 seconds, sped up, the clock visible, ending on Proof's "Unseen exam" card.
+- [ ] Record the app shots, now that the app shows the sealed result: S3 (Runway, whole region), S5 (My farm, cropped tight on Farm D's seven dams, Dam 2's card), S6 and S7 (Proof, parts 1 and 2).
+- [ ] Make the two cards: S2 ("Who it's for") and S9 (COP31).
+- [ ] Check the beat-8 line and captions that scripts/21 wrote into VIDEO_SCRIPT.md against `artifacts/sealed/SEALED_RESULTS.md` (scripts/21 still calls it "beat 5"; burn in only the first two caption lines).
+- [ ] Rebuild `video/beats.json` from script v2 once the video platform is chosen (it is still draft 1).
 
 **02:00 Sunday: clocks jump forward to 03:00. From here, times are AEDT.**
 
 **Sunday (AEDT)**
-- [ ] Morning: phone shots S1, S3 and S10; record the voice-over (about 270 words, calm pace).
+- [ ] Morning: phone shots S1, S4 and S10; record the voice-over (237 words, calm pace; about 1:55 with pauses).
 - [ ] By 13:00: first full cut with captions, 2:00 or less. Tick "Before recording" and "Recording checklist" in VIDEO_SCRIPT.md.
 - [ ] By 16:00: export 1080p MP4; upload it with a link that opens without signing in. Add the video and screen-recording tools to DISCLOSURE.md. Final README pass (the results are in; the "Work in progress" line). A last BUILD_LOG entry. Commit and push.
 - [ ] By 18:00: add the video link to the Junction draft. Open every link (video, repository, app) in a private browser window.

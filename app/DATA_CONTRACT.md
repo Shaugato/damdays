@@ -309,3 +309,55 @@ Not one of the six files above: optional. It is written by `scripts/16_weekly_te
 | `farms[].long` | the longer app/email version (2 to 4 lines) |
 
 In every farmer-facing text, "%" means only how full a dam is, and a chance is written "6 in 10", never as a percent.
+
+## proof.json (optional): what accuracy looks like, for the Proof view
+
+Not one of the six files above: optional. It is written by `scripts/17_proof_data.py` from the frozen model's **test** forecasts and their answers (July 2016 to June 2026, already scored once by `scripts/15`; nothing is scored again), and `build_bundle.py` packs it into `bundle.js` (as `proof`) when the folder has it. The app's **Proof** view (`#proof`) draws its three charts from it. Without it, Proof shows only the unseen-exam card (from `scoreboard.json`'s sealed panel) and says the charts need this file. Every sentence with a number in it (`takeaway`, `detail`, `summary`, ...) is written by the script from the numbers; the view types none.
+
+```json
+{
+  "schema_version": "1.0", "generated_at": "2026-10-03T10:30:00+10:00", "made_by": "scripts/17_proof_data.py",
+  "test": { "label": "...", "scored_at": "2026-10-02 20:36", "intro": "...", "caveat": "...",
+            "forecasts": 142938, "fell": 29415, "dams": 1644,
+            "skill_vs_usual_rate": { "value": 0.23501, "ci_low": 0.2235, "ci_high": 0.2483, "words": "nearly a quarter" },
+            "calibration_slope": 1.09455, "model": "..." },
+  "unseen_exam": { "panel_key": "sealed", "heading_pending": "Unseen exam: opens Sat 3 Oct 17:30 AEST",
+                   "heading_scored": "...", "expect": "...", "text": "..." },
+  "calibration": { "title": "...", "takeaway": "...", "detail": "...", "lean": "...", "not_plotted": "...",
+                   "how_to_read": "...", "min_forecasts_to_plot": 100,
+                   "bins": [ { "in_ten": 3, "said": "3 in 10", "forecasts": 17013, "fell": 4864, "share_fell": 0.2859,
+                               "share_fell_ci": [0.27285, 0.29752], "mean_chance": 0.29638, "happened_in_ten": 3,
+                               "plotted": true } ] },
+  "by_year": { "title": "...", "takeaway": "...", "floor_takeaway": "...", "floor_detail": "...", "skill_note": "...",
+               "drier_rule": "...", "refit_note": "...", "floor_note": "...",
+               "drier_runs": [ { "first": 2017, "last": 2019, "label": "2017-20" } ],
+               "all_years": { "skill": 0.23501, "skill_ci": [0.2235, 0.2483], "skill_words": "nearly a quarter",
+                              "floor_held": 0.90016, "floor_judged": 729749, "floor_worst": { "year": 2023, "coverage": 0.87199 } },
+               "floor_target": 0.9, "floor_tolerance": 0.02,
+               "years": [ { "year": 2023, "label": "2023-24", "words": "July 2023 to June 2024", "forecasts": 14329,
+                            "fell": 2392, "dams": 1510, "share_fell": 0.16693, "mean_chance": 0.17602, "usual_rate": 0.2357,
+                            "skill": 0.2148, "skill_ci": [0.18561, 0.24439], "skill_words": "a fifth",
+                            "rain_vs_usual": { "nsw_cw": 1.041, "wvic_sesa": 0.71 }, "rain_vs_usual_mean": 0.876,
+                            "drier": true, "floor": { "held": 0.87199, "held_in_1000": 872, "judged": 81580 } } ] },
+  "dam_by_dam": { "title": "...", "takeaway": "...", "farm": { "farm_id": "farm-d", "name": "Farm D (near Dubbo)", "...": "..." },
+                  "rewind_date": "2018-11-01",
+                  "season": { "forecasts_from": "2018-07-01", "forecasts_to": "2019-06-30", "show_to": "2019-09-30" },
+                  "threshold_pct": 30, "default_dam": "nsw_cw-0407", "how_chosen": "...", "how_to_read": "...",
+                  "dams": [ { "dam_id": "nsw_cw-0407", "name": "Dam 1", "area_ha": 1.17, "dea_uid": "r638...",
+                              "rewind": { "status": "forecast", "issued_on": "2018-10-01", "level_pct": 60, "chance": 0.37,
+                                          "said": "4 in 10", "outcome": true, "outcome_date": "2018-12-04" },
+                              "looks": [ ["2018-07-13", 60] ],
+                              "forecasts": [ { "date": "2018-10-01", "chance": 0.37, "fell": true, "fell_on": "2018-12-04" } ],
+                              "falls": ["2018-12-04"], "summary": "..." } ] },
+  "sources": { "...": "..." }, "checks": { "equal_to_test_results": [ { "what": "...", "value": 142938 } ], "ledger": "..." }
+}
+```
+
+| field | meaning |
+|---|---|
+| `test` | the set every chart is drawn from: R30 within 90 days, farm-like dams, forecasts made October to March, at risk, with a known answer (the headline set of `artifacts/test_results.json`). `forecasts`, `fell`, `dams`, `skill_vs_usual_rate` and `calibration_slope` equal the test results (the script refuses to write otherwise) |
+| `calibration.bins[]` | one group per chance as the text rounds it (`in_ten` 0 = "less than 1 in 10", 10 = "more than 9 in 10"): how many forecasts, how many fell below a third within 90 days, the share that fell (`share_fell_ci`: 95% range from re-drawing whole dams 500 times), the average chance given. A group with fewer than `min_forecasts_to_plot` forecasts is listed (`plotted: false`), not drawn |
+| `by_year.years[]` | one July-June year each (`year` 2016 = July 2016 to June 2017): `skill` is the Brier skill score against the usual rate B0 on that year's forecasts (`skill_ci`: re-drawing that year's dams 500 times); `floor` is how often "at least N days" held that year, copied from `test_results.json` (`floor.issued_all.by_year`: all judged forecasts, all months); `drier` is the rain rule in `drier_rule` (July-June SILO rain, averaged over the two regions' ratios to their 1960-2016 average, below 1) |
+| `dam_by_dam.dams[]` | the demo farm's dams (Dam 1 = closest to the homestead): `looks` are `[date, level_pct]` at each clear satellite look (level as in `forecasts.json`, % of the dam's usual full level), `forecasts` every test forecast made for the dam between `season.forecasts_from` and `season.forecasts_to` (`fell`: the R30 answer, `null` if not known), `falls` the days it fell below a third, `rewind` its row in `forecasts.json` on `rewind_date` (the script checks they agree) |
+
+"%" appears only as how full a dam is; a chance is "N in 10"; how often something held is "N in 1,000".

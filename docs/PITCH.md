@@ -1,11 +1,12 @@
-# DamDays: pitch and submission fields (draft)
+# DamDays: pitch and submission fields (v2)
 
 Draft text for the Junction submission form, one section per form field, in the form's order. Copy each section into its field.
 
-- **Numbers** come from [`artifacts/test_results.md`](../artifacts/test_results.md) (the test years, scored once) and the app's data files, unless marked otherwise. The sealed region's numbers are added after it is opened on Sat 3 Oct 2026, 17:30 AEST.
+- **One audience: the farmer.** Following mentor advice (Sat 3 Oct), the pitch is for family sheep and cattle farmers only. The corporate agribusiness and lender case is set aside; it gets one "next" line at most.
+- **Numbers** come from [`artifacts/test_results.md`](../artifacts/test_results.md) (the test years, scored once), the app's data files (`app/data/real/`, including `proof.json` for the Proof pictures) and [TARGET_FARMER.md](TARGET_FARMER.md) (the farmer, from public farm surveys), unless marked otherwise. The sealed region's numbers are added after it is opened on Sat 3 Oct 2026, 17:30 AEST.
 - **The sample text** is the real one made on Fri 2 Oct 2026 for a demo farm near Dubbo ([`outbox/2026-10-02.json`](../outbox/2026-10-02.json), `farm-d`). Its 7 dams and their forecasts are real; the homestead point is not a real one.
 - **Fill-ins** are in [square brackets]. Replace every one before submitting (checklist at the end).
-- **Writing rules** (from mentor feedback): lead with the weekly text, because that is what farmers get. "%" means only how full a dam is. Chances are written "3 in 10". The farmer's headline is days of water left. Say "the unseen exam", not statistics terms.
+- **Writing rules** (from mentor feedback): lead with the weekly text, because that is what farmers get. "%" means only how full a dam is. Chances are written "3 in 10". The farmer's headline is days of water left. "9 in 10" is only the days-left promise, a built-in safety margin, never a hit rate. Say "the unseen exam" for the sealed region and "refit" for how the model keeps up (it does not learn by itself).
 
 ---
 
@@ -15,9 +16,9 @@ Draft text for the Junction submission form, one section per form field, in the 
 
 ## 2. One-sentence summary
 
-DamDays writes each farm one text a week saying how many days of water each farm dam has left, from 38 years of free satellite data, and tests its forecasts on years and a region the model never saw.
+DamDays texts family sheep and cattle farmers once a week with how many days of water each farm dam has left, from 38 years of free satellite data, and tests its forecasts on years the model never trained on and a region it never saw.
 
-*If the field is short:* A weekly text: days of water left in each farm dam, from satellite data.
+*If the field is short:* A weekly text for graziers: days of water left in each farm dam, from satellite data.
 
 ## 3. Selected challenge and track
 
@@ -25,9 +26,10 @@ DamDays writes each farm one text a week saying how many days of water each farm
 - **Track (COP31 priority):** Awareness Across All Areas.
 - **The track's 2035 goal, word for word from the Participant Guide:** "climate-resilient farming and climate education reaching all of society by 2035".
 - **How DamDays meets both halves of the track:**
-  - **Farmers and land managers adapting to a changing climate.** Graziers feel drought directly, through their dams. Each week DamDays texts them how many days of water each dam has left, so they can decide while there are still choices: cart water, move or sell stock, or fix a leaking dam.
+  - **Farmers and land managers adapting to a changing climate.** Graziers feel drought directly, through their dams. Each week DamDays texts them how many days of water each dam has left, so they can decide while there are still choices: move stock, cart water, buy feed, agist or sell.
   - **Climate information made easy for everyone to use.** The data already exists and is free: Geoscience Australia has mapped the water surface of every visible waterbody since the 1980s. DamDays turns it into one plain line per dam, sent where farmers already look ("Dam 2 ~67% full: at least 29 days before it drops below 1/3"), instead of a map of rainfall figures.
-- **Wider COP31 link.** The Global Goal on Adaptation (the UAE Framework for Global Climate Resilience) includes targets on reducing climate-driven water scarcity and on climate-resilient food and farming. DamDays measures water security farm by farm, and can be refreshed with every satellite pass: the kind of measure those targets need.
+- **Wider COP31 link.** The Global Goal on Adaptation (the UAE Framework for Global Climate Resilience) includes targets on reducing climate-driven water scarcity and on climate-resilient food and farming. DamDays measures water security dam by dam and farm by farm, and can be refreshed with every satellite pass: the kind of farm-level measure those targets need.
+- **A secondary benefit (less waste, as a mentor suggested under Green Industrialisation).** Acting earlier can mean fewer stock losses, less wasted feed and better use of the water already on the farm. We have not measured these yet.
 
 ## 4. Team nationality
 
@@ -37,21 +39,41 @@ DamDays writes each farm one text a week saying how many days of water each farm
 
 [Copy from [DISCLOSURE.md](../DISCLOSURE.md), "Team", once the names are filled in.] Shaugato Paroi built DamDays end to end (data, models, weekly text, app, validation).
 
-## 6. Problem and target users
+## 6. Problem and target user
 
-**The problem.** In a dry spell, the question on a grazing farm is not "how full is the dam?" (you can see that) but "how long will it last?" The answer decides when to cart water, move stock to agistment, sell, or fix a dam, and waiting usually narrows the choices. Today that call is made by eye and memory. The drought tools that do exist mostly look at rainfall, and rainfall cannot say which farm's dam will fail first: in our test years, a rainfall-only score picked the farms whose dams ran dry about as well as a coin toss.
+**Problem statement.** Family graziers whose stock drink from farm dams have no reliable way to know how many days of water each dam has left, so the decisions a drought forces (move stock, cart water, buy feed, agist or sell) rest on guesswork, and when they are left late the choices shrink.
+
+**The problem.** In a dry spell, the question on a grazing farm is not "how full is the dam?" (you can see that) but "how long will it last?" The answer decides when to move stock, cart water, buy feed, agist or sell, and waiting usually narrows the choices. Today it is worked out by driving the water run (every day in a dry summer) and doing the sums by hand: measure the dam, look up its volume, divide by what the stock drink. Agriculture Victoria's own worked example ends at "52 days of water". The drought tools that do exist mostly look at rainfall, and rainfall cannot say which farm's dams will fail first: in our test years, a rainfall-only score picked the farms whose dams ran dry about as well as a coin toss.
+
+**What exists today, and what is new.** Farmers can measure a dam and do the sums by hand (the state agriculture departments teach the method); trough and tank sensors report water at one water point each (about $545 a device plus a monthly fee, in an Agriculture Victoria case study), not how long a dam will last; and drought tools mostly map rainfall. DamDays is a forecast of days of water for every farm dam the satellites can see, with no hardware on the farm, its accuracy tested in public against pass marks written before the code. (A fuller comparison with other tools is still to come.)
 
 **Right now.** At the latest satellite looks (to 14 September 2026), 272 of the 894 farm dams we track in NSW Central West were already below a third full: the most for a September since the 2019 drought.
 
-**Target users.**
-- **Primary: livestock and mixed farmers** who rely on farm dams for stock water, starting in south-eastern Australia's grazing country. They need one plain number, sent where they already look: a text message.
-- **Secondary: rural lenders, valuers and drought-support workers**, who need to know which properties are exposed before a season starts. Today they see rainfall, not the water a farm actually holds.
+**Who it is for: one farmer.** *DamDays is for family sheep and cattle farms, mostly 300 to 1,500 ha in south-eastern Australia's dam country, run by one or two people, whose stock drink from at least one dam big enough for the satellites to see.* The profile below uses ABARES farm-survey averages for 2022-23 to 2024-25 and our own data; every source is in [TARGET_FARMER.md](TARGET_FARMER.md).
 
-**What we learned from talking to people.** During the event we showed DamDays to a mentor who grew up on farms. Each point changed what we built:
-- **The need is real.** They told us that in a drought, knowing how long the water will last would be "super useful".
-- **Farmers don't open apps or emails; a weekly text is what they'd use.** So the weekly text became the product. The app became the place to set up a farm and look closer.
-- **"%" reads as how full.** The mentor read a percent as how full a dam is, not as a chance. So in DamDays "%" means only how full a dam is, and chances are written "6 in 10". How full says how much water there is; days left says what that means, so days are the headline.
-- **The proof needed plainer words.** Our first explanation of the locked region was too technical. Now it is "the unseen exam", shown next to a replay of the 2018-19 drought.
+| | the target farmer |
+|---|---|
+| **Enterprise** | A family beef, sheep or mixed sheep-and-cattle farm whose stock drink from farm dams. More than 95 in 100 broadacre and dairy farms are family owned and operated |
+| **Where** | Dam-watered grazing country where DamDays has been tested: NSW Central West (slopes and central tablelands), western Victoria, south-east South Australia |
+| **Land** | Most often about 300 to 1,500 ha (NSW averages run higher because they include big western properties) |
+| **Stock** | Beef farms 263 to 408 cattle; sheep farms 1,603 to 3,135 sheep; mixed farms 249 to 431 cattle plus 1,711 to 2,931 sheep |
+| **Turnover** | About $250,000 to $800,000 a year in cash receipts: mostly ABARES's "medium" group, roughly the top third of southern beef farms |
+| **Who does the work** | The family: 63 to 107 work weeks a year in all (about 1.2 to 2 people full time), little hired labour; owner-manager aged 57 to 69 |
+| **Remoteness** | Mostly Outer Regional Australia: of the 1,683 dams DamDays forecasts, 1,101 are Outer Regional, 397 Inner Regional and 185 Remote (ABS remoteness areas) |
+| **Water DamDays can see** | At least one dam of 0.54 to 4.95 ha; usually 1 or 2 per farm. The average farm dam (about 0.27 ha) is too small, so this is the hard filter |
+| **When a dam fails** | Cart water (a daily, labour-heavy job), buy fodder, agist or sell. In the 2019-20 drought, NSW sheep-beef farms spent $113,970 each on fodder, against $10,160 to $19,690 in recent years |
+| **How to reach them** | One text a week, not an app or an email |
+
+An illustrative family built from these numbers ("Meet Kath and Graeme", clearly made up) is in [TARGET_FARMER.md](TARGET_FARMER.md). **Not the target (yet):** bore-watered western Queensland, irrigators, hobby blocks whose dams are too small to see, large pastoral stations further west, and corporate agribusiness.
+
+**One honest limit of the fit.** About 1 in 11 points across each test region has a dam DamDays can see within 2 km. The app's 10 demo farms sit on the densest clusters (5 to 30 such dams within 3 km; Farm D has 7), so they show the text at its best; a typical target farm will see 1 or 2 of its dams in the text.
+
+**What we learned from talking to people.** We showed DamDays to two mentors during the event. Each point changed what we built:
+- **The need is real.** The first, who grew up on farms, said that in a drought, knowing how long the water will last would be "super useful". The second called it a valid and worthwhile problem.
+- **Farmers don't open apps or emails; a weekly text is what they'd use.** So the weekly text became the product, and the app became the place to set up a farm and look closer.
+- **"%" reads as how full.** So in DamDays "%" means only how full a dam is, chances are written "6 in 10", and days left is the headline.
+- **The proof needed plainer words, and pictures.** "Sealed region" became "the unseen exam". The second mentor said judges need to see three things: accuracy on data the model never saw, as recent as possible; how it keeps up as the climate shifts; and that it works dam by dam, shown as pictures rather than scores. So we built the app's **Proof** view.
+- **Pick one audience, and describe them precisely.** The second mentor advised focusing on farmers and setting the corporate agribusiness case aside. So the pitch is for one farmer, described from public farm surveys ([TARGET_FARMER.md](TARGET_FARMER.md)).
 
 ## 7. Solution and intended impact
 
@@ -65,30 +87,44 @@ Other 5 dams: at least 52 days
 Reply MAP
 ```
 
-Dam 1 is the dam closest to the homestead. The days are cautious: on ten test years, a dam stayed above a third at least that long 9 times in 10. Each text fits one SMS (160 places, plain characters only). This week's texts for 10 demo farms in two regions are in [`outbox/2026-10-02.json`](../outbox/2026-10-02.json); the rules, with 10 worked examples, are in [`notify/MESSAGE_SPEC.md`](../notify/MESSAGE_SPEC.md).
+- **Dam 1** is the dam closest to the homestead.
+- **"~67% full"** is the share of the dam's usual full water surface that the satellite sees wet at its last clear look, not its depth or volume.
+- **"At least 29 days"** is cautious by design: it is built so the dam stays above a third at least that long 9 times in 10, and on ten test years it did (900 in every 1,000 forecasts). That is a safety margin, not a hit rate. The app gives Dam 2's chance of being below a third by 12 Dec as 3 in 10, so it will most likely last longer than 29 days.
+- **"A third"** is DamDays's early-warning line, well before a dam runs dry.
+- **The satellite date.** The text names the last clear look (13 Sep); the days are counted from the day of the text. Clear looks come every week or two when there is no cloud, and this build's data runs to 14 Sep 2026.
+- **One SMS** (160 places, plain characters only). This week's texts for 10 demo farms in two regions are in [`outbox/2026-10-02.json`](../outbox/2026-10-02.json); the rules, with 10 worked examples, are in [`notify/MESSAGE_SPEC.md`](../notify/MESSAGE_SPEC.md). Nothing is sent unless someone runs the sender with their own SMS account's keys, and the MAP and STOP replies are not built yet.
 
 **The rest of what we built** (working now: [github.com/Shaugato/damdays](https://github.com/Shaugato/damdays); the app opens from `app/index.html`):
-- **The app, for a closer look.** It opens on **My farm**: click your homestead on the map, and see your dams (Dam 1 is the closest) and this week's text on a phone, made in the browser by the same rules as the real texts. For each dam, a card: the days, the chance of falling below a third in the next 90 days (written "3 in 10"), and a curve out to six months that shows how far a wetter or drier season could move it.
-- **Rewind, for trust.** Go back to a past season, see the forecasts as they were made that day, then reveal what really happened.
-- **DamDays Rating, for lenders.** Each 1 July, the chance that the dams in each 2 km patch of farmland all run dry before the end of March, shown side by side with a rainfall-only score.
-- **The engine** learns how each dam behaves (how fast it drops in summer, how it refills after rain, whether it runs drier than its neighbours) from 38 years of satellite looks (DEA Waterbodies, Geoscience Australia) and rainfall (SILO, Queensland Government).
+- **My farm, for a closer look.** Click your homestead on the map and see your dams (Dam 1 is the closest) and this week's text on a phone, made in the browser by the same rules as the real texts. For each dam, a card: the days, the chance of falling below a third in the next 90 days ("3 in 10"), what its own record says about it (Dam 2: "runs wetter than similar dams"), and a curve out to six months that shows how far a wetter or drier season could move it.
+- **Proof, for trust.** Three pictures of the ten test years, for anyone who does not read statistics: what we said against what happened; how it held up year after year; and one farm's dams through the 2018-19 drought. The unseen exam's result appears at the top once it is opened.
+- **Rewind.** Go back to a date in the 2018-19 drought, see the forecasts as they were made that day, then reveal what happened.
+- **The engine** learns how each dam behaves (how fast it drops in summer, how it refills after rain, whether it runs drier or wetter than similar dams) from the satellite record (DEA Waterbodies, Geoscience Australia, 1987 to 2026) and rainfall (SILO, Queensland Government). The whole pipeline runs on a laptop.
 
-**How we know it works.** We wrote the exam before the code: the pass marks and the test years were committed at 09:12 on the first morning and pushed to the public repository three minutes later ([PREREG.md](../PREREG.md)).
-- **The unseen exam.** We locked away a whole farming region's satellite data (Southern Downs, Granite Belt, New England: 4,711 waterbodies), published its fingerprint at the start, and opened it once, on camera, on Sat 3 Oct 17:30 AEST. Whatever score came out, we published it. <!-- SEALED:START sentence -->[Sealed result, one sentence: opens Sat 3 Oct 17:30 AEST.]<!-- SEALED:END -->
-- **The 2018-19 drought, replayed.** Forecasts made on 1 Nov 2018, 1 Jan 2019 and 1 Mar 2019 for farm dams in NSW Central West, by a model that learned only from data before July 2016. Across 782 forecasts they expected about 248 dams to fall below a third within 90 days; 244 did. Date by date it was less exact: on 1 Nov 2018 they expected about 95 and 76 fell (too high); on 1 Jan 2019, about 97 and 106 fell; on 1 Mar 2019, about 57 and 62 fell. (In the app: Rewind.)
-- **Ten years the model never trained on** (July 2016 to June 2026), scored once: the "at least N days" promise held 9 times in 10 across 729,749 forecasts; the forecasts had nearly a quarter less error than "the usual rate for this region and month"; and shown one dam that fell below a third and one that did not, they gave the right one the higher chance 8 times in 10. Every pass mark met. (These years were also looked at before the event, so they may flatter the model slightly; the unseen exam is the clean test.)
-- **The lender rating**, shown one 2 km patch of farmland whose dams all ran dry and one whose dams did not, picked the right one 8 times in 10; rainfall alone did little better than a coin toss.
+**How we know it works: three proofs.** We wrote the exam before the code: the pass marks and the test years were committed at 09:12 on the first morning and pushed to GitHub at 09:15 ([PREREG.md](../PREREG.md)).
+
+1. **What we said vs what happened (accuracy, up to June 2026).** On ten years the model never trained on (it learned only from data before July 2016), up to June 2026, 142,938 forecasts were scored once; 29,415 were followed by a fall below a third within 90 days. Grouped by the chance they gave, what happened matched what was said in all 10 groups, to the nearest 1 in 10: of the 17,013 forecasts that said "3 in 10", 4,864 fell. Overall the forecasts had nearly a quarter less error than guessing the usual rate for the region and month (skill +0.235, range +0.224 to +0.248). Shown one dam that fell below a third and one that did not, they gave the right one the higher chance 8 times in 10. These years were looked at before the event, so they may flatter the model slightly; the unseen exam is the clean test. (In the app: Proof, part 1.)
+2. **It held up as conditions changed (adaptability).** Frozen with data to mid-2016, the model had less error than the usual guess in every one of the next ten years: from a fifth less (2020-21, skill +0.210) to a quarter less (2025-26, +0.281), through the drier years of 2017-20 and 2023-26 and the wet years between. The "at least N days" promise held 872 to 927 times in 1,000 each year; it fell short of its 880 mark once, in 2023-24 (872). The weather did move it, and we show where: in the wet years its chances ran high (2020-21: an average chance of 223 in 1,000, and 138 in 1,000 fell; 2021-22: 191 against 152), and in some dry years a little low (2017-18: 233 against 261; 2025-26: 229 against 262). That is why it is refit rather than frozen in use. (In the app: Proof, part 2.)
+   - **Built:** each dam's own correction keeps updating as each forecast's answer comes in ([`damdays/models/frailty.py`](../damdays/models/frailty.py)); today's forecasts come from a refit on every answer known by the last satellite look (14 Sep 2026; [`damdays/export/live_model.py`](../damdays/export/live_model.py), one command); and the water-balance outlook replays the rain of the previous 20 years, so it moves with the recent climate.
+   - **Not built yet:** automatic weekly refits and a seasonal check of said-against-happened that would flag drift. Today the refit is run by hand. The model does not learn by itself.
+3. **The unseen exam (a region it never saw).** We locked away a whole farming region's satellite data (Southern Downs, Granite Belt, New England: 4,711 waterbodies), published its fingerprint at the start, and opened it once, on camera, on Sat 3 Oct 17:30 AEST. It covers forecasts from July 2016 to June 2026, made by models fitted on the other two regions before July 2016 (the sealed region's own history before July 2016 sets only its local averages). Whatever score came out, we published it. <!-- SEALED:START sentence -->[Sealed result, one sentence: opens Sat 3 Oct 17:30 AEST.]<!-- SEALED:END -->
+
+**Dam by dam.** Every dam gets its own forecast and its own correction: Dam 2's card says it "runs wetter than similar dams: it fell below a third less often than the model expected", so its chance is nudged down. A replay shows the same at scale: on three dates in the 2018-19 drought (1 Nov 2018, 1 Jan 2019, 1 Mar 2019), 782 forecasts for 366 dams in NSW Central West expected about 248 to come true, and 244 did (186 different dams fell below a third). Date by date it was less exact: about 95 expected and 76 fell on 1 Nov 2018, about 97 and 106 on 1 Jan 2019, about 57 and 62 on 1 Mar 2019. One limit: the model is better at saying which dams will fall this summer than at timing a single dam's next dry year.
 
 **Intended impact by 2035.**
-- Farmers get each dam's days of water in a weekly text, and can act earlier, while there are more choices.
-- Lenders and valuers can measure drought exposure property by property, from the water a farm actually holds. Because the rating follows each dam's own record, improvements to a farm's water supply show up as that record builds.
-- It can scale on public data: the same satellite record covers all of Australia, and the whole pipeline runs on a laptop. So far it has been tested only in south-eastern Australia; each new climate needs its own test.
+- Farmers get each dam's days of water in a weekly text, and act earlier, while there are more choices: fewer stock losses and less wasted feed are the aim (not yet measured).
+- It can scale on public data: the same satellite record covers all of Australia, and the pipeline runs on a laptop. So far it has been tested only in south-eastern Australia; each new climate needs its own test.
+- Australia first. Landsat, the satellite behind the record, covers the whole world, so farm dams in other countries are a later path; each would need its own waterbody record and its own test.
 
-**Next.** What a real text service still needs: farmers opting in when they set up their farm, the MAP and STOP replies, and a sender name (Australia's Spam Act 2003 asks commercial messages to name the sender and offer a working unsubscribe). Sending through an SMS provider is already built, but it only ever runs with your own account's keys. Then more regions, and trials with farmers of how they act on the number.
+**Next.**
+- **A real text service:** farmers opt in when they set up their farm; the MAP and STOP replies; a sender name (Australia's Spam Act 2003 asks commercial messages to name the sender and offer a working unsubscribe). Sending through an SMS provider is built, but it only ever runs with your own account's keys.
+- **Keeping up automatically:** a weekly refit on the newest satellite looks, and a seasonal check of what it said against what happened, so drift shows early.
+- **Accuracy a farmer can judge on their own dam:** a track record on each dam's card ("on this dam, the days promise held N of M times"), so trust rests on their own water, not only on our averages. Not built yet.
+- **Fitting the farm:** set-up that shrinks the 3 km circle to the farm's own dams (most target farms are smaller than the circle's 2,827 ha); more regions; trials with farmers of how they act on the number.
+- **Beyond farmers, later:** the same dam-by-dam record could help those who lend to farms. A season-ahead rating for that is built and was one of our pre-registered tests, but it is not part of this pitch.
 
-## 8. Written pitch (about 470 words with the text and the sealed sentence)
+## 8. Written pitch (about 480 words with the text)
 
-Friday morning near Dubbo, a grazier's phone buzzes:
+Friday morning, a farmer's phone buzzes:
 
 > Fri 2 Oct (satellite 13 Sep)
 > Dam 2 ~67% full: at least 29 days before it drops below 1/3
@@ -98,37 +134,41 @@ Friday morning near Dubbo, a grazier's phone buzzes:
 
 That's DamDays: one text a week, with the days of water each farm dam has left. (The farm is a demo, but its seven dams and their forecasts are real.)
 
-Any grazier can see how full a dam is. How long it will last is the hard question, and it decides when to cart water, move stock, sell, or fix a leaking dam. Leave it late and the choices shrink. At the latest satellite looks, to 14 September 2026, 272 of the 894 farm dams we track in NSW Central West were already below a third full: the most for a September since the 2019 drought.
+It's for the family sheep and cattle farm in south-eastern Australia's dam country: mostly 300 to 1,500 hectares, a few hundred cattle or a few thousand sheep, one or two people doing the work, and stock that drink from dams. Anyone can see how full a dam is. How long it will last is the hard question, and today it's worked out by driving the water run and doing sums by hand. It decides when to move stock, cart water, buy feed, agist or sell; leave it late and the choices shrink. At the latest satellite looks, to 14 September 2026, 272 of the 894 farm dams we track in NSW Central West were already below a third full: the most for a September since 2019.
 
-Satellites have mapped the water in every visible Australian waterbody since the 1980s, and Geoscience Australia publishes the record free. DamDays reads 38 years of it per dam and learns how each one behaves: how fast it drops in summer, how it refills after rain, whether it runs drier than its neighbours. The text gives each dam's cautious days of water; the app adds the chance (written "3 in 10") and a six-month runway.
+Satellites have mapped every visible Australian waterbody since the 1980s, and Geoscience Australia publishes the record free. DamDays reads each dam's history with the rainfall and learns how it behaves: how fast it drops in summer, how it refills, whether it runs drier or wetter than similar dams. The text gives each dam's cautious days, built to hold 9 times in 10; the app adds the chance ("3 in 10") and a six-month runway. Farmers rarely open apps or emails, a mentor who grew up on farms told us, but they read a weekly text.
 
-We built it around what a mentor who grew up on farms told us: farmers don't open apps or emails, but they read a weekly text. And a percent reads as how full, so in DamDays that is all "%" ever means.
+Why trust the number? Three pictures. **What we said vs what happened:** over ten years the model never trained on, up to June 2026, when it said 3 in 10, the dam fell below a third about 3 times in 10, and so at every level, with nearly a quarter less error than guessing the usual rate. **Year after year:** it beat the usual guess in every one of those years, dry and wet; where the weather pushed its chances too high or too low, we show it, and today's forecasts are refit on the newest satellite looks, with each dam corrected by its own record. **The unseen exam:** a whole farming region, locked away with a public fingerprint at the start, covering forecasts to June 2026, opened once, on camera. [After the opening: copy beat 8's sealed-result line from VIDEO_SCRIPT.md here.]
 
-Why trust the number? We set it an unseen exam: a whole farming region's satellite data, locked away with a published fingerprint at the start and opened once, on camera. <!-- SEALED:START sentence -->[Sealed result, one sentence: opens Sat 3 Oct 17:30 AEST.]<!-- SEALED:END --> We replayed the 2018-19 drought with a model that learned only from data before mid-2016: on three dates that season it expected about 248 dams to fall below a third, and 244 did. Over ten test years it never trained on, the cautious days held 9 times in 10, across 729,749 forecasts, and it met every pass mark we wrote before writing any code.
-
-The same record helps those who finance farms. Lenders and valuers see rainfall, but not the water a farm has stored. Each July, the DamDays Rating gives each 2 km patch of farmland the chance its dams all run dry by March. Shown one patch that ran dry and one that did not, it picked the right one 8 times in 10; rainfall alone, about a coin toss.
-
-That's COP31's Awareness priority made practical: farmers adapting earlier, with climate information they can actually use. By 2035, every farm dam the satellites can see could text its farmer before it runs dry.
+That's COP31's Awareness track in practice: helping farmers adapt, with climate information they can act on, aiming for fewer stock losses and less wasted feed and water. By 2035, every farm dam the satellites can see could text its farmer before it gets low.
 
 ## 9. Evidence at a glance (for "Any supporting material")
 
 | claim | number | where to check |
 |---|---|---|
 | The weekly text fits one SMS | all 10 demo farms' texts this week: 144 to 160 of 160 places; 55 tests check every rule | [outbox/2026-10-02.json](../outbox/2026-10-02.json), [tests/test_weekly_text.py](../tests/test_weekly_text.py), [notify/MESSAGE_SPEC.md](../notify/MESSAGE_SPEC.md) |
-| "At least N days, 9 times in 10" holds | held for 0.900 of 729,749 forecasts, 9 times in 10 (typical N: 60 days) | [artifacts/test_results.md](../artifacts/test_results.md) |
-| The 2018-19 drought, replayed | 782 forecasts on 3 dates: about 248 expected to fall below a third, 244 did (by date, expected and fell: 1 Nov 2018 about 95 and 76; 1 Jan 2019 about 97 and 106; 1 Mar 2019 about 57 and 62) | the app's Rewind view; `app/data/real/meta.json`, `rewind.tallies`; why this season: [app/data/real/README.md](../app/data/real/README.md) |
-| Below-a-third forecasts beat the usual rate for the region and month | skill +0.235 (95% range +0.224 to +0.248), test years 2016-2026 | [artifacts/test_results.md](../artifacts/test_results.md) |
-| ... and beat the dam's own track record | skill +0.155 | same |
-| ... and beat our own strong benchmark on the same forecasts | +0.014 (range +0.011 to +0.018) | same |
-| Lender rating against rainfall-only | ranking accuracy 0.81 against 0.53 (a coin toss is 0.50) | same |
-| Pass marks written before any code | committed Fri 2 Oct 2026, 09:12 AEST | [PREREG.md](../PREREG.md) and its commit time on GitHub |
+| What we said vs what happened | ten test years, 142,938 forecasts, 29,415 fell below a third; all 10 groups matched to the nearest 1 in 10; "3 in 10": 4,864 of 17,013 fell | the app's Proof view, part 1; `app/data/real/proof.json`, `calibration` |
+| Below-a-third forecasts beat the usual rate for the region and month | skill +0.235 (range +0.224 to +0.248): "nearly a quarter less error" | [artifacts/test_results.md](../artifacts/test_results.md) |
+| ... in every one of the ten years | skill +0.210 (2020-21, lowest) to +0.281 (2025-26, highest) | the app's Proof view, part 2; `proof.json`, `by_year` |
+| ... and beat each dam's own track record | skill +0.155 | [artifacts/test_results.md](../artifacts/test_results.md) |
+| ... and our own strong benchmark on the same forecasts | +0.014 (range +0.011 to +0.018) | same |
+| Ranking: a dam that fell gets the higher chance | 8 times in 10 (AUC 0.818; a coin toss is 0.5) | same |
+| Chances about right | calibration slope 1.09 (pass mark 0.8 to 1.2): a little cautious, low chances could be lower and high ones higher | same; `proof.json`, `calibration.lean` |
+| "At least N days" promise | held for 0.900 of 729,749 forecasts (target 0.90; median N 60 days); by year 872 to 927 in 1,000, short of the 880 mark only in 2023-24 | same, "DamDays floor" |
+| Where the weather moved it | wet years ran high (2020-21: average chance 0.223, 0.138 fell); some dry years a little low (2025-26: 0.229, 0.262 fell) | `proof.json`, `by_year.years[]`: `mean_chance`, `share_fell` |
+| Today's forecasts are refit | on every answer known by the last satellite look (cutoff 15 Sep 2026) | `app/data/real/meta.json`, `live`; [damdays/export/live_model.py](../damdays/export/live_model.py) |
+| The 2018-19 drought, replayed | 782 forecasts for 366 dams on 3 dates: about 248 expected to fall below a third, 244 did (186 different dams); by date, expected and fell: 1 Nov 2018 about 95 and 76; 1 Jan 2019 about 97 and 106; 1 Mar 2019 about 57 and 62 | the app's Rewind view; `app/data/real/meta.json`, `rewind.tallies`; dams counted from `app/data/real/forecasts.json` |
+| Pass marks written before any code | committed Fri 2 Oct 2026, 09:12 AEST; pushed 09:15 | [PREREG.md](../PREREG.md) and its commit (e0e9b0b) on GitHub |
 | Model frozen before the test years were scored | Fri 2 Oct 2026, 20:21 AEST, code fingerprint 7d466291008d | [PREREG_ADDENDUM_1.md](../PREREG_ADDENDUM_1.md) |
+| The fourth pre-registered pass mark (a season-ahead rating, not part of this pitch) | ranking accuracy 0.81 against 0.53 for rainfall alone; gain +0.285 (mark +0.05): PASS | [artifacts/test_results.md](../artifacts/test_results.md), P2 |
 | The unseen exam | <!-- SEALED:START evidence -->[opens Sat 3 Oct 17:30 AEST]<!-- SEALED:END --> | `artifacts/sealed/SEALED_RESULTS.md` (after Sat 17:30) |
 
 <!-- SEALED:START -->
 [The unseen exam in numbers: opens Sat 3 Oct 17:30 AEST. After the opening, `scripts/21_publish_sealed.py` writes them here.]
 
 <!-- SEALED:END -->
+
+`scripts/21_publish_sealed.py` reports every pre-registered pass mark here and in section 7, including the season rating's. Keep them all, as promised, even though the pitch is about farmers.
 
 One honest note for judges: the test years informed a few design choices, so they may flatter the model slightly; the sealed region is the clean exam. Details: [artifacts/test_results.md](../artifacts/test_results.md) (top of the page) and [DISCLOSURE.md](../DISCLOSURE.md).
 
@@ -137,24 +177,26 @@ One honest note for judges: the test years informed a few design choices, so the
 - Repository: https://github.com/Shaugato/damdays
 - App: [GitHub Pages link once published; until then, open `app/index.html` from the repository]
 - Demo video: [link]
+- The target farmer, with sources: [docs/TARGET_FARMER.md](TARGET_FARMER.md)
 - The weekly text, line by line: [notify/MESSAGE_SPEC.md](../notify/MESSAGE_SPEC.md)
 - Plain-language explainer: [docs/HOW_IT_WORKS.md](HOW_IT_WORKS.md)
 
 ## 11. Tools used and disclosures
 
-See [DISCLOSURE.md](../DISCLOSURE.md): datasets (DEA Waterbodies v3, Geoscience Australia; SILO, Queensland Government; both CC BY 4.0), Python libraries, front-end libraries (Leaflet, OpenStreetMap tiles) and AI tools (Claude Code during the event; Claude research agents before it). [Add the video editing tool, and the SMS provider if a real text is sent for the video.]
+See [DISCLOSURE.md](../DISCLOSURE.md): datasets (DEA Waterbodies v3, Geoscience Australia; SILO, Queensland Government; both CC BY 4.0), Python libraries, front-end libraries (Leaflet, OpenStreetMap tiles) and AI tools (Claude Code during the event; Claude research agents before it). [Add the video editing tool, and the SMS provider if a real text is sent for the video.] The farmer profile draws on public sources listed in [TARGET_FARMER.md](TARGET_FARMER.md) (ABARES, ABS, MLA, Agriculture Victoria, NSW DPI).
 
 ---
 
 ## Before submitting: checklist
 
-- [ ] Replace every [square bracket] in sections 3 to 11.
-- [ ] Sealed result: one honest sentence, whichever way it went (templates in [VIDEO_SCRIPT.md](VIDEO_SCRIPT.md), "The sealed-result line").
-- [x] My farm is in the app (it opens first), so section 7 names it. Checked Fri 2 Oct, 23:58 AEST.
-- [x] The app writes chances as "3 in 10", as sections 7 and 8 say: the dam card, the map tips, Rewind's tables, the Rating maps and the About page. Checked in the browser Fri 2 Oct, 23:58 AEST; re-check if the app changes.
+- [ ] Replace every [square bracket] in sections 3 to 11, including section 8's sealed-result line (copy beat 8's line from [VIDEO_SCRIPT.md](VIDEO_SCRIPT.md) after scripts/21 has written it).
+- [ ] Sealed result: one honest sentence, whichever way it went (templates in [VIDEO_SCRIPT.md](VIDEO_SCRIPT.md), "The sealed-result line"). Read section 7's and section 9's sealed text against `artifacts/sealed/SEALED_RESULTS.md`.
+- [ ] The app's Proof view shows what section 7 says (ten dots near the diagonal; ten bars above zero; the "Unseen exam" card filled after the opening). The app changed on Sat 3 Oct, so check it again in the browser (hard reload).
+- [ ] The app writes chances as "3 in 10", as sections 7 and 8 say: the dam card, the map tips, Rewind's tables and the About page.
 - [ ] The sample text matches `outbox/2026-10-02.json` (`farm-d`) word for word (it did on Fri 2 Oct, 23:58 AEST). If the texts are made again, use `--date 2026-10-02`, or update the text and its numbers everywhere.
 - [ ] Re-check the live fact (272 of 894) if the app data is exported again (command in [VIDEO_SCRIPT.md](VIDEO_SCRIPT.md), "Where each number comes from").
-- [ ] "What we learned from talking to people": no names, and nothing that identifies the mentor.
+- [ ] No lender, bank or agribusiness case beyond the one "next" line in section 7 and the pass-mark reporting: the row in section 9, and the sealed results scripts/21 writes into sections 7 and 9 (they name every pre-registered mark, the season rating's included; keep them as written).
+- [ ] "What we learned from talking to people": no names, and nothing that identifies either mentor.
 - [ ] Track wording: check it against the Junction form. If the form words the goal differently from the Participant Guide, use the form's words.
 - [ ] Every link opens without asking for access (the Participant Guide's quality check).
 - [ ] No pricing and no customer or company names: the repository is public.

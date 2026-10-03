@@ -559,6 +559,72 @@ thead th { font-size: 0.85rem; color: var(--ink-soft); font-weight: 600; }
   .view-farm .panel { order: -1; }
 }
 
+/* ---------- Proof: what accuracy looks like (views/proof.js) ---------- */
+.proof { max-width: 1040px; }
+.proof-kicker {
+  margin: 0 0 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.proof-caveat { color: var(--ink-soft); font-size: 0.95rem; max-width: 80ch; }
+
+/* The unseen exam: always in view at the top, dashed until it is opened. */
+.proof-exam-card {
+  margin: 4px 0 20px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.proof-exam-pending { border: 2px dashed var(--ink-soft); background: #fbfaf6; }
+.proof-exam-card h2 { font-size: 1.45rem; margin-bottom: 6px; }
+.proof-exam-card > p:not(.panel-status):not(.proof-kicker):not(.panel-label):not(.panel-small) { max-width: 75ch; }
+.proof-exam-done .score-panel { margin-top: 10px; }
+
+.proof-figure {
+  margin: 0 0 22px;
+  padding: 18px 20px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.proof-takeaway { font-size: 1.3rem; line-height: 1.35; max-width: 62ch; margin-bottom: 12px; }
+.proof-subtakeaway { font-size: 1.1rem; line-height: 1.4; max-width: 70ch; margin: 18px 0 8px; }
+.proof-detail { color: var(--ink-soft); max-width: 80ch; margin: -4px 0 8px; }
+.proof-chart-wrap { max-width: 860px; }
+.proof-chart-square { max-width: 640px; }
+.proof-chart { margin: 4px 0; }
+.proof-chart text { font-family: var(--font); }
+/* On a phone the charts keep a readable size and scroll sideways inside their card. */
+@media (max-width: 640px) {
+  .proof-chart-wrap { overflow-x: auto; }
+  .proof-chart { min-width: 600px; }
+  .proof-chart-square .proof-chart { min-width: 480px; }
+  .proof-figure { padding: 14px 12px 10px; }
+  .proof-takeaway { font-size: 1.15rem; }
+}
+.proof-axis { font-size: 12px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+.proof-axis-strong { font-size: 12px; font-weight: 700; fill: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.proof-axis-title { font-size: 13px; font-weight: 600; fill: var(--ink-soft); }
+.proof-hit { cursor: help; }
+.proof-note { margin-top: 6px; color: var(--ink-soft); font-size: 0.92rem; max-width: 85ch; }
+.proof-note p { margin-bottom: 0.5em; }
+.proof-numbers { margin: 8px 0 4px; }
+.proof-numbers summary { cursor: pointer; font-weight: 700; color: var(--accent); min-height: 36px; padding: 6px 0; }
+.proof-numbers table { font-size: 0.9rem; }
+/* Wide number tables scroll sideways inside their card, never the page (phones). */
+.proof-table-scroll, #proof-dam-picker { overflow-x: auto; max-width: 100%; }
+.proof-picker { max-width: 760px; }
+.proof-picker td, .proof-picker th { padding: 4px 8px; }
+.proof-dam-summary { font-size: 1.02rem; max-width: 80ch; margin-top: 12px; }
+.proof-legend { margin: 6px 0 2px; }
+.proof-key { display: inline-block; flex: none; }
+.proof-key-line { width: 22px; height: 3px; border-radius: 2px; }
+.proof-key-rule { width: 2px; height: 16px; background: #1d1c1a; }
+
 /* ---------- Footer ---------- */
 .site-footer {
   padding: 16px;

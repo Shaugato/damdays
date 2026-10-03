@@ -28,6 +28,7 @@
       <a href="#farm" data-view="farm">My farm</a>
       <a href="#runway" data-view="runway">Runway</a>
       <a href="#rewind" data-view="rewind">Rewind</a>
+      <a href="#proof" data-view="proof">Proof</a>
       <a href="#rating" data-view="rating">Rating</a>
       <a href="#about" data-view="about">About</a>
     </nav>
@@ -105,7 +106,17 @@
       </div>
     </section>
 
-    <!-- 4. RATING: lenders compare a rainfall-only score with the DamDays Rating. -->
+    <!-- 4. PROOF: what accuracy looks like on the ten test years, in three pictures, and the unseen exam. -->
+    <section id="view-proof" class="view proof" aria-labelledby="proof-title" hidden>
+      <div class="view-intro">
+        <h1 id="proof-title">Proof: what accuracy looks like</h1>
+        <p id="proof-intro">Can you trust the forecasts? Three pictures, each from forecasts the model made for years it never learned from, set against what really happened.</p>
+      </div>
+      <div id="proof-exam" class="proof-exam" aria-live="polite"></div>
+      <div id="proof-body" class="proof-body"></div>
+    </section>
+
+    <!-- 5. RATING: lenders compare a rainfall-only score with the DamDays Rating. -->
     <section id="view-rating" class="view" aria-labelledby="rating-title" hidden>
       <div class="view-intro">
         <h1 id="rating-title">DamDays Rating</h1>
@@ -139,7 +150,7 @@
       <div id="rating-scoreboard" class="scoreboard" aria-live="polite"></div>
     </section>
 
-    <!-- 5. ABOUT: how it works, the data, the honest limits, and why it matters. -->
+    <!-- 6. ABOUT: how it works, the data, the honest limits, and why it matters. -->
     <section id="view-about" class="view about" aria-labelledby="about-title" hidden>
       <h1 id="about-title">About DamDays</h1>
 
@@ -156,7 +167,7 @@
       <p class="note"><strong>A note on words.</strong> In DamDays "%" always means how full a dam is: its wet area against its usual full area. A chance is written "3 in 10". The test scores below are for judges and lenders, so they keep their usual units, each in plain words.</p>
 
       <h2>How we checked it</h2>
-      <p>We wrote down the tests and the pass marks before writing any code (see <code>PREREG.md</code> in the repository). <span id="about-split">The model learned only from years before July 2016 and was then scored on July 2016 to June 2026, years it had never seen.</span> A third region was locked away before the event and is opened only once, on camera, after the model is frozen.</p>
+      <p>We wrote down the tests and the pass marks before writing any code (see <code>PREREG.md</code> in the repository). <span id="about-split">The model learned only from years before July 2016 and was then scored on July 2016 to June 2026, years it had never seen.</span> A third region was locked away before the event and is opened only once, on camera, after the model is frozen. <a href="#proof">Proof</a> shows the test years in pictures: what we said against what happened, year by year, and dam by dam.</p>
       <div id="about-scores"></div>
 
       <h2>Honest limits</h2>
@@ -211,6 +222,7 @@
   <script src="js/views/rewind.js"></script>
   <script src="js/views/rating.js"></script>
   <script src="js/views/about.js"></script>
+  <script src="js/views/proof.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

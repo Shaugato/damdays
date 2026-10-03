@@ -42,12 +42,12 @@ Forecasts made from October to March (when dams run down), for waterbodies that 
 
 | what we measured | validation 2009-15 | test 2016-26 | what it means (test) |
 |---|---|---|---|
-| Error compared with guessing the usual rate for that region and month (Brier skill score) | +0.180 [+0.165, +0.197] | **+0.235** [+0.224, +0.248] | 23.5% less error than guessing the usual rate |
-| Error compared with the dam's own track record ("this dam fell below a third after 3 in 10 of its past forecasts") | +0.110 | +0.155 | 15.5% less error than the dam's own record, a much tougher rule to beat |
+| Error compared with guessing the usual rate for that region and month (Brier skill score) | +0.180 [+0.165, +0.197] | **+0.235** [+0.224, +0.248] | nearly a quarter less error than guessing the usual rate |
+| Error compared with the dam's own track record ("this dam fell below a third after 3 in 10 of its past forecasts") | +0.110 | +0.155 | about a seventh less error than the dam's own record, a much tougher rule to beat |
 | Ranking (AUC): a dam that fell below a third is given a higher chance than one that did not | 0.79 | 0.82 | the right way round 8 times in 10 (a coin toss is 5 in 10) |
 | Gain over our own strong benchmark G2 (the decision-tree model alone, without the nets, the per-dam correction or the water balance), on exactly the same forecasts | +0.010 [+0.007, +0.014] | +0.014 [+0.011, +0.018] | small, but reliably above zero |
 | Calibration slope (1.0 is ideal; pass mark 0.8 to 1.2) | 1.06 | 1.09 | the chances are about right, if a little cautious |
-| **"At least N days of water above a third, 9 times in 10"** (the DamDays number) | held for 90.0% of 304,611 [89.7%, 90.3%] | held for **90.0%** of 729,749 [89.8%, 90.2%] | the cautious promise held 9 times in 10, as designed; the typical N was 60 days |
+| **"At least N days of water above a third, 9 times in 10"** (the DamDays number) | held 900 times in 1,000, of 304,611 [897 to 903] | held **900 times in 1,000**, of 729,749 [898 to 902] | the cautious promise held 9 times in 10, as designed; the typical N was 60 days |
 
 The **runway curve** (the chance of falling below a third within 30, 60, 90 and 180 days) beats each horizon's own usual rate on the test years by +0.105, +0.178, +0.223 and +0.253. No curve ever went down as the days went up (0 of 147,196 checked).
 
@@ -67,7 +67,7 @@ Rated each 1 July, before the season. "Ran dry" means every farm dam in the patc
 
 - **Every pre-registered pass mark was met**, on validation and on test. On test, the benchmark G2 met them too ([artifacts/test_results.md](artifacts/test_results.md), "PREREG pass bars").
 - **The test years are not a perfectly clean test.** Some design choices were informed by earlier scores on these years, so they may flatter the model slightly (the pre-registration estimates by about 0.005 to 0.01 of skill). The reasons are listed at the top of the results page and in [DISCLOSURE.md](DISCLOSURE.md). **The clean test is the sealed region.**
-- **Worst year for the DamDays number:** July 2023 to June 2024, when it held for 87.2%, a little below the 88% to 92% target range. In the other nine years it held within that range or above it.
+- **Worst year for the DamDays number:** July 2023 to June 2024, when it held 872 times in 1,000, a little below the target range of 880 to 920. In the other nine years it held within that range or above it.
 - **Season band** (how far a very wet or very dry year can move a forecast): it covered all 20 test region-years, but its design was partly chosen after seeing these years, so this is not an independent check. The earlier single-block band covered 17 of 20; every miss was a year drier than it allowed.
 
 ### Sealed region (opened Sat 3 Oct 2026, 17:30 AEST)
@@ -81,9 +81,9 @@ Rated each 1 July, before the season. "Ran dry" means every farm dam in the patc
 
 ## Start here (2-minute tour for judges and mentors)
 
-1. **The problem.** In a drought, graziers must decide when to cart water, move stock or sell, before the dam runs dry. Banks and valuers judging farm drought risk see rainfall, but not how much water a farm has stored.
-2. **What we built.** A weekly text for each farm with each dam's days of water left ([above](#what-farmers-get)); an app to look closer, where each dam's card adds the chance it drops below a third (Dam 2 above: 3 in 10 by 12 Dec) and a six-month runway; and a season-ahead water-security rating for lenders.
-3. **How we know it works.** Every claim is tested on years and dams the model never saw. The test rules were written down and committed *before* any code ([PREREG.md](PREREG.md)). One whole region was downloaded but kept sealed (its file fingerprints are in [SEALED_HASHES.csv](SEALED_HASHES.csv)) and is opened once, on camera, on Saturday 17:30 AEST. The results so far are [above](#results).
+1. **The problem.** In a drought, graziers must decide when to move stock, cart water, buy feed or sell, before the dam runs dry. Today they work out each dam's days of water by driving the water run and doing the sums by hand. Who DamDays is for, from public farm surveys: [docs/TARGET_FARMER.md](docs/TARGET_FARMER.md).
+2. **What we built.** A weekly text for each farm with each dam's days of water left ([above](#what-farmers-get)); an app to look closer, where each dam's card adds the chance it drops below a third (Dam 2 above: 3 in 10 by 12 Dec) and a six-month runway. (The app also has a season-ahead rating, one of the pre-registered tests below. It was built with lenders in mind and is set aside for now: the pitch is for farmers.)
+3. **How we know it works.** Every claim is tested on years and dams the model never saw. The test rules were written down and committed *before* any code ([PREREG.md](PREREG.md)). One whole region was downloaded but kept sealed (its file fingerprints are in [SEALED_HASHES.csv](SEALED_HASHES.csv)) and is opened once, on camera, on Saturday 17:30 AEST. The results so far are [above](#results). In the app, **Proof** (`app/index.html#proof`) shows them as pictures for anyone who does not read "AUC": what we said against what happened, year by year through the dry and wet years since 2016, and dam by dam.
 4. **How it works, in plain language:** [docs/HOW_IT_WORKS.md](docs/HOW_IT_WORKS.md) (one diagram, what each part adds, and the final numbers).
 5. **Where the key logic lives** (see the next section).
 6. **Reproduce the numbers:** see [Reproduce](#reproduce) below.
@@ -105,13 +105,14 @@ Read in this order. Each file starts with a plain-English explanation.
 | [`scripts/12_ladder_val.py`](scripts/12_ladder_val.py) | The pre-registered fallback ladder: fits L0, L1, L2 and L3 through `fit_tidemark`, compares each with the value the pre-event research got for it, and reads the look-ahead test, so the version to freeze follows mechanically from the rule ([artifacts/ladder_val.md](artifacts/ladder_val.md)). |
 | [`scripts/13_fit_test_setting.py`](scripts/13_fit_test_setting.py) | Fits the frozen models on answers known before 1 July 2016 and saves their forecasts for the test years. It scores nothing. |
 | [`scripts/15_score_test.py`](scripts/15_score_test.py) | The test years' one look: reads step 13's saved forecasts (fingerprints checked) and scores them once through the ledger. Writes [artifacts/test_results.md](artifacts/test_results.md). |
+| [`scripts/17_proof_data.py`](scripts/17_proof_data.py) | The data behind the app's Proof view: the same saved test forecasts, drawn, not scored again (its totals must equal the test results). |
 | [`scripts/20_open_sealed_region.py`](scripts/20_open_sealed_region.py) | The sealed-region opening, run once on Sat 3 Oct 17:30 AEST ([docs/SEALED_OPENING.md](docs/SEALED_OPENING.md) is the runbook). It refuses to start unless the unlock switch is on, git is clean and pushed, every sealed file's SHA-256 matches the committed [SEALED_HASHES.csv](SEALED_HASHES.csv), the models match their committed fingerprints and the freeze addendum ([PREREG_ADDENDUM_1.md](PREREG_ADDENDUM_1.md)) is committed; then it builds the region from raw files with the development code ([`damdays/sealed/`](damdays/sealed/)), forecasts it with the frozen TEST-setting models and scores it once. `--dry-run` rehearses the whole pipeline on a development region treated as unseen, on a separate ledger (not the development TEST result). |
 | [`damdays/export/`](damdays/export/) | Turns forecasts into the app's data files: [`live_model.py`](damdays/export/live_model.py) refits Tidemark on every answer known by the last satellite look for today's forecasts (shown, never scored), and [`app_data.py`](damdays/export/app_data.py) writes the six JSON files the app reads, copying every score from the evaluation outputs. Run with [`scripts/11_export_app.py`](scripts/11_export_app.py). |
 | [`notify/`](notify/) | The weekly text ([notify/MESSAGE_SPEC.md](notify/MESSAGE_SPEC.md)): finds a farm's dams (every dam within 3 km of a homestead point, Dam 1 the closest), writes the SMS and its longer app/email version from the live forecasts, and keeps each text to one SMS. It only reads the forecasts; it does not import or change the frozen model. Run with [`scripts/16_weekly_texts.py`](scripts/16_weekly_texts.py); checked by [`tests/test_weekly_text.py`](tests/test_weekly_text.py). |
 
 ## Reproduce
 
-Everything runs on a laptop CPU (built on Windows 11 with Python 3.12, 8 cores and 32 GB RAM). Steps 01 to 16 rebuild every number on this page from the raw public data, in about 5 to 7 hours, most of it model fitting.
+Everything runs on a laptop CPU (built on Windows 11 with Python 3.12, 8 cores and 32 GB RAM). Steps 01 to 17 rebuild every number on this page from the raw public data, in about 5 to 7 hours, most of it model fitting.
 
 **1. Set up** (once, from the repo folder; Python 3.12):
 
@@ -158,6 +159,7 @@ python -m http.server 8000 --directory app
 | 14 | `.venv/Scripts/python.exe scripts/14_config_hash.py` | the code fingerprint; for the frozen code it prints `7d466291008d` | seconds |
 | 15 | `.venv/Scripts/python.exe scripts/15_score_test.py --check`, then `.venv/Scripts/python.exe scripts/15_score_test.py` | `--check` builds and checks every table and scores nothing; the second command is the test years' one look | 15-30 min |
 | 16 | `.venv/Scripts/python.exe scripts/16_weekly_texts.py --date 2026-10-02` | the weekly texts for 10 demo farms, as shown on this page ([What farmers get](#what-farmers-get)). Without `--date` they are dated today, so the days change. Needs step 11's live fit; `--regions nsw_cw` needs only the app's published file | seconds |
+| 17 | `.venv/Scripts/python.exe scripts/17_proof_data.py` | the app's Proof view (`app/data/real/proof.json`): what we said vs what happened, year by year, dam by dam, from step 13's saved test forecasts. Scores nothing; refuses to write if its totals differ from step 15's results. Run after step 16 | about a minute |
 
 Then the tests: `.venv/Scripts/python.exe -m pytest tests` (with `data_cache/` built, the tests on the real data run instead of skipping).
 

@@ -351,6 +351,21 @@ def test_app_panel_is_filled_and_bundled(tmp_path):
         REPO / "app" / "js" / "views" / "about.js").read_text(encoding="utf-8")
 
 
+def test_app_rebuild_keeps_the_proof_view(tmp_path):
+    """The Proof view (proof.json, scripts/17) shows the same sealed panel; the rebuilt bundle must still carry it."""
+    results = synthetic_results("pass")
+    repo, _ = make_repo(tmp_path, results, scorecard=True)
+    app_dir = repo / "app" / "data" / "real"
+    stub = dict(schema_version="1.0", test={}, unseen_exam=dict(panel_key="sealed"), calibration={}, by_year={},
+                dam_by_dam={})
+    (app_dir / "proof.json").write_text(json.dumps(stub), encoding="utf-8")
+    assert step21.publish(repo, now=NOW, out=lambda line: None) == 0
+    bundle = (app_dir / "bundle.js").read_text(encoding="utf-8")
+    shipped = json.loads(bundle[bundle.index("=") + 1:].strip().rstrip(";"))
+    assert shipped["proof"] == stub
+    assert next(p for p in shipped["scoreboard"]["panels"] if p["key"] == "sealed")["status"] == "scored"
+
+
 def test_app_refuses_disagreeing_or_dev_scorecard_files(tmp_path):
     results = synthetic_results("pass")
     repo, results_dir = make_repo(tmp_path, results, scorecard=True)

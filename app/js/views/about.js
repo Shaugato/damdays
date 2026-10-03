@@ -4,6 +4,8 @@
  * made, and the headline test scores.
  * The test scores are for judges and lenders, so they keep their usual units
  * (skill as "23.5% less error", AUC as "81 in 100"), each in plain words.
+ * panelHtml (one test panel: the development regions, or the sealed region) is also
+ * used by the Proof view, so the sealed result reads the same in both places.
  */
 window.DamDays = window.DamDays || {};
 DamDays.views = DamDays.views || {};
@@ -192,5 +194,5 @@ DamDays.views.about = (function () {
            '<ul class="panel-list">' + items.join("") + "</ul>" + expectationsHtml(panel) + "</section>";
   }
 
-  return { init, show };
+  return { init, show, panelHtml };
 })();

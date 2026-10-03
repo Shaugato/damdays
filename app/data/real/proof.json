@@ -1,0 +1,2621 @@
+{
+ "schema_version": "1.0",
+ "generated_at": "2026-10-03T09:26:09+10:00",
+ "made_by": "scripts/17_proof_data.py",
+ "test": {
+  "label": "Ten test years, July 2016 to June 2026",
+  "scored_at": "2026-10-02 20:36",
+  "intro": "The frozen model learned only from data before July 2016. These are its forecasts for the ten years after, in two farming regions (NSW Central West; western Victoria / SE South Australia), scored once on Fri 2 Oct 2026. The question: will this farm dam fall below a third of full within 90 days? Forecasts made October to March, when dams run down.",
+  "caveat": "These years were looked at before the event, so they may flatter the model slightly. The unseen exam is the clean test.",
+  "forecasts": 142938,
+  "fell": 29415,
+  "dams": 1644,
+  "skill_vs_usual_rate": {
+   "value": 0.23501,
+   "ci_low": 0.2235,
+   "ci_high": 0.2483,
+   "words": "nearly a quarter"
+  },
+  "calibration_slope": 1.09455,
+  "model": "Tidemark L3, frozen (config 7d466291008d)"
+ },
+ "unseen_exam": {
+  "panel_key": "sealed",
+  "heading_pending": "Unseen exam: opens Sat 3 Oct 17:30 AEST",
+  "expect": "What we said to expect, before opening it: from about a seventh to nearly a quarter less error than guessing the usual rate (skill +0.15 to +0.23). A forecast, not a pass mark.",
+  "heading_scored": "Unseen exam: opened Sat 3 Oct 17:30 AEST, scored once",
+  "text": "Everything below is the ten test years. The clean test is a third farming region that the model and the team have never seen: its satellite data was locked away with a public fingerprint at the start of the event, and it is opened once, on camera. Its score is published here whatever it is."
+ },
+ "calibration": {
+  "title": "What we said vs what happened",
+  "takeaway": "When we said 3 in 10, the dam fell below a third about 3 times in 10, and in all ten groups what happened matched what we said, to the nearest 1 in 10.",
+  "detail": "3 in 10: 4,864 of 17,013 forecasts were followed by a fall below a third within 90 days. Across all 142,938 forecasts, 29,415 were.",
+  "lean": "Below 7 in 10, slightly fewer dams fell than we said; from 7 in 10 up, slightly more. So the chances could be a little bolder: low ones a little lower, high ones a little higher (calibration slope 1.09, where 1.00 is perfect and the pass mark written before any code was 0.8 to 1.2).",
+  "not_plotted": "Not drawn, too few to read: 1 forecast said more than 9 in 10 (1 fell).",
+  "how_to_read": "Each dot is a group of forecasts that gave the same chance (rounded as the text and the app write it). Across: the chance we gave. Up: how often the dam really fell below a third within 90 days. On the diagonal line, what happened equals what we said. Bigger dots hold more forecasts; the number of forecasts is under each group. Thin lines: the range if we re-drew the dams at random 500 times.",
+  "min_forecasts_to_plot": 100,
+  "bins": [
+   {
+    "in_ten": 0,
+    "said": "less than 1 in 10",
+    "forecasts": 28746,
+    "fell": 547,
+    "share_fell": 0.01903,
+    "mean_chance": 0.02822,
+    "happened_in_ten": 0,
+    "plotted": true,
+    "share_fell_ci": [
+     0.01572,
+     0.02299
+    ]
+   },
+   {
+    "in_ten": 1,
+    "said": "1 in 10",
+    "forecasts": 40603,
+    "fell": 3262,
+    "share_fell": 0.08034,
+    "mean_chance": 0.09418,
+    "happened_in_ten": 1,
+    "plotted": true,
+    "share_fell_ci": [
+     0.07498,
+     0.0863
+    ]
+   },
+   {
+    "in_ten": 2,
+    "said": "2 in 10",
+    "forecasts": 24683,
+    "fell": 4310,
+    "share_fell": 0.17461,
+    "mean_chance": 0.19581,
+    "happened_in_ten": 2,
+    "plotted": true,
+    "share_fell_ci": [
+     0.16465,
+     0.18261
+    ]
+   },
+   {
+    "in_ten": 3,
+    "said": "3 in 10",
+    "forecasts": 17013,
+    "fell": 4864,
+    "share_fell": 0.2859,
+    "mean_chance": 0.29638,
+    "happened_in_ten": 3,
+    "plotted": true,
+    "share_fell_ci": [
+     0.27285,
+     0.29752
+    ]
+   },
+   {
+    "in_ten": 4,
+    "said": "4 in 10",
+    "forecasts": 12259,
+    "fell": 4851,
+    "share_fell": 0.39571,
+    "mean_chance": 0.39643,
+    "happened_in_ten": 4,
+    "plotted": true,
+    "share_fell_ci": [
+     0.38216,
+     0.41056
+    ]
+   },
+   {
+    "in_ten": 5,
+    "said": "5 in 10",
+    "forecasts": 8796,
+    "fell": 4295,
+    "share_fell": 0.48829,
+    "mean_chance": 0.49613,
+    "happened_in_ten": 5,
+    "plotted": true,
+    "share_fell_ci": [
+     0.47004,
+     0.50666
+    ]
+   },
+   {
+    "in_ten": 6,
+    "said": "6 in 10",
+    "forecasts": 5795,
+    "fell": 3434,
+    "share_fell": 0.59258,
+    "mean_chance": 0.59609,
+    "happened_in_ten": 6,
+    "plotted": true,
+    "share_fell_ci": [
+     0.5726,
+     0.61391
+    ]
+   },
+   {
+    "in_ten": 7,
+    "said": "7 in 10",
+    "forecasts": 3076,
+    "fell": 2183,
+    "share_fell": 0.70969,
+    "mean_chance": 0.6944,
+    "happened_in_ten": 7,
+    "plotted": true,
+    "share_fell_ci": [
+     0.68533,
+     0.73273
+    ]
+   },
+   {
+    "in_ten": 8,
+    "said": "8 in 10",
+    "forecasts": 1591,
+    "fell": 1322,
+    "share_fell": 0.83092,
+    "mean_chance": 0.79328,
+    "happened_in_ten": 8,
+    "plotted": true,
+    "share_fell_ci": [
+     0.80092,
+     0.85928
+    ]
+   },
+   {
+    "in_ten": 9,
+    "said": "9 in 10",
+    "forecasts": 375,
+    "fell": 346,
+    "share_fell": 0.92267,
+    "mean_chance": 0.87716,
+    "happened_in_ten": 9,
+    "plotted": true,
+    "share_fell_ci": [
+     0.88764,
+     0.95492
+    ]
+   },
+   {
+    "in_ten": 10,
+    "said": "more than 9 in 10",
+    "forecasts": 1,
+    "fell": 1,
+    "share_fell": 1.0,
+    "mean_chance": 0.95638,
+    "happened_in_ten": 10,
+    "plotted": false,
+    "share_fell_ci": [
+     1.0,
+     1.0
+    ]
+   }
+  ]
+ },
+ "by_year": {
+  "title": "It held up year after year",
+  "takeaway": "In every one of the ten years, the forecasts had less error than guessing the usual rate: from a fifth (2020-21) to a quarter (2025-26) less, in the six drier years (2017-20 and 2023-26) as well as the four wetter ones.",
+  "floor_takeaway": "The \"at least N days\" promise held about 9 times in 10 in every year (from 872 to 927 times in 1,000); it fell a little short of the 880 mark in July 2023 to June 2024 (872).",
+  "floor_detail": "Target 900 in 1,000; on target means 880 to 920. Short of target: July 2023 to June 2024, 872 in 1,000. More cautious than needed: July 2020 to June 2021, 927 in 1,000.",
+  "skill_note": "Bars: how much less error the forecasts had than guessing the usual rate for that region and month (the Brier skill score against the usual rate: 0 = no better, 1 = perfect), on each July-June year's forecasts. Thin lines: the range if we re-drew that year's dams at random 500 times. All ten years together: nearly a quarter less (skill +0.235).",
+  "drier_rule": "Shaded: drier years, when the July-June rain, averaged over the two regions, was below its 1960-2016 average (SILO rainfall, Queensland Government). By this rule the drier years are July 2017 to June 2020 and July 2023 to June 2026. In 2023-24 and 2024-25 only western Victoria / SE South Australia was drier than usual; in 2025-26 only NSW Central West was drier than usual.",
+  "refit_note": "The model was not refitted during these ten years: it learned only from data before July 2016. Only each dam's own track record kept updating, once each forecast's answer was known. In use it would be refitted as new satellite looks arrive.",
+  "floor_note": "Dots: out of 1,000 forecasts that year, how often the dam stayed above a third for at least the N days promised (every judged forecast, all months: 729,749 over the ten years). Shaded band: on target (880 to 920). Copied from the test results.",
+  "drier_runs": [
+   {
+    "first": 2017,
+    "last": 2019,
+    "label": "2017-20"
+   },
+   {
+    "first": 2023,
+    "last": 2025,
+    "label": "2023-26"
+   }
+  ],
+  "all_years": {
+   "skill": 0.23501,
+   "skill_ci": [
+    0.2235,
+    0.2483
+   ],
+   "skill_words": "nearly a quarter",
+   "floor_held": 0.90016,
+   "floor_judged": 729749,
+   "floor_worst": {
+    "year": 2023,
+    "coverage": 0.87199
+   }
+  },
+  "floor_target": 0.9,
+  "floor_tolerance": 0.02,
+  "years": [
+   {
+    "year": 2016,
+    "label": "2016-17",
+    "words": "July 2016 to June 2017",
+    "forecasts": 18071,
+    "fell": 3821,
+    "dams": 1606,
+    "share_fell": 0.21144,
+    "mean_chance": 0.22766,
+    "usual_rate": 0.24746,
+    "skill": 0.21582,
+    "skill_ci": [
+     0.18821,
+     0.24201
+    ],
+    "skill_words": "a fifth",
+    "rain_vs_usual": {
+     "nsw_cw": 1.076,
+     "wvic_sesa": 1.249
+    },
+    "rain_vs_usual_mean": 1.162,
+    "drier": false,
+    "floor": {
+     "held": 0.88889,
+     "held_in_1000": 889,
+     "judged": 85103
+    }
+   },
+   {
+    "year": 2017,
+    "label": "2017-18",
+    "words": "July 2017 to June 2018",
+    "forecasts": 13535,
+    "fell": 3530,
+    "dams": 1473,
+    "share_fell": 0.26081,
+    "mean_chance": 0.23261,
+    "usual_rate": 0.25396,
+    "skill": 0.21549,
+    "skill_ci": [
+     0.19301,
+     0.24236
+    ],
+    "skill_words": "a fifth",
+    "rain_vs_usual": {
+     "nsw_cw": 0.593,
+     "wvic_sesa": 0.963
+    },
+    "rain_vs_usual_mean": 0.778,
+    "drier": true,
+    "floor": {
+     "held": 0.88423,
+     "held_in_1000": 884,
+     "judged": 66571
+    }
+   },
+   {
+    "year": 2018,
+    "label": "2018-19",
+    "words": "July 2018 to June 2019",
+    "forecasts": 11081,
+    "fell": 3194,
+    "dams": 1263,
+    "share_fell": 0.28824,
+    "mean_chance": 0.27191,
+    "usual_rate": 0.24042,
+    "skill": 0.22465,
+    "skill_ci": [
+     0.19369,
+     0.26086
+    ],
+    "skill_words": "a fifth",
+    "rain_vs_usual": {
+     "nsw_cw": 0.632,
+     "wvic_sesa": 0.894
+    },
+    "rain_vs_usual_mean": 0.763,
+    "drier": true,
+    "floor": {
+     "held": 0.88508,
+     "held_in_1000": 885,
+     "judged": 58421
+    }
+   },
+   {
+    "year": 2019,
+    "label": "2019-20",
+    "words": "July 2019 to June 2020",
+    "forecasts": 8777,
+    "fell": 2101,
+    "dams": 1369,
+    "share_fell": 0.23938,
+    "mean_chance": 0.27639,
+    "usual_rate": 0.23363,
+    "skill": 0.22036,
+    "skill_ci": [
+     0.18226,
+     0.2558
+    ],
+    "skill_words": "a fifth",
+    "rain_vs_usual": {
+     "nsw_cw": 0.848,
+     "wvic_sesa": 0.916
+    },
+    "rain_vs_usual_mean": 0.882,
+    "drier": true,
+    "floor": {
+     "held": 0.90963,
+     "held_in_1000": 910,
+     "judged": 56747
+    }
+   },
+   {
+    "year": 2020,
+    "label": "2020-21",
+    "words": "July 2020 to June 2021",
+    "forecasts": 14236,
+    "fell": 1968,
+    "dams": 1490,
+    "share_fell": 0.13824,
+    "mean_chance": 0.22274,
+    "usual_rate": 0.2435,
+    "skill": 0.2097,
+    "skill_ci": [
+     0.1699,
+     0.2482
+    ],
+    "skill_words": "a fifth",
+    "rain_vs_usual": {
+     "nsw_cw": 1.304,
+     "wvic_sesa": 0.995
+    },
+    "rain_vs_usual_mean": 1.149,
+    "drier": false,
+    "floor": {
+     "held": 0.92704,
+     "held_in_1000": 927,
+     "judged": 73751
+    }
+   },
+   {
+    "year": 2021,
+    "label": "2021-22",
+    "words": "July 2021 to June 2022",
+    "forecasts": 16871,
+    "fell": 2558,
+    "dams": 1553,
+    "share_fell": 0.15162,
+    "mean_chance": 0.1908,
+    "usual_rate": 0.25277,
+    "skill": 0.22766,
+    "skill_ci": [
+     0.19241,
+     0.26142
+    ],
+    "skill_words": "nearly a quarter",
+    "rain_vs_usual": {
+     "nsw_cw": 1.448,
+     "wvic_sesa": 0.98
+    },
+    "rain_vs_usual_mean": 1.214,
+    "drier": false,
+    "floor": {
+     "held": 0.91739,
+     "held_in_1000": 917,
+     "judged": 87154
+    }
+   },
+   {
+    "year": 2022,
+    "label": "2022-23",
+    "words": "July 2022 to June 2023",
+    "forecasts": 15780,
+    "fell": 2213,
+    "dams": 1554,
+    "share_fell": 0.14024,
+    "mean_chance": 0.15086,
+    "usual_rate": 0.25679,
+    "skill": 0.26901,
+    "skill_ci": [
+     0.23474,
+     0.30384
+    ],
+    "skill_words": "a quarter",
+    "rain_vs_usual": {
+     "nsw_cw": 1.271,
+     "wvic_sesa": 1.372
+    },
+    "rain_vs_usual_mean": 1.321,
+    "drier": false,
+    "floor": {
+     "held": 0.91189,
+     "held_in_1000": 912,
+     "judged": 91094
+    }
+   },
+   {
+    "year": 2023,
+    "label": "2023-24",
+    "words": "July 2023 to June 2024",
+    "forecasts": 14329,
+    "fell": 2392,
+    "dams": 1510,
+    "share_fell": 0.16693,
+    "mean_chance": 0.17602,
+    "usual_rate": 0.2357,
+    "skill": 0.2148,
+    "skill_ci": [
+     0.18561,
+     0.24439
+    ],
+    "skill_words": "a fifth",
+    "rain_vs_usual": {
+     "nsw_cw": 1.041,
+     "wvic_sesa": 0.71
+    },
+    "rain_vs_usual_mean": 0.876,
+    "drier": true,
+    "floor": {
+     "held": 0.87199,
+     "held_in_1000": 872,
+     "judged": 81580
+    }
+   },
+   {
+    "year": 2024,
+    "label": "2024-25",
+    "words": "July 2024 to June 2025",
+    "forecasts": 16936,
+    "fell": 4149,
+    "dams": 1427,
+    "share_fell": 0.24498,
+    "mean_chance": 0.22885,
+    "usual_rate": 0.25264,
+    "skill": 0.25834,
+    "skill_ci": [
+     0.23502,
+     0.28283
+    ],
+    "skill_words": "a quarter",
+    "rain_vs_usual": {
+     "nsw_cw": 1.039,
+     "wvic_sesa": 0.752
+    },
+    "rain_vs_usual_mean": 0.896,
+    "drier": true,
+    "floor": {
+     "held": 0.90136,
+     "held_in_1000": 901,
+     "judged": 78234
+    }
+   },
+   {
+    "year": 2025,
+    "label": "2025-26",
+    "words": "July 2025 to June 2026",
+    "forecasts": 13322,
+    "fell": 3489,
+    "dams": 1263,
+    "share_fell": 0.2619,
+    "mean_chance": 0.2287,
+    "usual_rate": 0.25486,
+    "skill": 0.28077,
+    "skill_ci": [
+     0.25343,
+     0.30844
+    ],
+    "skill_words": "a quarter",
+    "rain_vs_usual": {
+     "nsw_cw": 0.784,
+     "wvic_sesa": 1.057
+    },
+    "rain_vs_usual_mean": 0.921,
+    "drier": true,
+    "floor": {
+     "held": 0.90046,
+     "held_in_1000": 900,
+     "judged": 51094
+    }
+   }
+  ]
+ },
+ "dam_by_dam": {
+  "title": "Dam by dam",
+  "takeaway": "On 1 Nov 2018, the seven dams on one farm, Farm D (near Dubbo), each got their own chance, from 1 in 10 to 6 in 10; the chances added up to about 2, and 2 fell below a third within 90 days (Dam 1 and Dam 5).",
+  "farm": {
+   "farm_id": "farm-d",
+   "name": "Farm D (near Dubbo)",
+   "radius_km": 3.0,
+   "region": "nsw_cw",
+   "region_name": "NSW Central West"
+  },
+  "rewind_date": "2018-11-01",
+  "season": {
+   "forecasts_from": "2018-07-01",
+   "forecasts_to": "2019-06-30",
+   "show_to": "2019-09-30"
+  },
+  "threshold_pct": 30,
+  "default_dam": "nsw_cw-0407",
+  "how_chosen": "The farm is the demo farm of this week's text (Farm D (near Dubbo), every farm dam the satellites can see within 3 km of the homestead point). It was picked for the text, not for these results. Dam 1, the dam closest to the homestead, is shown first; pick any of its dams.",
+  "how_to_read": "Top: the dam's water level at each clear satellite look (% of its usual full level), and the days it fell below a third. A single odd look (cloud or shadow) is drawn as it is: a fall counts only when a later look confirms it. Bottom: every forecast made for it from July 2018 to June 2019 (the chance it falls below a third within 90 days); a filled dot means it did fall within those 90 days, an open dot that it did not. These are the frozen model's test forecasts, made only from what had been seen by each look. The app's Rewind view shows the same forecasts on 1 Nov 2018, 1 Jan 2019 and 1 Mar 2019 (it also hides a forecast until the dam has refilled to 60% full, so a few forecasts here are not in Rewind).",
+  "dams": [
+   {
+    "dam_id": "nsw_cw-0407",
+    "name": "Dam 1",
+    "area_ha": 1.17,
+    "dea_uid": "r638wrtmz_v3",
+    "rewind": {
+     "status": "forecast",
+     "issued_on": "2018-10-01",
+     "level_pct": 60,
+     "chance": 0.37,
+     "said": "4 in 10",
+     "outcome": true,
+     "outcome_date": "2018-12-04"
+    },
+    "looks": [
+     [
+      "2018-07-13",
+      60
+     ],
+     [
+      "2018-07-21",
+      50
+     ],
+     [
+      "2018-07-29",
+      90
+     ],
+     [
+      "2018-08-14",
+      90
+     ],
+     [
+      "2018-08-30",
+      60
+     ],
+     [
+      "2018-09-23",
+      60
+     ],
+     [
+      "2018-10-01",
+      60
+     ],
+     [
+      "2018-11-02",
+      60
+     ],
+     [
+      "2018-11-10",
+      70
+     ],
+     [
+      "2018-11-18",
+      70
+     ],
+     [
+      "2018-12-04",
+      10
+     ],
+     [
+      "2018-12-28",
+      20
+     ],
+     [
+      "2019-01-05",
+      40
+     ],
+     [
+      "2019-01-21",
+      50
+     ],
+     [
+      "2019-01-29",
+      60
+     ],
+     [
+      "2019-02-14",
+      60
+     ],
+     [
+      "2019-02-22",
+      60
+     ],
+     [
+      "2019-03-10",
+      80
+     ],
+     [
+      "2019-03-26",
+      80
+     ],
+     [
+      "2019-04-03",
+      50
+     ],
+     [
+      "2019-04-11",
+      70
+     ],
+     [
+      "2019-04-19",
+      80
+     ],
+     [
+      "2019-04-27",
+      50
+     ],
+     [
+      "2019-05-05",
+      80
+     ],
+     [
+      "2019-05-21",
+      70
+     ],
+     [
+      "2019-06-22",
+      100
+     ],
+     [
+      "2019-06-30",
+      130
+     ],
+     [
+      "2019-07-16",
+      0
+     ],
+     [
+      "2019-08-01",
+      90
+     ],
+     [
+      "2019-08-17",
+      70
+     ],
+     [
+      "2019-08-25",
+      60
+     ],
+     [
+      "2019-09-02",
+      50
+     ],
+     [
+      "2019-09-10",
+      70
+     ],
+     [
+      "2019-09-18",
+      100
+     ],
+     [
+      "2019-09-26",
+      100
+     ]
+    ],
+    "forecasts": [
+     {
+      "date": "2018-07-13",
+      "chance": 0.105,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-07-21",
+      "chance": 0.171,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-07-29",
+      "chance": 0.055,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-08-14",
+      "chance": 0.065,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-08-30",
+      "chance": 0.18,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-09-23",
+      "chance": 0.289,
+      "fell": true,
+      "fell_on": "2018-12-04"
+     },
+     {
+      "date": "2018-10-01",
+      "chance": 0.37,
+      "fell": true,
+      "fell_on": "2018-12-04"
+     },
+     {
+      "date": "2018-11-02",
+      "chance": 0.268,
+      "fell": true,
+      "fell_on": "2018-12-04"
+     },
+     {
+      "date": "2018-11-10",
+      "chance": 0.178,
+      "fell": true,
+      "fell_on": "2018-12-04"
+     },
+     {
+      "date": "2018-11-18",
+      "chance": 0.168,
+      "fell": true,
+      "fell_on": "2018-12-04"
+     },
+     {
+      "date": "2019-01-05",
+      "chance": 0.317,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-21",
+      "chance": 0.226,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-29",
+      "chance": 0.184,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-02-14",
+      "chance": 0.136,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-02-22",
+      "chance": 0.12,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-10",
+      "chance": 0.048,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-26",
+      "chance": 0.039,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-03",
+      "chance": 0.047,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-11",
+      "chance": 0.029,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-19",
+      "chance": 0.023,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-27",
+      "chance": 0.046,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-05-05",
+      "chance": 0.027,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-05-21",
+      "chance": 0.03,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-22",
+      "chance": 0.02,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-30",
+      "chance": 0.016,
+      "fell": false,
+      "fell_on": null
+     }
+    ],
+    "falls": [
+     "2018-12-04"
+    ],
+    "summary": "Dam 1 (the dam closest to the homestead): 25 forecasts from July 2018 to June 2019; the highest chance was 4 in 10 (1 Oct 2018). It fell below a third on 4 Dec 2018; 5 of the 25 forecasts were followed by a fall within 90 days."
+   },
+   {
+    "dam_id": "nsw_cw-0408",
+    "name": "Dam 2",
+    "area_ha": 0.63,
+    "dea_uid": "r638wrvsu_v3",
+    "rewind": {
+     "status": "forecast",
+     "issued_on": "2018-10-01",
+     "level_pct": 100,
+     "chance": 0.085,
+     "said": "1 in 10",
+     "outcome": false,
+     "outcome_date": null
+    },
+    "looks": [
+     [
+      "2018-07-05",
+      50
+     ],
+     [
+      "2018-07-13",
+      33
+     ],
+     [
+      "2018-07-29",
+      67
+     ],
+     [
+      "2018-08-14",
+      50
+     ],
+     [
+      "2018-08-30",
+      67
+     ],
+     [
+      "2018-10-01",
+      100
+     ],
+     [
+      "2018-11-02",
+      100
+     ],
+     [
+      "2018-11-18",
+      83
+     ],
+     [
+      "2018-12-04",
+      100
+     ],
+     [
+      "2018-12-28",
+      100
+     ],
+     [
+      "2019-01-05",
+      100
+     ],
+     [
+      "2019-01-21",
+      100
+     ],
+     [
+      "2019-01-29",
+      100
+     ],
+     [
+      "2019-02-22",
+      100
+     ],
+     [
+      "2019-03-10",
+      100
+     ],
+     [
+      "2019-03-26",
+      100
+     ],
+     [
+      "2019-04-03",
+      0
+     ],
+     [
+      "2019-04-11",
+      67
+     ],
+     [
+      "2019-04-19",
+      17
+     ],
+     [
+      "2019-04-27",
+      67
+     ],
+     [
+      "2019-05-05",
+      50
+     ],
+     [
+      "2019-05-21",
+      0
+     ],
+     [
+      "2019-06-06",
+      83
+     ],
+     [
+      "2019-06-22",
+      83
+     ],
+     [
+      "2019-06-30",
+      100
+     ],
+     [
+      "2019-07-16",
+      17
+     ],
+     [
+      "2019-08-01",
+      50
+     ],
+     [
+      "2019-08-17",
+      83
+     ],
+     [
+      "2019-08-25",
+      33
+     ],
+     [
+      "2019-09-02",
+      83
+     ],
+     [
+      "2019-09-10",
+      83
+     ],
+     [
+      "2019-09-18",
+      83
+     ],
+     [
+      "2019-09-26",
+      50
+     ]
+    ],
+    "forecasts": [
+     {
+      "date": "2018-07-05",
+      "chance": 0.131,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-07-13",
+      "chance": 0.236,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-07-29",
+      "chance": 0.149,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-08-14",
+      "chance": 0.336,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-08-30",
+      "chance": 0.26,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-10-01",
+      "chance": 0.085,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-02",
+      "chance": 0.063,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-18",
+      "chance": 0.089,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-12-04",
+      "chance": 0.049,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-12-28",
+      "chance": 0.042,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-05",
+      "chance": 0.048,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-21",
+      "chance": 0.04,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-29",
+      "chance": 0.038,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-02-22",
+      "chance": 0.024,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-10",
+      "chance": 0.019,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-26",
+      "chance": 0.018,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-11",
+      "chance": 0.052,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-27",
+      "chance": 0.059,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-05-05",
+      "chance": 0.093,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-06",
+      "chance": 0.068,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-22",
+      "chance": 0.062,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-30",
+      "chance": 0.039,
+      "fell": false,
+      "fell_on": null
+     }
+    ],
+    "falls": [],
+    "summary": "Dam 2: 22 forecasts from July 2018 to June 2019; the highest chance was 3 in 10 (14 Aug 2018). It did not fall below a third between July 2018 and September 2019; none of the 22 forecasts were followed by a fall within 90 days."
+   },
+   {
+    "dam_id": "nsw_cw-0409",
+    "name": "Dam 3",
+    "area_ha": 2.07,
+    "dea_uid": "r638wrwx6_v3",
+    "rewind": {
+     "status": "forecast",
+     "issued_on": "2018-10-01",
+     "level_pct": 71,
+     "chance": 0.13,
+     "said": "1 in 10",
+     "outcome": false,
+     "outcome_date": null
+    },
+    "looks": [
+     [
+      "2018-07-13",
+      76
+     ],
+     [
+      "2018-07-29",
+      82
+     ],
+     [
+      "2018-08-14",
+      71
+     ],
+     [
+      "2018-08-30",
+      65
+     ],
+     [
+      "2018-10-01",
+      71
+     ],
+     [
+      "2018-11-02",
+      82
+     ],
+     [
+      "2018-11-18",
+      106
+     ],
+     [
+      "2018-12-04",
+      82
+     ],
+     [
+      "2018-12-28",
+      106
+     ],
+     [
+      "2019-01-05",
+      71
+     ],
+     [
+      "2019-01-21",
+      76
+     ],
+     [
+      "2019-01-29",
+      88
+     ],
+     [
+      "2019-02-22",
+      94
+     ],
+     [
+      "2019-03-10",
+      71
+     ],
+     [
+      "2019-03-26",
+      100
+     ],
+     [
+      "2019-04-03",
+      71
+     ],
+     [
+      "2019-04-11",
+      76
+     ],
+     [
+      "2019-04-19",
+      82
+     ],
+     [
+      "2019-04-27",
+      88
+     ],
+     [
+      "2019-05-05",
+      88
+     ],
+     [
+      "2019-05-21",
+      82
+     ],
+     [
+      "2019-06-22",
+      71
+     ],
+     [
+      "2019-06-30",
+      112
+     ],
+     [
+      "2019-07-16",
+      47
+     ],
+     [
+      "2019-08-01",
+      71
+     ],
+     [
+      "2019-08-17",
+      53
+     ],
+     [
+      "2019-08-25",
+      41
+     ],
+     [
+      "2019-09-02",
+      65
+     ],
+     [
+      "2019-09-10",
+      59
+     ],
+     [
+      "2019-09-18",
+      76
+     ],
+     [
+      "2019-09-26",
+      53
+     ]
+    ],
+    "forecasts": [
+     {
+      "date": "2018-07-13",
+      "chance": 0.03,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-07-29",
+      "chance": 0.035,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-08-14",
+      "chance": 0.071,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-08-30",
+      "chance": 0.114,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-10-01",
+      "chance": 0.13,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-02",
+      "chance": 0.08,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-18",
+      "chance": 0.043,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-12-04",
+      "chance": 0.049,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-12-28",
+      "chance": 0.024,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-05",
+      "chance": 0.057,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-21",
+      "chance": 0.045,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-29",
+      "chance": 0.037,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-02-22",
+      "chance": 0.02,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-10",
+      "chance": 0.026,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-26",
+      "chance": 0.015,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-03",
+      "chance": 0.015,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-11",
+      "chance": 0.013,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-19",
+      "chance": 0.013,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-27",
+      "chance": 0.011,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-05-05",
+      "chance": 0.012,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-05-21",
+      "chance": 0.013,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-22",
+      "chance": 0.021,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-30",
+      "chance": 0.012,
+      "fell": false,
+      "fell_on": null
+     }
+    ],
+    "falls": [],
+    "summary": "Dam 3: 23 forecasts from July 2018 to June 2019; the highest chance was 1 in 10 (1 Oct 2018). It did not fall below a third between July 2018 and September 2019; none of the 23 forecasts were followed by a fall within 90 days."
+   },
+   {
+    "dam_id": "nsw_cw-0406",
+    "name": "Dam 4",
+    "area_ha": 1.71,
+    "dea_uid": "r638whqgs_v3",
+    "rewind": {
+     "status": "forecast",
+     "issued_on": "2018-10-25",
+     "level_pct": 62,
+     "chance": 0.092,
+     "said": "1 in 10",
+     "outcome": false,
+     "outcome_date": null
+    },
+    "looks": [
+     [
+      "2018-07-13",
+      75
+     ],
+     [
+      "2018-07-21",
+      69
+     ],
+     [
+      "2018-07-29",
+      69
+     ],
+     [
+      "2018-08-14",
+      62
+     ],
+     [
+      "2018-08-30",
+      62
+     ],
+     [
+      "2018-09-23",
+      62
+     ],
+     [
+      "2018-10-01",
+      62
+     ],
+     [
+      "2018-10-25",
+      62
+     ],
+     [
+      "2018-11-02",
+      56
+     ],
+     [
+      "2018-11-10",
+      50
+     ],
+     [
+      "2018-11-18",
+      56
+     ],
+     [
+      "2018-11-26",
+      0
+     ],
+     [
+      "2018-12-04",
+      56
+     ],
+     [
+      "2018-12-28",
+      50
+     ],
+     [
+      "2019-01-05",
+      62
+     ],
+     [
+      "2019-01-13",
+      56
+     ],
+     [
+      "2019-01-21",
+      69
+     ],
+     [
+      "2019-01-29",
+      56
+     ],
+     [
+      "2019-02-06",
+      62
+     ],
+     [
+      "2019-02-14",
+      56
+     ],
+     [
+      "2019-02-22",
+      62
+     ],
+     [
+      "2019-03-10",
+      62
+     ],
+     [
+      "2019-03-26",
+      62
+     ],
+     [
+      "2019-04-03",
+      69
+     ],
+     [
+      "2019-04-19",
+      56
+     ],
+     [
+      "2019-04-27",
+      56
+     ],
+     [
+      "2019-05-05",
+      75
+     ],
+     [
+      "2019-06-22",
+      75
+     ],
+     [
+      "2019-06-30",
+      81
+     ],
+     [
+      "2019-07-24",
+      69
+     ],
+     [
+      "2019-08-01",
+      62
+     ],
+     [
+      "2019-08-17",
+      62
+     ],
+     [
+      "2019-08-25",
+      62
+     ],
+     [
+      "2019-09-02",
+      62
+     ],
+     [
+      "2019-09-18",
+      62
+     ],
+     [
+      "2019-09-26",
+      62
+     ]
+    ],
+    "forecasts": [
+     {
+      "date": "2018-07-13",
+      "chance": 0.022,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-07-21",
+      "chance": 0.029,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-07-29",
+      "chance": 0.031,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-08-14",
+      "chance": 0.059,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-08-30",
+      "chance": 0.074,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-09-23",
+      "chance": 0.104,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-10-01",
+      "chance": 0.102,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-10-25",
+      "chance": 0.092,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-02",
+      "chance": 0.117,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-10",
+      "chance": 0.149,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-18",
+      "chance": 0.132,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-12-04",
+      "chance": 0.147,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-12-28",
+      "chance": 0.132,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-05",
+      "chance": 0.088,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-13",
+      "chance": 0.101,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-21",
+      "chance": 0.063,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-29",
+      "chance": 0.086,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-02-06",
+      "chance": 0.06,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-02-14",
+      "chance": 0.075,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-02-22",
+      "chance": 0.047,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-10",
+      "chance": 0.036,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-26",
+      "chance": 0.035,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-03",
+      "chance": 0.022,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-19",
+      "chance": 0.031,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-27",
+      "chance": 0.034,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-05-05",
+      "chance": 0.021,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-22",
+      "chance": 0.02,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-30",
+      "chance": 0.021,
+      "fell": false,
+      "fell_on": null
+     }
+    ],
+    "falls": [],
+    "summary": "Dam 4: 28 forecasts from July 2018 to June 2019; the highest chance was 1 in 10 (10 Nov 2018). It did not fall below a third between July 2018 and September 2019; none of the 28 forecasts were followed by a fall within 90 days."
+   },
+   {
+    "dam_id": "nsw_cw-0410",
+    "name": "Dam 5",
+    "area_ha": 1.35,
+    "dea_uid": "r638ws8th_v3",
+    "rewind": {
+     "status": "forecast",
+     "issued_on": "2018-10-25",
+     "level_pct": 64,
+     "chance": 0.465,
+     "said": "5 in 10",
+     "outcome": true,
+     "outcome_date": "2019-01-05"
+    },
+    "looks": [
+     [
+      "2018-07-05",
+      27
+     ],
+     [
+      "2018-07-13",
+      27
+     ],
+     [
+      "2018-07-29",
+      27
+     ],
+     [
+      "2018-08-14",
+      18
+     ],
+     [
+      "2018-08-30",
+      27
+     ],
+     [
+      "2018-10-01",
+      27
+     ],
+     [
+      "2018-10-25",
+      64
+     ],
+     [
+      "2018-11-02",
+      55
+     ],
+     [
+      "2018-11-18",
+      64
+     ],
+     [
+      "2018-12-04",
+      91
+     ],
+     [
+      "2018-12-28",
+      45
+     ],
+     [
+      "2019-01-05",
+      18
+     ],
+     [
+      "2019-01-13",
+      18
+     ],
+     [
+      "2019-01-21",
+      0
+     ],
+     [
+      "2019-01-29",
+      55
+     ],
+     [
+      "2019-02-22",
+      64
+     ],
+     [
+      "2019-03-10",
+      45
+     ],
+     [
+      "2019-03-26",
+      73
+     ],
+     [
+      "2019-04-03",
+      91
+     ],
+     [
+      "2019-04-11",
+      0
+     ],
+     [
+      "2019-04-27",
+      55
+     ],
+     [
+      "2019-05-05",
+      64
+     ],
+     [
+      "2019-05-21",
+      64
+     ],
+     [
+      "2019-06-06",
+      91
+     ],
+     [
+      "2019-06-22",
+      82
+     ],
+     [
+      "2019-06-30",
+      64
+     ],
+     [
+      "2019-07-24",
+      27
+     ],
+     [
+      "2019-08-01",
+      64
+     ],
+     [
+      "2019-08-17",
+      45
+     ],
+     [
+      "2019-08-25",
+      36
+     ],
+     [
+      "2019-09-02",
+      64
+     ],
+     [
+      "2019-09-10",
+      64
+     ],
+     [
+      "2019-09-18",
+      73
+     ],
+     [
+      "2019-09-26",
+      45
+     ]
+    ],
+    "forecasts": [
+     {
+      "date": "2018-10-25",
+      "chance": 0.465,
+      "fell": true,
+      "fell_on": "2019-01-05"
+     },
+     {
+      "date": "2018-11-02",
+      "chance": 0.463,
+      "fell": true,
+      "fell_on": "2019-01-05"
+     },
+     {
+      "date": "2018-11-18",
+      "chance": 0.372,
+      "fell": true,
+      "fell_on": "2019-01-05"
+     },
+     {
+      "date": "2018-12-04",
+      "chance": 0.158,
+      "fell": true,
+      "fell_on": "2019-01-05"
+     },
+     {
+      "date": "2018-12-28",
+      "chance": 0.333,
+      "fell": true,
+      "fell_on": "2019-01-05"
+     },
+     {
+      "date": "2019-01-29",
+      "chance": 0.28,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-02-22",
+      "chance": 0.259,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-10",
+      "chance": 0.293,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-26",
+      "chance": 0.176,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-03",
+      "chance": 0.049,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-27",
+      "chance": 0.133,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-05-05",
+      "chance": 0.117,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-05-21",
+      "chance": 0.1,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-06",
+      "chance": 0.054,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-22",
+      "chance": 0.068,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-30",
+      "chance": 0.093,
+      "fell": false,
+      "fell_on": null
+     }
+    ],
+    "falls": [
+     "2019-01-05"
+    ],
+    "summary": "Dam 5: 16 forecasts from July 2018 to June 2019; the highest chance was 5 in 10 (25 Oct 2018). It fell below a third on 5 Jan 2019; 5 of the 16 forecasts were followed by a fall within 90 days."
+   },
+   {
+    "dam_id": "nsw_cw-0405",
+    "name": "Dam 6",
+    "area_ha": 0.9,
+    "dea_uid": "r638txj18_v3",
+    "rewind": {
+     "status": "forecast",
+     "issued_on": "2018-10-09",
+     "level_pct": 83,
+     "chance": 0.604,
+     "said": "6 in 10",
+     "outcome": false,
+     "outcome_date": null
+    },
+    "looks": [
+     [
+      "2018-07-05",
+      0
+     ],
+     [
+      "2018-07-13",
+      0
+     ],
+     [
+      "2018-07-29",
+      17
+     ],
+     [
+      "2018-08-14",
+      50
+     ],
+     [
+      "2018-08-30",
+      100
+     ],
+     [
+      "2018-10-01",
+      67
+     ],
+     [
+      "2018-10-09",
+      83
+     ],
+     [
+      "2018-11-02",
+      17
+     ],
+     [
+      "2018-11-18",
+      50
+     ],
+     [
+      "2018-11-26",
+      50
+     ],
+     [
+      "2018-12-04",
+      50
+     ],
+     [
+      "2018-12-28",
+      33
+     ],
+     [
+      "2019-01-05",
+      17
+     ],
+     [
+      "2019-01-21",
+      33
+     ],
+     [
+      "2019-01-29",
+      0
+     ],
+     [
+      "2019-02-06",
+      67
+     ],
+     [
+      "2019-02-14",
+      0
+     ],
+     [
+      "2019-02-22",
+      33
+     ],
+     [
+      "2019-03-10",
+      0
+     ],
+     [
+      "2019-03-26",
+      50
+     ],
+     [
+      "2019-04-03",
+      0
+     ],
+     [
+      "2019-04-11",
+      0
+     ],
+     [
+      "2019-04-19",
+      0
+     ],
+     [
+      "2019-04-27",
+      0
+     ],
+     [
+      "2019-05-05",
+      0
+     ],
+     [
+      "2019-05-21",
+      0
+     ],
+     [
+      "2019-06-22",
+      0
+     ],
+     [
+      "2019-06-30",
+      0
+     ],
+     [
+      "2019-08-01",
+      17
+     ],
+     [
+      "2019-08-17",
+      0
+     ],
+     [
+      "2019-08-25",
+      0
+     ],
+     [
+      "2019-09-02",
+      0
+     ],
+     [
+      "2019-09-10",
+      0
+     ],
+     [
+      "2019-09-18",
+      17
+     ],
+     [
+      "2019-09-26",
+      0
+     ]
+    ],
+    "forecasts": [
+     {
+      "date": "2018-08-14",
+      "chance": 0.254,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-08-30",
+      "chance": 0.594,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-10-01",
+      "chance": 0.586,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-10-09",
+      "chance": 0.604,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-18",
+      "chance": 0.62,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-26",
+      "chance": 0.596,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-12-04",
+      "chance": 0.634,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-12-28",
+      "chance": 0.59,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-21",
+      "chance": 0.616,
+      "fell": true,
+      "fell_on": "2019-04-03"
+     },
+     {
+      "date": "2019-02-06",
+      "chance": 0.62,
+      "fell": true,
+      "fell_on": "2019-04-03"
+     },
+     {
+      "date": "2019-02-22",
+      "chance": 0.565,
+      "fell": true,
+      "fell_on": "2019-04-03"
+     },
+     {
+      "date": "2019-03-26",
+      "chance": 0.348,
+      "fell": true,
+      "fell_on": "2019-04-03"
+     }
+    ],
+    "falls": [
+     "2019-04-03"
+    ],
+    "summary": "Dam 6: 12 forecasts from July 2018 to June 2019; the highest chance was 6 in 10 (4 Dec 2018). It fell below a third on 3 Apr 2019; 4 of the 12 forecasts were followed by a fall within 90 days."
+   },
+   {
+    "dam_id": "nsw_cw-0411",
+    "name": "Dam 7",
+    "area_ha": 0.72,
+    "dea_uid": "r638yccms_v3",
+    "rewind": {
+     "status": "forecast",
+     "issued_on": "2018-10-25",
+     "level_pct": 80,
+     "chance": 0.583,
+     "said": "6 in 10",
+     "outcome": false,
+     "outcome_date": null
+    },
+    "looks": [
+     [
+      "2018-07-05",
+      80
+     ],
+     [
+      "2018-07-13",
+      60
+     ],
+     [
+      "2018-07-21",
+      60
+     ],
+     [
+      "2018-07-29",
+      60
+     ],
+     [
+      "2018-08-14",
+      60
+     ],
+     [
+      "2018-08-22",
+      0
+     ],
+     [
+      "2018-08-30",
+      60
+     ],
+     [
+      "2018-09-15",
+      0
+     ],
+     [
+      "2018-09-23",
+      80
+     ],
+     [
+      "2018-10-01",
+      60
+     ],
+     [
+      "2018-10-25",
+      80
+     ],
+     [
+      "2018-11-02",
+      80
+     ],
+     [
+      "2018-11-10",
+      100
+     ],
+     [
+      "2018-11-18",
+      60
+     ],
+     [
+      "2018-11-26",
+      60
+     ],
+     [
+      "2018-12-04",
+      100
+     ],
+     [
+      "2019-01-05",
+      80
+     ],
+     [
+      "2019-01-13",
+      60
+     ],
+     [
+      "2019-01-21",
+      100
+     ],
+     [
+      "2019-01-29",
+      80
+     ],
+     [
+      "2019-02-14",
+      60
+     ],
+     [
+      "2019-02-22",
+      100
+     ],
+     [
+      "2019-03-10",
+      80
+     ],
+     [
+      "2019-03-26",
+      100
+     ],
+     [
+      "2019-04-03",
+      80
+     ],
+     [
+      "2019-04-11",
+      60
+     ],
+     [
+      "2019-04-19",
+      80
+     ],
+     [
+      "2019-04-27",
+      100
+     ],
+     [
+      "2019-05-05",
+      120
+     ],
+     [
+      "2019-06-06",
+      120
+     ],
+     [
+      "2019-06-30",
+      80
+     ],
+     [
+      "2019-07-24",
+      120
+     ],
+     [
+      "2019-08-01",
+      80
+     ],
+     [
+      "2019-08-17",
+      80
+     ],
+     [
+      "2019-09-02",
+      80
+     ],
+     [
+      "2019-09-18",
+      100
+     ],
+     [
+      "2019-09-26",
+      80
+     ]
+    ],
+    "forecasts": [
+     {
+      "date": "2018-07-05",
+      "chance": 0.249,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-07-13",
+      "chance": 0.331,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-07-21",
+      "chance": 0.36,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-07-29",
+      "chance": 0.407,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-08-14",
+      "chance": 0.493,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-08-30",
+      "chance": 0.607,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-09-23",
+      "chance": 0.616,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-10-01",
+      "chance": 0.68,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-10-25",
+      "chance": 0.583,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-02",
+      "chance": 0.537,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-10",
+      "chance": 0.379,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-18",
+      "chance": 0.489,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-11-26",
+      "chance": 0.506,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2018-12-04",
+      "chance": 0.361,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-05",
+      "chance": 0.396,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-13",
+      "chance": 0.45,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-21",
+      "chance": 0.266,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-01-29",
+      "chance": 0.321,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-02-14",
+      "chance": 0.349,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-02-22",
+      "chance": 0.192,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-10",
+      "chance": 0.198,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-03-26",
+      "chance": 0.127,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-03",
+      "chance": 0.072,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-11",
+      "chance": 0.095,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-19",
+      "chance": 0.071,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-04-27",
+      "chance": 0.049,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-05-05",
+      "chance": 0.036,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-06",
+      "chance": 0.031,
+      "fell": false,
+      "fell_on": null
+     },
+     {
+      "date": "2019-06-30",
+      "chance": 0.063,
+      "fell": false,
+      "fell_on": null
+     }
+    ],
+    "falls": [],
+    "summary": "Dam 7: 29 forecasts from July 2018 to June 2019; the highest chance was 7 in 10 (1 Oct 2018). It did not fall below a third between July 2018 and September 2019; none of the 29 forecasts were followed by a fall within 90 days."
+   }
+  ]
+ },
+ "sources": {
+  "forecasts": "data_cache/preds/TEST/tidemark/L3_p1.pkl (scripts/13; fingerprint e167b410c951ff80, as scored by scripts/15)",
+  "usual_rate": "data_cache/preds/TEST/P1_R30/baselines_dam_like.pkl (B0: the usual rate for the region and month, fitted before July 2016)",
+  "answers": "data_cache/features/p1_keys.pkl (the PREREG R30 labels)",
+  "test_results": "artifacts/test_results.json (scripts/15): the totals here equal it; the promise by year is copied from it",
+  "rain": "data_cache/silo_rain.pkl (SILO monthly rainfall, Queensland Government, CC BY 4.0)",
+  "farm": "app/data/real/farms.json (scripts/16) and app/data/real/forecasts.json (Rewind, scripts/11)"
+ },
+ "checks": {
+  "equal_to_test_results": [
+   {
+    "what": "forecasts scored",
+    "value": 142938
+   },
+   {
+    "what": "fell below a third",
+    "value": 29415
+   },
+   {
+    "what": "dams",
+    "value": 1644
+   },
+   {
+    "what": "average chance given",
+    "value": 0.21629
+   },
+   {
+    "what": "share that fell",
+    "value": 0.20579
+   },
+   {
+    "what": "skill against the usual rate (BSS vs B0)",
+    "value": 0.23501
+   }
+  ],
+  "ledger": "nothing scored on the TEST ledger"
+ }
+}

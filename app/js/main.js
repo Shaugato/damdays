@@ -1,17 +1,17 @@
 /* main.js
  * Starts the app: loads the data, shows the MOCK banner if needed, and
- * switches between the five views when a tab is clicked.
+ * switches between the six views when a tab is clicked.
  *
  * How the views work: each view file (js/views/*.js) has init(data), run once
  * the first time the view is opened, and show(), run every time it is opened.
- * The address bar keeps the view name (#farm, #runway, #rewind, #rating, #about),
+ * The address bar keeps the view name (#farm, #runway, #rewind, #proof, #rating, #about),
  * so a link can open a view directly and the browser's back button works.
  * My farm (#farm) opens first: the weekly text is the farmer product.
  */
 (function () {
   "use strict";
 
-  const VIEW_NAMES = ["farm", "runway", "rewind", "rating", "about"];
+  const VIEW_NAMES = ["farm", "runway", "rewind", "proof", "rating", "about"];
   const started = new Set();   // views whose init() has already run
   let data = null;
 

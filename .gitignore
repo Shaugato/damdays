@@ -7,3 +7,9 @@ artifacts/tmp/
 *.npz
 !app/public/**/*.json
 .env
+
+# Demo video renders (big media, kept out of git)
+video/out/
+
+# Draft video pipeline (kept local until the video is made, after the platform is final)
+video/
