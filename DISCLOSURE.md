@@ -29,7 +29,4 @@ Before 09:00 Fri 2 Oct 2026 we did the following:
   - Claude research agents, for pre-event research and benchmarking.
 
 ## Team
-- Shaugato Paroi: builder (end to end).
-- [Teammate 1]: fact-checking of the pitch figures.
-- [Teammate 2]: buyer interview questions and outreach list.
-- [Teammate 3]: video and pitch review.
+Built by the DamDays team for Climate Hack-tion 2026: Shaugato Paroi, [Teammate 1], [Teammate 2] and [Teammate 3] (names as registered on the Junction submission). The AI tools used are listed under "Tools" above.

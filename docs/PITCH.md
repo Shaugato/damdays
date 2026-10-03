@@ -37,7 +37,7 @@ DamDays texts family sheep and cattle farmers once a week with how many days of 
 
 ## 5. Team members and roles
 
-[Copy from [DISCLOSURE.md](../DISCLOSURE.md), "Team", once the names are filled in.] Shaugato Paroi built DamDays end to end (data, models, weekly text, app, validation).
+[Copy from [DISCLOSURE.md](../DISCLOSURE.md), "Team", once the names are filled in.] Built by the DamDays team: Shaugato Paroi, [Teammate 1], [Teammate 2] and [Teammate 3]. Tools, including the AI coding assistant, are listed in DISCLOSURE.md.
 
 ## 6. Problem and target user
 
@@ -200,4 +200,4 @@ See [DISCLOSURE.md](../DISCLOSURE.md): datasets (DEA Waterbodies v3, Geoscience 
 - [ ] Track wording: check it against the Junction form. If the form words the goal differently from the Participant Guide, use the form's words.
 - [ ] Every link opens without asking for access (the Participant Guide's quality check).
 - [ ] No DamDays pricing and no names of prospective customers: the repository is public. (Other tools, with their public prices, are named in WHAT_EXISTS.md on purpose: a mentor asked what already exists.)
-- [ ] [DISCLOSURE.md](../DISCLOSURE.md): fill in the screenshot link, the team roles and the video tool.
+- [ ] [DISCLOSURE.md](../DISCLOSURE.md): fill in the screenshot link, the teammates' names and the video tool.
