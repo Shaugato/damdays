@@ -18,3 +18,91 @@
 [19:08:11 + 0.0 min]   physics: data_cache/features/physics_params.pkl (0.0 MB) SHA-256 62a5d21dec91c3e6132662ef561eb95e14586f040a26eb0f99780d5e09600263
 [19:08:11 + 0.0 min] manifest written: D:\Climate Hack-tion 2026\damdays\artifacts\sealed_models_manifest.json
 [19:08:11 + 0.0 min] NEXT: commit and push this manifest with the freeze addendum, before 17:30.
+[09:19:52 + 0.0 min] scripts/20_open_sealed_region.py --open (run 'sealed')
+[09:19:52 + 0.0 min] THE SEALED-REGION OPENING (PREREG 'Sealed region protocol'): scored once, on the real TEST ledger
+[09:19:52 + 0.0 min] === 1. checks before touching the region ===
+[09:19:52 + 0.0 min] check 1: the unlock switch
+[09:19:52 + 0.0 min]   DAMDAYS_OPEN_SEALED=yes
+[09:19:52 + 0.0 min] check 2: git is clean and HEAD is pushed (read-only git)
+[09:19:53 + 0.0 min]   clean; HEAD 25957b620996 is on the remote (live: git ls-remote origin main)
+[09:19:53 + 0.0 min] check 3: the hash list committed at the start of the event (SEALED_HASHES.csv, read from git)
+[09:19:54 + 0.0 min]   4,711 files listed; committed once, in e0e9b0b0a450 at 2026-10-02 09:12:19 +1000; unchanged since
+[09:19:54 + 0.0 min] check 4: SHA-256 of every sealed file in D:\Climate Hack-tion 2026\research\pre_event\dea_sealed\ts
+[09:20:06 + 0.2 min]   hashed 1,000 of 4,711 files
+[09:20:19 + 0.4 min]   hashed 2,000 of 4,711 files
+[09:20:31 + 0.6 min]   hashed 3,000 of 4,711 files
+[09:20:43 + 0.8 min]   hashed 4,000 of 4,711 files
+[09:20:51 + 1.0 min]   100% match: 4,711 of 4,711 files, none missing, none extra (57.5 s)
+[09:20:51 + 1.0 min] === 1. checks before touching the region: done in 1.0 min ===
+[09:20:51 + 1.0 min] === 2. the frozen TEST-setting models and the freeze addendum ===
+[09:20:51 + 1.0 min]   tidemark: data_cache/models/TEST/tidemark_L3.pkl SHA-256 cc86a5753dde2e38... matches the manifest
+[09:20:51 + 1.0 min]   g2: data_cache/models/TEST/g2.pkl SHA-256 e6a64fca6d0292fa... matches the manifest
+[09:20:51 + 1.0 min]   physics: data_cache/features/physics_params.pkl SHA-256 62a5d21dec91c3e6... matches the manifest
+[09:20:51 + 1.0 min]   rung L3, fitted on ['nsw_cw', 'wvic_sesa'] at 2016-07-01; evaporation shape sealed_sdowns_newengland:5.4,4.8,4.1,3.0,2.0,1.5,1.7,2.5,3.6,4.5,5.1,5.4 (SHA-256 f886f4190d19b044...)
+[09:20:52 + 1.0 min]   the evaporation SHA-256 is quoted in ['PREREG_ADDENDUM_1.md']
+[09:20:52 + 1.0 min]   config hash of the code being run: 7d466291008d; quoted in ['PREREG_ADDENDUM_1.md', 'PREREG_ADDENDUM_2.md']
+[09:20:52 + 1.0 min] === 2. the frozen TEST-setting models and the freeze addendum: done in 0.0 min ===
+[09:20:52 + 1.0 min] === 3. build sealed_sdowns_newengland from raw files ===
+[09:20:52 + 1.0 min] building sealed_sdowns_newengland from its raw files (data layer, then features, physics, months)
+[09:20:52 + 1.0 min]   manifest lists exactly the 4,711 verified time-series files
+[09:20:52 + 1.0 min]   manifest: 4,711 waterbodies, every time-series file present
+[09:21:19 + 1.4 min]   panel: 4,206,511 valid looks, 1986-08-22 to 2026-09-15 (27 s)
+[09:21:26 + 1.6 min]   attributes: 4,605 with history, 2,008 dam-like, 1,536 persistent (flags from the region's own pre-2016 looks)
+[09:21:32 + 1.7 min]   events: 126,982; SILO cells: 1,742 (41 s)
+[09:26:38 + 6.8 min]   features: 2,805,625 P1 issues, 174,990 P2 dam-seasons, 62,358 P2 cell-seasons (306 s)
+[09:29:57 +10.1 min]   physics: 2,574,730 issues simulated with the given balance and the sealed_sdowns_newengland evaporation shape (505 s)
+[09:30:00 +10.1 min]   P2 area index and the nets' monthly history (508 s)
+[09:30:06 +10.2 min] tables saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed\region
+[09:30:07 +10.2 min]   4,711 waterbodies; 4,605 with history; 2,008 dam-like; 1,536 persistent; TEST issues 1,042,022; last look 2026-09-15
+[09:30:07 +10.2 min] === 3. build sealed_sdowns_newengland from raw files: done in 9.2 min ===
+[09:30:07 +10.2 min] === 4. forecasts with the frozen models ===
+[09:30:07 +10.2 min] Tidemark rung L3: predict_tidemark on 2,805,625 issues (every member predicts each dam's earlier issues too: the frailty needs them)
+[09:30:42 +10.8 min]     nets: net inputs prepared for a P1 table of 2805625 rows
+[09:31:37 +11.7 min]     nets: S seed 0 (cutoff 2016-07-01): predicted 2218374 rows in 54 s
+[09:32:35 +12.7 min]     nets: S seed 1 (cutoff 2016-07-01): predicted 2218374 rows in 57 s
+[09:33:34 +13.7 min]     nets: S seed 2 (cutoff 2016-07-01): predicted 2218374 rows in 57 s
+[09:33:39 +13.8 min]     nets: M seed 0 (cutoff 2016-07-01): predicted 2218374 rows in 3 s
+[09:33:43 +13.8 min]     nets: M seed 1 (cutoff 2016-07-01): predicted 2218374 rows in 3 s
+[09:33:48 +13.9 min]     nets: M seed 2 (cutoff 2016-07-01): predicted 2218374 rows in 3 s
+[09:34:50 +15.0 min]     nets: S seed 0 (cutoff 2016-07-01): predicted 554431 rows in 14 s
+[09:35:05 +15.2 min]     nets: S seed 1 (cutoff 2016-07-01): predicted 554431 rows in 14 s
+[09:35:19 +15.4 min]     nets: S seed 2 (cutoff 2016-07-01): predicted 554431 rows in 14 s
+[09:35:21 +15.5 min]     nets: M seed 0 (cutoff 2016-07-01): predicted 554431 rows in 1 s
+[09:35:22 +15.5 min]     nets: M seed 1 (cutoff 2016-07-01): predicted 554431 rows in 1 s
+[09:35:23 +15.5 min]     nets: M seed 2 (cutoff 2016-07-01): predicted 554431 rows in 1 s
+[09:38:23 +18.5 min] G2: R30, D0, D0g
+[09:39:08 +19.3 min] forecasts saved to D:\Climate Hack-tion 2026\damdays\data_cache\sealed\forecasts\forecasts.pkl
+[09:39:08 +19.3 min] === 4. forecasts with the frozen models: done in 9.0 min ===
+[09:39:08 +19.3 min] === 5. score once (shared scorecard, ledger test_ledger.csv) ===
+[09:39:08 +19.3 min] P1 (G2, then Tidemark with G2 as reference)
+[09:44:06 +24.2 min]   P1_R30 primary, BSS vs B0: Tidemark +0.1833, G2 +0.1718
+[09:50:25 +30.5 min]   P1_D0 primary, BSS vs B0: Tidemark +0.1731, G2 +0.1494
+[09:56:33 +36.7 min]   P1_D0g primary, BSS vs B0: Tidemark +0.1684, G2 +0.1418
+[09:56:33 +36.7 min] runway curve
+[10:03:57 +44.1 min]   R30 curve primary, BSS vs B0_h: 30 d +0.088, 60 d +0.145, 90 d +0.176, 180 d +0.197
+[10:13:40 +53.8 min]   D0 curve primary, BSS vs B0_h: 30 d +0.076, 60 d +0.127, 90 d +0.158, 180 d +0.182
+[10:13:40 +53.8 min] P2 season rating (RAIN, RAIN+, B2, then Tidemark)
+[10:14:19 +54.4 min]   P2_cell: Tidemark AUC 0.8091; AUC gain over RAIN +0.2693, RAIN+ +0.2450, B2 +0.0349
+[10:15:05 +55.2 min]   P2_dam: Tidemark AUC 0.7898; AUC gain over RAIN +0.2499, RAIN+ +0.2374, B2 +0.0355
+[10:15:50 +56.0 min]   P2_dam_g: Tidemark AUC 0.7843; AUC gain over RAIN +0.2410, RAIN+ +0.2094, B2 +0.0372
+[10:15:50 +56.0 min] season band and DamDays floor
+[10:15:52 +56.0 min]   season band (pooled), region-years covered: R30 10/10, D0 10/10, D0g 10/10; single-block: R30 8/10, D0 7/10, D0g 7/10
+[10:16:04 +56.2 min]   DamDays floor held: 0.882 (all), 0.904 (primary set); target 0.90
+[10:16:04 +56.2 min] === 5. score once (shared scorecard, ledger test_ledger.csv): done in 36.9 min ===
+[10:16:04 +56.2 min] === 6. results page ===
+[10:16:04 +56.2 min] === 6. results page: done in 0.0 min ===
+[10:16:04 +56.2 min] results: D:\Climate Hack-tion 2026\damdays\artifacts\sealed\SEALED_RESULTS.md
+[10:16:04 +56.2 min] P1 pass bars (R30 primary): Tidemark PASS, G2 PASS
+[10:16:04 +56.2 min] P2 pass bar (cell): PASS; kill rule not triggered
+[10:16:04 +56.2 min] expectation R30 BSS vs B0: got +0.183 (declared +0.15 to +0.23): inside
+[10:16:04 +56.2 min] expectation R30 BSS vs B2: got +0.123 (declared +0.08 to +0.15): inside
+[10:16:04 +56.2 min] expectation R30 calibration slope: got +1.016 (declared +0.90 to +1.25): inside
+[10:16:04 +56.2 min] expectation R30 CITL: got -0.072 (declared -0.30 to +0.30): inside
+[10:16:04 +56.2 min] expectation R30 Tidemark minus G2 (BSS vs B0 units): got +0.012 (declared +0.01 to +0.03): inside
+[10:16:04 +56.2 min] expectation P2 cell AUC gain over RAIN: got +0.269 (declared +0.15 to +0.30): inside
+[10:16:04 +56.2 min] time: 1. checks before touching the region: 1.0 min
+[10:16:04 +56.2 min] time: 2. the frozen TEST-setting models and the freeze addendum: 0.0 min
+[10:16:04 +56.2 min] time: 3. build sealed_sdowns_newengland from raw files: 9.2 min
+[10:16:04 +56.2 min] time: 4. forecasts with the frozen models: 9.0 min
+[10:16:04 +56.2 min] time: 5. score once (shared scorecard, ledger test_ledger.csv): 36.9 min
+[10:16:04 +56.2 min] time: total 56.2 min
