@@ -94,7 +94,9 @@ async function saveShell() {
 
 self.addEventListener("install", (event) => {
   event.waitUntil(Promise.all([saveShell(), addMissing(DATA_CACHE, precacheUrls())]));
-  // No skipWaiting() here: an update waits until the page says "Refresh" (message SKIP_WAITING).
+  // A new version takes over as soon as it is saved: forecasts and results change between visits, and
+  // nobody should be shown last week's numbers. The page reloads once when it does (js/pwa.js).
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
