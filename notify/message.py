@@ -6,7 +6,7 @@
                                          over the last 10 years (how often our days-left number
                                          held; never in the SMS)
 
-The words follow a mentor who grew up on farms (mentor feedback, Fri 2 Oct 2026):
+The words follow mentor feedback (Fri 2 Oct 2026):
 
 * "%" only ever means HOW FULL a dam is: "~45% full", at its latest satellite look, against
   the dam's own full level (the share of its usual full water surface that is wet, not depth).
@@ -41,6 +41,10 @@ RECENT_LOOK_DAYS = 60     # a satellite look older than this (on the day the tex
 CLOSE = "Reply MAP"       # replying MAP would send a link to the farm's map in the app
 MAP_LINK = "[map link]"   # placeholder for the farm's link in the app (long text)
 NO_WATER_SEEN = "no water seen"   # a dam at 0%: the satellite saw no water at its last clear look (never "dry")
+# The day the farm's dams were last seen (the farm's latest clear satellite look). The SMS's first line says
+# "Fri 2 Oct (dams seen 13 Sep)", not "(satellite 13 Sep)": a farmer reads "satellite" there as jargon.
+# The long text says it in full: "dams seen from space on 13 Sep".
+SEEN = "dams seen"
 TRACK_RECORD_MIN = 5      # a dam's track record is shown only with at least this many judged past forecasts
 TRACK_RECORD_YEARS = "2016-2026"   # the July-June years the track record counts (scripts/18_track_record.py)
 TRACK_RECORD_SPAN = "the last 10 years"   # the same years, in the words the farmer reads
@@ -298,16 +302,16 @@ def close_text(dams_left_out):
 def sms_for_dams(dams, today, radius_km=DEFAULT_RADIUS_KM):
     """The SMS for a farm's dams (see weekly_text).
 
-    Line 1 is the date, then the farm's latest satellite look. If the whole text does not fit one SMS:
-    first the satellite date is left out; then lines are left out from the end (the least
-    important first, never the first line) and the last line says how many dams were left
-    out: "Reply MAP for 2 more dams".
+    Line 1 is the date, then the day the farm's dams were last seen (its latest clear satellite look):
+    "Fri 2 Oct (dams seen 13 Sep)". If the whole text does not fit one SMS: first the "dams seen" date
+    is left out; then lines are left out from the end (the least important first, never the first
+    line) and the last line says how many dams were left out: "Reply MAP for 2 more dams".
     """
     today = as_date(today)
     look = latest_look(dams, today)
     headers = [date_text(today)]
     if look is not None:
-        headers.insert(0, f"{date_text(today)} (satellite {short_date(look)})")
+        headers.insert(0, f"{date_text(today)} ({SEEN} {short_date(look)})")
     items = sms_items(dams, today, radius_km)
     for keep in range(len(items), 0, -1):
         left_out = sum(n for _, n in items[keep:])
@@ -436,7 +440,7 @@ def long_for_dams(dams, today, farm_label="Your farm", radius_km=DEFAULT_RADIUS_
 
     count = f"{len(dams)} dam{'' if len(dams) == 1 else 's'} the satellites can see"
     look = latest_look(dams, today)
-    seen = f"latest satellite look {short_date(look)}" if look else \
+    seen = f"{SEEN} from space on {short_date(look)}" if look else \
         f"no clear satellite look in the last {RECENT_LOOK_DAYS} days"
     lines = [opening + f"{count} within {km_text(radius_km)} km of the homestead; {seen}."]
 

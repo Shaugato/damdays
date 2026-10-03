@@ -220,7 +220,7 @@ DamDays.farm = (function () {
     const dams = state.dams;
     const look = latestLook(dams);
     const day = txt().dateText(state.textDate);
-    const chip = look ? '<span class="chip">' + icon("i-sat") + "Satellite " + esc(short(look)) + " · text of " + esc(day) + "</span>" : "";
+    const chip = look ? '<span class="chip">' + icon("i-sat") + "Dams seen " + esc(short(look)) + " · text of " + esc(day) + "</span>" : "";
     if (!dams.length) {
       return '<div class="headline is-empty"><p class="eyebrow">No dams in the circle</p>' +
         '<p class="who">No dams the satellites can see within ' + esc(state.radiusKm) + " km of this point.</p>" +

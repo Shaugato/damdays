@@ -79,8 +79,9 @@ PASS_MARKS = [  # key, what it measures (README table), the bar, a short name, h
          short="beating each dam's own record", miss="the mark for beating each dam's own record"),
     dict(key="cal_slope", what="Farmer forecast: calibration slope (1.0 = chances exactly as spread out as the "
                                "outcomes)", bar="0.8 to 1.2", short="calibration", miss="the calibration mark"),
-    dict(key="p2_cell", what="Lender rating: ranking gain over rainfall-only (AUC, 2 km patches)",
-         bar="+0.05 or more, 95% range above 0", short="lender rating", miss="the lender-rating mark"),
+    dict(key="p2_cell", what="Area outlook (the pre-registered lender rating): ranking gain over rainfall-only (AUC, "
+                            "2 km patches)",
+         bar="+0.05 or more, 95% range above 0", short="Area outlook", miss="the Area outlook mark"),
 ]
 EXPECTATION_WORDS = {  # damdays/sealed/scoring.py EXPECTATIONS labels, in plain words
     "R30 BSS vs B0": "Skill against the usual rate",
@@ -88,7 +89,7 @@ EXPECTATION_WORDS = {  # damdays/sealed/scoring.py EXPECTATIONS labels, in plain
     "R30 calibration slope": "Calibration slope",
     "R30 CITL": "Calibration-in-the-large (0 = right on average)",
     "R30 Tidemark minus G2 (BSS vs B0 units)": "Gain over the benchmark G2",
-    "P2 cell AUC gain over RAIN": "Lender rating: gain over rainfall-only (AUC)",
+    "P2 cell AUC gain over RAIN": "Area outlook: gain over rainfall-only (AUC)",
 }
 
 # ---------------------------------------------------------------------------
@@ -342,7 +343,7 @@ def outcome_words(f):
 
 
 def missed(f):
-    """"the calibration mark and the lender-rating mark"."""
+    """"the calibration mark and the Area outlook mark"."""
     names = [m["miss"] for m in f["marks"] if not m["passed"]]
     if len(names) <= 1:
         return "".join(names)
@@ -404,16 +405,16 @@ def expectations_sentence(f):
 
 
 def lender_words(f, short=False):
-    """The lender rating against rainfall alone, as "N times in 10" (or the kill rule)."""
+    """The Area outlook (the pre-registered lender rating) against rainfall alone, as "N times in 10" (or the kill rule)."""
     p2 = f["p2"]
     if p2["auc"] is None or p2["rain_auc"] is None:
-        return "the lender rating was not scored"
+        return "the Area outlook was not scored"
     if f["kill"]:
-        return "the lender rating did no better than rainfall alone, so the lender claim is dropped"
-    words = (f"the lender rating picked the right 2 km patch {in_ten(p2['auc'])} times in 10, against "
+        return "the Area outlook did no better than rainfall alone, so the lender claim is dropped"
+    words = (f"the Area outlook picked the right 2 km patch {in_ten(p2['auc'])} times in 10, against "
              f"{in_ten(p2['rain_auc'])} in 10 for rainfall alone")
     if short:
-        words = (f"lender rating: the right 2 km patch {in_ten(p2['auc'])} times in 10 · rainfall "
+        words = (f"Area outlook: the right 2 km patch {in_ten(p2['auc'])} times in 10 · rainfall "
                  f"{in_ten(p2['rain_auc'])} in 10")
     return words + ("" if p2["passed"] or short else ", short of our mark")
 
@@ -442,7 +443,7 @@ def readme_main(f, now):
                      f"chance {in_ten(p1['auc'])} times in 10 (AUC {p1['auc']:.2f}).")
         if p1["mean_p"] is not None and p1["base_rate"] is not None:
             line += f" Average chance given {p1['mean_p']:.2f}; share that fell below a third {p1['base_rate']:.2f}."
-        line += (f" {count(p1['rows'])} forecasts made October to March for {count(p1['dams'])} farm-like dams; "
+        line += (f" {count(p1['rows'])} forecasts made October to March for {count(p1['dams'])} dam-sized waterbodies that look and behave like farm dams; "
                  f"{count(p1['events'])} fell below a third.")
         lines.append(line)
     expected_gain = next((e for e in f["expectations"] if "minus G2" in e["expectation"]), None)
@@ -467,7 +468,7 @@ def readme_main(f, now):
         if not fl["on_target"] and 88.0 <= round(fl["coverage"] * 100, 1) <= 92.0:
             verdict = "just " + verdict.replace(": here", ", at the very edge: by the test's exact check it is just "
                                                          "outside the range, and here", 1)
-        line = (f"- **The DamDays number** (\"at least N days above a third, 9 times in 10\"): held for "
+        line = (f"- **The DamDays floor, the cautious days** (\"at least N days above a third, 9 times in 10\"): held for "
                 f"{pct(fl['coverage'])} of {count(fl['n'])} forecasts, {verdict} (the target is {pct(fl['target'], 0)}, "
                 "and 88% to 92% counts as on target" + (f"; development test years: {pct(dev['floor'])}" if dev else "")
                 + ")")
@@ -476,13 +477,15 @@ def readme_main(f, now):
             line += f". Worst year: July {year} to June {year + 1}, {pct(fl['worst']['coverage'])}"
         lines.append(line + ".")
     if p2["auc"] is not None and p2["rain_auc"] is not None:
-        line = (f"- **Lender rating** (will every farm dam in a 2 km patch run dry between October and March?): shown a "
-                f"patch that ran dry and one that did not, it picked the right one {in_ten(p2['auc'])} times in 10 "
+        line = (f"- **Area outlook**, the pre-registered lender rating, set aside (will every dam the satellites can see in "
+                f"a 2 km patch fall to no water seen, ~0% full, between October and March?): shown a patch whose dams "
+                f"did and one whose dams did not, it picked the right one {in_ten(p2['auc'])} times in 10 "
                 f"(AUC {p2['auc']:.2f}), against {in_ten(p2['rain_auc'])} in 10 for rainfall alone "
                 f"({p2['rain_auc']:.2f}; a coin toss is 5 in 10)")
         if dev:
             line += f"; development test years {dev['rating_auc']:.2f} against {dev['rain_auc']:.2f}"
-        line += f". {count(p2['cells'])} patch-seasons rated on 1 July 2016 to 2025; {count(p2['dry'])} ran dry. "
+        line += (f". {count(p2['cells'])} patch-seasons rated on 1 July 2016 to 2025; in {count(p2['dry'])}, every dam "
+                 "fell to ~0% full. ")
         if f["kill"]:
             line += (f"**Kill rule triggered**: rainfall alone came within 0.02 of the rating (gain {num(p2['gain'])}). "
                      "As pre-registered, the lender claim is dropped and DamDays is pitched as the farmer forecast alone.")
@@ -532,13 +535,13 @@ def readme_main(f, now):
                    "forecasts were scored.")
     lines += [opened.rstrip(), ""]
 
-    lines += ["**Pass marks** (written before any code: [PREREG.md](PREREG.md), \"Pass bars\"):", "",
+    lines += ["**Pass marks** (written before the build began: [PREREG.md](PREREG.md), \"Pass bars\"):", "",
               "| pass mark | bar | DamDays (Tidemark) | benchmark G2 |", "|---|---|---|---|"]
     for m in f["marks"]:
         digits, sign = (2, False) if m["key"] == "cal_slope" else (3, True)
         tm = f"{num(m['value'], digits, sign)}{bracket(m['ci'], digits, sign) if m['key'] != 'cal_slope' else ''} " \
              f"**{'PASS' if m['passed'] else 'FAIL'}**"
-        g2 = ("(G2 has no lender rating)" if m["key"] == "p2_cell" else
+        g2 = ("(G2 has no Area outlook)" if m["key"] == "p2_cell" else
               f"{num(m['g2_value'], digits, sign)} **{'PASS' if m['g2_passed'] else 'FAIL'}**")
         lines.append(f"| {m['what']} | {m['bar']} | {tm} | {g2} |")
     lines.append(f"| Kill rule: rainfall-only within 0.02 of the rating | must not trigger | "
@@ -573,14 +576,14 @@ def pitch_sentence(f):
     skill = skill_words(f["p1"]["bss_B0"])
     lender = lender_words(f)
     if f["outcome"] == "pass":
-        text = f"DamDays met all {f['n_marks']} pass marks we wrote before any code: {skill}, and {lender}"
+        text = f"DamDays met all {f['n_marks']} pass marks we wrote before the build began: {skill}, and {lender}"
     elif f["outcome"] == "partial":
         shorts = [m["short"] for m in f["marks"] if not m["passed"]]
         misses = shorts[0] if len(shorts) == 1 else ", ".join(shorts[:-1]) + " and " + shorts[-1]
-        text = (f"DamDays met {f['n_met']} of the {f['n_marks']} pass marks we wrote before any code (missed: "
+        text = (f"DamDays met {f['n_met']} of the {f['n_marks']} pass marks we wrote before the build began (missed: "
                 f"{misses}): {skill}, and {lender}")
     else:
-        text = f"DamDays met none of the {f['n_marks']} pass marks we wrote before any code ({skill}, and {lender})"
+        text = f"DamDays met none of the {f['n_marks']} pass marks we wrote before the build began ({skill}, and {lender})"
     if f["versus_g2"] == "level":
         text += "; it did not beat our simpler benchmark model there"
     elif f["versus_g2"] == "behind":
@@ -595,7 +598,7 @@ def pitch_evidence(f):
     text = (f"{f['n_met']} of {f['n_marks']} pass marks met; below-a-third skill {num(p1['bss_B0'])} "
             f"({plain_range(p1['bss_B0_ci'])}); gain over G2 {num(f['gain'])}")
     if p2["auc"] is not None and p2["rain_auc"] is not None:
-        text += f"; lender rating {p2['auc']:.2f} against rainfall-only {p2['rain_auc']:.2f}"
+        text += f"; Area outlook {p2['auc']:.2f} against rainfall-only {p2['rain_auc']:.2f}"
     return text + ("; kill rule triggered" if f["kill"] else "")
 
 
@@ -616,7 +619,7 @@ def pitch_main(f, now):
                      f"{in_thousand(fl['target'])}).")
     if p2["auc"] is not None and p2["rain_auc"] is not None:
         rule = "kill rule TRIGGERED: the lender claim is dropped" if f["kill"] else "kill rule not triggered"
-        lines.append(f"- Lender rating: the right 2 km patch {in_ten(p2['auc'])} times in 10, rainfall alone "
+        lines.append(f"- Area outlook (the pre-registered lender rating): the right 2 km patch {in_ten(p2['auc'])} times in 10, rainfall alone "
                      f"{in_ten(p2['rain_auc'])} in 10 (gain {num(p2['gain'])}; mark +0.05; {rule}).")
     lines.append("- Pass marks: " + "; ".join(f"{m['short']} {'PASS' if m['passed'] else 'FAIL'}"
                                               for m in f["marks"]) + ".")
@@ -630,7 +633,7 @@ def video_line(f):
         skill = f["p1"]["bss_B0"]
         for text in (f"It passed every mark: {fraction_words(skill)} less error than the usual guess.",
                      f"Every mark passed: {fraction_words(skill)} less error than the usual guess.",
-                     "It passed every mark we set before writing code."):
+                     "It passed every mark we set before the build began."):
             if len(text.split()) <= 12:
                 return text
     if f["outcome"] == "partial":
@@ -646,7 +649,7 @@ def video_caption(f):
     second = skill_words(f["p1"]["bss_B0"])
     if fl["coverage"] is not None:
         second += f" · \"at least N days\" held {in_ten(fl['coverage'])} times in 10"
-    third = ("lender rating: no better than rainfall · claim dropped" if f["kill"] else lender_words(f, short=True))
+    third = ("Area outlook: no better than rainfall · claim dropped" if f["kill"] else lender_words(f, short=True))
     return f"{first}<br>{second}<br>{third}"
 
 
@@ -669,7 +672,7 @@ def video_main(f, now):
     if fl["coverage"] is not None:
         captions.append(f"\"'at least N days' held {in_ten(fl['coverage'])} times in 10\"")
     if f["p2"]["auc"] is not None and f["p2"]["rain_auc"] is not None and not f["kill"]:
-        captions.append(f"\"the lender rating picks the right 2 km patch {in_ten(f['p2']['auc'])} times in 10, rainfall "
+        captions.append(f"\"the Area outlook picks the right 2 km patch {in_ten(f['p2']['auc'])} times in 10, rainfall "
                         f"{in_ten(f['p2']['rain_auc'])} in 10\"")
     g2 = {"ahead": "It also beat our own simpler model, G2, by a small margin.",
           "level": "It did not beat our simpler benchmark model there.",
@@ -683,7 +686,7 @@ def video_main(f, now):
     if g2:
         lines.append(f"- **About the benchmark G2, if it comes up:** \"{g2}\"")
     if f["kill"]:
-        lines.append("- **Kill rule triggered:** rainfall alone came within 0.02 of the lender rating. As pre-registered, "
+        lines.append("- **Kill rule triggered:** rainfall alone came within 0.02 of the Area outlook. As pre-registered, "
                      "drop the lender claim: cut or reword beat 8 to say so.")
     lines.append(f"- **Expectations:** {expectations_sentence(f)}")
     return "\n".join(lines)
@@ -877,7 +880,7 @@ def camera_summary(f):
              + (f"; we expected {declared_words(e)}: {e['verdict']}" if e else "") + ").",
              f"  - Benchmark G2: {g2_sentence(f)}"]
     if p2["auc"] is not None and p2["rain_auc"] is not None:
-        lines.append(f"  - Lender rating: the right 2 km patch {in_ten(p2['auc'])} times in 10; rainfall alone "
+        lines.append(f"  - Area outlook: the right 2 km patch {in_ten(p2['auc'])} times in 10; rainfall alone "
                      f"{in_ten(p2['rain_auc'])} in 10. Kill rule: "
                      + ("TRIGGERED, so the lender claim is dropped." if f["kill"] else "not triggered."))
     if fl["coverage"] is not None:

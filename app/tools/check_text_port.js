@@ -7,7 +7,7 @@
  *
  * With no arguments it checks:
  *   1. notify/fixtures/spec_examples.json  the 10 worked examples of notify/MESSAGE_SPEC.md
- *   2. notify/fixtures/demo_week.json      this week's 10 demo farms (both development regions)
+ *   2. notify/fixtures/demo_week.json      this week's 9 demo farms (both development regions)
  *   3. app/data/real/farms.json            the demo farms as the app's "My farm" view runs them:
  *                                          on the app's forecasts.json when the farm is in the app's
  *                                          region, otherwise on the farm's own dams in farms.json

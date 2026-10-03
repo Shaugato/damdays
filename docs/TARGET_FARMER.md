@@ -148,7 +148,7 @@ ABARES regions that roughly overlap our two test regions (these averages are for
 
 ### How to reach them
 
-- "Farmers are not the ones to open emails or apps, so having a text that comes in once a week is super handy for them" (a mentor who grew up on farms, Fri 2 Oct 2026). With owner-managers aged 57 to 69 and one or two people doing the work, the weekly text is the product; the app is for set-up.
+- A mentor told us that farmers rarely open emails or apps, and that a text once a week suits them (mentor feedback, Fri 2 Oct 2026; not yet tried with farmers). With owner-managers aged 57 to 69 and one or two people doing the work, the weekly text is the product; the app is for set-up and a closer look.
 
 ---
 
@@ -161,6 +161,7 @@ ABARES regions that roughly overlap our two test regions (these averages are for
 | **Hobby and lifestyle blocks** | Their dams are usually too small to see (under 0.54 ha), and the farm is a small part of the family's income | The average farm dam is about 0.27 ha (derived from Malerba et al. 2021). Small livestock farms earn most of their household income off the farm (ABARES). Farms under $40,000 of output are outside the ABARES survey altogether |
 | **Large pastoral stations further west** | Outside the regions DamDays was tested in, and a different scale of business | ABARES's NSW Far West region averages 32,458 to 42,312 ha per farm (2022-23 to 2024-25) |
 | **Corporate agribusiness** | Set aside for now, on mentor advice; their water reporting is a different case | mentor feedback, Sat 3 Oct 2026 |
+| **Farms outside Australia** | DamDays runs on Australian records (DEA Waterbodies and SILO rainfall) and has been tested only in south-eastern Australia. Landsat covers the world, so other countries are a later path, each needing its own waterbody record and its own test | [WHAT_EXISTS.md](WHAT_EXISTS.md), "A global note" |
 
 ---
 

@@ -1,14 +1,14 @@
 # Opening the sealed region: the runbook
 
-**When:** Saturday 3 October 2026, 17:30 AEST, once, on camera.
+**When:** Sunday 4 October 2026 (AEDT), once, on camera, **after [PREREG_ADDENDUM_2.md](../PREREG_ADDENDUM_2.md) is committed and pushed**. It was pre-registered for Sat 3 Oct 17:30 AEST; Addendum 2 moves it to Sunday and changes nothing else.
 **What:** one command, `scripts/20_open_sealed_region.py --open`. It takes about **20 to 25 minutes** (the rehearsal on a region 0.7 times its size took 16).
-**Why it matters:** the sealed region (Southern Downs, Granite Belt, New England: 4,711 waterbodies) is the only clean test of DamDays. Its files were downloaded and fingerprinted before the event and have never been opened ([PREREG.md](../PREREG.md), "Sealed region protocol"). Whatever the numbers show, they are published.
+**Why it matters:** the sealed region, "the unseen exam" (Southern Downs, Granite Belt, New England: 4,711 waterbodies of about 0.5 to 10 ha, one fingerprinted file each; which of them are dam-sized and behave like farm dams is decided at the opening, by the same pre-registered filter as in the other two regions), is the only clean test of DamDays. It is a third farming region whose satellite data we downloaded and fingerprinted before the event and then never opened or used, kept aside for one final check ([PREREG.md](../PREREG.md), "Sealed region protocol"). Whatever the numbers show, they are published.
 
-This page is written for the founder running the opening. Every command is exact; copy it.
+This page is our runbook for the opening. Every command is exact; copy it. All times on Sunday are **AEDT** (clocks went forward at 02:00); Friday and Saturday times are AEST.
 
 ## What the command does, in plain words
 
-1. **Checks, before any sealed byte is read.** It stops (and says why) unless all of these hold:
+1. **Checks, before any sealed file is used.** It stops (and says why) unless all of these hold:
    - the unlock switch `DAMDAYS_OPEN_SEALED` is set to `yes`;
    - git is clean (everything committed) and the last commit is pushed to GitHub;
    - `SEALED_HASHES.csv` is the copy committed at 09:12 on Friday and never changed since;
@@ -21,17 +21,26 @@ This page is written for the founder running the opening. Every command is exact
 
 Code: [`scripts/20_open_sealed_region.py`](../scripts/20_open_sealed_region.py) and [`damdays/sealed/`](../damdays/sealed/) (read `__init__.py` first).
 
-## Timeline for Saturday
+## Timeline
 
-| time (AEST) | what | command |
+**Already done (Friday, AEST). Do not redo any of it.**
+
+| when | what |
+|---|---|
+| Fri 2 Oct 19:04-19:44 | The rehearsal (`--dry-run`) on western Victoria. **Do not rerun it**: it scores western Victoria's test years, and every run is a further look on the dry-run ledger (Addendum 1, 6.16). |
+| Fri 2 Oct 19:08 | The frozen TEST-setting models fingerprinted (`--prepare`): `artifacts/sealed_models_manifest.json`. It would need rerunning only if step 13 were rerun, and it will not be. |
+| Fri 2 Oct 20:21 | The freeze: Addendum 1 (config hash `7d466291008d`), the manifest and the runner committed and pushed (c95d5db). Nothing under `damdays/`, and not `scripts/20`, has changed since. |
+
+**Sunday 4 Oct (AEDT): the opening.**
+
+| when | what | command |
 |---|---|---|
-| after step 13 finishes | Fingerprint the frozen TEST-setting models; this writes `artifacts/sealed_models_manifest.json`. Done once on Fri 2 Oct 19:08 for step 13's first run; **rerun it whenever step 13 is rerun** (new model files, new fingerprints). | `--prepare` (below) |
-| before 16:45, only if needed | The rehearsal already ran (Fri 19:04-19:44). **Do not rerun it just to look again**: it scores western Victoria's test years, and every run is recorded on the dry-run ledger (disclosed in the addendum, 6.16). Rerun it only to test a change to the runner. | `--dry-run` (below) |
-| last code change, then | Recompute the config hash and put the new values in section 2 of the freeze addendum. The hash covers every `damdays/**/*.py` file, so it must be the last step after any code change. | `.venv\Scripts\python.exe scripts\14_config_hash.py` |
-| **by 16:45** | Commit and push the freeze addendum **and** `artifacts/sealed_models_manifest.json` (and everything else, including `artifacts/sealed_dryrun/`, `artifacts/config_hash.json` and the outputs of any development TEST scoring). Check `git status` is clean. Optional: post the commit SHA on Discord as a third-party timestamp. | `git status` |
-| 17:15 | Start the screen recording. Open a terminal in the repo folder. | |
-| **17:30** | Set the unlock switch and run the opening. | `--open` (below) |
-| about 18:00 | Commit and push the raw results, unedited. | (below) |
+| **first** | Commit and push [PREREG_ADDENDUM_2.md](../PREREG_ADDENDUM_2.md) (in a commit of its own, so its time is clear), then the day's docs. `git status` must be clean and the last commit on GitHub. Optional: post the commit SHA on the event Discord as an outside timestamp. | `git status`, `git status -sb` |
+| about 15 minutes before | Start the screen recording. Open a new PowerShell window in the repo folder. | |
+| **the opening** | Set the unlock switch and run it (about 20 to 25 minutes). | `--open` (below) |
+| straight after | Commit and push the raw results, unedited. | (below) |
+| about 10 minutes later | Publish the results everywhere with scripts/21: `--check` first, then for real; commit and push with the `git add` line it prints. | (below, "After the opening") |
+| a few minutes later | GitHub Pages updates itself from the push. Hard-reload the live app: Proof's "Unseen exam" card and About's panel show the scores. | |
 
 ## The exact commands
 
@@ -41,7 +50,7 @@ Open **PowerShell** in the repo folder:
 cd "D:\Climate Hack-tion 2026\damdays"
 ```
 
-**Before the opening (no sealed file is read):**
+**Before the opening (no sealed file is read).** These were run on Friday before the freeze and are listed only for the record. **Do not run them on Sunday**: `--prepare` rewrites the model fingerprints, `scripts/14` rewrites the date in `artifacts/config_hash.json` (the opening computes the hash itself), and `--dry-run` is another look at test years.
 
 ```powershell
 # 1. fingerprint the frozen models (after scripts/13_fit_test_setting.py has finished)
@@ -54,7 +63,7 @@ cd "D:\Climate Hack-tion 2026\damdays"
 .venv\Scripts\python.exe scripts\20_open_sealed_region.py --dry-run
 ```
 
-**At 17:30, the opening:**
+**On Sunday, after Addendum 2 is committed and pushed, the opening:**
 
 ```powershell
 git status                                   # must say "nothing to commit, working tree clean"
@@ -73,11 +82,25 @@ git push
 
 The same in **Git Bash**: `export DAMDAYS_OPEN_SEALED=yes`, then `.venv/Scripts/python.exe scripts/20_open_sealed_region.py --open`, and `unset DAMDAYS_OPEN_SEALED` afterwards.
 
-**Then publish** with `scripts/21_publish_sealed.py` ([SATURDAY_CHECKLIST.md](SATURDAY_CHECKLIST.md), section 8, "Publish the results everywhere"). Commit with `git add -A README.md docs/PITCH.md docs/VIDEO_SCRIPT.md app/data app/sw-version.js` (the `git add` line scripts/21 prints): the app reads the split data parts, and the rebuild writes a new `app/data/real/first.<hash>.js`, deletes the old one, rewrites `parts.js` and restamps `app/sw-version.js`. Check that `git status` shows the new part added and the old one deleted, or the live app keeps saying "Unseen exam: not opened yet".
+**Then publish** with `scripts/21_publish_sealed.py` (about 10 minutes later; also in [SATURDAY_CHECKLIST.md](SATURDAY_CHECKLIST.md), now the final-day checklist, "Publish the results everywhere"):
+
+```powershell
+.venv\Scripts\python.exe scripts\21_publish_sealed.py --check     # preview: changes nothing
+.venv\Scripts\python.exe scripts\21_publish_sealed.py             # README, PITCH, VIDEO_SCRIPT and the app
+git diff --stat
+git add -A README.md docs/PITCH.md docs/VIDEO_SCRIPT.md app/data app/sw-version.js
+git status                                   # expect the new app/data/real/first.<hash>.js added, the old one deleted
+git commit -m "Sealed results published (scripts/21_publish_sealed.py)"
+git push
+```
+
+The `git add` line is the one scripts/21 prints at the end: the app reads the split data parts, and the rebuild writes a new `app/data/real/first.<hash>.js`, deletes the old one, rewrites `parts.js` and restamps `app/sw-version.js`. Check that `git status` shows the new part added and the old one deleted, or the live app keeps saying "Unseen exam: not opened yet".
+
+**GitHub Pages updates itself** from the push (the repository's Actions tab shows "pages build and deployment"; when it is green, the site is up). Then hard-reload https://shaugato.github.io/damdays/app/ : Proof's "Unseen exam" card and About's sealed panel show the scores.
 
 ## What appears on screen
 
-Every line starts with the clock time and the minutes since the start; the same lines go to `artifacts/sealed/run_log.txt`. The rehearsal printed these stages (the opening prints the same, with the sealed region's names and counts):
+Every line starts with the clock time and the minutes since the start; the same lines are appended to `artifacts/sealed/run_log.txt`, below the two `--prepare` runs of Fri 2 Oct 19:07-19:08 AEST already in it. Its lines carry the laptop's clock (AEDT on Sunday) but no date; the date and time zone of the finish are in `finished_at` in `artifacts/sealed/sealed_results.json` and in each `sealed` row of the test ledger (Addendum 2, section 7). The rehearsal printed these stages (the opening prints the same, with the sealed region's names and counts):
 
 ```text
 [18:57:29 + 0.0 min] DRY RUN (REHEARSAL): wvic_sesa treated as an unseen region, models fitted on nsw_cw only, ...
@@ -120,8 +143,10 @@ Then the three model files (`data_cache/models/TEST/tidemark_L3.pkl`, `g2.pkl` a
 
 ```text
   the evaporation SHA-256 is quoted in ['PREREG_ADDENDUM_1.md']
-  config hash of the code being run: <12 characters>; quoted in ['PREREG_ADDENDUM_1.md']
+  config hash of the code being run: 7d466291008d; quoted in ['PREREG_ADDENDUM_1.md', 'PREREG_ADDENDUM_2.md']
 ```
+
+(Addendum 2 quotes the config hash but not the evaporation SHA-256, so it appears only on the second line.)
 
 If the second line says `WARNING: no addendum quotes it`, the code differs from the frozen code: the run goes on (a logged crash fix changes the code too), but say so on camera and write it in `artifacts/sealed/CRASH_FIXES.md`. Then the build starts with `manifest lists exactly the 4,711 verified time-series files`.
 
@@ -137,8 +162,8 @@ A refusal prints `REFUSED: <reason>` and stops **before any water history is rea
 | `Uncommitted changes` | Commit and push them (or undo them), then run again. Only the runner's own outputs (`artifacts/sealed/`, `artifacts/test_ledger.csv`) may be uncommitted. |
 | `HEAD ... is not on the remote` | `git push`, then run again. If the internet is down (or GitHub does not answer within 60 s), the check uses the last push from this computer and says `OFFLINE` on screen. |
 | `No committed PREREG_ADDENDUM*.md quotes the sealed evaporation SHA-256` | The freeze addendum is missing or was edited. Do not open. Restore section 3 of `PREREG_ADDENDUM_1.md` (the hash `f886f419...`), commit and push, then run again. |
-| `No ...sealed_models_manifest.json: run the runner with --prepare first` | The models were never fingerprinted. Run `--prepare`, commit and push the manifest (with a note in the addendum), then open. |
-| `the models are rung X, but the frozen rung is Y` | The models do not match the freeze. Do not open. Rerun `--prepare` (with the right step 13 models), commit and push the new manifest with a note in the addendum, then open. |
+| `No ...sealed_models_manifest.json: run the runner with --prepare first` | The models were never fingerprinted (not expected: the manifest was committed with the freeze). Run `--prepare`, commit and push the manifest with a note in a new dated addendum (never edit Addendum 1 or 2), then open. |
+| `the models are rung X, but the frozen rung is Y` | The models do not match the freeze. Do not open. Rerun `--prepare` (with the right step 13 models), commit and push the new manifest with a note in a new dated addendum (never edit Addendum 1 or 2), then open. |
 | `Model file ... has SHA-256 ...` | A model file changed after the manifest was committed. Do not open. Find out why; do not refit. |
 | `SEALED_HASHES.csv must have been committed once ...` or `differs from the committed one` | The fingerprint list was edited. **Stop.** Restore it with `git checkout -- SEALED_HASHES.csv` only if the edit was an accident on this computer; never commit a change to it. |
 | `Sealed files do not match the committed hashes` (missing, extra or changed files) | **Do not open the region.** This is a protocol failure: publish the message and the file names it lists, exactly as printed. Do not re-download or "fix" files. |
@@ -172,9 +197,11 @@ Where the time goes, so you know which stage you are in (the rehearsal's times o
 
 ## After the opening
 
-- Commit and push `artifacts/sealed/` and `artifacts/test_ledger.csv` straight away, unedited (commands above).
-- The headline numbers are in `artifacts/sealed/SEALED_RESULTS.md`: the PREREG verdicts first, then the expectations, then every table. Every single score has a JSON file in `artifacts/sealed/scorecard/sealed_TEST/`.
-- Publish them whatever they show. If a bar fails, say so; never refit or retune (PREREG).
+1. Commit and push `artifacts/sealed/` and `artifacts/test_ledger.csv` straight away, unedited (commands above).
+2. The headline numbers are in `artifacts/sealed/SEALED_RESULTS.md`: the PREREG verdicts first, then the expectations, then every table. Every single score has a JSON file in `artifacts/sealed/scorecard/sealed_TEST/`.
+3. Publish them whatever they show: `scripts/21_publish_sealed.py --check` (a preview that changes nothing), then `scripts/21_publish_sealed.py`, then the `git add` line it prints, commit and push (commands above). If a bar fails, say so; never refit or retune (PREREG).
+4. GitHub Pages updates itself from that push; hard-reload the live app and check Proof's "Unseen exam" card and About's sealed panel.
+5. By hand, outside the markers (scripts/21 does not touch these): in README.md, give the opening's date and time (from the run log) in "When.", drop the note beside "Latest status" about the first planned time, and link the screen recording in "Opened once"; in docs/ONE_PAGER.md (no markers), add the headline result in one sentence. Commit and push.
 
 ## The dry run (rehearsal)
 
@@ -192,7 +219,7 @@ Where the time goes, so you know which stage you are in (the rehearsal's times o
 - **The whole pipeline ran end to end in 15.9 minutes** (stages in the table above) with no error, and wrote [`artifacts/sealed_dryrun/DRY_RUN_RESULTS.md`](../artifacts/sealed_dryrun/DRY_RUN_RESULTS.md).
 - **Same code as the development build:** wvic_sesa rebuilt from its 3,409 raw files equals its rows in the development feature store, on every one of 86 P1, 82 P2-dam and 54 P2-cell columns (901,251, 128,592 and 25,384 rows), apart from the fold numbers. The other 725 P1 rows differ only in whether their label could be determined, because wvic's last look (11 Sep 2026) is three days before the development build's last look (14 Sep 2026). Run on its own with the development balance, the water balance also reproduced the stored development values exactly.
 - **Resume after a crash:** two later runs reused the saved tables and forecasts (8.6 and 8.8 minutes, nearly all scoring) and the dry-run ledger recorded `same_predictions` for every one of their 84 scores: no second look. The results page says when a run was resumed.
-- **Nothing real was touched:** the real TEST ledger still has no entries; the sealed folder and the sealed SILO key were never read (the run refuses to start with the unlock switch on).
+- **Nothing real was touched:** the real TEST ledger had no entries (the development test years were scored later that evening, from 20:36 AEST); the sealed folder and the sealed SILO key were never read (the run refuses to start with the unlock switch on).
 - **The opening's own refusal was tested:** `--open` without the unlock switch stops at check 1 with `REFUSED` and exit code 2.
 
 ## Files
@@ -206,7 +233,10 @@ Where the time goes, so you know which stage you are in (the rehearsal's times o
 | `damdays/sealed/region.py` | builds a region from raw files with the development code |
 | `damdays/sealed/scoring.py` | the single scoring pass, PREREG verdicts and expectations |
 | `damdays/sealed/report.py` | the results page |
-| `artifacts/sealed_models_manifest.json` | fingerprints of the frozen models (committed before 17:30) |
+| `artifacts/sealed_models_manifest.json` | fingerprints of the frozen models (committed with the freeze, Fri 2 Oct 20:21 AEST) |
+| `PREREG_ADDENDUM_1.md` | the freeze: frozen rung, config hash `7d466291008d`, the typed evaporation shape and its SHA-256 |
+| `PREREG_ADDENDUM_2.md` | the one change: the opening moves to Sun 4 Oct; filed before the opening |
 | `artifacts/sealed/` | the opening's results, scorecard JSONs and run log |
+| `scripts/21_publish_sealed.py` | after the opening: copies the results into README, PITCH, VIDEO_SCRIPT and the app (`--check` previews) |
 | `artifacts/sealed_dryrun/` | the rehearsal's results (not the dev TEST result) |
 | `tests/test_sealed_runner.py` | tests of the checks, the guards and the dry run's separation |

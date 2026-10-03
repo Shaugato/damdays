@@ -1,6 +1,6 @@
 {
  "schema_version": "1.0",
- "generated_at": "2026-10-03T19:07:48+10:00",
+ "generated_at": "2026-10-04T08:44:22+11:00",
  "made_by": "scripts/17_proof_data.py",
  "test": {
   "label": "Ten test years, July 2016 to June 2026",
@@ -21,16 +21,16 @@
  },
  "unseen_exam": {
   "panel_key": "sealed",
-  "heading_pending": "Unseen exam: opens Sat 3 Oct 17:30 AEST",
+  "heading_pending": "Unseen exam: opens Sun 4 Oct 2026 (AEDT)",
   "expect": "What we said to expect, before opening it: from about a seventh to nearly a quarter less error than guessing the usual rate (skill +0.15 to +0.23). A forecast, not a pass mark.",
-  "heading_scored": "Unseen exam: opened Sat 3 Oct 17:30 AEST, scored once",
-  "text": "Everything below is the ten test years. The clean test is a third farming region that the model and the team have never seen: its satellite data was locked away with a public fingerprint at the start of the event, and it is opened once, on camera. Its score is published here whatever it is."
+  "heading_scored": "Unseen exam: opened once, on camera, scored once",
+  "text": "Everything below is the ten test years. The clean test is the unseen exam: a third farming region whose satellite data we downloaded and fingerprinted before the event and then never opened or used, kept aside for one final check. It is opened once, on camera, and its score is published here whatever it is."
  },
  "calibration": {
   "title": "What we said vs what happened",
   "takeaway": "When we said 3 in 10, the dam fell below a third about 3 times in 10, and in all ten groups what happened matched what we said, to the nearest 1 in 10.",
   "detail": "3 in 10: 4,864 of 17,013 forecasts were followed by a fall below a third within 90 days. Across all 142,938 forecasts, 29,415 were.",
-  "lean": "Below 7 in 10, slightly fewer dams fell than we said; from 7 in 10 up, slightly more. So the chances could be a little bolder: low ones a little lower, high ones a little higher (calibration slope 1.09, where 1.00 is perfect and the pass mark written before any code was 0.8 to 1.2).",
+  "lean": "Below 7 in 10, slightly fewer dams fell than we said; from 7 in 10 up, slightly more. So the chances could be a little bolder: low ones a little lower, high ones a little higher (calibration slope 1.09, where 1.00 is perfect and the pass mark written before the build began was 0.8 to 1.2).",
   "not_plotted": "Not drawn, too few to read: 1 forecast said more than 9 in 10 (1 fell).",
   "how_to_read": "Each dot is a group of forecasts that gave the same chance (rounded as the text and the app write it). Across: the chance we gave. Up: how often the dam really fell below a third within 90 days. On the diagonal line, what happened equals what we said. Bigger dots hold more forecasts; the number of forecasts is under each group. Thin lines: the range if we re-drew the dams at random 500 times.",
   "min_forecasts_to_plot": 100,

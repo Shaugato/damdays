@@ -4,7 +4,7 @@ A mentor told us to search "dam management and forecasting system", see how much
 
 - **Checked live on Sat 3 Oct 2026**, by web search and by opening each product's own page (a few government pages block automatic fetching, so they were read in a browser). It re-checks a list of competitors from our pre-event research and adds what today's searches found.
 - **Where a detail could not be confirmed, the table says so** ("not checked", "not public", "not stated"). Not finding something is not proof that it does not exist.
-- **DamDays numbers** come from [`artifacts/test_results.md`](../artifacts/test_results.md) and the [README](../README.md). The sealed region is opened on the night of Sat 3 Oct (pre-registered for 17:30 AEST; moved to after the app build); its results are not on this page.
+- **DamDays numbers** come from [`artifacts/test_results.md`](../artifacts/test_results.md) and the [README](../README.md). The unseen exam (the sealed region) is opened once, on camera, on Sun 4 Oct (pre-registered for Sat 3 Oct, 17:30 AEST; moved to after the app build); its results are in the README, not on this page.
 
 ## The short answer
 
@@ -14,7 +14,7 @@ A mentor told us to search "dam management and forecasting system", see how much
   - Agriculture Victoria's **Summer Water Calculator**: days of water left, worked out from the farmer's own measurements.
   - NSW DPIRD's **monthly farm dam maps**: the same satellite data DamDays uses, reported by parish, with no forecast.
   - USGS FEWS NET's **Water Point Viewer**: a 30-day status forecast for each waterhole it tracks, in Africa.
-- **What we did not find:** a forecast for each farm dam big enough to see from space (about 0.5 to 5 ha) that needs nothing installed or measured, whose chances have been tested in public on years the model never trained on and a region it never saw, and that reaches the farmer as one text a week.
+- **What we did not find:** a forecast for each farm dam big enough for the satellites to see (about 0.5 to 5 ha) that needs nothing installed or measured, whose chances have been tested in public on ten years the model never trained on and on an unseen exam (a third farming region whose satellite data we downloaded and fingerprinted before the event and then never opened or used, kept aside for one final check), and that reaches the farmer as one text a week.
 
 ## The table
 
@@ -113,7 +113,7 @@ These are maps of the water now, or of the past. None forecasts a dam's water.
 ## Where DamDays is different
 
 - **Days of water for each farm dam big enough for the satellites to see (about 0.5 to 5 ha), with nothing to install or measure.** Sensors report the level now, one water point at a time, for hundreds of dollars a device plus fees, and none we checked advertised a forecast. The tools that do say how long water will last (Agriculture Victoria's Summer Water Calculator, the Small Farm Dams tool) need the farmer to measure each dam's depth. NSW's monthly maps show the present, by parish. DamDays forecasts each dam from its own 38 years of satellite history and the rainfall, and is refit on the newest satellite looks.
-- **Its accuracy is tested in public, against pass marks written before the code.** On ten years the model never trained on (July 2016 to June 2026), 142,938 forecasts were scored once. They had nearly a quarter less error than guessing the usual rate for the region and month. They put a dam that fell below a third ahead of one that did not 8 times in 10. The cautious "at least N days" number held 900 times in 1,000 (of 729,749), as designed. A sealed region it never saw is opened once, on camera, on the night of Sat 3 Oct. Of the forecasting tools we found:
+- **Its accuracy is tested in public, against pass marks written before the build began.** On ten years the model never trained on (July 2016 to June 2026), 142,938 forecasts were scored once. They had nearly a quarter less error than guessing the usual rate for the region and month. They put a dam that fell below a third ahead of one that did not 8 times in 10. The cautious "at least N days" number held 900 times in 1,000 (of 729,749), as designed. The unseen exam, a third farming region kept aside and never opened, is opened once, on camera, on Sun 4 Oct. Of the forecasting tools we found:
   - the NSW drought forecast publishes past skill for a drought index, not for dams;
   - FEWS NET's model was checked against gauges at 8 waterholes when it was built ([Senay and others, 2013](https://earlywarning.usgs.gov/docs/Senay-et-al-Pastoralism-Research-Policy-and-Practice-2013.pdf)), and [a 2025 study in Senegal](https://www.frontiersin.org/journals/water/articles/10.3389/frwa.2025.1320010/full) found it kept water in ponds after they had dried; we found no published skill for its 30-day forecast;
   - the Small Farm Dams tool calls its own results "indicative".
@@ -122,7 +122,7 @@ These are maps of the water now, or of the past. None forecasts a dam's water.
 - **Dam by dam, sent as one weekly text.** Each dam gets a correction from its own history ("runs wetter than similar dams"), each dam's card shows our record on it over the last 10 years ("held 380 of 428 times" on the demo farm's Dam 1), and the farm gets one SMS a week that names the dams that matter. Text alerts are not new (sensor companies send them, and so does Ethiopia's rangeland system). What is new is the content: for each dam, at least how many days of water are left, with a stated safety margin.
 
 **What is not new, to be honest about it.**
-- **Forecasting when stock water will run out is not our invention.** FEWS NET does it for African waterholes (30 days), the Small Farm Dams tool for Victorian dams (12 months, with a measured depth), and Agriculture Victoria's calculator by hand. Any "first ever" claim would be wrong.
+- **Forecasting when stock water will run out is not our invention.** FEWS NET does it for African waterholes (30 days), the Small Farm Dams tool for Victorian dams (12 months, with a measured depth), and Agriculture Victoria's calculator by hand. We do not claim to be the first.
 - **The satellite record is public.** NSW DPIRD already uses it every month for about 47,000 dams, and runs its own seasonal drought forecast, so it could build a dam forecast too.
 - **Sensor companies could add a "days of water left" trend line** for the dams they already instrument.
 
@@ -130,7 +130,7 @@ These are maps of the water now, or of the past. None forecasts a dam's water.
 
 - **No small dams.** It sees only dams of about 0.5 ha or more: the satellite needs a dam outline of at least 6 pixels (about 5,400 m²). The average Australian farm dam, about 0.27 ha, is too small, so most farm dams are not covered ([TARGET_FARMER.md](TARGET_FARMER.md)).
 - **No bores, tanks, troughs or rivers.** It sees surface water in dams only.
-- **Australian data so far.** It was built and tested in NSW Central West and western Victoria / south-east South Australia. The sealed region (Southern Downs, Granite Belt, New England) is its test in a new place. Other climates, such as the tropical north and Western Australia, are untested, and no other country has been tried.
+- **Australia only, so far.** It was built and tested in NSW Central West and western Victoria / south-east South Australia. The unseen exam (Southern Downs, Granite Belt, New England) is its test in a new place. Other climates, such as the tropical north and Western Australia, are untested, and no other country has been tried.
 - **No depth or volume.** The satellite sees how much of a dam is wet, not how deep it is. "A third" means a third of the dam's usual full wet area. A forecast starts from the last clear satellite look, which can be weeks old. A 0% reading is "no water seen", not "dry": one look can miss a small pool or muddy water.
 - **Not every dam-sized waterbody is a farm dam.** The filter picks waterbodies by size, shape and water history, not land use, so it also catches some town and industrial ponds. We checked the demo farms against aerial photos and set aside the one near Dubbo (treatment ponds, a racecourse pond and the river).
 - **Better at "which dams" than "which year".** It ranks which dams will fall below a third this summer well. It is weak at saying whether a single dam will run low this year or next.
@@ -140,7 +140,7 @@ These are maps of the water now, or of the past. None forecasts a dam's water.
 ## A global note
 
 - **The need is global, and the idea has prior art.** USGS FEWS NET's Water Point Viewer already forecasts waterholes in Africa: a free, satellite-driven water balance for each livestock water point, with a 30-day status forecast (299 water points in 16 countries in Africa plus Yemen on 3 Oct 2026, our count). It shows that herders and farmers far from Australia face the same question: how long will the water last? It also means DamDays did not invent the concept.
-- **DamDays's angle** is narrower and measured: calibrated chances and a dam-by-dam runway for farm dams, tested on years the model never trained on and a region it never saw, and delivered weekly by text.
+- **DamDays's angle** is narrower and measured: honest chances and a dam-by-dam runway for farm dams, tested on ten years the model never trained on and on the unseen exam, and delivered weekly by text.
 - **Future path: other countries (not built).** Satellite water archives like the one DamDays uses exist beyond Australia: Digital Earth Africa Waterbodies (over 700,000 waterbodies since 1984), JRC Global Surface Water (the whole world, monthly, since 1984), and Landsat itself covers the globe. In principle the same recipe could run on them. **None of this is built.** DamDays has only ever run on Australian data (DEA Waterbodies and SILO rainfall). Each new country would need its own waterbody record, rainfall record, test on its own years and dams, and a way to reach its farmers. Where FEWS NET already serves herders, working with it would make more sense than competing.
 
 ## How this was checked

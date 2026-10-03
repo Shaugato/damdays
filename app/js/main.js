@@ -520,7 +520,8 @@ window.DamDays = window.DamDays || {};
           "<p>In Australia a <b>farm dam</b> is the water itself: a pond dug in a paddock to catch run-off, held by an earth wall. " +
           "Sheep and cattle drink from it. DamDays watches its water surface from space.</p>" +
           "<p><b>Grazier:</b> a farmer who raises sheep or cattle on pasture. <b>Paddock:</b> a fenced field. " +
-          "<b>Water run:</b> the drive around a farm's dams and troughs to check them.</p></div>",
+          "<b>Water run:</b> the drive around a farm's dams and troughs to check them. <b>Agistment:</b> paying to graze stock on someone else's land, often in a drought. " +
+          "<b>Homestead:</b> the farmhouse. <b>Bore:</b> a well that pumps groundwater.</p></div>",
       });
     },
   };

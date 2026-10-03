@@ -241,7 +241,7 @@ DamDays.views.rating = (function () {
       const span = /(\d{4}-\d{2}) to (\d{4}-\d{2})/.exec(all.label || "");
       parts.push("<p>Across all test seasons" + (span ? " " + esc(span[1] + " to " + span[2]) : "") + ", years it never trained on: <strong>" +
         inHundred(all.rating_auc) + "</strong> against " + inHundred(all.rain_only_auc) + "." +
-        (mark !== null ? " Its pass mark, written before the code: <strong>" + (mark ? "met" : "not met") + "</strong>." : "") + "</p>");
+        (mark !== null ? " Its pass mark, written before the build began: <strong>" + (mark ? "met" : "not met") + "</strong>." : "") + "</p>");
     }
     return parts.length ? '<div class="outlook-result">' + parts.join("") + "</div>" : "";
   }

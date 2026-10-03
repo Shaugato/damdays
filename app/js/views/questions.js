@@ -9,7 +9,7 @@
  * from research/questions/FAQ_DRAFT.md, rewritten for the featured demo farm (Farm E, near Mudgee) and
  * the app's wording rules. Every number is read from the data (meta, forecasts, farms, proof,
  * track_record, scoreboard, history); a question whose numbers are missing from this dataset is left out.
- * Items the team has not decided are said plainly: "not decided yet".
+ * Items we have not decided are said plainly: "not decided yet".
  * The optional who-else slot (UI_SPEC 5.21) is last; ?whoelse=0 leaves it out.
  */
 window.DamDays = window.DamDays || {};
@@ -249,6 +249,12 @@ window.DamDays = window.DamDays || {};
   // =====================================================================
   const GROUPS = [
     { id: "basics", title: "What it is", items: [
+      { id: "problem", q: () => "What problem does it solve, in one sentence?",
+        a: () => "Graziers whose stock drink from farm dams can't easily tell how many days of water each dam has left, so the costly moves a drought forces (move stock, cart water, buy feed, agist or sell) are often made late, when there are fewer choices.",
+        more: () => P("Today they drive the water run and do the sums by hand: measure the dam, look up its volume, divide by what the stock drink. DamDays sends that number, dam by dam, once a week."),
+        go: () => [["#welcome/farm-dam", "What is a farm dam?"]],
+        check: [["The one-page summary", "docs/ONE_PAGER.md"], ["Who it is for", "docs/TARGET_FARMER.md"]] },
+
       { id: "what-farmers-get", q: () => "What does a farmer actually get?",
         a: () => "One text a week for each farm: for the dams that matter, how full each one was at its last clear satellite look, and at least how many days it has before it drops below a third.",
         more: (F) => smsHtml(F),
@@ -256,8 +262,8 @@ window.DamDays = window.DamDays || {};
         check: [["How the weekly text is written", "notify/MESSAGE_SPEC.md"], ["The project's front page", "README.md"]] },
 
       { id: "why-text", q: () => "Why a text, not an app?",
-        a: () => "A plain text works on any mobile with nothing to install, and a mentor who grew up on farms told us farmers rarely open apps or emails, but a weekly text suits them.",
-        more: () => P("This rests on one mentor's view: we have not tested it with graziers, and we have not checked mobile coverage on farms. The app is where you look closer."),
+        a: () => "A plain text works on any mobile with nothing to install, and a mentor told us farmers rarely open apps or emails, but a weekly text suits them.",
+        more: () => P("This rests on one mentor's view: we have not tested it with graziers yet, and we have not checked mobile coverage on farms. The app is where you look closer."),
         check: [["Who it is for", "docs/TARGET_FARMER.md"], ["How the weekly text is written", "notify/MESSAGE_SPEC.md"]] },
 
       { id: "percent-full", q: (F) => "What does \"" + f().fullness(need(F.hero).level_pct) + "\" mean?",
@@ -269,16 +275,17 @@ window.DamDays = window.DamDays || {};
         check: [["How the weekly text is written", "notify/MESSAGE_SPEC.md"], ["The data", "docs/DATA.md"]] },
 
       { id: "why-at-least", q: (F) => "Why \"at least " + need(F.hero).days_left + " days\" and not a date?",
-        a: () => "Because it is cautious by design: the count is built to hold 9 times in 10 across all dams (a little less often for spring looks), so a dam will most likely last longer.",
+        a: (F) => "Because it is cautious by design: the count is built to hold 9 times in 10 across all dams (a little less often for spring looks), so a dam will most likely last longer." +
+          (F.heroDay ? " The app shows the date too (" + S(F.heroDay) + " for " + F.hero.name + ", its DamDays day); the text uses days because they read faster on a phone." : ""),
         more: () => P("It counts the days before the dam drops below a third of its usual full water surface, not until it is empty. A third is an early-warning line, so there is still time to act."),
         nums: (F) => P(F.hero.name + ": " + need(F.hero.damdays_days) + " days from its " + S(F.hero.issued_on) + " satellite look, less the " + need(F.since) +
           " days since, is at least " + F.hero.days_left + " days from " + DS(F.textDate) + ".") +
-          P("Across all dams in the ten test years, the count held " + f().inThousandText(need(F.allYears).floor_held) + " times (" + T(F.allYears.floor_judged) +
+          P("Across all dams in the ten test years, the count held " + T(f().inThousand(need(F.allYears).floor_held)) + " times in 1,000 (" + T(F.allYears.floor_judged) +
           " forecasts checked), a little less often for spring looks."),
         check: [["The test results", "artifacts/test_results.md"], ["How the weekly text is written", "notify/MESSAGE_SPEC.md"]] },
 
       { id: "days-vs-chance", q: (F) => "The text says \"at least " + need(F.hero).days_left + " days\" and the app says \"" + CH(need(F.hero.chance)) + " by " + S(F.hero.window_end) + "\". Which do I act on?",
-        a: (F) => "Plan on the days: they are the cautious figure. The chance is a second view: for dams like this one, the chance it drops below a third by " + S(F.hero.window_end) + ".",
+        a: (F) => "Plan on the days: they are the cautious figure. The chance is a second view: the chance this dam drops below a third by " + S(F.hero.window_end) + ", from a model that learned from dams like it.",
         more: () => P("They come from two models, so they don't always line up exactly. Neither number is advice: check the dam too."),
         nums: (F) => P(F.hero.name + ": at least " + F.hero.days_left + " days from " + DS(F.textDate) + ", which runs to " + S(need(F.heroDay)) + ". Chance it drops below a third by " +
           S(F.hero.window_end) + ": " + CH(F.hero.chance) + (F.heroRow && typeof F.heroRow.chance_low === "number"
@@ -287,7 +294,7 @@ window.DamDays = window.DamDays || {};
 
       { id: "held-meaning", q: () => "Does \"built to hold 9 times in 10\" mean it is right 9 times in 10?",
         a: (F) => "Not quite: it is a floor, not our guess of the day. In the ten test years dams stayed above a third for at least the promised days " +
-          f().inThousandText(need(F.allYears).floor_held) + " times, and most lasted well past it; about 1 time in 10 a dam fell below a third sooner.",
+          T(f().inThousand(need(F.allYears).floor_held)) + " times in 1,000, and most lasted well past it; about 1 time in 10 a dam fell below a third sooner.",
         nums: (F) => P("Our record on " + need(F.hero).name + " over " + need(F.trLabel) + ": " + f().held(need(F.heroRec).held, F.heroRec.judged) + " (" +
           D.text.heldShareText(F.heroRec.held, F.heroRec.judged) + ").") +
           (F.farmRec ? P("On " + F.farmShort + "'s " + F.farmRec.dams + " dams: " + f().held(F.farmRec.held, F.farmRec.judged) + " (" + D.text.heldShareText(F.farmRec.held, F.farmRec.judged) + ").") : ""),
@@ -298,7 +305,8 @@ window.DamDays = window.DamDays || {};
         a: () => "A farm dam is the water itself: a pond dug in a paddock to catch run-off, held by an earth wall, that sheep and cattle drink from.",
         more: () => '<dl class="faq-words"><dt>Grazier</dt><dd>A farmer who raises sheep or cattle on pasture.</dd>' +
           "<dt>Paddock</dt><dd>A fenced field.</dd><dt>Water run</dt><dd>The drive around a farm's dams and troughs to check them.</dd>" +
-          "<dt>Carting water</dt><dd>Trucking water in when a dam runs low.</dd><dt>Agistment</dt><dd>Paying to graze stock on someone else's land, often in a drought.</dd></dl>",
+          "<dt>Carting water</dt><dd>Trucking water in when a dam runs low.</dd><dt>Agistment</dt><dd>Paying to graze stock on someone else's land, often in a drought.</dd>" +
+          "<dt>Homestead</dt><dd>The farmhouse.</dd><dt>Bore</dt><dd>A well that pumps groundwater.</dd></dl>",
         go: () => [["#welcome/farm-dam", "See the farm dam drawing"]] },
 
       { id: "live-service", q: () => "Is the weekly text a live service today?",
@@ -308,10 +316,17 @@ window.DamDays = window.DamDays || {};
         check: [["How the weekly text is written", "notify/MESSAGE_SPEC.md"], ["The one-page summary", "docs/ONE_PAGER.md"]] },
 
       { id: "who-for", q: () => "Which farms is it for?",
-        a: (F) => "Family sheep and cattle farms whose stock drink from dams big enough for the satellites to see (" + need(F.size) + "), in the farming regions where we tested it.",
+        a: (F) => "Family sheep and cattle farms, run by one or two people, whose stock drink from at least one farm dam big enough for the satellites to see (" + need(F.size) + "), in the farming regions where we tested it.",
         more: (F) => P("We tested it in " + (F.regionNames && F.regionNames.length ? F.regionNames.join(" and ") : need(F.region)) +
-          ". Anywhere else, such as Bourke, Cobar, the tropical north or WA, is untested, and each new area needs its own test before it gets texts."),
-        check: [["Who it is for", "docs/TARGET_FARMER.md"]] },
+          ". Most farm dams are too small for the satellites, so a typical farm would see only one or a few of its dams in the text. Bore-fed stations, irrigators and hobby blocks are not the target.") +
+          P("Anywhere else, such as Bourke, Cobar, the tropical north or WA, is untested, and each new area needs its own test before it gets texts."),
+        check: [["Who it is for, described from public farm surveys", "docs/TARGET_FARMER.md"]] },
+
+      { id: "australia-only", q: () => "Is it Australia only?",
+        a: () => "For now, yes: it runs on Australian satellite and rainfall records, and we have tested it only in south-eastern Australia.",
+        more: () => P("The satellites behind the record (Landsat) cover the whole world, and similar waterbody records exist elsewhere, such as Digital Earth Africa's. So other countries are a later path, not built: each would need its own waterbody record, its own rainfall record, its own test, and a way to reach its farmers.") +
+          P("In Africa, USGS FEWS NET already forecasts livestock water points a month ahead; working with it would make more sense than competing."),
+        check: [["What already exists", "docs/WHAT_EXISTS.md"]] },
 
       { id: "normal-year", q: () => "Not every year is a drought. Is it any use in a normal year?",
         a: (F) => {
@@ -325,8 +340,8 @@ window.DamDays = window.DamDays || {};
 
     { id: "works", title: "Does it work", items: [
       { id: "how-tested", q: () => "How do you know it works?",
-        a: (F) => "We wrote the tests and pass marks before the code, made forecasts for ten years using only data from before " + need(F.cutoffWords) +
-          ", and checked each one against what the dam really did: the cautious days held " + f().inThousandText(need(F.allYears).floor_held) + " times.",
+        a: (F) => "We wrote the tests and pass marks before the build began, made forecasts for ten years using only data from before " + need(F.cutoffWords) +
+          ", and checked each one against what the dam really did: the cautious days held " + T(f().inThousand(need(F.allYears).floor_held)) + " times in 1,000.",
         more: () => P("Those are years it never trained on, but we had looked at them in research before the event, so they may flatter it slightly. The clean test is the unseen exam."),
         nums: (F) => P(T(need(F.test).forecasts) + " October-to-March forecasts on " + T(F.test.dams) + " dam-sized waterbodies, mostly farm dams: " +
           need(F.test.skill_vs_usual_rate.words) + " less error than guessing the usual rate for that region and month. " + T(F.test.fell) + " of them were followed by a fall below a third within " + need(F.horizon) + " days."),
@@ -335,7 +350,8 @@ window.DamDays = window.DamDays || {};
 
       { id: "accuracy", q: () => "How accurate is it, and which number is the accuracy number?",
         a: (F) => "The accuracy number is \"" + need(F.test).skill_vs_usual_rate.words + " less error than the usual guess\", where the usual guess is the usual rate for that region and month, measured over ten years it never trained on.",
-        more: (F) => (F.dev && F.dev.runway && F.dev.runway.auc ? P("Shown one dam that fell below a third and one that did not, it gave the higher chance to the right one about " +
+        more: (F) => P("Error here is how far each chance was from what happened (1 if the dam dropped below a third within 90 days, 0 if not). The pass mark, written down before the build began, was a tenth less error.") +
+          (F.dev && F.dev.runway && F.dev.runway.auc ? P("Shown one dam that fell below a third and one that did not, it gave the higher chance to the right one about " +
           tenOf(F.dev.runway.auc.value) + " times in 10.") : ""),
         nums: (F) => P(T(F.test.forecasts) + " October-to-March forecasts, " + T(F.test.dams) + " dam-sized waterbodies, " + T(F.test.fell) + " falls below a third."),
         go: () => [["#about/specialists", "Every score with its range, for specialists"]],
@@ -355,13 +371,13 @@ window.DamDays = window.DamDays || {};
           if (p.status === "scored" && p.runway && p.runway.skill_vs_usual_rate) {
             // the cautious days, on target or not by the one rule of Proof's exam card and About (format.floorCheck)
             const fc = f().floorCheck(p.floor, F.proof);
-            const floor = fc ? "; the cautious days held " + f().inThousandText(p.floor.held) + " times" + againstTarget(fc) : "";
+            const floor = fc ? "; the cautious days held " + T(f().inThousand(p.floor.held)) + " times in 1,000" + againstTarget(fc) : "";
             const marks = f().passMarks ? f().passMarks(p) : null;
             const met = marks ? " " + marks.sentence : "";
             // one rule with the first screen and Proof: a gain whose range reaches zero is "no clear gain"
-            return "On a region it never saw (" + (p.label || "the locked region") + "): " + f().examSkillWords(p.runway.skill_vs_usual_rate) + floor + "." + met;
+            return "On the unseen exam, a third farming region kept aside for one final check (" + (p.label || "the locked region") + "): " + f().examSkillWords(p.runway.skill_vs_usual_rate) + floor + "." + met;
           }
-          return "A whole farming region the model never saw (" + (p.label || "the locked region") + ") was locked away with a public fingerprint at the start of the event; it is opened once, on camera, and its score is published whatever it is.";
+          return "A third farming region (" + (p.label || "the locked region") + ") whose satellite data we downloaded and fingerprinted before the event and then never opened or used, kept aside for one final check; it is opened once, on camera, on Sun 4 Oct, and its score is published whatever it is.";
         },
         more: (F) => {
           const e = F.exam || {};
@@ -384,8 +400,8 @@ window.DamDays = window.DamDays || {};
         more: (F) => P("Of the " + T(need(F.lowBin).forecasts) + " forecasts that said less than 1 in 10, only " + T(F.lowBin.fell) + " fell. That is how honest chances behave, which is why DamDays gives a cautious days number and a chance, not a yes or no."),
         check: [["Our record, dam by dam", "artifacts/track_record.md"], ["The numbers behind Proof", "app/data/real/proof.json"]] },
 
-      { id: "own-dam", q: () => "Can a farmer check it on their own dam?",
-        a: (F) => "Yes: each dam's card shows our record on that dam over " + need(F.trLabel) + ", how often its days-left number held, poor records included.",
+      { id: "own-dam", q: () => "How can a farmer judge the accuracy for themselves?",
+        a: (F) => "On their own dam: each dam's card shows our record on that dam over " + need(F.trLabel) + ", how often its days-left number held, poor records included.",
         more: () => P((D.text.TRACK_RECORD_HOW || "") + " When a dam's record is under 9 in 10, its card says to give the days extra margin."),
         nums: (F) => P(need(F.hero).name + " on " + F.farmShort + ": " + f().held(need(F.heroRec).held, F.heroRec.judged) + ".") +
           P("The typical dam held " + T(need(F.dist).median_in_1000) + " times in 1,000; " + T(F.dist.dams_below_9_in_10) + " of the " + T(F.dist.dams_with_record) +
@@ -418,13 +434,15 @@ window.DamDays = window.DamDays || {};
     ] },
 
     { id: "satellites", title: "What the satellites see", items: [
-      { id: "how-see", q: () => "How can a flat satellite picture tell how much water is in a dam?",
-        a: () => "It can't measure the amount: the pictures show how much of a dam's outline is wet, and \"% full\" compares that with the dam's own usual full wet surface.",
-        more: () => P("That puts big and small dams on one scale, but depth stays unknown. DamDays doesn't replace walking down to the dam; it tells the farmer which dam to check before the others."),
+      { id: "how-see", q: () => "Dams differ in size and depth. How can a satellite tell how much water is in one?",
+        a: () => "It can't measure litres: each look shows how much of a dam's outline is wet, and \"% full\" compares that with the same dam's own usual full wet surface, so a big dam and a small one are each measured against themselves.",
+        more: (F) => P("Depth stays unknown, but a dam's shape shows up in its record: how fast its wet surface shrinks in a dry summer, and how it refills after rain. The forecasts read that history, dam by dam" +
+          (F.years ? " (" + F.years + " years of it)" : "") + ", so a dam that usually shrinks fast tends to get fewer days.") +
+          P("What we can't do is turn the days into litres, or into a mob's drinking days, without the dam's depth. DamDays doesn't replace walking down to the dam; it tells the farmer which dam to check before the others."),
         check: [["The data", "docs/DATA.md"]] },
 
       { id: "over-100", q: () => "How can a dam be more than 100% full?",
-        a: (F) => "\"Usual full\" is a high mark the dam reached in its looks before " + need(F.cutoffWords) + ", not the brim, so after a wet spell a dam can read above it; the text writes anything at 100% or more as \"full\".",
+        a: () => "\"Usual full\" is the wet area the dam reached or beat in 1 of every 10 clear looks before 2016, not the brim, so after a wet spell a dam can read above it; the text writes anything at 100% or more as \"full\".",
         nums: (F) => P("For example, " + need(F.over100).farm.name + "'s " + F.over100.dam.name + " was ~" + F.over100.dam.level_pct + "% full at its " + S(F.over100.dam.issued_on) +
           " look: " + F.over100.where + " \"" + F.over100.dam.name + " full\"."),
         check: [["How the weekly text is written", "notify/MESSAGE_SPEC.md"]] },
@@ -435,7 +453,7 @@ window.DamDays = window.DamDays || {};
         check: [["How the weekly text is written", "notify/MESSAGE_SPEC.md"], ["The data", "docs/DATA.md"]] },
 
       { id: "old-look", q: (F) => "Why does a text dated " + S(need(F.textDate)) + " use a satellite look from " + S(need(F.hero).issued_on) + "?",
-        a: (F) => "The satellite data in this build ends on " + L(need(F.through)) + ", so the " + DS(F.textDate) + " text starts from each dam's last clear look and counts the days from the day of the text: the end date stays the same.",
+        a: (F) => "The satellite data in this build ends on " + L(need(F.through)) + ", so the " + DS(F.textDate) + " text starts from each dam's last clear look. The count is then shifted to start on the day of the text, so the last day it covers does not change.",
         nums: (F) => P(F.hero.name + ": " + F.hero.damdays_days + " days from " + S(F.hero.issued_on) + " is " + F.hero.days_left + " days from " + S(F.textDate) + "; both end on " + S(need(F.heroDay)) + "."),
         more: () => P("A dam with no recent clear look gets \"no clear satellite look lately\" and no forecast. Automatic weekly updates are not built yet; we refit by hand."),
         check: [["How the weekly text is written", "notify/MESSAGE_SPEC.md"], ["What we disclosed", "DISCLOSURE.md"]] },
@@ -472,13 +490,13 @@ window.DamDays = window.DamDays || {};
       { id: "no-days", q: (F) => "This week " + T(need(F.counts).quiet) + " of the " + T(F.counts.dams) + " dam-sized waterbodies we track get no days number. Doesn't it go quiet on the dams in trouble?",
         a: (F) => "No, the text names them: of the " + T(F.counts.quiet) + ", " + T(F.counts.low) + " are already below a third, " + T(F.counts.notRefilled) + " have not refilled to " + need(F.armPct) +
           "% full lately, and " + T(F.counts.noLook) + " have had no recent clear look.",
-        more: () => P("The text says \"already below 1/3\", \"no water seen\", \"no forecast until it refills\" or \"no clear satellite look lately\". But on a farm with many dams these lines are the ones cut to fit one text, and we don't yet count days for a dam that is already low: a real gap."),
+        more: () => P("The text says \"already below 1/3\", \"no water seen\", \"no forecast until it refills\" or \"no clear satellite look lately\". On a farm with many dams, some of these lines can be cut to fit one text (the dams with no forecast go first): the text then ends \"Reply MAP for N more dams\", and the app lists every dam. And we don't yet count days for a dam that is already low: a real gap."),
         go: () => [["#runway", "See them on Runway"]] },
     ] },
 
     { id: "climate", title: "Climate, and keeping up", items: [
-      { id: "cop31", q: () => "How does DamDays fit COP31?",
-        a: () => "It is an adaptation tool for the Awareness track: it helps farmers adapt by showing, dam by dam, how many days each dam has before it drops below a third, while there are still choices.",
+      { id: "cop31", q: () => "Which COP31 priority does it serve?",
+        a: () => "Awareness Across All Areas: it helps farmers adapt to a changing climate by showing, dam by dam, how many days each dam has before it drops below a third, while there are still choices.",
         more: (F) => P("The Global Goal on Adaptation's framework (the UAE Framework for Global Climate Resilience) includes targets on water scarcity and climate-resilient farming. " +
           "DamDays gives a farm-by-farm measure of water security for dams big enough for the satellites to see (" + need(F.size) + "), from free public data, with nothing to install."),
         go: () => [["#about", "About: why it matters for COP31"]] },
@@ -509,16 +527,16 @@ window.DamDays = window.DamDays || {};
     ] },
 
     { id: "next", title: "What's new, and what's next", items: [
-      { id: "whats-new", q: () => "What's new, next to dam sensors and rainfall maps?",
-        a: (F) => "The combination: at least how many days each farm dam big enough for the satellites to see (" + need(F.size) + ") has before it drops below a third, with nothing to install or measure, tested against pass marks written before the code, with each dam's own record, sent as one weekly text.",
+      { id: "whats-new", q: () => "What already exists, and what's new?",
+        a: (F) => "Dam sensors, satellite maps of today's water, calculators and, in Africa, waterhole forecasts already exist; what's new is the combination: at least how many days each farm dam big enough for the satellites to see (" + need(F.size) + ") has before it drops below a third, with nothing to install or measure, tested against pass marks written before the build began, with each dam's own record, sent as one weekly text.",
         more: () => '<ul class="faq-list"><li>NSW reports the water in its waterbodies every month from the same satellite record, by parish, with no forecast.</li>' +
-          "<li>Victorian tools give days of water from the farmer's own measurements.</li><li>Dam sensors read today's level.</li>" +
+          "<li>Victorian tools give days of water, or a 12-month outlook for one dam, from the farmer's own measurements.</li><li>Dam sensors read today's level, one dam at a time.</li>" +
           "<li>In Africa, FEWS NET forecasts livestock water points a month ahead.</li></ul>" +
           P("Our search did not find the combination. It is built in two south-eastern regions so far."),
         check: [["What already exists", "docs/WHAT_EXISTS.md"]] },
 
       { id: "sensor", q: () => "Why not just fit a dam sensor?",
-        a: () => "A sensor reads one dam's exact level right now, better than we can, but it has to be bought and fitted to each dam; DamDays looks ahead, for every dam the satellites can see, with nothing to install.",
+        a: () => "A sensor reads one dam's exact level right now, better than we can, but it has to be bought and fitted to each dam, often with a monthly fee; DamDays looks ahead, for every dam the satellites can see, with nothing to install.",
         more: (F) => P("DamDays sees only the wet surface, only on dams of " + need(F.size) + ", from a look that can be weeks old, but each dam comes with " + need(F.years) +
           " years of history from day one. A sensor reading could anchor the forecast; that is not built."),
         check: [["What already exists", "docs/WHAT_EXISTS.md"]] },
@@ -573,6 +591,11 @@ window.DamDays = window.DamDays || {};
         more: () => '<ul class="faq-list"><li>Farmers pay themselves.</li><li>Farm platforms or drought programmes offer it to their farmers.</li><li>It runs as a publicly funded free service.</li></ul>' +
           P("It needs no hardware and runs on a laptop from free public data, but refits are run by hand; who keeps it running after the event is part of the same decision.") },
 
+      { id: "who-else", q: () => "Who else could use dam forecasts?",
+        a: () => "Ideas, not built: added up by district, never farm by farm, the same forecasts could show drought programmes and fire agencies where dam water runs short soonest, and farm platforms could carry the weekly text.",
+        more: () => P("A season-ahead outlook for small areas, first built with lenders in mind, is built and tested, and set aside to keep the focus on farmers. Whether anything is ever shared beyond the farmer is " + pending + "."),
+        go: () => [["#outlook", "The Area outlook (set aside)"]] },
+
       { id: "audience", q: () => "Who is the one audience?",
         a: () => "Today, the family grazier whose stock drink from dams; whether to add a district view for drought programmes is not decided yet.",
         more: () => P("The only district-level piece built is the Area outlook for small areas, set aside to focus on farmers."),
@@ -598,7 +621,7 @@ window.DamDays = window.DamDays || {};
           const wc = f().floorCheck({ held: w.coverage, target: F.floorTarget }, F.proof);
           return P("Across all forecasts it held " + f().inThousand(F.allYears.floor_held) + " times in 1,000" + (all.verdict ? ", " + all.verdict : "") +
             "; its worst year was " + seasonLabel(w.year) + " at " + f().inThousand(w.coverage) + againstTarget(wc) + ".") +
-            P("The 9 in 10 is a statistical target written into the test plan before the code; it was not set from what acting early or late costs a farmer. We have not yet measured how far past the floor dams usually last.") +
+            P("The 9 in 10 is a statistical target written into the test plan before the build began; it was not set from what acting early or late costs a farmer. We have not yet measured how far past the floor dams usually last.") +
             (F.heroRec && F.heroRec.median_days ? P(F.hero.name + " on " + F.farmShort + ": its typical promise was at least " + F.heroRec.median_days + " days.") : "");
         },
         check: [["The test results", "artifacts/test_results.md"], ["The test plan", "PREREG.md"]] },
@@ -653,24 +676,24 @@ window.DamDays = window.DamDays || {};
         check: [["The test results", "artifacts/test_results.md"]] },
 
       { id: "as-received", q: () => "Did you test the number as a farmer would receive it?",
-        a: () => "Partly: each test forecast uses only data dated before it, and we checked this by deleting everything after a cut-off date and rebuilding, but the forecasts use the final satellite outlines and rainfall.",
-        more: () => P("We have not recounted how often the promise held for texts as they would actually have been sent, after the publishing delay."),
+        a: () => "Partly: each test forecast uses only data dated before it, and we checked this by deleting everything after a cut-off date and rebuilding. But the dam outlines and rainfall we used are today's versions, which may have been tidied since.",
+        more: () => P("Satellite looks also reach the public some days after the picture is taken. We have not recounted how often the promise held for texts as they would really have been sent, allowing for that."),
         check: [["The look-ahead check", "artifacts/lookahead_test.json"], ["The addendum to the test plan", "PREREG_ADDENDUM_1.md"]] },
     ] },
 
     { id: "fair", title: "A fair test", items: [
       { id: "who-built", q: () => "Who built it, and how much did AI write?",
-        a: () => "We, the DamDays team, wrote the code in this repository during the event, with an AI coding assistant (Claude Code) generating code under our direction; every commit carries its co-author line.",
-        more: () => P("We have not measured what share of the code it wrote. Before the event, as the organisers allowed, the public data was downloaded and AI research agents did the problem research and settled the design; none of that research code is in this repository."),
+        a: () => "We wrote the code in this repository during the event, with an AI coding assistant (Claude Code) generating code under our direction; every commit carries its co-author line.",
+        more: () => P("We have not measured what share of the code it wrote. Before the event, as a hackathon mentor confirmed was allowed, we downloaded the public data, and AI research agents did the problem research and settled the design; none of that research code is in this repository."),
         check: [["What we disclosed", "DISCLOSURE.md"], ["The build log", "BUILD_LOG.md"]] },
 
-      { id: "pass-marks-public", q: () => "Can I check on GitHub that the pass marks were public before the code?",
+      { id: "pass-marks-public", q: () => "Can I check on GitHub that the pass marks were public before the build began?",
         a: () => "Yes: the opening commit holds only the test plan with its pass marks, the locked region's fingerprints, the disclosure and a short README, and neither the plan nor the fingerprint list has been edited since.",
         more: () => P("Commit times come from our own computer, so GitHub's own record of each push is the outside check."),
         check: [["The commit history", COMMITS], ["The test plan", "PREREG.md"], ["The locked files' fingerprints", "SEALED_HASHES.csv"]] },
 
       { id: "believe-result", q: () => "You locked the unseen exam, opened it and marked it. Why should we believe the result?",
-        a: () => "Everything that decides the mark was on GitHub before the opening: the locked files' fingerprints, the pass marks, and the models being marked, with their code.",
+        a: () => "Everything that decides the mark was on GitHub before the opening: the locked files' fingerprints, the pass marks, the fingerprints of the models being marked, and their code.",
         more: () => P("The opening script refuses to run if the fingerprint list was edited, if any locked file or marked model differs, or if the repository is not clean and pushed. It scores once, on camera, and the raw results are pushed unedited. If a mark fails, we publish the fail and change nothing."),
         check: [["How the unseen exam is opened", "docs/SEALED_OPENING.md"]] },
 
@@ -681,8 +704,8 @@ window.DamDays = window.DamDays || {};
         check: [["The test plan", "PREREG.md"]] },
 
       { id: "peek", q: () => "Fingerprints prove the locked files didn't change, not that nobody looked. How do you know the locked region was never read?",
-        a: () => "Fingerprints can't prove that; what protects the result is that the models being marked were fingerprinted and pushed the evening before, the opening refuses any other model, and no forecasting or scoring code has changed since.",
-        more: () => P("Our build log records that on Saturday morning a reviewing agent ran a text search over the folder that holds the locked files. It was stopped within minutes and printed no matches, but a text search does scan files."),
+        a: () => "Fingerprints can't prove that; what protects the result is that the fingerprints of the models being marked were pushed on Friday evening (2 Oct), the opening refuses any other model, and no forecasting or scoring code has changed since.",
+        more: () => P("Our build log records one slip: on Saturday morning an AI agent helping us ran a text search over our research folder, which also holds the locked files. It was stopped after about 2 minutes, printed no matches, and no locked contents were seen; the opening script re-checks every file's fingerprint before it opens anything. A text search does scan files, so we say so."),
         check: [["The build log", "BUILD_LOG.md"]] },
 
       { id: "reproduce", q: () => "Can I reproduce the results?",
@@ -692,7 +715,8 @@ window.DamDays = window.DamDays || {};
 
       { id: "feedback", q: () => "What did you change because of feedback?",
         a: () => "Mentors changed the product and the story, not the model: the weekly text became the product, \"%\" now means only how full a dam is, and chances read \"3 in 10\".",
-        more: () => P("The app gained a Proof view with pictures instead of scores, and each dam's own record. Through all of it, the forecasting code stayed locked: not one change. Whether to add the district view a later mentor call raised is " + pending + "."),
+        more: () => P("They asked us to explain the testing plainly, with pictures: so the app gained a Proof view and each dam's own record. They asked for one audience, described precisely: so the pitch is for family graziers. And they asked the questions on this page: the problem in one sentence, the COP31 priority, which farms, what already exists and what's new, who else could use it, how a satellite can tell how much water a dam holds, and how a farmer can judge the accuracy.") +
+          P("Through all of it, the forecasting code stayed locked: not one change. Whether to add a district view for others is " + pending + "."),
         check: [["The build log", "BUILD_LOG.md"]] },
     ] },
   ];
@@ -732,7 +756,7 @@ window.DamDays = window.DamDays || {};
   function whoElseHtml() {
     return '<section class="slot-who-else" data-optional="who-else" aria-labelledby="q-who-else-h">' + icon("i-leaf", "who-icon") +
       '<div><span class="tag">An idea, not built</span><h2 class="card-title" id="q-who-else-h">Who else could use it?</h2>' +
-      "<p>Added up by district, never farm by farm, the same forecasts could show drought teams and fire agencies where water runs short soonest.</p></div></section>";
+      "<p>Added up by district, never farm by farm, the same forecasts could show drought programmes and fire agencies where dam water runs short soonest. <a href=\"#questions/who-else\">More</a></p></div></section>";
   }
 
   function pageHtml(F, route) {
@@ -743,12 +767,14 @@ window.DamDays = window.DamDays || {};
     const total = groups.reduce((s, x) => s + x.n, 0);
     const whoElse = !(route && route.params && route.params.whoelse === "0");
     return '<div class="wrap page-narrow faq-page">' +
-      '<header class="page-head"><p class="eyebrow">Questions</p><h1 id="questions-h1">Questions judges ask</h1>' +
-      "<p>Short answers you can quote, each with the numbers and where to check them.</p></header>" +
+      '<header class="page-head"><p class="eyebrow">Questions</p><h1 id="questions-h1">Questions people ask</h1>' +
+      "<p>Short answers, each with the numbers and where to check them. Start here: " +
+      [["problem", "What it is"], ["accuracy", "How accurate"], ["unseen-exam", "The unseen exam"], ["how-see", "How a satellite sees water"], ["who-for", "Which farms"]]
+        .map((x) => '<a href="#questions/' + x[0] + '">' + x[1] + "</a>").join(" · ") + ".</p></header>" +
       '<aside class="faq-know" aria-labelledby="faq-know-h"><h2 class="card-title" id="faq-know-h">Three things to know</h2><ul>' +
       "<li><b>\"% full\"</b> is the share of a dam's usual full water surface that the satellite sees wet. Not depth or litres; \"%\" never means a chance.</li>" +
       "<li><b>Chances</b> are written \"3 in 10\".</li>" +
-      "<li><b>\"Built to hold 9 times in 10\"</b> is a safety margin on the days-left number. It does not mean \"right 9 times in 10\".</li></ul></aside>" +
+      "<li><b>\"Held\"</b> means the dam really stayed above a third for at least the days given. The days-left number is built to hold 9 times in 10: in 9 of every 10 past cases it did, and most dams lasted well beyond the number.</li></ul></aside>" +
       '<div class="faq-tools"><label class="faq-search"><span class="vh">Find a question</span>' + icon("i-q") +
       '<input type="search" id="faq-search" placeholder="Find a question" autocomplete="off" enterkeyhint="search"></label>' +
       '<p class="faq-count small" id="faq-count" aria-live="polite">' + total + " questions</p></div>" +

@@ -201,7 +201,7 @@ def test_pass_is_written_as_a_pass():
     assert "6 of 6 results came out inside" in main and "kill rule not triggered" in main
     assert t[("README.md", "cell")].startswith("**All pass marks met.**")
     assert t[("docs/VIDEO_SCRIPT.md", "line")] == "It passed every mark: a fifth less error than the usual guess."
-    assert t[("docs/PITCH.md", "sentence")].startswith("DamDays met all 4 pass marks we wrote before any code")
+    assert t[("docs/PITCH.md", "sentence")].startswith("DamDays met all 4 pass marks we wrote before the build began")
 
 
 def test_partial_says_tidemark_did_not_beat_g2():

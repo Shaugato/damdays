@@ -142,8 +142,8 @@ DamDays.welcome = (function () {
   }
   /**
    * { scored, line, statTitle, statText } for the exam, from the sealed panel (UI_SPEC 4.3), never the
-   * clock. Pending promises no time: the region is opened once, on camera, after this build of the app
-   * (proof.json's heading_pending still names the old 17:30 slot, so it is not shown here).
+   * clock. Pending names the day but no hour: the region is opened once, on camera, on Sun 4 Oct, after this
+   * build of the app (proof.json's heading_pending still names the old 17:30 slot, so it is not shown here).
    */
   function exam(data) {
     const st = fmt().examStatus ? fmt().examStatus(panels(data).sealed) : null;
@@ -151,7 +151,7 @@ DamDays.welcome = (function () {
     if (st.scored) {
       return { scored: true, line: st.line, statTitle: st.day || "Opened", statText: "the unseen exam, opened once on camera: " + st.words };
     }
-    return { scored: false, line: st.line, statTitle: "Unseen exam", statText: "a region it never saw, locked away: to be opened once, on camera" };
+    return { scored: false, line: st.line, statTitle: "Unseen exam", statText: "a third farming region we never opened, kept for one final check, on camera, on Sun 4 Oct" };
   }
 
   function yearsText(data) {
@@ -165,7 +165,7 @@ DamDays.welcome = (function () {
     const ex = exam(data);
     const span = D.text && D.text.TRACK_RECORD_YEARS ? ' <span class="nowrap">(' + esc(D.text.TRACK_RECORD_YEARS) + ")</span>" : "";
     const lead = share !== null
-      ? "Our days-left number held <b>" + esc(fmt().inThousandText(share)) + "</b> times on ten years it never trained on" + span + "."
+      ? "Our days-left number held <b>" + esc(fmt().thousands(fmt().inThousand(share))) + " times in 1,000</b> over ten years it never trained on" + span + "."
       : "";
     if (!lead && !ex) return "";
     // COP31 (30% of the judging) is said on the first screen, not only further down
@@ -179,7 +179,7 @@ DamDays.welcome = (function () {
     const ex = exam(data);
     const years = yearsText(data) || ((document.querySelector('[data-fill="years"]') || {}).textContent || "").trim();
     let html = "";
-    if (share !== null) html += "<div><b>" + esc(fmt().inThousandText(share)) + "</b><span>times our days-left number held, on ten years it never trained on</span></div>";
+    if (share !== null) html += "<div><b>" + esc(fmt().inThousandText(share)) + "</b><span>how often our days-left number held, over ten years it never trained on</span></div>";
     if (years) html += "<div><b>" + esc(years) + " years</b><span>of free satellite records for each dam; nothing to install</span></div>";
     if (ex) html += "<div><b>" + esc(ex.statTitle) + "</b><span>" + esc(ex.statText) + "</span></div>";
     return html ? '<div class="stats">' + html + "</div>" : "";
@@ -224,22 +224,22 @@ DamDays.welcome = (function () {
     return "<" + tag + ' class="why-card"><p class="eyebrow">What it can\'t see</p><h2>Small dams, bores, tanks, and depth.</h2>' +
       "<p>It follows dams big enough for the satellites to see" + (size ? ", " + esc(size) + "," : "") + " from above." +
       (example ? ' "' + esc(example) + '" is the share of the usual water surface that is wet, not the depth.' : " A dam's \"% full\" is the share of its usual water surface that is wet, not the depth.") +
-      "</p></" + tag + ">";
+      ' <a href="#questions/how-see">How a satellite can tell how much water a dam holds</a></p></' + tag + ">";
   }
 
   /** What is new (creativity): what DamDays does that sensors and rainfall maps don't. */
   function whatsNewHtml(data, tag) {
     const size = sizeText(data);
     return "<" + tag + ' class="why-card"><p class="eyebrow">What\'s new</p><h2>Days before each dam drops below a third, with nothing to install.</h2>' +
-      "<p>Sensors read one dam's level today, and rainfall maps show the sky. DamDays says at least how many days each farm dam big enough " +
+      "<p>Sensors read one dam's level today, and rainfall maps show how much rain fell, not how much water each dam holds. DamDays says at least how many days each farm dam big enough " +
       "for the satellites to see" + (size ? " (" + esc(size) + ")" : "") + " has before it drops below a third, from free satellite records, with each dam's own track record, " +
-      'in one weekly text. <a href="#questions/whats-new">What already exists</a></p></' + tag + ">";
+      'in one weekly text. <a href="#questions/whats-new">What already exists, and what\'s new</a></p></' + tag + ">";
   }
 
   /** COP31 (the Awareness track; the Global Goal on Adaptation), from About's own section, kept short. */
   function copHtml(tag) {
     return "<" + tag + ' class="why-card"><p class="eyebrow">Why it matters for COP31</p><h2>Helping farmers adapt to drier years.</h2>' +
-      "<p>Awareness track: it shows farmers, dam by dam, how many days each dam has before it drops below a third, while there are still choices. " +
+      "<p>Awareness Across All Areas: it shows farmers, dam by dam, how many days each dam has before it drops below a third, while there are still choices. " +
       "The Global Goal on Adaptation's framework (the UAE Framework for Global Climate Resilience) includes targets on water scarcity and " +
       'climate-resilient farming; DamDays measures water security farm by farm. <a href="#about">More in About</a></p></' + tag + ">";
   }
@@ -273,6 +273,7 @@ DamDays.welcome = (function () {
       const t = d.days_left >= cap ? "6 months+" : d.days_left + (d.days_left === 1 ? " day" : " days");
       return { text: t, label: d.name + ": " + (t === "6 months+" ? "6 months or more" : "at least " + t) + " before it drops below a third", prio: 1 };
     }
+    if (k === "low" && d.level_pct === 0) return { text: "no water seen", low: true, label: d.name + ": no water seen at its last clear look", prio: 0 };
     if (k === "low") return { text: "below a third", low: true, label: d.name + ": already below a third", prio: 0 };
     if (k === "not_refilled") return { text: "no forecast", quiet: true, label: d.name + ": no forecast until it refills", prio: 2 };
     return { text: "no recent look", quiet: true, label: d.name + ": no clear satellite look lately", prio: 2 };
@@ -360,7 +361,10 @@ DamDays.welcome = (function () {
       "<p>In Australia a <b>farm dam</b> is the water itself: a pond dug in a paddock to catch run-off, held by an earth wall. Sheep and cattle drink from it. DamDays watches its water surface from space.</p>" +
       '<dl class="words"><div><dt>Grazier</dt><dd>a farmer who raises sheep or cattle on pasture.</dd></div>' +
       "<div><dt>Paddock</dt><dd>a fenced field.</dd></div>" +
-      "<div><dt>Water run</dt><dd>the drive around a farm's dams and troughs to check them.</dd></div></dl>" +
+      "<div><dt>Water run</dt><dd>the drive around a farm's dams and troughs to check them.</dd></div>" +
+      "<div><dt>Agistment</dt><dd>paying to graze stock on someone else's land, often in a drought.</dd></div>" +
+      "<div><dt>Homestead</dt><dd>the farmhouse.</dd></div>" +
+      "<div><dt>Bore</dt><dd>a well that pumps groundwater.</dd></div></dl>" +
       '<p class="small">"% full" is the share of the dam\'s usual water surface that is wet, seen from above. Not depth.</p></div>';
   }
 

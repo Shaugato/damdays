@@ -5,7 +5,7 @@ Run from the repo folder, after steps 13, 15, 11, 16 and 17 (seconds):
     .venv/Scripts/python.exe scripts/18_track_record.py            # write track_record.json, rebuild bundle.js
     .venv/Scripts/python.exe scripts/18_track_record.py --check    # build and check everything; write nothing
 
-Why: a mentor (Warren Sue, Sat 3 Oct) said the forecast is "the lifeline of farmers", so farmers need a way to judge
+Why: a mentor (Sat 3 Oct) said the forecast is "the lifeline of farmers", so farmers need a way to judge
 its accuracy themselves. An average over every dam does not show that. So for each dam the app shows, this step counts
 how often our cautious days-left number held on THAT dam over the last 10 years (the founder's plain words):
 

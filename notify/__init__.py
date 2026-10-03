@@ -1,7 +1,7 @@
 """DamDays weekly text: the farmer product.
 
-A mentor who grew up on farms told us farmers don't open apps or emails, but a text that
-comes once a week is "super handy" (mentor feedback, Fri 2 Oct 2026). So the weekly SMS is the
+A mentor told us farmers don't open apps or emails, but a text that comes once a week is
+"super handy" (mentor feedback, Fri 2 Oct 2026). So the weekly SMS is the
 product, and the app is for setting up a farm and looking deeper.
 
 This package turns the live forecasts the app already shows (app/data/real/forecasts.json)

@@ -4,7 +4,7 @@ Run from the repo folder:
     # THE SHIPPED APP: the frozen rung L3; Rewind and Rating on the 2018-19 drought season (test years)
     .venv/Scripts/python.exe scripts/11_export_app.py --rung L3 --season 2018 --refit-live
 
-    # After the sealed region is opened (Sat 3 Oct 17:30 AEST): fill the "Sealed region" panel only
+    # After the sealed region is opened (see docs/SEALED_OPENING.md): fill the "Sealed region" panel only
     .venv/Scripts/python.exe scripts/11_export_app.py --panel-only --sealed-scores artifacts/sealed/scorecard/sealed_TEST
 
     # Validation seasons (what the app showed before the one-time TEST scoring)
@@ -81,7 +81,7 @@ TEST_FIT_SUMMARY = config.ARTIFACTS_DIR / "test_setting_fit_summary.json"   # sc
 SIZE_TARGET_MB = 5.0                     # the six JSON files should stay about this small (bundle.js copies them)
 
 # The sealed region, as PREREG.md describes it (no sealed file is read here).
-SEALED_TITLE = "Sealed region: opened Sat 3 Oct 17:30"
+SEALED_TITLE = "Sealed region: not opened yet"
 SEALED_NAME = "Southern Downs, Granite Belt and New England"
 SEALED_FILL_COMMAND = ("scripts/11_export_app.py --panel-only --sealed-scores "
                        "artifacts/sealed/scorecard/sealed_TEST")
@@ -481,8 +481,8 @@ def sealed_placeholder():
     return dict(
         key="sealed", status="pending", title=SEALED_TITLE, label=SEALED_NAME,
         text=("A third region, 4,711 waterbodies, was downloaded before the event and locked away (its file "
-              "fingerprints are in SEALED_HASHES.csv). It is opened once, on camera, on Sat 3 Oct 2026 at "
-              "17:30 AEST, forecast with the frozen model and scored once. Its results will appear here."),
+              "fingerprints are in SEALED_HASHES.csv). It is opened once, on camera, after the app build "
+              "(PREREG_ADDENDUM_2.md), forecast with the frozen model and scored once. Its results will appear here."),
         expectations=SEALED_EXPECTATIONS, fill_with=SEALED_FILL_COMMAND)
 
 
@@ -522,7 +522,7 @@ def sealed_results_for(folder):
     """The opening's sealed_results.json for a --sealed-scores folder (<results>/scorecard/sealed_TEST): the run must
     be the sealed opening, never a dry run."""
     path = Path(folder).resolve().parents[1] / SEALED_RESULTS_NAME
-    results = read_json(path, "scripts/20_open_sealed_region.py --open (Sat 3 Oct 17:30)")
+    results = read_json(path, "scripts/20_open_sealed_region.py --open (docs/SEALED_OPENING.md)")
     run = results.get("run", {})
     if run.get("name") != "sealed" or run.get("rehearsal") is not False:
         raise SystemExit(f"{path} is not the sealed opening (run {run.get('name')!r}, rehearsal "
@@ -540,14 +540,14 @@ def sealed_panel(folder, arena="sealed", results=None):
     folder = Path(folder)
     found = {}
     for part, (task, name) in PANEL_FILES.items():
-        result = read_json(folder / task / name, "scripts/20_open_sealed_region.py --open (Sat 3 Oct 17:30)")
+        result = read_json(folder / task / name, "scripts/20_open_sealed_region.py --open (docs/SEALED_OPENING.md)")
         if result.get("block") != "TEST" or result.get("arena") != arena:
             raise SystemExit(f"{folder / task / name} is block {result.get('block')}, arena {result.get('arena')}; "
                              f"the sealed panel needs block TEST, arena {arena!r}.")
         found[part] = result
     if results is None:
         results = sealed_results_for(folder)
-    panel = headline_panel("sealed", "Sealed region, opened Sat 3 Oct 17:30, scored once",
+    panel = headline_panel("sealed", f"Sealed region, opened {human_day(found['p1']['time'])}, scored once",
                            f"{SEALED_NAME}; forecasts issued July 2016 to June 2026; scored once on "
                            f"{human_day(found['p1']['time'])}", found["p1"], found["p2"], found["rain"])
     floor = sealed_floor(results)
@@ -577,7 +577,7 @@ def test_scoreboard_json(results, season, season_line, sealed):
               "learned only from answers known before 1 Jul 2016. It was scored once, on "
               f"{human_day(results['scored_at'])}, on every forecast issued from July 2016 to June 2026 in the two "
               "development regions. These years were also looked at before the event, so these scores are "
-              "slightly optimistic (PREREG.md); the sealed region, opened once on Sat 3 Oct, is the clean test."),
+              "slightly optimistic (PREREG.md); the sealed region, opened once after the build, is the clean test."),
         rating=dict(
             all_seasons=dict(label=f"All test seasons {ad.season_label(first)} to {ad.season_label(last)} "
                                    "(both development regions)",
@@ -792,7 +792,7 @@ def main():
         note = (f"Real DamDays forecasts. Runway: Tidemark {args.rung} refitted on all answers known by "
                 f"{ad.day_text(last_day)}. Rewind and Rating: the test season {ad.season_label(season)}, from the "
                 "frozen model fitted only on answers known before 1 Jul 2016. Scores: development regions, "
-                "2016-2026, scored once; the sealed region is opened Sat 3 Oct 17:30.")
+                "2016-2026, scored once; the sealed region is opened once after the build (PREREG_ADDENDUM_2.md).")
     meta = ad.meta_json(regions, last_day, args.rung, live_info, rewind_info, coverage, results, note)
     meta["model"]["config_hash"] = config_hash_of_running_code()
     if test_results is not None:

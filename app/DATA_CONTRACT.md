@@ -299,7 +299,7 @@ Not one of the six files above: optional. It is written by `scripts/16_weekly_te
                            "status": "forecast", "issued_on": "2026-09-13", "window_end": "2026-12-12",
                            "level_pct": 80, "chance": 0.089, "damdays_days": 87,
                            "text_kind": "forecast", "days_left": 68 } ],
-               "sms": "Fri 2 Oct (satellite 13 Sep)\n...", "sms_septets": 159, "long": "..." } ],
+               "sms": "Fri 2 Oct (dams seen 13 Sep)\n...", "sms_septets": 159, "long": "..." } ],
   "set_aside": [ { "farm_id": "farm-d", "name": "Farm D (near Dubbo)", "region": "nsw_cw", "reason": "Set aside: ..." } ]
 }
 ```
@@ -329,7 +329,7 @@ Not one of the six files above: optional. It is written by `scripts/17_proof_dat
             "forecasts": 142938, "fell": 29415, "dams": 1644,
             "skill_vs_usual_rate": { "value": 0.23501, "ci_low": 0.2235, "ci_high": 0.2483, "words": "nearly a quarter" },
             "calibration_slope": 1.09455, "model": "..." },
-  "unseen_exam": { "panel_key": "sealed", "heading_pending": "Unseen exam: opens Sat 3 Oct 17:30 AEST",
+  "unseen_exam": { "panel_key": "sealed", "heading_pending": "Unseen exam: opens Sun 4 Oct 2026 (AEDT)",
                    "heading_scored": "...", "expect": "...", "text": "..." },
   "calibration": { "title": "...", "takeaway": "...", "detail": "...", "lean": "...", "not_plotted": "...",
                    "how_to_read": "...", "min_forecasts_to_plot": 100,

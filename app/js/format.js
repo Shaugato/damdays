@@ -256,9 +256,9 @@ Object.assign(DamDays.format, (function () {
   }
 
   /**
-   * The pass marks written before the code, from a scored panel, by group (never "N of 2": scripts/21 counts
+   * The pass marks written before the build began, from a scored panel, by group (never "N of 2": scripts/21 counts
    * the four marks one by one, and the panel only says whether each group met all of its marks).
-   * -> null | { all, sentence: "Pass marks written before the code: not all met (the forecasts' three marks:
+   * -> null | { all, sentence: "Pass marks written before the build began: not all met (the forecasts' three marks:
    *    not all met; the area outlook's one mark, set aside: met)." }
    */
   function passMarks(panel) {
@@ -267,7 +267,7 @@ Object.assign(DamDays.format, (function () {
     const groups = [];
     if (typeof r.pass_bars_met === "boolean") groups.push(["the forecasts' three marks", r.pass_bars_met, "all met", "not all met"]);
     if (typeof g.pass_bar_met === "boolean") {
-      // The drop rule written before the code: if rainfall alone did as well, the area outlook's claim is dropped.
+      // The drop rule written before the build began: if rainfall alone did as well, the area outlook's claim is dropped.
       const dropped = g.kill_rule_triggered === true ? ", and its drop rule was triggered because rainfall alone did as well, so that claim is dropped" : "";
       groups.push(["the area outlook's one mark, set aside", g.pass_bar_met, "met" + dropped, "not met" + dropped]);
     }
@@ -276,7 +276,7 @@ Object.assign(DamDays.format, (function () {
     const none = groups.every((x) => !x[1]);
     const lead = all ? "all met" : none ? "not met" : "not all met";
     const each = groups.map((x) => x[0] + ": " + (x[1] ? x[2] : x[3])).join("; ");
-    return { all, none, lead, sentence: "Pass marks written before the code: " + lead + " (" + each + ")." };
+    return { all, none, lead, sentence: "Pass marks written before the build began: " + lead + " (" + each + ")." };
   }
 
   /**

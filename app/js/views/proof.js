@@ -270,7 +270,7 @@ DamDays.views.proof = (function () {
           ", " + where + "." });
       } else if (e.field === "runway.gain_vs_benchmark") {
         const lead = got.ci_low > 0 ? "ahead" : got.ci_high < 0 ? "behind" : "not clearly ahead";
-        out.push({ miss: !(got.ci_low > 0), text: "Against the simpler model written down before the code: " + lead + " (we expected it a little ahead)." });
+        out.push({ miss: !(got.ci_low > 0), text: "Against the simpler model written down before the build began: " + lead + " (we expected it a little ahead)." });
       } else if (e.field === "rating.gain_vs_rain") {
         out.push({ miss: v < e.low, text: "The area outlook against rainfall alone: it ranked areas right " + Math.round(v * 100) +
           " more times in 100, " + where + " (" + Math.round(e.low * 100) + " to " + Math.round(e.high * 100) + " more)." });
@@ -302,7 +302,7 @@ DamDays.views.proof = (function () {
   };
 
   function timelineHtml(state, panel) {
-    const items = [["Before the code", "the rules and the pass marks written down", false],
+    const items = [["Before the build", "the rules and the pass marks written down", false],
                    ["Then", "the model locked: no changes after this", false]];
     const years = proof && proof.by_year ? numberWord(proof.by_year.years.length) : "the";
     if (proof && proof.test && proof.test.scored_at) items.push([when(proof.test.scored_at), years + " test years scored once", false]);
@@ -328,7 +328,7 @@ DamDays.views.proof = (function () {
     return '<section class="exam-card ' + (scored ? "is-scored" : "is-pending") + '" aria-labelledby="exam-title">' +
       '<div class="exam-top"><p class="eyebrow">The unseen exam</p><span class="tag' + (scored ? " tag-ink" : "") + '">' +
       (scored ? "Scored once" : "Not opened yet") + "</span></div>" +
-      '<h2 id="exam-title">' + esc(scored ? scoredHeading(panel) : "A region it never saw, locked away") + "</h2>" + body +
+      '<h2 id="exam-title">' + esc(scored ? scoredHeading(panel) : "Kept aside: a region we never opened or used") + "</h2>" + body +
       (ex.plain ? '<p class="exam-expect">' + esc(ex.plain) + "</p>" : "") + timelineHtml(state, panel) +
       '<a class="exam-more" href="#proof/exam"><span>' + (scored ? "The result in detail" : "The exam in detail") + "</span>" +
       icon("i-chev", "sm") + "</a></section>";
@@ -373,10 +373,10 @@ DamDays.views.proof = (function () {
     const years = proof && proof.by_year ? numberWord(proof.by_year.years.length) : null;
     // the two test regions, from proof.json's own intro ("in two farming regions (A; B)")
     const regions = proof && proof.test ? /in (two|three|\w+) farming regions \(([^)]+)\)/.exec(proof.test.intro || "") : null;
-    let lead = "We wrote the pass marks down before the code";
+    let lead = "We wrote the pass marks down before the build began";
     if (years) lead += ", tested on " + years + " years the model never trained on" + (regions ? ", in " + regions[1] + " farming regions (" + regions[2] + ")" : "");
     lead += state === "scored" ? ", and opened a region it never saw, once, on camera."
-      : state === "pending" ? ", and keep a region it never saw locked away, to open once, on camera." : ".";
+      : state === "pending" ? ", and keep a third region aside, never opened or used, to open once, on camera." : ".";
     return '<header class="page-head"><p class="eyebrow">Proof</p><h1 id="proof-h1">How do we know it works?</h1>' +
       '<p class="lead">' + esc(lead) + "</p></header>";
   }

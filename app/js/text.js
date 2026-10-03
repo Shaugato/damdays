@@ -8,7 +8,7 @@
  * writes (notify/fixtures/*.json) and on app/data/real/farms.json:
  *     node app/tools/check_text_port.js
  *
- * The words (a mentor who grew up on farms, Fri 2 Oct 2026; notify/MESSAGE_SPEC.md):
+ * The words (mentor feedback, Fri 2 Oct 2026; notify/MESSAGE_SPEC.md):
  *   - "%" only ever means HOW FULL a dam is: "~45% full", at its latest satellite look.
  *   - A chance is written "6 in 10" (rounded; "less than 1 in 10" under 0.05), never a percent.
  *     The SMS gives no chances; the long text and the app do.
@@ -155,6 +155,10 @@
   const MAP_LINK = "[map link]";  // placeholder for the farm's link in the app (long text)
   const LONG_OTHERS_MAX = 6;      // the long text lists at most 6 other dams by name
   const NO_WATER_SEEN = "no water seen";   // a dam at 0%: the satellite saw no water at its last clear look (never "dry")
+  // The day the farm's dams were last seen (the farm's latest clear satellite look). The SMS's first line says
+  // "Fri 2 Oct (dams seen 13 Sep)", not "(satellite 13 Sep)": a farmer reads "satellite" there as jargon.
+  // The long text says it in full: "dams seen from space on 13 Sep".
+  const SEEN = "dams seen";
   const TRACK_RECORD_MIN = 5;     // a dam's track record is shown only with at least this many judged past forecasts
   const TRACK_RECORD_YEARS = "2016-2026";   // the July-June years the track record counts (scripts/18_track_record.py)
   const TRACK_RECORD_SPAN = "the last 10 years";   // the same years, in the words the farmer reads
@@ -368,14 +372,15 @@
   }
 
   /**
-   * The SMS for a farm's dams. Line 1 is the date, then the farm's latest satellite look. If the
-   * whole text does not fit one SMS: first the satellite date is left out; then lines are left out
-   * from the end, and the last line says how many dams were left out.
+   * The SMS for a farm's dams. Line 1 is the date, then the day the farm's dams were last seen (its
+   * latest clear satellite look): "Fri 2 Oct (dams seen 13 Sep)". If the whole text does not fit one
+   * SMS: first the "dams seen" date is left out; then lines are left out from the end, and the last
+   * line says how many dams were left out.
    */
   function smsForDams(dams, today, radiusKm = DEFAULT_RADIUS_KM) {
     const look = latestLook(dams, today);
     const headers = [dateText(today)];
-    if (look !== null) headers.unshift(dateText(today) + " (satellite " + shortDate(look) + ")");
+    if (look !== null) headers.unshift(dateText(today) + " (" + SEEN + " " + shortDate(look) + ")");
     const items = smsItems(dams, today, radiusKm);
     for (let keep = items.length; keep > 0; keep--) {
       const leftOut = items.slice(keep).reduce((sum, item) => sum + item[1], 0);
@@ -494,7 +499,7 @@
     }
     const count = dams.length + " dam" + (dams.length === 1 ? "" : "s") + " the satellites can see";
     const look = latestLook(dams, today);
-    const seen = look ? "latest satellite look " + shortDate(look)
+    const seen = look ? SEEN + " from space on " + shortDate(look)
                       : "no clear satellite look in the last " + RECENT_LOOK_DAYS + " days";
     const lines = [opening + count + " within " + kmText(radiusKm) + " km of the homestead; " + seen + "."];
 
@@ -544,7 +549,7 @@
     septets, isGsm7, fitsOneSms,
     // settings and fixed words
     SMS_MAX, CAP_DAYS, OK_DAYS, RECENT_LOOK_DAYS, DEFAULT_RADIUS_KM, NAME_IF_IN_TEN, TRACK_RECORD_MIN, TRACK_RECORD_YEARS,
-    TRACK_RECORD_SPAN, TRACK_RECORD_HOW, NO_WATER_SEEN,
+    TRACK_RECORD_SPAN, TRACK_RECORD_HOW, NO_WATER_SEEN, SEEN,
   };
 
   if (typeof module === "object" && module.exports) module.exports = api;       // Node: the parity check

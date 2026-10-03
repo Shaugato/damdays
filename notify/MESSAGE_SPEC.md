@@ -2,7 +2,7 @@
 
 **What it is.** Once a week, each farm gets one text message (SMS) about its dams: how many days of water each dam that matters has left before it drops below a third, and how full it is. A longer version of the same message is for the app or an email.
 
-**Why a text.** A mentor who grew up on farms told us (Fri 2 Oct 2026) that farmers do not open emails or apps, but "a text that comes in once a week is super handy". So the text is the product. The app is where a farm is set up and where you look deeper.
+**Why a text.** A mentor told us (Fri 2 Oct 2026) that farmers do not open emails or apps, but "a text that comes in once a week is super handy". So the text is the product. The app is where a farm is set up and where you look deeper.
 
 **Where the code is.** [`notify/`](.) is a small package that reads the live forecasts the app already shows. It does not import or change the frozen model (`damdays/`).
 
@@ -52,7 +52,7 @@ One message, one fact per line, most important first:
 
 | line | what | example |
 |---|---|---|
-| 1 | **The date** the text is sent, then the farm's latest satellite look | `Fri 2 Oct (satellite 13 Sep)` |
+| 1 | **The date** the text is sent, then the day the farm's dams were last seen (the farm's latest clear satellite look; written "dams seen", because a farmer reads "satellite" there as jargon) | `Fri 2 Oct (dams seen 13 Sep)` |
 | 2 | **The dams that matter most**, fewest days left first: any dam whose floor has run out since its look (two or more share one line, `Dams 1 and 4 may be below 1/3 now`); **the headline dam** (the fewest days still left); and any dam with at least a **5 in 10 chance** of falling below a third within 90 days. Only the first line that gives days says "before it drops below 1/3". | `Dam 2 ~55% full: at least 18 days before it drops below 1/3`<br>`Dam 4 ~60% full: at least 33 days` |
 | 3 | **Dams already below a third**, said plainly | `Dam 1 already below 1/3` · `Dam 3: no water seen` (0% at its last clear look) · `Dams 1 and 2 already below 1/3` · `5 dams already below 1/3` (5 or more) |
 | 4 | **The other dams with a forecast**, summed up by their shortest floor (one dam alone gets its own line) | `Other 2 dams: 3 months+` (all at least 90 days) · `Other 2 dams: at least 68 days` |
@@ -68,14 +68,14 @@ Two special cases:
 
 - **One SMS = 160 places, in the GSM-7 alphabet.** A single emoji or curly quote switches a message to a 70-character format, so the texts use only plain letters, digits, spaces, line breaks and `. , : ; ( ) + - / % ' ~`. No emoji.
 - **`~` takes two places.** It sits in GSM-7's extension table. So `Dam 1 ~45% full` is 15 characters but 16 places. The code counts places (`gsm7.septets`), not just characters.
-- **If the text is too long:** first the satellite date is left out of line 1. Then lines are left out from the end, the least important first (5, then 4, then 3, then the later lines of 2). The headline dam's line always stays. The close says how many dams were left out: `Reply MAP for 5 more dams`.
-- **Short words keep the satellite date.** The satellite date tells the farmer how old the reading is, so the lines are worded to leave room for it: `Other 2 dams: 3 months+` (not "OK for 3 months+") and `Dam 3: no water seen`. With them, this week's hero text (Farm E, section 6) keeps "(satellite 13 Sep)" in 159 places.
+- **If the text is too long:** first the "dams seen" date is left out of line 1. Then lines are left out from the end, the least important first (5, then 4, then 3, then the later lines of 2). The headline dam's line always stays. The close says how many dams were left out: `Reply MAP for 5 more dams`.
+- **Short words keep the "dams seen" date.** It tells the farmer how old the reading is, so the lines are worded to leave room for it: `Other 2 dams: 3 months+` (not "OK for 3 months+") and `Dam 3: no water seen`. With them, this week's hero text (Farm E, section 6) keeps "(dams seen 13 Sep)" in 159 places.
 
 ## 4. The long text (app or email)
 
 Two to four lines:
 
-1. The farm, the date, how many dams the satellites can see within the radius, and the latest satellite look.
+1. The farm, the date, how many dams the satellites can see within the radius, and the day the dams were last seen, in full: `dams seen from space on 28 Sep` (the farm's latest clear satellite look).
 2. The headline dam in full: its distance from the homestead, how full it was and on which day, its days from today, and its chance (`Chance it drops below a third by 27 Dec: 6 in 10.`).
 3. `Also:` the other dams, most urgent first (at most 6 by name; the map shows them all). A dam at 0% reads `Dam 3: no water seen at its 28 Sep satellite look (one look can be wrong)`.
 4. What the days mean ("across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks"), and the map link (`[map link]` is a placeholder).
@@ -83,7 +83,7 @@ Two to four lines:
 Example (the farm of worked example 2 below):
 
 ```
-Example farm 2, Mon 5 Oct 2026: 3 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.
+Example farm 2, Mon 5 Oct 2026: 3 dams the satellites can see within 3 km of the homestead; dams seen from space on 28 Sep.
 Dam 1 (0.4 km from the homestead) was ~45% full on 28 Sep: at least 23 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 6 in 10.
 Also: Dam 3 ~80% full, at least 103 days (chance by 27 Dec: 1 in 10); Dam 2 full, at least 143 days (chance by 27 Dec: 1 in 10).
 Days are counted from today and are cautious: across all dams in ten test years, a dam stayed above a third at least that long 9 times in 10, a little less often for spring looks. Map: [map link]
@@ -101,7 +101,7 @@ A mentor (Sat 3 Oct) said the forecast is the farmer's lifeline, so farmers need
 Example (worked example 2 with made-up records, `examples.TRACK_RECORD_EXAMPLE`: Dam 1 held 15 of 20, Dam 2 190 of 200, Dam 3 has only 4 judged forecasts):
 
 ```
-Example farm 2, Mon 5 Oct 2026: 3 dams the satellites can see within 3 km of the homestead; latest satellite look 28 Sep.
+Example farm 2, Mon 5 Oct 2026: 3 dams the satellites can see within 3 km of the homestead; dams seen from space on 28 Sep.
 Dam 1 (0.4 km from the homestead) was ~45% full on 28 Sep: at least 23 days before it drops below a third, counted from today. Chance it drops below a third by 27 Dec: 6 in 10.
 Also: Dam 3 ~80% full, at least 103 days (chance by 27 Dec: 1 in 10); Dam 2 full, at least 143 days (chance by 27 Dec: 1 in 10).
 Our record on these 3 dams over the last 10 years: our days-left number held 205 of 220 times (about 9 in 10) on the 2 dams with enough history to judge; on Dam 1, 15 of 20. We re-ran our forecasts for July 2016 to June 2026 using only data from before July 2016, then checked each one against what the dam really did.
@@ -125,7 +125,7 @@ The app's My farm view shows the same line in "The longer version" (made by the 
 | Dam 3 | 2.2 | forecast | 70% | 120 | 113 | 0.08 (1 in 10) |
 
 ```
-Mon 5 Oct (satellite 28 Sep)
+Mon 5 Oct (dams seen 28 Sep)
 All 3 dams look OK for 3 months+
 Dam 3 ~70% full: at least 113 days before it drops below 1/3
 Reply MAP
@@ -142,7 +142,7 @@ Every dam has at least 90 days and under a 5 in 10 chance. The headline dam is s
 | Dam 3 | 2.7 | forecast | 80% | 110 | 103 | 0.09 (1 in 10) |
 
 ```
-Mon 5 Oct (satellite 28 Sep)
+Mon 5 Oct (dams seen 28 Sep)
 Dam 1 ~45% full: at least 23 days before it drops below 1/3
 Other 2 dams: 3 months+
 Reply MAP
@@ -158,7 +158,7 @@ The floor was 30 days from 28 Sep, so it is 23 days from 5 Oct. The other two da
 | Dam 2 | 1.9 | forecast | 65% | 60 | 53 | 0.35 (4 in 10) |
 
 ```
-Mon 5 Oct (satellite 28 Sep)
+Mon 5 Oct (dams seen 28 Sep)
 Dam 2 ~65% full: at least 53 days before it drops below 1/3
 Dam 1 already below 1/3
 Reply MAP
@@ -166,7 +166,7 @@ Reply MAP
 
 The days come first, because they are the headline. Then it says plainly which dam is already below a third. Its fullness (~25%) is in the long text.
 
-### 4. Two dams at risk, and the rest summed up (the satellite date is left out to fit)
+### 4. Two dams at risk, and the rest summed up (the dams-seen date is left out to fit)
 
 | dam | km | status | how full | floor from the look | days left on 5 Oct | chance in 90 days |
 |---|---|---|---|---|---|---|
@@ -183,7 +183,7 @@ Other 2 dams: at least 68 days
 Reply MAP
 ```
 
-Dam 2 is the headline. Dam 4 is named too, because it has a 5 in 10 chance. With the satellite date, the text would take 165 places, so the date is left out first (146 places).
+Dam 2 is the headline. Dam 4 is named too, because it has a 5 in 10 chance. With the dams-seen date, the text would take 165 places, so the date is left out first (146 places).
 
 ### 5. A floor that ran out since the satellite look, and a dam with no water seen
 
@@ -194,7 +194,7 @@ Dam 2 is the headline. Dam 4 is named too, because it has a 5 in 10 chance. With
 | Dam 3 | 2.4 | already_low | 0% | - | - | - |
 
 ```
-Mon 5 Oct (satellite 28 Sep)
+Mon 5 Oct (dams seen 28 Sep)
 Dam 1 ~35% full: may be below 1/3 now
 Dam 2 ~60% full: at least 43 days before it drops below 1/3
 Dam 3: no water seen
@@ -210,7 +210,7 @@ Dam 1's 5 cautious days ran out on 3 Oct, so the text does not promise any more.
 | Dam 1 | 0.9 | forecast | 100% | 260 | 253 | 0.01 (less than 1 in 10) |
 
 ```
-Mon 5 Oct (satellite 28 Sep)
+Mon 5 Oct (dams seen 28 Sep)
 Your dam looks OK for 3 months+
 Dam 1 full: 6 months+ before it drops below 1/3
 Reply MAP
@@ -226,7 +226,7 @@ Reply MAP
 | Dam 2 | 1.6 | already_low | 15% | - | - | - |
 
 ```
-Mon 5 Oct (satellite 28 Sep)
+Mon 5 Oct (dams seen 28 Sep)
 Dams 1 and 2 already below 1/3
 Reply MAP
 ```
@@ -241,7 +241,7 @@ Two to four such dams are listed by number, and five or more are counted. The lo
 | Dam 2 | 2.0 | not_refilled | 40% | - | - | - |
 
 ```
-Mon 5 Oct (satellite 28 Sep)
+Mon 5 Oct (dams seen 28 Sep)
 Dam 1 ~75% full: at least 38 days before it drops below 1/3
 Dam 2 ~40% full: no forecast until it refills
 Reply MAP
@@ -274,7 +274,7 @@ Dam 8 ~58% full: at least 29 days
 Reply MAP for 5 more dams
 ```
 
-In full, it would also say `Other 3 dams: at least 57 days` and `Dams 7 and 11: no forecast this week`. That is 227 places. Leaving out the satellite date and those two lines (5 dams) brings it to 156. The long text names 6 of the other dams and points to the map for the rest.
+In full, it would also say `Other 3 dams: at least 57 days` and `Dams 7 and 11: no forecast this week`. That is 227 places. Leaving out the dams-seen date and those two lines (5 dams) brings it to 156. The long text names 6 of the other dams and points to the map for the rest.
 
 ### 10. No dam the satellites can see within 3 km
 
@@ -302,7 +302,7 @@ Each homestead point is the middle of a real cluster of dam-sized waterbodies, m
 The hero farm is **Farm E (near Mudgee)**: all 5 of its waterbodies are farm dams on aerial photos. The text made on Fri 2 Oct 2026 for Farm E, 5 dams within 3 km (159 of 160 places):
 
 ```
-Fri 2 Oct (satellite 13 Sep)
+Fri 2 Oct (dams seen 13 Sep)
 Dam 1 ~80% full: at least 68 days before it drops below 1/3
 Dam 3: no water seen
 Other 2 dams: 3 months+

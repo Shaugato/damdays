@@ -56,6 +56,7 @@ def check_sms_rules(text, today):
     assert len(text) <= 160 and gsm7.septets(text) <= 160, (len(text), gsm7.septets(text), text)
     lines = text.split("\n")
     assert lines[0].startswith(date_text(today)), "the text must lead with the date"
+    assert "satellite" not in lines[0].lower(), "line 1 says 'dams seen 13 Sep', not 'satellite 13 Sep' (jargon)"
     assert lines[-1].startswith("Reply MAP"), "the text must close with Reply MAP"
     check_percent_means_full(text)
     check_plain_words(text)
@@ -137,6 +138,16 @@ def test_days_counted_from_today():
     d = dam(floor=35, look="2026-09-13")
     assert days_left(d, "2026-10-02") == 16
     assert "Dam 1 ~60% full: at least 16 days before it drops below 1/3" in sms_for_dams([d], "2026-10-02")
+
+
+def test_first_line_says_when_the_dams_were_seen():
+    """Line 1 gives the day the farm's dams were last seen ("dams seen", not "satellite": jargon to a farmer);
+    the long text says it in full ("dams seen from space on 13 Sep")."""
+    dams = [dam(1, floor=35, look="2026-09-13"), dam(2, floor=120, chance=0.1, look="2026-09-10")]
+    assert sms_for_dams(dams, "2026-10-02").split("\n")[0] == "Fri 2 Oct (dams seen 13 Sep)"
+    assert long_for_dams(dams, "2026-10-02").split("\n")[0] == (
+        "Your farm, Fri 2 Oct 2026: 2 dams the satellites can see within 3 km of the homestead; "
+        "dams seen from space on 13 Sep.")
 
 
 @pytest.mark.parametrize("floor, words", [

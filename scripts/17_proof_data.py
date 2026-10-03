@@ -84,7 +84,7 @@ STATUS_WORDS = {"already_low": "already below a third", "not_refilled": "not yet
 SEASON_FROM, SEASON_TO = "2018-07-01", "2019-06-30"   # part 3: forecasts made in this July-June year
 SHOW_TO = "2019-09-30"             # ... drawn to here, so the 90 days after the last forecast can be seen
 REGION_WORDS = {"nsw_cw": "NSW Central West", "wvic_sesa": "western Victoria / SE South Australia"}
-OPENS = "Sat 3 Oct 17:30 AEST"     # the sealed region's opening (scripts/21_publish_sealed.py, OPENS)
+OPENS = "Sun 4 Oct 2026 (AEDT)"    # the sealed region's opening, moved from Sat 3 Oct 17:30 AEST (PREREG_ADDENDUM_2.md)
 
 
 # ===========================================================================
@@ -224,8 +224,8 @@ def calibration_words(bins, slope):
     # Which way it leans: groups where fewer fell than the average chance given, and groups where more fell.
     high = [b["in_ten"] for b in plotted if b["share_fell"] < b["mean_chance"]]
     low = [b["in_ten"] for b in plotted if b["share_fell"] > b["mean_chance"]]
-    slope_words = (f"calibration slope {slope:.2f}, where 1.00 is perfect and the pass mark written before any code "
-                   "was 0.8 to 1.2")
+    slope_words = (f"calibration slope {slope:.2f}, where 1.00 is perfect and the pass mark written before the build "
+                   "began was 0.8 to 1.2")
     if high and low and max(high) < min(low):
         lean = (f"Below {min(low)} in 10, slightly fewer dams fell than we said; from {min(low)} in 10 up, slightly "
                 f"more. So the chances could be a little bolder: low ones a little lower, high ones a little higher "
@@ -687,10 +687,11 @@ def build(farm_id=FARM_ID, rewind_day=REWIND_DAY):
                                            f"{results['frozen']['config_hash']})"),
         unseen_exam=dict(
             panel_key="sealed", heading_pending=f"Unseen exam: opens {OPENS}", expect=expect_words(),
-            heading_scored=f"Unseen exam: opened {OPENS}, scored once",
-            text=("Everything below is the ten test years. The clean test is a third farming region that the model "
-                  "and the team have never seen: its satellite data was locked away with a public fingerprint at the "
-                  "start of the event, and it is opened once, on camera. Its score is published here whatever it is.")),
+            heading_scored="Unseen exam: opened once, on camera, scored once",
+            text=("Everything below is the ten test years. The clean test is the unseen exam: a third farming region "
+                  "whose satellite data we downloaded and fingerprinted before the event and then never opened or used, "
+                  "kept aside for one final check. It is opened once, on camera, and its score is published here "
+                  "whatever it is.")),
         calibration=dict(
             title="What we said vs what happened", takeaway=takeaway, detail=detail, lean=lean,
             not_plotted=not_plotted,

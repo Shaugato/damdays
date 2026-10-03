@@ -146,15 +146,16 @@ DamDays.views.about = (function () {
   }
 
   // The panel's own title and text still name the old 17:30 slot; the opening now comes after this
-  // build of the app, so the pending panel promises no time (scripts/21 replaces it with the scores).
+  // build of the app, on Sun 4 Oct, so the pending panel names the day but no hour (scripts/21 replaces it
+  // with the scores).
   function pendingPanelHtml(panel) {
-    const title = "Sealed region: not opened yet";
+    const title = "Sealed region (the unseen exam): not opened yet";
     const first = String(panel.text || "").split(/(?<=\.)\s+/)[0] || "";
     return '<section class="score-panel score-panel-pending" aria-label="' + esc(title) + '">' +
            '<p class="panel-status">Not opened yet</p>' +
            "<h3>" + esc(title) + "</h3>" +
            '<p class="panel-label">' + esc(panel.label || "") + "</p>" +
-           "<p>" + esc(first) + (first ? " " : "") + "It is opened once, on camera, after this build of the app, forecast with the locked model and scored once. Its results will appear here.</p>" +
+           "<p>" + esc(first) + (first ? " " : "") + "We have never opened or used it: it is kept aside for one final check, opened once, on camera, on Sun 4 Oct, forecast with the locked model and scored once. Its results will appear here.</p>" +
            expectationsHtml(panel) + "</section>";
   }
 
@@ -174,7 +175,7 @@ DamDays.views.about = (function () {
         // "Ahead" only when the whole range is above zero, so a result that did not beat G2 says so.
         const gain = r.gain_vs_benchmark;
         const lead = gain.ci_low > 0 ? "Ahead of" : (gain.ci_high < 0 ? "Behind" : "Not clearly ahead of");
-        items.push("<li>" + lead + " the benchmark model written down before the code (G2, the decision-tree model alone), on the same " +
+        items.push("<li>" + lead + " the benchmark model written down before the build began (G2, the decision-tree model alone), on the same " +
                    "forecasts (skill gain " + withRange(gain, 3) + ").</li>");
       }
       if (r.auc) {
@@ -190,7 +191,7 @@ DamDays.views.about = (function () {
         items.push("<li>" + fmt.thousands(r.n_forecasts) + " forecasts made October to March" +
                    (typeof r.n_dams === "number" ? " for " + fmt.thousands(r.n_dams) + " dam-sized waterbodies" : "") +
                    (typeof r.n_fell_below_third === "number" ? "; " + fmt.thousands(r.n_fell_below_third) + " were followed by a fall below a third" : "") +
-                   ". Pass marks written before the code: " + verdict(r.pass_bars_met, "met", "not met") + ".</li>");
+                   ". Pass marks written before the build began: " + verdict(r.pass_bars_met, "met", "not met") + ".</li>");
       }
     }
     if (g && g.rating_auc && g.rain_only_auc) {
@@ -226,8 +227,8 @@ DamDays.views.about = (function () {
       items.push("<li><strong>Wetter or drier season range (R30 band):</strong> covered " + panel.band.covered + " of " +
                  panel.band.region_years + " region-years." + notIndependent + "</li>");
     }
-    // The exporter titles the sealed panel with the slot it was first planned for ("opened Sat 3 Oct
-    // 17:30"); the opening came after the app build, so name the day from the panel's own scored_at.
+    // Name the day from the panel's own scored_at (the opening came after the app build, not at the first
+    // planned slot), whatever title the exporter wrote.
     const day = panel.key === "sealed" && panel.scored_at && fmt.stampDay ? fmt.stampDay(panel.scored_at) : "";
     const title = day ? "Sealed region: opened " + day + ", scored once" : panel.title;
     return '<section class="score-panel" aria-label="' + esc(title) + '">' +
@@ -325,17 +326,19 @@ DamDays.views.about = (function () {
   }
 
   function checkedHtml(F) {
-    const held = F.floorHeld !== null ? fmt.inThousandText(F.floorHeld) : null;
+    const held = F.floorHeld !== null ? fmt.thousands(fmt.inThousand(F.floorHeld)) + " times in 1,000" : null;
     const how = (DamDays.text && DamDays.text.TRACK_RECORD_HOW) || "";
     return '<section class="about-sec" aria-labelledby="about-checked-h"><h2 class="section-title" id="about-checked-h">How we checked it</h2>' +
-      "<p>We wrote down the tests and the pass marks before writing any code, in the public repository. " + esc(how) +
-      (held ? " The cautious days held <b>" + esc(held) + "</b> times" + (F.skillWords ? ", and the chances had " + esc(F.skillWords) + " less error than guessing the usual rate" : "") + "." : "") +
+      "<p>We wrote down the tests and the pass marks before the build began, in the public repository. " + esc(how) +
+      (held ? " The cautious days held <b>" + esc(held) + "</b>" + (F.skillWords ? ", and the chances had " + esc(F.skillWords) + " less error than guessing the usual rate" : "") + "." : "") +
       "</p><p>Those are years it never trained on, but we had looked at them in research before the event, so they may flatter it slightly. " +
-      "The clean test is a third farming region, a region it never saw, locked away before the event and opened once, on camera" +
-      (F.examWhen ? " (" + esc(F.examWhen) + ")" : "") + ".</p>" +
+      "The clean test is the unseen exam: a third farming region whose satellite data we downloaded and fingerprinted before the event, " +
+      (F.sealed && F.sealed.status === "scored"
+        ? "then kept unopened and unused for one final check, which we ran once, on camera" + (F.sealed.scored_at && fmt.stampDay && fmt.stampDay(F.sealed.scored_at) ? ", on " + esc(fmt.stampDay(F.sealed.scored_at)) : "") + "."
+        : "and have never opened or used: it is kept aside for one final check, opened once, on camera, on Sun 4 Oct, and its score is published whatever it is.") + "</p>" +
       '<div class="linkrows about-links">' +
       '<a class="linkrow" href="#proof">' + icon("i-proof") + "<span>Proof<small>What we said against what happened, year by year and dam by dam.</small></span><span class=\"chev\">" + icon("i-chev") + "</span></a>" +
-      '<a class="linkrow" href="#proof/exam">' + icon("i-lock") + "<span>The unseen exam<small>The region it never saw, opened once.</small></span><span class=\"chev\">" + icon("i-chev") + "</span></a>" +
+      '<a class="linkrow" href="#proof/exam">' + icon("i-lock") + "<span>The unseen exam<small>A third farming region we kept aside for one final check.</small></span><span class=\"chev\">" + icon("i-chev") + "</span></a>" +
       "</div></section>";
   }
 
@@ -375,7 +378,7 @@ DamDays.views.about = (function () {
   function copHtml(F) {
     return '<section class="about-sec" aria-labelledby="about-cop-h"><h2 class="section-title" id="about-cop-h">Why it matters for COP31</h2>' +
       '<ul class="about-bullets">' +
-      "<li><b>Awareness track: helping farmers adapt.</b> Farmers would get a forecast for each dam big enough for the satellites to see" +
+      "<li><b>Awareness Across All Areas: helping farmers adapt.</b> Farmers would get a forecast for each dam big enough for the satellites to see" +
       (F && F.size ? " (" + esc(F.size) + ")" : "") + ", counted in days before it drops below a third, " +
       "to help them decide while there are still choices: move or sell stock, book water carting, or fix a leaking dam.</li>" +
       "<li><b>Global Goal on Adaptation.</b> Its framework (the UAE Framework for Global Climate Resilience) includes targets on water scarcity and " +
@@ -390,7 +393,7 @@ DamDays.views.about = (function () {
       '<li><b>SILO climate data</b> (monthly rainfall), Queensland Government. CC BY 4.0. <a href="https://www.longpaddock.qld.gov.au/silo/" rel="noopener">longpaddock.qld.gov.au/silo</a></li>' +
       "<li><b>Street maps</b> &copy; OpenStreetMap contributors (ODbL), drawn with Leaflet.</li>" +
       "<li><b>Type:</b> Atkinson Hyperlegible Next, Braille Institute (SIL Open Font License).</li></ul>" +
-      '<p class="about-team">Built by the DamDays team for Climate Hack-tion 2026. An AI coding assistant (Claude Code) generated code under our direction; ' +
+      '<p class="about-team"><b>Team:</b> Skyrend Systems: Shaugato (team lead), Ishanee and Long. We built DamDays for Climate Hack-tion 2026; an AI coding assistant (Claude Code) generated code under our direction, and ' +
       '<a href="' + esc(repo("DISCLOSURE.md")) + '" rel="noopener">the disclosure</a> says what was done before the event.</p></section>';
   }
 
@@ -407,14 +410,14 @@ DamDays.views.about = (function () {
       return note.replace(/opened once on [^,.]*/i, day ? "opened once on " + day : "opened once");
     }
     return note.replace(/the sealed region, opened once on [^,.]*, is the clean test/i,
-      "the sealed region, to be opened once on camera after this build of the app, is the clean test");
+      "the sealed region (the unseen exam), to be opened once on camera on Sun 4 Oct, is the clean test");
   }
 
   function specialistsHtml(data) {
     const board = data.scoreboard || {};
     const meta = data.meta || {};
     const checks = [
-      ["The test results", "artifacts/test_results.md"], ["The test plan, written before the code", "PREREG.md"],
+      ["The test results", "artifacts/test_results.md"], ["The test plan, written before the build began", "PREREG.md"],
       ["The scorecard", "docs/SCORECARD.md"], ["How the unseen exam is opened", "docs/SEALED_OPENING.md"],
       ["Our record, dam by dam", "artifacts/track_record.md"], ["What we disclosed", "DISCLOSURE.md"],
     ];
