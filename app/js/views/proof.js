@@ -306,7 +306,7 @@ DamDays.views.proof = (function () {
                    ["Then", "the model locked: no changes after this", false]];
     const years = proof && proof.by_year ? numberWord(proof.by_year.years.length) : "the";
     if (proof && proof.test && proof.test.scored_at) items.push([when(proof.test.scored_at), years + " test years scored once", false]);
-    if (state === "scored") items.push([when(panel.scored_at) || "Opened", "the unseen exam opened, scored once", false]);
+    if (state === "scored") items.push([when(panel.scored_at, true) || "Opened", "the unseen exam opened once, on camera, and scored once", false]);
     else items.push(["Next", "the unseen exam, opened once on camera", true]);
     return '<ol class="timeline">' + items.map(([w, t, pending]) =>
       "<li" + (pending ? ' class="is-pending"' : "") + "><span><b>" + esc(w) + "</b> " + esc(t) + "</span></li>").join("") + "</ol>";

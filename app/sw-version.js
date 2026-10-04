@@ -2,7 +2,7 @@
 // version, and its fingerprint. A new version here makes installed copies offer "Refresh".
 // After ANY change to the app's files run: python app/tools/build_bundle.py --stamp
 self.DAMDAYS_SHELL = {
- "version": "67a0427d5a",
+ "version": "c7e8874069",
  "files": [
   "./",
   "index.html",
