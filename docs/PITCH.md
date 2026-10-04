@@ -2,7 +2,7 @@
 
 Draft text for the Junction submission form, one section per form field, in the form's order. Copy each section into its field.
 
-- **One audience: the farmer.** Following mentor advice (Sat 3 Oct), the pitch is for family sheep and cattle farmers only. The corporate agribusiness and lender case is set aside; it gets one "next" line at most.
+- **One audience: the farmer.** Following mentor advice (Sat 3 Oct), the pitch is for family sheep and cattle farmers, our users. Our other customers (drought support programmes and agencies, fire agencies, and farm software platforms and dam-sensor companies as partners) are named in order in section 7, "Who will use it, and who will pay". The corporate agribusiness and lender case is set aside; it is only the last, "later" line of that list.
 - **Numbers** come from [`artifacts/test_results.md`](../artifacts/test_results.md) (the test years, scored once), the app's data files (`app/data/real/`, including `proof.json` for the Proof pictures and `track_record.json` for each dam's record) and [TARGET_FARMER.md](TARGET_FARMER.md) (the farmer, from public farm surveys), unless marked otherwise. The unseen exam's numbers are added after it is opened once, on camera, on Sun 4 Oct 2026 (it was pre-registered for Sat 3 Oct 2026, 17:30 AEST, and moved to after the app build).
 - **The sample text** is the real one made on Fri 2 Oct 2026 for a demo farm near Mudgee, Farm E ([`outbox/2026-10-02.json`](../outbox/2026-10-02.json), `farm-e`). Its 5 dams and their forecasts are real; the homestead point is not a real one. On aerial photos all 5 are farm dams. (Until Sat 3 Oct the sample was a demo farm near Dubbo; the photo check found its waterbodies were treatment ponds, a racecourse pond, a town-edge pond and a stretch of river, so it was set aside: see [BUILD_LOG.md](../BUILD_LOG.md).)
 - **Fill-ins** are in [square brackets]. Replace every one before submitting (checklist at the end).
@@ -76,7 +76,8 @@ An illustrative family built from these numbers ("Meet Kath and Graeme", clearly
 - **Pick one audience, and describe them precisely.** So the pitch is for one farmer, described from public farm surveys ([TARGET_FARMER.md](TARGET_FARMER.md)), and the corporate agribusiness case is set aside.
 - **Say the problem in one sentence, name the COP31 priority and the farms, show what already exists and what is new, and let farmers judge the accuracy.** So we wrote a one-page brief ([ONE_PAGER.md](ONE_PAGER.md)), checked what already exists ([WHAT_EXISTS.md](WHAT_EXISTS.md)), and added our record to every dam's card.
 - **Not every point was supportive.** One mentor doubted DamDays is different enough from dam sensors and existing apps, and thought the saving for one farm may be small. That is why [WHAT_EXISTS.md](WHAT_EXISTS.md) compares them side by side, and why the impact is marked "not yet measured".
-- **Who else could use dam forecasts, and how can a satellite tell how much water is in a dam when dams differ in depth?** Both are answered plainly in the app's **Questions** page, with the other questions we were asked (why not a dam sensor, which farms, Australia only?).
+- **Who else uses dams, and did we rule them out before choosing graziers?** So we checked the other users of dam water and now name our customers in order (section 7): farmers first, then drought support programmes and agencies, fire agencies, and farm software platforms and dam-sensor companies as partners.
+- **How can a satellite tell how much water is in a dam when dams differ in depth?** Answered plainly in the app's **Questions** page, with the other questions we were asked (why not a dam sensor, which farms, Australia only?).
 
 ## 7. Solution and intended impact
 
@@ -101,7 +102,7 @@ Reply MAP for 1 more dam
 
 **The rest of what we built** (working now: the app is live at [shaugato.github.io/damdays/app](https://shaugato.github.io/damdays/app/); the code is at [github.com/Shaugato/damdays](https://github.com/Shaugato/damdays), where the app also opens from `app/index.html`):
 - **On a phone, a clean app; on a computer, a short story** of what DamDays is and how a farmer sees it, with the real text in a phone frame. Four tabs: My farm, Proof, Questions and More.
-- **Questions, in plain words.** The questions mentors and judges asked, each with a short answer, the numbers and where to check them: the problem in one sentence, which farms, Australia only, how a satellite can tell how much water is in a dam when dams differ in size and depth, why not a dam sensor, what already exists and what is new, who else could use it, and how a farmer can judge the accuracy.
+- **Questions, in plain words.** The questions mentors and judges asked, each with a short answer, the numbers and where to check them: the problem in one sentence, which farms, Australia only, how a satellite can tell how much water is in a dam when dams differ in size and depth, why not a dam sensor, what already exists and what is new, who our customers are and who pays, and how a farmer can judge the accuracy.
 - **My farm, for a closer look.** Pick a demo farm, or click your homestead on the map and set the circle size, and see your dams (Dam 1 is the closest) and this week's text on a phone, made in the browser by the same rules as the real texts, with its longer version. For each dam, a card: how full, the days, the chance of falling below a third by each date ("1 in 10 by 12 Dec"), the next six months with the DamDays day marked and how far a wetter or drier season could move it, how full it has been since 1988, what its own history says about it (Farm E's Dam 5: "Runs wetter than similar dams"), and our record on it, season by season.
 - **Proof, for trust.** Pictures of the ten test years, for anyone who does not read statistics: what we said against what happened; how it held up year after year; and one farm's dams through the 2018-19 drought. The unseen exam's result appears at the top once it is opened.
 - **Rewind: the 2018-19 drought** (inside Proof). Go back to a date in the drought, see the forecasts as they were made that day, then reveal what happened and the tally.
@@ -128,7 +129,17 @@ Reply MAP for 1 more dam
 - **A real text service:** farmers opt in when they set up their farm; the MAP and STOP replies; a sender name (Australia's Spam Act 2003 asks commercial messages to name the sender and offer a working unsubscribe). Sending through an SMS provider is built, but it only ever runs with your own account's keys.
 - **Keeping up automatically:** a weekly refit on the newest satellite looks, and a seasonal check of what it said against what happened, so drift shows early.
 - **Fitting the farm:** set-up that shrinks the 3 km circle to the farm's own dams (most target farms are smaller than the circle's 2,827 ha); more regions; trials with farmers of how they act on the number.
-- **Who else could use it, later (ideas, not built):** added up by district, never farm by farm, the same forecasts could show drought programmes and fire agencies where dam water runs short soonest, and farm platforms could carry the weekly text. The same dam-by-dam record could also help those who lend to farms: a season-ahead rating for that is built and was one of our pre-registered tests, but it is not part of this pitch.
+- **Talking to customers:** farmers and two drought programmes first (the list below).
+
+**Who will use it, and who will pay.** Our customers, in order:
+
+1. **Farmers:** family sheep and cattle graziers whose stock drink from dams. They are the users, and they come first, as a mentor advised.
+2. **Drought support programmes and agencies,** such as state drought teams and Local Land Services, Future Drought Fund programmes, regional drought resilience groups, and farm advisers who look after many farms. They could provide DamDays to the farmers in their region, and use the district view (Runway, in the app) to see where stock water runs short first.
+3. **Fire agencies:** to know before fire season which farm dams crews and aircraft can still refill from.
+4. **Farm software platforms and dam-sensor companies, as partners:** a sensor shows the level now; adding our forecast completes it.
+5. **Later, rural lenders and insurers,** set aside for now on mentor advice. We built a season-ahead rating with lenders in mind, and it was one of our pre-registered tests, but it is not part of this pitch.
+
+We have not set prices or approached these customers yet; the next step is to talk to farmers and two drought programmes.
 
 ## 8. Written pitch (about 510 words with the text)
 
@@ -215,10 +226,10 @@ See [DISCLOSURE.md](../DISCLOSURE.md): datasets (DEA Waterbodies v3, Geoscience 
 - [ ] The sample text matches `outbox/2026-10-02.json` (`farm-e`) word for word, first line "Fri 2 Oct (dams seen 13 Sep)". If the texts are made again, use `--date 2026-10-02`, or update the text and its numbers everywhere.
 - [ ] No Farm D (near Dubbo) anywhere as an example: it was set aside after the aerial-photo check.
 - [ ] Re-check the live fact (272 of 894) if the app data is exported again (command in [VIDEO_SCRIPT.md](VIDEO_SCRIPT.md), "Where each number comes from").
-- [ ] No lender, bank or agribusiness case beyond the one "next" line in section 7 and the pass-mark reporting: the row in section 9, and the sealed results scripts/21 writes into sections 7 and 9 (they name every pre-registered mark, the season rating's included; keep them as written).
+- [ ] No lender, bank or agribusiness case beyond the one "Later" line of section 7's customer list and the pass-mark reporting: the row in section 9, and the sealed results scripts/21 writes into sections 7 and 9 (they name every pre-registered mark, the season rating's included; keep them as written).
 - [ ] "What we learned from talking to people": no names, and nothing that identifies any mentor.
 - [ ] "We" everywhere; the team is named once, in section 5 (first names only; no emails or Discord handles anywhere in the repository).
 - [ ] Track wording: check it against the Junction form. If the form words the goal differently from the Participant Guide, use the form's words.
 - [ ] Every link opens without asking for access (the Participant Guide's quality check).
-- [ ] No DamDays pricing and no names of prospective customers: the repository is public. (Other tools, with their public prices, are named in WHAT_EXISTS.md on purpose: a mentor asked what already exists.)
+- [ ] No DamDays pricing. Customers are named by kind (section 7's list), with agencies only as examples of a kind ("such as state drought teams"), never as committed buyers; no claim of interest, pilots, letters or revenue. The repository is public. (Other tools, with their public prices, are named in WHAT_EXISTS.md on purpose: a mentor asked what already exists.)
 - [ ] [DISCLOSURE.md](../DISCLOSURE.md): its team line matches section 5; fill in the screenshot link and the video tool.

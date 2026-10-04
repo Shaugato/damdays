@@ -47,9 +47,9 @@ Forecasting stock water is not new. Sensors show one dam's level now; NSW's mont
 
 **Awareness Across All Areas:** "helping farmers and land managers adapt" to a changing climate, toward the track's 2035 goal of climate-resilient farming. DamDays turns free satellite and climate data into one line a farmer can act on early. **Secondary:** less waste: fewer stock losses, less wasted feed, better use of on-farm water (not yet measured).
 
-## Who else could use it (ideas, not built)
+## Who will use it, and who pays
 
-Added up by district, never farm by farm, the same forecasts could show drought programmes and fire agencies where dam water runs short soonest, and farm platforms could carry the weekly text. A season-ahead outlook for 2 km areas, first built with lenders in mind, was built and tested, then set aside to keep the focus on farmers.
+**Farmers first**, as the users (a mentor's advice); then **drought support programmes and agencies** (such as state drought teams and Local Land Services), to provide DamDays to the farmers in their region and see on the district view (Runway) where stock water runs short first; **fire agencies**, to know before fire season which farm dams crews and aircraft can still refill from; and **farm software platforms and dam-sensor companies, as partners**. Later, rural lenders and insurers (set aside for now on mentor advice). We have not set prices or approached these customers yet; the next step is to talk to farmers and two drought programmes.
 
 ## What it doesn't do yet
 

@@ -156,8 +156,16 @@ For now, yes. It runs on Australian public data and has been tested only in sout
 **What already exists, and what is new?**
 A lot exists: dam sensors (today's level), NSW's monthly farm dam maps from the same satellite record (by parish, no forecast), Victorian tools that work out days or months of water from the farmer's own measurements, and in Africa, USGS FEWS NET's 30-day forecast for livestock water points. Forecasting stock water is not our invention. What we did not find is the combination: a forecast for each farm dam big enough for the satellites to see, with nothing to install or measure, tested in public against rules written before the build, with a record on every dam, sent as one weekly text. The full comparison: [docs/WHAT_EXISTS.md](docs/WHAT_EXISTS.md).
 
-**Who else could use dam forecasts?**
-Ideas, not built: added up by district, never farm by farm, the same forecasts could show drought support teams and fire agencies where water is running short soonest. We also built and tested a season-ahead Area outlook for 2 km areas with lenders in mind (a farm's water security matters to whoever lends against it); it is in the app under More, but set aside, because our one audience is farmers.
+**Who are your customers, and who pays?**
+In order:
+
+1. **Farmers:** family sheep and cattle graziers whose stock drink from dams. They are the users, and they come first, as a mentor advised.
+2. **Drought support programmes and agencies,** such as state drought teams and Local Land Services, Future Drought Fund programmes, regional drought resilience groups, and farm advisers who look after many farms. They could provide DamDays to the farmers in their region, and use the district view ([Runway](https://shaugato.github.io/damdays/app/#runway), in the app) to see where stock water runs short first.
+3. **Fire agencies:** to know before fire season which farm dams crews and aircraft can still refill from.
+4. **Farm software platforms and dam-sensor companies, as partners:** a sensor shows the level now; adding our forecast completes it.
+5. **Later, rural lenders and insurers,** set aside for now on mentor advice. We built and tested a season-ahead Area outlook for 2 km areas with lenders in mind; it is in the app under More, set aside.
+
+We have not set prices or approached these customers yet; the next step is to talk to farmers and two drought programmes.
 
 **Will it keep up as the climate shifts?**
 We don't assume the past repeats: each forecast starts from the dam's latest look and how fast it is dropping. A model that learned only from data before July 2016 still had less error than the usual guess in every one of the next ten years, dry and wet, and Proof shows where the weather pushed it off (in the wetter years its chances ran high). In use it is refit on the newest satellite looks; today we do that by hand.
@@ -180,6 +188,7 @@ We don't assume the past repeats: each forecast starts from the dam's latest loo
 - **Tested only in south-eastern Australia.** Other climates, such as the tropical north or Western Australia, are untested.
 - **Not tested with farmers.** The weekly text rests on a mentor's advice; we have not yet tried it with graziers, or checked mobile coverage on farms.
 - **Not yet a running service.** No text has been sent to a real farmer. Opt-in and the MAP and STOP replies are not built, and the refit on new satellite looks is run by hand. The sender runs only with your own SMS account's keys.
+- **No prices, and no customer approached.** We name our customers [above](#questions-people-ask) (farmers first, then drought support programmes and agencies, fire agencies, and farm software platforms and dam-sensor companies as partners), but we have not set prices or approached these customers yet; the next step is to talk to farmers and two drought programmes.
 - **Not advice.** Use it alongside your own eyes on the dam and your local knowledge.
 
 ---

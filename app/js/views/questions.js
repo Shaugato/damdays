@@ -9,7 +9,8 @@
  * from research/questions/FAQ_DRAFT.md, rewritten for the featured demo farm (Farm E, near Mudgee) and
  * the app's wording rules. Every number is read from the data (meta, forecasts, farms, proof,
  * track_record, scoreboard, history); a question whose numbers are missing from this dataset is left out.
- * Items we have not decided are said plainly: "not decided yet".
+ * Who pays names our customers in order (CUSTOMERS below), always with the plain line that no price is set
+ * and no customer has been approached yet.
  * The optional who-else slot (UI_SPEC 5.21) is last; ?whoelse=0 leaves it out.
  */
 window.DamDays = window.DamDays || {};
@@ -226,7 +227,18 @@ window.DamDays = window.DamDays || {};
   }
 
   const P = (text) => "<p>" + esc(text) + "</p>";
-  const pending = "not decided yet";
+
+  // Our customers, in order (mentor advice: farmers first; the lender case set aside). No prices, and no customer
+  // approached yet: HONEST goes with the list every time it is shown.
+  const CUSTOMERS = [
+    ["Farmers", "family sheep and cattle graziers whose stock drink from dams. They are the users, and they come first, as a mentor advised."],
+    ["Drought support programmes and agencies", "for example, state drought teams and Local Land Services, Future Drought Fund programmes, regional drought resilience groups, and farm advisers who look after many farms. They could provide DamDays to the farmers in their region, and use the district view (Runway) to see where stock water runs short first."],
+    ["Fire agencies", "to know before fire season which farm dams crews and aircraft can still refill from."],
+    ["Farm software platforms and dam-sensor companies, as partners", "a sensor shows the level now; adding our forecast completes it."],
+    ["Later, rural lenders and insurers", "set aside for now on mentor advice."],
+  ];
+  const HONEST = "We have not set prices or approached these customers yet; the next step is to talk to farmers and two drought programmes.";
+  const customersHtml = () => '<ol class="faq-steps">' + CUSTOMERS.map((c) => "<li><b>" + esc(c[0]) + ":</b> " + esc(c[1]) + "</li>").join("") + "</ol>";
 
   /** The featured farm's SMS as a small text bubble, word for word from farms.json. */
   function smsHtml(F) {
@@ -312,7 +324,7 @@ window.DamDays = window.DamDays || {};
       { id: "live-service", q: () => "Is the weekly text a live service today?",
         a: (F) => "No: our script wrote this week's texts for " + need(F.farms.length || null) + " demo farms, but none has a phone number and nothing has been sent to a real farmer.",
         more: () => P("Replies such as MAP and STOP, opt-in and a sender name are not built, and Australia's spam law asks for a named sender and a working unsubscribe before any real send.") +
-          P("Who sends the text each week, DamDays itself or a farm platform or drought programme, is " + pending + "."),
+          P("Drought programmes and farm platforms, two of the customers we name under \"Who pays\", could offer the text to the farmers they work with; we have not approached any yet."),
         check: [["How the weekly text is written", "notify/MESSAGE_SPEC.md"], ["The one-page summary", "docs/ONE_PAGER.md"]] },
 
       { id: "who-for", q: () => "Which farms is it for?",
@@ -550,12 +562,12 @@ window.DamDays = window.DamDays || {};
       { id: "privacy", q: () => "Who sees my farm?",
         a: () => "Your homestead point stays on this phone and is never sent to us: no name, no sign-up.",
         more: () => P("A real service would hold only a homestead point, a circle size, an optional farm name and a phone number. The forecasts in this repository are listed by location, with no owner's name.") +
-          P("Whether anything is ever shared beyond the farmer, for example district totals only and never one farm, is " + pending + "."),
+          P("Drought programmes and fire agencies would get what this repository already shows, dams by location, never a farmer's name, phone number or homestead point; the sharing rules are not written yet."),
         check: [["Who it is for", "docs/TARGET_FARMER.md"]] },
 
       { id: "difference", q: () => "What difference does it make, in numbers?",
         a: () => "None of it is measured yet: no real farmer has had a text, so fewer stock losses and less wasted feed are aims, not results.",
-        more: () => P("We expect the value to come from timing the costly moves a failing dam forces, such as carting water or paying for grazing elsewhere. Trials with farmers, tracking how they act on the number, are how we would measure it. Milestones are " + pending + "."),
+        more: () => P("We expect the value to come from timing the costly moves a failing dam forces, such as carting water or paying for grazing elsewhere. Trials with farmers, tracking how they act on the number, are how we would measure it. The first step is to talk to farmers and two drought programmes."),
         check: [["Who it is for", "docs/TARGET_FARMER.md"], ["The pitch", "docs/PITCH.md"]] },
 
       { id: "make-worse", q: () => "Could it make things worse, for example by encouraging a farmer to hang on?",
@@ -586,20 +598,22 @@ window.DamDays = window.DamDays || {};
     ] },
 
     { id: "pays", title: "Who pays, and who it is for", items: [
-      { id: "who-pays", q: () => "Who pays, and will DamDays still be around in the next drought?",
-        a: () => "Not decided yet: no price is set, and nobody has been asked to pay.",
-        more: () => '<ul class="faq-list"><li>Farmers pay themselves.</li><li>Farm platforms or drought programmes offer it to their farmers.</li><li>It runs as a publicly funded free service.</li></ul>' +
-          P("It needs no hardware and runs on a laptop from free public data, but refits are run by hand; who keeps it running after the event is part of the same decision.") },
+      { id: "who-pays", q: () => "Who are your customers, and who pays?",
+        a: () => "Farmers first, as the users; then drought support programmes and agencies, fire agencies, and farm software platforms and dam-sensor companies as partners, with rural lenders and insurers later.",
+        more: () => customersHtml() + P(HONEST) +
+          P("It needs no hardware and runs on a laptop from free public data; refits are run by hand today. Paying customers are what would keep it running into the next drought."),
+        go: () => [["#runway", "Runway: the district view"]] },
 
       { id: "who-else", q: () => "Who else could use dam forecasts?",
-        a: () => "Ideas, not built: added up by district, never farm by farm, the same forecasts could show drought programmes and fire agencies where dam water runs short soonest, and farm platforms could carry the weekly text.",
-        more: () => P("A season-ahead outlook for small areas, first built with lenders in mind, is built and tested, and set aside to keep the focus on farmers. Whether anything is ever shared beyond the farmer is " + pending + "."),
-        go: () => [["#outlook", "The Area outlook (set aside)"]] },
+        a: () => "Beyond farmers: drought support programmes and agencies, to see where stock water runs short first; fire agencies, to know before fire season which farm dams crews and aircraft can still refill from; and farm software platforms and dam-sensor companies, as partners.",
+        more: (F) => P("Runway, the region map, is the start of the district view: every dam we track in " + (F.region || "the region") + ", coloured by its chance of dropping below a third within 90 days. A view added up by district, and a view for fire agencies, are not built yet.") +
+          P("A season-ahead outlook for small areas, first built with lenders in mind, is built and tested, and set aside to keep the focus on farmers. " + HONEST),
+        go: () => [["#questions/who-pays", "Who pays: our customers, in order"], ["#outlook", "The Area outlook (set aside)"]] },
 
       { id: "audience", q: () => "Who is the one audience?",
-        a: () => "Today, the family grazier whose stock drink from dams; whether to add a district view for drought programmes is not decided yet.",
-        more: () => P("The only district-level piece built is the Area outlook for small areas, set aside to focus on farmers."),
-        go: () => [["#outlook", "The Area outlook (set aside)"]] },
+        a: () => "The family grazier whose stock drink from dams: they are the users, and we start with them, as a mentor advised; drought programmes, fire agencies and farm platforms come next, as customers and partners.",
+        more: () => P("For drought programmes, the district view starts from Runway, the region map. The Area outlook for small areas is built but set aside to focus on farmers. " + HONEST),
+        go: () => [["#questions/who-pays", "Who pays: our customers, in order"], ["#runway", "Runway"]] },
 
       { id: "also-built", q: () => "What else did you build?",
         a: (F) => "Runway, a map of every dam we track in the region; Rewind, a replay of the " + need(F.rewindSeason) + " drought; and the Area outlook, a season-ahead outlook for small areas, set aside to focus on farmers.",
@@ -637,7 +651,7 @@ window.DamDays = window.DamDays || {};
 
       { id: "rank-vs-time", q: () => "Can it tell whether my dam drops this year or next, or does it only rank dams?",
         a: () => "Our season-ahead test says it is much better at picking which dams run short soonest in a given summer than at timing one dam's drier years.",
-        more: () => P("Within one dam's own history, the season outlook was barely better than a coin toss, and the 90-day forecast's within-dam score has not been computed. If its strength is ranking dams across a district, that favours a district view, which is " + pending + "."),
+        more: () => P("Within one dam's own history, the season outlook was barely better than a coin toss, and the 90-day forecast's within-dam score has not been computed. If its strength is ranking dams across a district, that suits the district view we plan for drought programmes, which starts from Runway, the region map."),
         go: () => [["#about/specialists", "The scores, for specialists"]],
         check: [["The season outlook check", "artifacts/season_rating_val.md"]] },
 
@@ -716,7 +730,8 @@ window.DamDays = window.DamDays || {};
       { id: "feedback", q: () => "What did you change because of feedback?",
         a: () => "Mentors changed the product and the story, not the model: the weekly text became the product, \"%\" now means only how full a dam is, and chances read \"3 in 10\".",
         more: () => P("They asked us to explain the testing plainly, with pictures: so the app gained a Proof view and each dam's own record. They asked for one audience, described precisely: so the pitch is for family graziers. And they asked the questions on this page: the problem in one sentence, the COP31 priority, which farms, what already exists and what's new, who else could use it, how a satellite can tell how much water a dam holds, and how a farmer can judge the accuracy.") +
-          P("Through all of it, the forecasting code stayed locked: not one change. Whether to add a district view for others is " + pending + "."),
+          P("So we now name our customers in order: farmers first, then drought programmes, fire agencies, and farm platforms and dam-sensor companies as partners.") +
+          P("Through all of it, the forecasting code stayed locked: not one change."),
         check: [["The build log", "BUILD_LOG.md"]] },
     ] },
   ];
@@ -755,8 +770,8 @@ window.DamDays = window.DamDays || {};
 
   function whoElseHtml() {
     return '<section class="slot-who-else" data-optional="who-else" aria-labelledby="q-who-else-h">' + icon("i-leaf", "who-icon") +
-      '<div><span class="tag">An idea, not built</span><h2 class="card-title" id="q-who-else-h">Who else could use it?</h2>' +
-      "<p>Added up by district, never farm by farm, the same forecasts could show drought programmes and fire agencies where dam water runs short soonest. <a href=\"#questions/who-else\">More</a></p></div></section>";
+      '<div><span class="tag">Named, not yet approached</span><h2 class="card-title" id="q-who-else-h">Who will use it, and who pays?</h2>' +
+      "<p>Farmers first. Then drought support programmes and agencies, fire agencies, and farm software platforms and dam-sensor companies as partners; rural lenders and insurers later. " + esc(HONEST) + " <a href=\"#questions/who-pays\">More</a></p></div></section>";
   }
 
   function pageHtml(F, route) {
